@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 11 — Cowork & Agents | Isso é Claude</title>
+
+<style>
+/* ISSO É CLAUDE — Design System v2.0 */
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+:root{
+  --bg:#ffffff;--bg2:#f5f5f5;--bg3:#fafafa;
+  --ink:#111111;--ink2:#333333;--ink3:#666666;--ink4:#999999;
+  --accent:#ff5c00;--accent2:#e04f00;--accent3:#cc4500;
+  --accent-light:rgba(255,92,0,0.07);--accent-mid:rgba(255,92,0,0.15);
+  --green:#16a34a;--green-bg:rgba(22,163,74,0.07);
+  --blue:#2563eb;--blue-bg:rgba(37,99,235,0.07);
+  --gold:#d97706;--gold-bg:rgba(217,119,6,0.07);
+  --red:#dc2626;--red-bg:rgba(220,38,38,0.07);
+  --purple:#7c3aed;--purple-bg:rgba(124,58,237,0.07);
+  --border:#e5e5e5;--border2:#d4d4d4;
+  --shadow:0 2px 12px rgba(0,0,0,0.07);--shadow-md:0 4px 20px rgba(0,0,0,0.09);--shadow-lg:0 8px 40px rgba(0,0,0,0.11);
+  --code-bg:#111111;--code-fg:#e8e8e8;
+  --sidebar-bg:#111111;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+
+
+
+/* SIDEBAR */
+
+
+
+.sb-brand{padding:28px 22px 20px;border-bottom:1px solid rgba(255,255,255,0.06);}
+.sb-tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--accent);text-transform:uppercase;margin-bottom:8px;display:block;}
+.sb-name{font-size:14px;font-weight:700;color:#fff;line-height:1.4;}
+.sb-mod{padding:12px 22px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,0.25);text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.04);}
+.nav-lessons{padding:8px 0;flex:1;}
+.nav-item{display:flex;align-items:flex-start;gap:10px;padding:10px 22px;cursor:pointer;transition:background 0.15s;border-left:3px solid transparent;}
+.nav-item:hover{background:rgba(255,92,0,0.08);}
+.nav-item.active{background:rgba(255,92,0,0.13);border-left-color:var(--accent);}
+.nav-item.done .nav-num::after{content:' ✓';color:var(--green);}
+.nav-num{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent);padding-top:2px;min-width:28px;font-weight:600;}
+.nav-title{font-size:11.5px;color:rgba(255,255,255,0.52);line-height:1.45;}
+.nav-item.active .nav-title{color:#fff;font-weight:500;}
+.sb-progress{padding:16px 22px;border-top:1px solid rgba(255,255,255,0.05);}
+.prog-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,0.22);text-transform:uppercase;margin-bottom:8px;}
+.prog-bar{height:2px;background:rgba(255,255,255,0.07);border-radius:1px;overflow:hidden;margin-bottom:6px;}
+.prog-fill{height:100%;background:var(--accent);border-radius:1px;transition:width 0.5s ease;}
+.prog-text{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.22);}
+/* MAIN */
+
+
+/* LESSON */
+
+
+.lesson-header{margin-bottom:48px;padding-bottom:32px;border-bottom:1px solid var(--border);}
+.lesson-meta{display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap;}
+.lesson-tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;padding:3px 10px;border-radius:3px;text-transform:uppercase;font-weight:600;border:1px solid transparent;}
+.tag-teoria{background:var(--blue-bg);color:var(--blue);border-color:rgba(37,99,235,0.2);}
+.tag-pratica{background:var(--green-bg);color:var(--green);border-color:rgba(22,163,74,0.2);}
+.tag-lab{background:var(--purple-bg);color:var(--purple);border-color:rgba(124,58,237,0.2);}
+.tag-tecnica{background:var(--accent-light);color:var(--accent);border-color:var(--accent-mid);}
+.tag-guia{background:var(--green-bg);color:var(--green);border-color:rgba(22,163,74,0.2);}
+.tag-resumo{background:var(--blue-bg);color:var(--blue);border-color:rgba(37,99,235,0.2);}
+.tag-dev{background:var(--purple-bg);color:var(--purple);border-color:rgba(124,58,237,0.2);}
+.tag-agente{background:var(--blue-bg);color:var(--blue);border-color:rgba(37,99,235,0.2);}
+.tag-skill{background:var(--purple-bg);color:var(--purple);border-color:rgba(124,58,237,0.2);}
+.tag-bonus{background:var(--gold-bg);color:var(--gold);border-color:rgba(217,119,6,0.2);}
+.tag-final{background:var(--accent-light);color:var(--accent);border-color:var(--accent-mid);}
+.tag-lider{background:var(--gold-bg);color:var(--gold);border-color:rgba(217,119,6,0.2);}
+.tag-estrategia{background:var(--accent-light);color:var(--accent);border-color:var(--accent-mid);}
+.tag-workshop{background:var(--green-bg);color:var(--green);border-color:rgba(22,163,74,0.2);}
+.tag-framework{background:var(--blue-bg);color:var(--blue);border-color:rgba(37,99,235,0.2);}
+.lesson-num-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink4);letter-spacing:1px;}
+.lesson-dur{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink4);}
+.lesson-title{font-family:'Lora',serif;font-size:clamp(28px,3.5vw,46px);font-weight:700;color:var(--ink);line-height:1.15;margin-bottom:16px;letter-spacing:-0.5px;}
+.lesson-title em{color:var(--accent);font-style:italic;}
+.lesson-sub{font-size:16px;color:var(--ink3);font-weight:300;line-height:1.8;max-width:640px;}
+/* BLOCKS */
+.block{margin-bottom:48px;}
+.block h2{font-family:'Lora',serif;font-size:22px;font-weight:600;color:var(--ink);margin-bottom:16px;display:flex;align-items:center;gap:12px;letter-spacing:-0.3px;}
+.block h2::before{content:'';width:4px;height:22px;background:var(--accent);border-radius:2px;flex-shrink:0;}
+.block p{font-size:15px;color:var(--ink2);line-height:1.85;margin-bottom:14px;font-weight:300;}
+.block p strong{color:var(--ink);font-weight:600;}
+/* CALLOUTS */
+.callout{border-radius:8px;padding:18px 22px;margin:20px 0;display:flex;gap:14px;align-items:flex-start;}
+.callout-icon{font-size:20px;flex-shrink:0;padding-top:2px;}
+.callout-body h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:5px;}
+.callout-body p{font-size:13.5px;margin:0;line-height:1.75;font-weight:300;color:var(--ink2);}
+.callout.tip{background:var(--green-bg);border-left:3px solid var(--green);}.callout.tip .callout-body h4{color:var(--green);}
+.callout.key{background:var(--accent-light);border-left:3px solid var(--accent);}.callout.key .callout-body h4{color:var(--accent);}
+.callout.insight{background:var(--blue-bg);border-left:3px solid var(--blue);}.callout.insight .callout-body h4{color:var(--blue);}
+.callout.warning{background:var(--gold-bg);border-left:3px solid var(--gold);}.callout.warning .callout-body h4{color:var(--gold);}
+.callout.purple{background:var(--purple-bg);border-left:3px solid var(--purple);}.callout.purple .callout-body h4{color:var(--purple);}
+.callout.gold{background:var(--gold-bg);border:1px solid rgba(217,119,6,0.2);}.callout.gold .callout-body h4{color:var(--gold);}
+/* CODE */
+.code-wrap{background:var(--code-bg);border-radius:10px;overflow:hidden;margin:20px 0;box-shadow:var(--shadow-md);}
+.code-header{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;background:rgba(255,255,255,0.03);border-bottom:1px solid rgba(255,255,255,0.06);}
+.code-dots{display:flex;gap:6px;}
+.code-dot{width:10px;height:10px;border-radius:50%;}
+.dot-r{background:#ff5f57;}.dot-y{background:#febc2e;}.dot-g{background:#28c840;}
+.code-lang{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:2px;text-transform:uppercase;}
+.code-copy{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.35);background:rgba(255,255,255,0.06);border:none;cursor:pointer;padding:4px 10px;border-radius:4px;transition:all 0.15s;}
+.code-copy:hover{background:rgba(255,92,0,0.2);color:var(--accent);}
+.code-
+.c-cm{color:#6e7681;}.c-good{color:#7ee787;}.c-bad{color:#ff7b72;}.c-tag{color:#ffa657;}.c-hl{color:#79c0ff;}.c-str{color:#a5d6ff;}
+/* STEPS */
+.step-flow{display:flex;flex-direction:column;gap:0;margin:24px 0;}
+.step{display:flex;gap:20px;align-items:flex-start;position:relative;padding-bottom:24px;}
+.step:last-child{padding-bottom:0;}
+.step:not(:last-child)::after{content:'';position:absolute;left:19px;top:44px;bottom:0;width:2px;background:linear-gradient(to bottom,var(--accent),transparent);opacity:0.18;}
+.step-num{width:40px;height:40px;background:var(--accent);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;flex-shrink:0;}
+.step-
+.step-title{font-size:15px;font-weight:600;margin-bottom:6px;color:var(--ink);}
+.step-desc{font-size:13px;color:var(--ink3);line-height:1.7;font-weight:300;}
+.step-tip{margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);background:var(--accent-light);padding:5px 12px;border-radius:4px;display:inline-block;border:1px solid var(--accent-mid);}
+/* TABS */
+.tab-group{margin:20px 0;}
+.tabs{display:flex;border-bottom:2px solid var(--border);gap:0;}
+.tab{padding:9px 20px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border:none;background:transparent;color:var(--ink4);transition:all 0.15s;border-bottom:2px solid transparent;margin-bottom:-2px;font-weight:500;}
+.tab:hover{color:var(--ink);}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent);}
+.tab-panel{display:none;}.tab-panel.active{display:block;}
+/* QUIZ */
+.quiz{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:32px 0;box-shadow:var(--shadow);}
+.quiz-header{padding:20px 28px;background:var(--ink);border-bottom:3px solid var(--accent);}
+.quiz-tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--accent);text-transform:uppercase;margin-bottom:6px;display:block;}
+.quiz-title{font-family:'Lora',serif;font-size:20px;font-weight:600;color:#fff;}
+.quiz-
+.quiz-question{display:none;}.quiz-question.active{display:block;}
+.q-num{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--ink4);text-transform:uppercase;margin-bottom:10px;}
+.q-text{font-size:15px;font-weight:500;margin-bottom:20px;line-height:1.6;color:var(--ink);}
+.q-options{display:flex;flex-direction:column;gap:8px;margin-bottom:16px;}
+.q-option{padding:12px 16px;border:1.5px solid var(--border);border-radius:8px;cursor:pointer;font-size:13.5px;color:var(--ink2);transition:all 0.15s;display:flex;align-items:flex-start;gap:10px;font-weight:300;background:#fff;}
+.q-option:hover{border-color:var(--accent);background:var(--accent-light);}
+.q-option.selected.correct{border-color:var(--green);background:var(--green-bg);color:var(--green);}
+.q-option.selected.wrong{border-color:var(--red);background:var(--red-bg);}
+.q-option.disabled{pointer-events:none;}
+.q-letter{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--ink4);min-width:16px;padding-top:2px;}
+.q-feedback{padding:12px 16px;border-radius:8px;font-size:13.5px;line-height:1.65;display:none;font-weight:300;margin-bottom:8px;}
+.q-feedback.show{display:block;}
+.q-feedback.correct{background:var(--green-bg);border-left:3px solid var(--green);color:var(--green);}
+.q-feedback.wrong{background:var(--red-bg);border-left:3px solid var(--red);color:var(--red);}
+.q-next{margin-top:8px;padding:9px 22px;background:var(--ink);color:#fff;border:none;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;display:none;transition:background 0.15s;}
+.q-next.show{display:inline-block;}.q-next:hover{background:var(--accent);}
+.quiz-result{display:none;text-align:center;padding:40px 20px;}.quiz-result.show{display:block;}
+.result-score{font-family:'Lora',serif;font-size:64px;font-weight:700;color:var(--accent);line-height:1;margin-bottom:12px;}
+.result-label{font-size:18px;font-weight:600;margin-bottom:8px;color:var(--ink);}
+.result-desc{font-size:14px;color:var(--ink3);margin-bottom:24px;font-weight:300;}
+.result-retry{padding:11px 32px;background:var(--accent);color:#fff;border:none;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-weight:600;}
+.result-retry:hover{background:var(--accent2);}
+/* FOOTER */
+.lesson-footer{margin-top:60px;padding-top:28px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:20px;}
+.footer-next{display:flex;flex-direction:column;gap:4px;}
+.footer-next-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--ink4);}
+.footer-next-title{font-size:14px;font-weight:600;color:var(--ink);}
+.complete-btn{padding:13px 28px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;font-weight:700;transition:all 0.2s;white-space:nowrap;box-shadow:0 2px 8px rgba(255,92,0,0.22);}
+.complete-btn:hover{background:var(--accent2);transform:translateY(-1px);box-shadow:0 4px 16px rgba(255,92,0,0.28);}
+.complete-btn.done{background:var(--green);box-shadow:0 2px 8px rgba(22,163,74,0.22);}
+/* MOBILE */
+.sidebar-toggle{display:none;position:fixed;bottom:24px;right:24px;width:52px;height:52px;background:var(--accent);color:#fff;border:none;border-radius:50%;font-size:20px;cursor:pointer;z-index:200;box-shadow:var(--shadow-lg);align-items:center;justify-content:center;}
+
+
+/* ── CSS específico do módulo ── */
+:root{--bg:#faf7f2;--bg2:#f0ebe0;--ink:#1a1510;--ink2:#3d3628;--ink3:#8a7e6a;--accent:#ff5c00;--accent2:#cc4900;--accent-light:rgba(255,92,0,0.08);--green:#0f7a4a;--blue:#1a4fd4;--gold:#b8860b;--purple:#6c3fd4;--border:#e0d8cc;--code-bg:#0d1117;--code-fg:#e6edf3;--shadow:0 2px 14px rgba(255,92,0,0.06);}
+*{margin:0;padding:0;box-sizing:border-box;}
+
+
+
+
+
+
+.block{margin-bottom:40px;}
+.callout{border-radius:6px;padding:18px 22px;margin:20px 0;display:flex;gap:14px;}
+/* Task flow visual */
+.task-flow{display:flex;flex-direction:column;gap:12px;margin:20px 0;}
+.task-item{display:flex;align-items:flex-start;gap:14px;padding:14px 16px;background:#fff;border:1px solid var(--border);border-radius:10px;transition:all .2s;}
+.task-item:hover{border-color:var(--accent);box-shadow:var(--shadow);}
+.task-icon{font-size:22px;flex-shrink:0;}
+.task-body{}
+.task-title{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:4px;}
+.task-desc{font-size:12px;color:var(--ink3);font-weight:300;line-height:1.6;}
+.task-cmd{margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);background:var(--accent-light);padding:4px 10px;border-radius:4px;display:inline-block;}
+/* Code blocks */
+.code-wrap{background:var(--code-bg);border-radius:8px;overflow:hidden;margin:18px 0;}
+/* Agent diagram */
+.agent-diagram{background:#fff;border:1px solid var(--border);border-radius:12px;padding:24px;margin:20px 0;}
+.agent-center{display:flex;justify-content:center;margin-bottom:20px;}
+.agent-hub{width:80px;height:80px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;box-shadow:0 4px 20px rgba(255,92,0,.3);}
+.agent-arrows{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
+.agent-node{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;min-width:90px;text-align:center;}
+.agent-node-icon{font-size:20px;}
+.agent-node-label{font-size:11px;font-weight:600;color:var(--ink);}
+.agent-node-desc{font-size:10px;color:var(--ink3);font-weight:300;}
+/* Skill builder */
+.skill-builder{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:20px 0;}
+.skill-header{padding:16px 22px;background:var(--ink);display:flex;justify-content:space-between;align-items:center;}
+.skill-title{font-family:'Lora',serif;font-size:18px;font-weight:600;color:#fff;}
+.skill-sub{font-size:11px;color:rgba(255,255,255,.4);font-family:'JetBrains Mono',monospace;}
+.skill-
+.skill-field{margin-bottom:14px;}
+.skill-field label{display:block;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--ink3);margin-bottom:6px;}
+.skill-field input,.skill-field textarea,.skill-field select{width:100%;border:1px solid var(--border);border-radius:6px;padding:10px 14px;font-family:'Sora',sans-serif;font-size:13px;color:var(--ink);background:var(--bg);resize:vertical;}
+.skill-field input:focus,.skill-field textarea:focus,.skill-field select:focus{outline:none;border-color:var(--accent);}
+.skill-btn{padding:12px 24px;background:var(--accent);color:#fff;border:none;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-weight:600;margin-top:8px;transition:background .2s;}
+.skill-btn:hover{background:var(--accent2);}
+.skill-result{display:none;margin-top:16px;}
+.skill-result.show{display:block;}
+/* Tab group */
+.tab-group{margin:20px 0;}
+.tabs{display:flex;border:1px solid var(--border);border-radius:6px 6px 0 0;overflow:hidden;}
+.tab{padding:10px 22px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border:none;background:var(--bg2);color:var(--ink3);transition:all .2s;border-right:1px solid var(--border);}
+/* Quiz */
+.quiz{background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin:28px 0;}
+
+.back-btn:hover{color:var(--accent);}
+
+/* TOPBAR unificada */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  height: 48px;
+  min-height: 48px;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  white-space: nowrap;
+}
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  overflow: hidden;
+}
+.topbar-home {
+  color: var(--ink4);
+  text-decoration: none;
+  transition: color .15s;
+  white-space: nowrap;
+}
+.topbar-home:hover { color: var(--accent); }
+.topbar-sep { color: var(--border2); }
+.topbar-bc { color: var(--ink3); white-space: nowrap; }
+.topbar-aula { color: var(--accent); font-weight: 700; white-space: nowrap; }
+.topbar-nav { display: flex; gap: 8px; flex-shrink: 0; }
+.tb-btn {
+  padding: 6px 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--ink3);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all .15s;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.tb-btn:hover { border-color: var(--accent); color: var(--accent); }
+.tb-btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+.tb-btn.primary:hover { background: var(--accent2); }
+
+/* ═══════════════════════════════════════
+   LAYOUT — Isso é Claude v3
+   Testado: sidebar fixa, scroll no body
+   ═══════════════════════════════════════ */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Sora', -apple-system, sans-serif;
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+/* SIDEBAR — fixa, scroll próprio */
+.sidebar {
+  width: 272px;
+  background: var(--sidebar-bg);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid rgba(255,255,255,0.04);
+}
+.sidebar::-webkit-scrollbar { width: 3px; }
+.sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 2px; }
+
+/* MAIN — empurrado pela sidebar, scroll do body */
+.main {
+  margin-left: 272px;
+}
+
+/* TOPBAR — sticky no topo do viewport com scroll do body */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  height: 52px;
+  padding: 0 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* LESSON — ocupa a largura disponível */
+.lesson-content {
+  display: none;
+  padding: 56px 48px 80px;
+  max-width: 860px;
+  box-sizing: border-box;
+}
+.lesson-content.active {
+  display: block;
+}
+
+/* MOBILE */
+@media (max-width: 860px) {
+  .sidebar {
+    transform: translateX(-272px);
+    transition: transform .25s ease;
+  }
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  .main {
+    margin-left: 0;
+  }
+  .topbar {
+    padding: 0 16px;
+    height: 52px;
+  }
+  .lesson-content {
+    padding: 32px 20px 64px;
+  }
+}
+
+
+</style>
+</head>
+<body>
+<div class="layout">
+<nav class="sidebar" id="sidebar">
+  <div class="sb-brand"><span class="sb-tag">Isso é Claude</span><div class="sb-name">Módulo 11<br>Cowork & Agents</div></div>
+  <div class="sb-mod">6 aulas · ~2h</div>
+  <div class="nav-lessons">
+    <div class="nav-item active" onclick="goTo(0)"><span class="nav-num">11.1</span><span class="nav-title">Claude Cowork — o assistente com memória</span></div>
+    <div class="nav-item" onclick="goTo(1)"><span class="nav-num">11.2</span><span class="nav-title">Tarefas e fluxos no Cowork</span></div>
+    <div class="nav-item" onclick="goTo(2)"><span class="nav-num">11.3</span><span class="nav-title">Skills — instruções reutilizáveis</span></div>
+    <div class="nav-item" onclick="goTo(3)"><span class="nav-num">11.4</span><span class="nav-title">Claude Agents — autonomia 24h</span></div>
+    <div class="nav-item" onclick="goTo(4)"><span class="nav-num">11.5</span><span class="nav-title">Criando seu primeiro agente</span></div>
+    <div class="nav-item" onclick="goTo(5)"><span class="nav-num">11.6</span><span class="nav-title">Casos reais + Quiz</span></div>
+  </div>
+  <div class="sb-progress">
+    <div class="prog-label">Progresso</div>
+    <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:16.6%"></div></div>
+    <div class="prog-text" id="progText">1 de 6 aulas</div>
+  </div>
+</nav>
+<main class="main">
+  <div class="topbar">
+    <div class="topbar-left">
+      <a href="index.html" class="topbar-home">← Área do Aluno</a>
+      <span class="topbar-sep">›</span>
+      <span class="topbar-bc">Módulo 11</span>
+      <span class="topbar-sep">›</span>
+      <span class="topbar-aula" id="topLabel">Aula 11.1</span>
+    </div>
+    <div class="topbar-nav">
+      <button class="tb-btn" onclick="prev()">← Anterior</button>
+      <button class="tb-btn primary" onclick="next()">Próxima →</button>
+    </div>
+  </div>
+
+  <!-- 11.1 -->
+  <div class="lesson-content active" id="l0">
+    <div class="lesson-header">
+      <div class="lesson-meta"><span class="lesson-num-label">Aula 11.1</span><span class="lesson-tag tag-pratica">Prática</span><span class="lesson-dur">⏱ ~20 min</span></div>
+      <h1 class="lesson-title">Claude Cowork —<br>O Assistente com Memória</h1>
+      <p class="lesson-sub">O Cowork é a evolução do chat: o Claude acessa seus arquivos reais, organiza pastas, cria relatórios e lembra do contexto entre sessões. Nunca mais explica o projeto do zero.</p>
+    </div>
+    <div class="block">
+      <h2>O que é o Claude Cowork</h2>
+      <p>Claude Cowork é uma funcionalidade da Anthropic que transforma o Claude em um agente de desktop: ele pode ler e criar arquivos no seu computador, organizar pastas, gerar documentos, agendar tarefas e manter memória persistente entre sessões.</p>
+      <div class="callout key"><div class="callout-icon">🖥️</div><div class="callout-body"><h4>Cowork vs. Chat — a diferença fundamental</h4><p><strong>Chat:</strong> você conversa, pede textos, recebe respostas. Contexto reset a cada sessão. · <strong>Cowork:</strong> o Claude age no seu sistema, acessa arquivos reais, lembra o que aconteceu ontem e executa tarefas de múltiplas etapas de forma autônoma.</p></div></div>
+    </div>
+    <div class="block">
+      <h2>O que o Cowork pode fazer</h2>
+      <div class="task-flow">
+        <div class="task-item"><div class="task-icon">📁</div><div class="task-body"><div class="task-title">Organizar arquivos e pastas</div><div class="task-desc">Renomeia, move, organiza arquivos por projeto, data ou categoria. Cria estruturas de pastas baseadas em padrões que você define.</div></div></div>
+        <div class="task-item"><div class="task-icon">📊</div><div class="task-body"><div class="task-title">Criar relatórios e apresentações</div><div class="task-desc">Lê seus dados, gera relatórios formatados em Word/PDF, monta slides no PowerPoint e consolida informações de múltiplas fontes.</div></div></div>
+        <div class="task-item"><div class="task-icon">🧠</div><div class="task-body"><div class="task-title">Memória persistente entre sessões</div><div class="task-desc">O sistema "bom dia / boa noite" — você faz um briefing do dia e o Claude retoma de onde parou. Sem perder contexto de projetos em andamento.</div><div class="task-cmd">Bom dia, Claude. Hoje preciso continuar o relatório Q2 e preparar a reunião das 14h.</div></div></div>
+        <div class="task-item"><div class="task-icon">🔄</div><div class="task-body"><div class="task-title">Fluxos de trabalho automáticos</div><div class="task-desc">Processa uma pasta de documentos, extrai informações, consolida em uma planilha e envia por e-mail — tudo em sequência, sem intervenção manual.</div></div></div>
+        <div class="task-item"><div class="task-icon">🌐</div><div class="task-body"><div class="task-title">Pesquisa e síntese de informações</div><div class="task-desc">Pesquisa na web, lê artigos, consolida informações e gera um documento de inteligência competitiva — como um analista de plantão.</div></div></div>
+      </div>
+    </div>
+    <div class="block">
+      <h2>Como acessar o Cowork</h2>
+      <div class="callout insight"><div class="callout-icon">📍</div><div class="callout-body"><h4>Acesso ao Claude Cowork</h4><p>Disponível no plano <strong>Claude Max</strong> (R$200/mês <span style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--ink4);">(verificar em claude.ai/pricing)</span>) e planos <strong>Team/Enterprise</strong>. Acesse em <strong>claude.ai</strong> e procure a opção "Cowork" no menu lateral. Disponível no app desktop para macOS e Windows.</p></div></div>
+    </div>
+    <div class="lesson-footer">
+      <div class="footer-next"><div class="footer-next-label">Próxima aula</div><div class="footer-next-title">11.2 — Tarefas e fluxos no Cowork</div></div>
+      <button class="complete-btn" id="cb0" onclick="complete(0)">Marcar como concluída ✓</button>
+    </div>
+  </div>
+
+  <!-- 11.2 -->
+  <div class="lesson-content" id="l1">
+    <div class="lesson-header">
+      <div class="lesson-meta"><span class="lesson-num-label">Aula 11.2</span><span class="lesson-tag tag-pratica">Prática</span><span class="lesson-dur">⏱ ~22 min</span></div>
+      <h1 class="lesson-title">Tarefas e Fluxos<br>no Cowork</h1>
+      <p class="lesson-sub">O Cowork trabalha com um ciclo de planejamento e execução. Entenda o task loop e veja como criar fluxos de trabalho que o Claude executa de ponta a ponta.</p>
+    </div>
+    <div class="block">
+      <h2>O Task Loop do Cowork</h2>
+      <p>Diferente do chat, o Cowork usa um ciclo de <strong>planejar → executar → revisar → iterar</strong>. O Claude divide tarefas complexas em etapas menores, executa cada uma e te informa o progresso.</p>
+      <div class="code-wrap"><div class="code-header"><div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div><span class="code-lang">Exemplo de task loop real</span></div><div class="code-body"><span class="c-cm"># Você pede:</span>
+<span class="c-str">"Pegue todos os PDFs na pasta /Contratos de 2024,</span>
+<span class="c-str">extraia as datas de vencimento e valores,</span>
+<span class="c-str">crie uma planilha resumindo por fornecedor</span>
+<span class="c-str">e me avise quais vencem nos próximos 30 dias."</span>
+
+<span class="c-cm"># O Cowork executa autonomamente:</span>
+<span class="c-good">Etapa 1: Listando arquivos em /Contratos... (23 PDFs encontrados)
+Etapa 2: Lendo contrato_fornA_jan2024.pdf... ✓
+Etapa 3: Lendo contrato_fornB_mar2024.pdf... ✓
+[...mais 21 arquivos...]
+Etapa 4: Criando planilha contratos_resumo.xlsx... ✓
+Etapa 5: Verificando vencimentos próximos 30 dias...
+
+→ 3 contratos vencem em breve:
+  - Fornecedor Alpha: R$12.400 vence em 12 dias
+  - Fornecedor Beta: R$8.800 vence em 18 dias
+  - Fornecedor Gama: R$34.000 vence em 27 dias</span></div></div>
+    </div>
+    <div class="block">
+      <h2>Fluxos prontos para usar no Cowork</h2>
+      <div class="tab-group">
+        <div class="tabs">
+          <button class="tab active" onclick="switchTab(this,'t-relatorio')">Relatório semanal</button>
+          <button class="tab" onclick="switchTab(this,'t-inbox')">Gestão de inbox</button>
+          <button class="tab" onclick="switchTab(this,'t-pesquisa')">Pesquisa de mercado</button>
+        </div>
+        <div class="tab-panel active" id="t-relatorio">
+          <div class="code-wrap" style="border-radius:0 0 8px 8px;margin-top:0;"><div class="code-header"><div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div><span class="code-lang">Prompt — relatório semanal automático</span><button class="code-copy" onclick="copyCode(this)">copiar</button></div><div class="code-body">Toda sexta às 17h, crie o relatório semanal da minha equipe:
+
+1. Leia os arquivos da pasta /Projetos/Semana_atual/
+2. Consolide as atualizações de status de cada projeto
+3. Identifique bloqueios (arquivos com status "em espera")
+4. Calcule o percentual de conclusão de cada iniciativa
+5. Gere o arquivo relatorio_semana_[DATA].docx com:
+   - Resumo executivo (máximo 3 parágrafos)
+   - Tabela de status por projeto
+   - Alertas de bloqueios
+   - Prioridades para a próxima semana
+6. Salve em /Relatórios/2024/ e me envie por e-mail</div></div>
+        </div>
+        <div class="tab-panel" id="t-inbox">
+          <div class="code-wrap" style="border-radius:0 0 8px 8px;margin-top:0;"><div class="code-header"><div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div><span class="code-lang">Prompt — triagem de e-mails não lidos</span><button class="code-copy" onclick="copyCode(this)">copiar</button></div><div class="code-body">Toda manhã, faça a triagem dos meus e-mails não lidos:
+
+1. Classifique cada e-mail em:
+   - URGENTE (precisa de resposta hoje)
+   - IMPORTANTE (resposta em até 3 dias)
+   - INFORMATIVO (apenas para ciência)
+   - SPAM/PROPAGANDA (pode arquivar)
+
+2. Para os URGENTES, rascunhe uma resposta baseada
+   no histórico de conversas similares
+
+3. Crie uma lista de tarefas para o dia com os
+   e-mails urgentes e importantes
+
+4. Me apresente um resumo em áudio de 2 minutos
+   com os pontos mais críticos do dia</div></div>
+        </div>
+        <div class="tab-panel" id="t-pesquisa">
+          <div class="code-wrap" style="border-radius:0 0 8px 8px;margin-top:0;"><div class="code-header"><div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div><span class="code-lang">Prompt — inteligência competitiva semanal</span><button class="code-copy" onclick="copyCode(this)">copiar</button></div><div class="code-body">Toda segunda-feira, faça a análise de mercado:
+
+1. Pesquise notícias sobre [CONCORRENTES] nos últimos 7 dias
+2. Busque lançamentos de produtos e mudanças de preço
+3. Monitore avaliações deles no Google, Reclame Aqui
+4. Identifique movimentos estratégicos relevantes
+
+5. Compile em inteligencia_competitiva_[DATA].pdf com:
+   - O que cada concorrente fez na semana
+   - Oportunidades que isso cria para nós
+   - Ameaças a monitorar
+   - Recomendação de ação prioritária</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="lesson-footer">
+      <div class="footer-next"><div class="footer-next-label">Próxima aula</div><div class="footer-next-title">11.3 — Skills: instruções reutilizáveis</div></div>
+      <button class="complete-btn" id="cb1" onclick="complete(1)">Marcar como concluída ✓</button>
+    </div>
+  </div>
+
+  <!-- 11.3 -->
+  <div class="lesson-content" id="l2">
+    <div class="lesson-header">
+      <div class="lesson-meta"><span class="lesson-num-label">Aula 11.3</span><span class="lesson-tag tag-tecnica">Técnica</span><span class="lesson-dur">⏱ ~20 min</span></div>
+      <h1 class="lesson-title">Skills —<br>Instruções Reutilizáveis</h1>
+      <p class="lesson-sub">Skills são pacotes de instruções que o Claude carrega automaticamente quando a tarefa combina com o contexto. Uma vez criada, a Skill funciona em qualquer lugar do ecossistema Claude.</p>
+    </div>
+    <div class="block">
+      <h2>O que são Skills</h2>
+      <p>Uma Skill é um arquivo <strong>SKILL.md</strong> com instruções específicas para uma tarefa ou domínio. O Claude detecta automaticamente quando deve usar cada Skill baseado na tarefa pedida — sem você precisar lembrar de incluir contexto toda vez.</p>
+      <div class="callout tip"><div class="callout-icon">💡</div><div class="callout-body"><h4>Analogia prática</h4><p>Pense numa Skill como um "modo especialista" que o Claude ativa automaticamente. Você criou uma Skill de "análise financeira"? Sempre que você pedir análise de números, o Claude automaticamente aplica as regras, formato e profundidade que você definiu.</p></div></div>
+    </div>
+    <div class="block">
+      <h2>Anatomia de uma Skill</h2>
+      <div class="code-wrap"><div class="code-header"><div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div><span class="code-lang">SKILL.md — estrutura padrão</span><button class="code-copy" onclick="copyCode(this)">copiar</button></div><div class="code-body"># [Nome da Skill]
+
+## Quando usar esta Skill
+[Descreva em 1-2 frases quando o Claude deve ativar esta Skill.
+Exemplo: "Use quando o usuário pedir análise financeira ou revisão
+de DRE, fluxo de caixa ou balanço patrimonial."]
+
+## Contexto do domínio
+[O que o Claude precisa saber sobre este campo específico.
+Termos técnicos, convenções do setor, padrões da empresa.]
+
+## Como executar
+1. [Passo 1 do processo]
+2. [Passo 2 do processo]
+3. [Passo 3 do processo]
+
+## Formato de saída
+[Como estruturar a resposta: tabela, bullet points, relatório
+formatado, etc. Inclua exemplos se necessário.]
+
+## Regras importantes
+- [O que SEMPRE fazer]
+- [O que NUNCA fazer]
+- [Como lidar com casos especiais]
+
+## Arquivos de referência
+- /Empresa/templates/modelo_relatorio.docx
+- /Empresa/dados/historico_financeiro.xlsx</div></div>
+    </div>
+    <div class="block">
+      <h2>Gerador de Skill — construa a sua agora</h2>
+      <div class="skill-builder">
+        <div class="skill-header"><div class="skill-title">Criar Skill Personalizada</div><span class="skill-sub">Preencha e gere o SKILL.md pronto</span></div>
+        <div class="skill-body">
+          <div class="skill-field"><label>Nome da Skill</label><input type="text" id="sNome" placeholder="Ex: Análise Financeira, Redação Comercial, Triagem de Leads"></div>
+          <div class="skill-field"><label>Quando ativar (gatilho)</label><input type="text" id="sGatilho" placeholder="Ex: quando pedir análise de números, DRE, margem"></div>
+          <div class="skill-field"><label>Contexto do domínio (o que o Claude precisa saber)</label><textarea id="sContexto" rows="3" placeholder="Ex: Trabalhamos no setor de motofranchising. Nossa margem ideal é 35%. Usamos regime Simples Nacional..."></textarea></div>
+          <div class="skill-field"><label>Formato de saída preferido</label><textarea id="sFormato" rows="2" placeholder="Ex: Sempre em tabela com colunas: Métrica, Valor, Variação, Status. Cores: verde para acima da meta, vermelho para abaixo."></textarea></div>
+          <div class="skill-field"><label>Regra mais importante (o que nunca pode errar)</label><input type="text" id="sRegra" placeholder="Ex: Nunca arredondar valores acima de R$10.000. Sempre mostrar variação percentual."></div>
+          <button class="skill-btn" onclick="gerarSkill()">⚡ Gerar SKILL.md</button>
+          <div class="skill-result" id="skillResult">
+            <div class="code-wrap" style="margin-top:12px;"><div class="code-header"><div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div><span class="code-lang">SKILL.md gerado</span><button class="code-copy" onclick="copySkill()">copiar arquivo</button></div><div class="code-body" id="skillOutput" style="white-space:pre-wrap;"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="lesson-footer">
+      <div class="footer-next"><div class="footer-next-label">Próxima aula</div><div class="footer-next-title">11.4 — Claude Agents: autonomia 24h</div></div>
+      <button class="complete-btn" id="cb2" onclick="complete(2)">Marcar como concluída ✓</button>
+    </div>
+  </div>
+
+  <!-- 11.4 -->
+  <div class="lesson-content" id="l3">
+    <div class="lesson-header">
+      <div class="lesson-meta"><span class="lesson-num-label">Aula 11.4</span><span class="lesson-tag tag-agente">Agentes</span><span class="lesson-dur">⏱ ~22 min</span></div>
+      <h1 class="lesson-title">Claude Agents —<br>Autonomia 24 Horas</h1>
+      <p class="lesson-sub">Agentes são instâncias do Claude que operam de forma autônoma, executam tarefas em segundo plano e coordenam com outros agentes para concluir trabalhos complexos sem intervenção humana constante.</p>
+    </div>
+    <div class="block">
+      <h2>Chat vs. Cowork vs. Agents</h2>
+      <div class="code-wrap"><div class="code-header"><div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div><span class="code-lang">Evolução do modo de trabalho com Claude</span></div><div class="code-body"><span class="c-tag">CHAT (reativo)</span>
+<span class="c-cm">→ Você pergunta → Claude responde → fim</span>
+<span class="c-cm">→ Cada sessão começa do zero</span>
+<span class="c-cm">→ Você está presente durante toda a execução</span>
+
+<span class="c-tag">COWORK (assistido)</span>
+<span class="c-cm">→ Claude age no seu sistema com sua supervisão</span>
+<span class="c-cm">→ Memória persiste entre sessões</span>
+<span class="c-cm">→ Você acompanha o progresso e aprova etapas</span>
+
+<span class="c-tag">AGENTS (autônomo)</span>
+<span class="c-good">→ Claude executa fluxos completos sem você presente
+→ Pode coordenar múltiplos sub-agentes especializados
+→ Reporta resultados quando conclui ou encontra bloqueios
+→ Opera 24h — inclusive enquanto você dorme</span></div></div>
+    </div>
+    <div class="block">
+      <h2>Arquitetura de um sistema de agentes</h2>
+      <div class="agent-diagram">
+        <div class="agent-center"><div class="agent-hub">🤖</div></div>
+        <p style="text-align:center;font-size:12px;color:var(--ink3);margin-bottom:16px;font-family:'JetBrains Mono',monospace;">Agente Orquestrador</p>
+        <div class="agent-arrows">
+          <div class="agent-node"><span class="agent-node-icon">🔍</span><span class="agent-node-label">Agente Pesquisa</span><span class="agent-node-desc">Busca e coleta dados</span></div>
+          <div class="agent-node"><span class="agent-node-icon">📊</span><span class="agent-node-label">Agente Análise</span><span class="agent-node-desc">Processa e interpreta</span></div>
+          <div class="agent-node"><span class="agent-node-icon">✍️</span><span class="agent-node-label">Agente Redação</span><span class="agent-node-desc">Gera conteúdo final</span></div>
+          <div class="agent-node"><span class="agent-node-icon">📤</span><span class="agent-node-label">Agente Entrega</span><span class="agent-node-desc">Envia e notifica</span></div>
+        </div>
+      </div>
+      <div class="callout warning"><div class="callout-icon">⚠️</div><div class="callout-body"><h4>Atenção: agentes requerem supervisão</h4><p>Agentes autônomos são poderosos mas precisam de escopo claro, limites definidos e pontos de checagem. Nunca configure um agente para agir sem pelo menos uma etapa de aprovação humana em decisões que impactam dados, finanças ou comunicações externas.</p></div></div>
+    </div>
+    <div class="lesson-footer">
+      <div class="footer-next"><div class="footer-next-label">Próxima aula</div><div class="footer-next-title">11.5 — Criando seu primeiro agente</div></div>
+      <button class="complete-btn" id="cb3" onclick="complete(3)">Marcar como concluída ✓</button>
+    </div>
+  </div>
+
+  <!-- 11.5 -->
+  <div class="lesson-content" id="l4">
+    <div class="lesson-header">
+      <div class="lesson-meta"><span class="lesson-num-label">Aula 11.5</span><span class="lesson-tag tag-lab">Lab</span><span class="lesson-dur">⏱ ~22 min</span></div>
+      <h1 class="lesson-title">Criando Seu<br>Primeiro Agente</h1>
+      <p class="lesson-sub">Passo a passo para criar um agente funcional usando Claude Code com subagentes — o agente de monitoramento de concorrentes que opera automaticamente toda semana.</p>
+    </div>
+    <div class="block">
+      <h2>Agente de Inteligência Competitiva — Completo</h2>
+      <div class="code-wrap"><div class="code-header"><div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div><span class="code-lang">Python — agente com subagentes via API</span><button class="code-copy" onclick="copyCode(this)">copiar</button></div><div class="code-body"><span class="c-hl">import</span> anthropic
+<span class="c-hl">import</span> schedule
+<span class="c-hl">import</span> time
+
+client = anthropic.Anthropic()
+
+<span class="c-cm"># Agente 1: Pesquisador de concorrentes</span>
+<span class="c-hl">def</span> agente_pesquisa(concorrente):
+    res = client.messages.create(
+        model=<span class="c-str">"claude-sonnet-4-5"</span>,
+        max_tokens=<span class="c-hl">2000</span>,
+        tools=[{<span class="c-str">"type"</span>: <span class="c-str">"web_search_20250305"</span>, <span class="c-str">"name"</span>: <span class="c-str">"web_search"</span>}],
+        system=<span class="c-str">"Você é um analista de inteligência competitiva."</span>,
+        messages=[{<span class="c-str">"role"</span>: <span class="c-str">"user"</span>, <span class="c-str">"content"</span>:
+            <span class="c-hl">f</span><span class="c-str">"Pesquise novidades de {concorrente} nos últimos 7 dias."</span>}]
+    )
+    <span class="c-hl">return</span> res.content[<span class="c-hl">0</span>].text
+
+<span class="c-cm"># Agente 2: Analista estratégico</span>
+<span class="c-hl">def</span> agente_analise(dados_pesquisa):
+    res = client.messages.create(
+        model=<span class="c-str">"claude-sonnet-4-5"</span>,
+        max_tokens=<span class="c-hl">1500</span>,
+        system=<span class="c-str">"Você é um estrategista de negócios sênior."</span>,
+        messages=[{<span class="c-str">"role"</span>: <span class="c-str">"user"</span>, <span class="c-str">"content"</span>:
+            <span class="c-hl">f</span><span class="c-str">"Com base nos dados: {dados_pesquisa}\n</span>
+<span class="c-str">             Identifique: oportunidades, ameaças e recomendação.</span>"}]
+    )
+    <span class="c-hl">return</span> res.content[<span class="c-hl">0</span>].text
+
+<span class="c-cm"># Orquestrador principal</span>
+<span class="c-hl">def</span> executar_monitoramento():
+    concorrentes = [<span class="c-str">"Empresa A"</span>, <span class="c-str">"Empresa B"</span>]
+    relatorio_completo = []
+    
+    <span class="c-hl">for</span> empresa <span class="c-hl">in</span> concorrentes:
+        dados = agente_pesquisa(empresa)
+        analise = agente_analise(dados)
+        relatorio_completo.append({<span class="c-str">"empresa"</span>: empresa, <span class="c-str">"analise"</span>: analise})
+    
+    <span class="c-cm"># Salvar relatório e notificar</span>
+    salvar_relatorio(relatorio_completo)
+    <span class="c-hl">print</span>(<span class="c-str">"✓ Monitoramento concluído. Relatório gerado."</span>)
+
+<span class="c-cm"># Agendar para toda segunda-feira às 8h</span>
+schedule.every().monday.at(<span class="c-str">"08:00"</span>).do(executar_monitoramento)
+
+<span class="c-hl">while</span> <span class="c-hl">True</span>:
+    schedule.run_pending()
+    time.sleep(<span class="c-hl">60</span>)</div></div>
+    </div>
+    <div class="block">
+      <h2>Padrões de segurança para agentes</h2>
+      <div class="code-wrap"><div class="code-header"><div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div><span class="code-lang">Regras de ouro para agentes autônomos</span></div><div class="code-body"><span class="c-good">✓ SEMPRE definir escopo claro: "só leia arquivos em /dados/entrada"
+✓ SEMPRE ter ponto de aprovação humana antes de ações irreversíveis
+✓ SEMPRE logar cada ação com timestamp para auditoria
+✓ SEMPRE definir limite de tentativas: se falhar 3x, para e avisa
+✓ SEMPRE testar primeiro em ambiente de homologação</span>
+
+<span class="c-bad">✗ NUNCA dar acesso irrestrito ao sistema de arquivos
+✗ NUNCA deixar agente enviar e-mails externos sem revisão
+✗ NUNCA executar em produção sem pelo menos 1 semana de testes
+✗ NUNCA deixar agente com acesso a cartões de crédito ou pagamentos</span></div></div>
+    </div>
+    <div class="lesson-footer">
+      <div class="footer-next"><div class="footer-next-label">Última aula</div><div class="footer-next-title">11.6 — Casos reais + Quiz</div></div>
+      <button class="complete-btn" id="cb4" onclick="complete(4)">Marcar como concluída ✓</button>
+    </div>
+  </div>
+
+  <!-- 11.6 -->
+  <div class="lesson-content" id="l5">
+    <div class="lesson-header">
+      <div class="lesson-meta"><span class="lesson-num-label">Aula 11.6</span><span class="lesson-tag tag-lab">Casos Reais</span><span class="lesson-dur">⏱ ~18 min</span></div>
+      <h1 class="lesson-title">Casos Reais de<br>Cowork & Agents</h1>
+      <p class="lesson-sub">Exemplos práticos de empresas usando Cowork e Agents para resolver problemas reais — da gestão de contratos ao atendimento automatizado.</p>
+    </div>
+    <div class="block">
+      <h2>Caso 1 — Gestão de frota de motos</h2>
+      <div class="code-wrap"><div class="code-header"><div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div><span class="code-lang">Prompt de Cowork — gestão de manutenção</span><button class="code-copy" onclick="copyCode(this)">copiar</button></div><div class="code-body"><span class="c-cm">Contexto: frota de 20 YBR150 alugadas a entregadores</span>
+
+Todo domingo à noite:
+1. Leia a planilha /Frota/quilometragem_semana.xlsx
+2. Identifique motos com revisão próxima (menos de 500km)
+3. Verifique conflitos de agenda no calendário da oficina
+4. Agende automaticamente as revisões prioritárias
+5. Envie WhatsApp para os locatários com as datas
+6. Gere relatório de custos de manutenção do mês
+7. Alerte se alguma moto estiver com custo acima do padrão
+
+<span class="c-good">Resultado: economizou 6h/semana do gestor operacional</span></div></div>
+    </div>
+    <div class="block">
+      <h2>Caso 2 — Agência de marketing com agentes</h2>
+      <div class="code-wrap"><div class="code-header"><div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div><span class="code-lang">Sistema multi-agente — produção de conteúdo</span><button class="code-copy" onclick="copyCode(this)">copiar</button></div><div class="code-body">Agente 1 (Tendências): Pesquisa tópicos em alta na semana
+    ↓ passa para
+Agente 2 (Pauta): Seleciona os 5 melhores para cada cliente
+    ↓ passa para
+Agente 3 (Redação): Escreve rascunhos de posts e legendas
+    ↓ passa para
+Agente 4 (Revisão): Verifica tom de voz e consistência
+    ↓ passa para
+Humano: Aprovação final antes de publicar
+
+<span class="c-good">Resultado: produção de 3 semanas de conteúdo em 4h</span>
+<span class="c-good">Antes: 3 redatores trabalhando a semana inteira</span></div></div>
+    </div>
+    <div class="block">
+      <h2>Quiz — Cowork & Agents</h2>
+      <div class="quiz">
+        <div class="quiz-header"><span class="quiz-tag">Fixação — Módulo 11</span><div class="quiz-title">Cowork & Agents</div></div>
+        <div class="quiz-body">
+          <div class="quiz-question active" id="q11-1">
+            <div class="q-num">Pergunta 1 de 3</div>
+            <div class="q-text">Qual é a principal diferença entre o Claude Cowork e o Chat normal?</div>
+            <div class="q-options">
+              <div class="q-option" onclick="ans('q11-1',this,0,2)"><span class="q-letter">A</span>O Cowork usa um modelo de IA mais inteligente</div>
+              <div class="q-option" onclick="ans('q11-1',this,1,2)"><span class="q-letter">B</span>O Cowork é mais rápido para responder</div>
+              <div class="q-option" onclick="ans('q11-1',this,2,2)"><span class="q-letter">C</span>O Cowork age no sistema de arquivos e mantém memória entre sessões</div>
+              <div class="q-option" onclick="ans('q11-1',this,3,2)"><span class="q-letter">D</span>O Cowork só funciona com arquivos PDF</div>
+            </div>
+            <div class="q-feedback" id="fb-q11-1"></div>
+            <button class="q-next" id="nxt-q11-1" onclick="nxtQ('q11-1','q11-2')">Próxima →</button>
+          </div>
+          <div class="quiz-question" id="q11-2">
+            <div class="q-num">Pergunta 2 de 3</div>
+            <div class="q-text">O que é uma Skill no ecossistema Claude?</div>
+            <div class="q-options">
+              <div class="q-option" onclick="ans('q11-2',this,0,1)"><span class="q-letter">A</span>Uma habilidade especial desbloqueada com o plano Pro</div>
+              <div class="q-option" onclick="ans('q11-2',this,1,1)"><span class="q-letter">B</span>Um arquivo SKILL.md com instruções que o Claude ativa automaticamente quando a tarefa combina</div>
+              <div class="q-option" onclick="ans('q11-2',this,2,1)"><span class="q-letter">C</span>Um plugin de terceiros instalado no Claude</div>
+              <div class="q-option" onclick="ans('q11-2',this,3,1)"><span class="q-letter">D</span>Um tipo de prompt de sistema que funciona só no API</div>
+            </div>
+            <div class="q-feedback" id="fb-q11-2"></div>
+            <button class="q-next" id="nxt-q11-2" onclick="nxtQ('q11-2','q11-3')">Próxima →</button>
+          </div>
+          <div class="quiz-question" id="q11-3">
+            <div class="q-num">Pergunta 3 de 3</div>
+            <div class="q-text">Qual ação um agente autônomo NUNCA deve executar sem aprovação humana?</div>
+            <div class="q-options">
+              <div class="q-option" onclick="ans('q11-3',this,0,3)"><span class="q-letter">A</span>Ler arquivos de uma pasta específica</div>
+              <div class="q-option" onclick="ans('q11-3',this,1,3)"><span class="q-letter">B</span>Pesquisar informações na web</div>
+              <div class="q-option" onclick="ans('q11-3',this,2,3)"><span class="q-letter">C</span>Criar um rascunho de relatório interno</div>
+              <div class="q-option" onclick="ans('q11-3',this,3,3)"><span class="q-letter">D</span>Enviar e-mails externos ou executar pagamentos</div>
+            </div>
+            <div class="q-feedback" id="fb-q11-3"></div>
+            <button class="q-next" id="nxt-q11-3" onclick="showRes()">Ver resultado →</button>
+          </div>
+          <div class="quiz-result" id="res-q11">
+            <div class="result-score" id="sc-q11">0/3</div>
+            <div class="result-label" id="rl-q11"></div>
+            <div class="result-desc" id="rd-q11"></div>
+            <button class="result-retry" onclick="retry()">Tentar novamente</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="block">
+      <div class="callout key"><div class="callout-icon">🚀</div><div class="callout-body"><h4>Módulo 11 Concluído!</h4><p>Você domina agora o ecossistema completo Claude: Chat → Projects → Cowork → Agents → Claude Code. Essa progressão coloca você em posição de construir qualquer automação ou produto que precise. O Isso é Claude está completo.</p></div></div>
+    </div>
+    <div class="lesson-footer">
+      <div class="footer-next"><div class="footer-next-label">Curso concluído</div><div class="footer-next-title">Isso é Claude — 11 módulos · 63 aulas ✦</div></div>
+      <button class="complete-btn" id="cb5" onclick="complete(5)">🏆 Concluir Módulo!</button>
+    </div>
+  </div>
+</main>
+</div>
+<button class="sidebar-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+<script>
+let cur=0;const total=6;const done=new Set();
+const nums=['11.1','11.2','11.3','11.4','11.5','11.6'];
+function goTo(i){document.querySelectorAll('.lesson-content').forEach(l=>l.classList.remove('active'));document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));document.getElementById('l'+i).classList.add('active');document.querySelectorAll('.nav-item')[i].classList.add('active');document.getElementById('topLabel').textContent='Aula '+nums[i];cur=i;window.scrollTo({top:0,behavior:'smooth'});if(window.innerWidth<900)document.getElementById('sidebar').classList.remove('open');}
+function next(){if(cur<total-1)goTo(cur+1);}function prev(){if(cur>0)goTo(cur-1);}
+function complete(i){done.add(i);const b=document.getElementById('cb'+i);b.classList.add('done');b.textContent=i===5?'🏆 Concluído!':'✓ Concluída!';document.querySelectorAll('.nav-item')[i].classList.add('done');syncProgressToIndex('11', Math.round(done.size/total*100), done.size===total);
+  document.getElementById('progFill').style.width=Math.round(done.size/total*100)+'%';document.getElementById('progText').textContent=done.size+' de '+total+' aulas';if(i<total-1)setTimeout(()=>goTo(i+1),600);}
+function copyCode(btn){const t=btn.closest('.code-wrap').querySelector('.code-body').innerText;navigator.clipboard.writeText(t).then(()=>{btn.textContent='✓ copiado!';setTimeout(()=>btn.textContent='copiar',2000);});}
+function switchTab(btn,id){const g=btn.closest('.tab-group');g.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));g.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));btn.classList.add('active');document.getElementById(id).classList.add('active');}
+// Gerador de Skill
+function gerarSkill(){
+  const nome=document.getElementById('sNome').value||'Minha Skill';
+  const gatilho=document.getElementById('sGatilho').value||'[definir gatilho]';
+  const contexto=document.getElementById('sContexto').value||'[adicionar contexto]';
+  const formato=document.getElementById('sFormato').value||'[definir formato]';
+  const regra=document.getElementById('sRegra').value||'[definir regra]';
+  const skill=`# ${nome}
+
+## Quando usar esta Skill
+Use quando ${gatilho}.
+
+## Contexto do domínio
+${contexto}
+
+## Como executar
+1. Analise a solicitação com atenção ao contexto acima
+2. Aplique o formato de saída definido
+3. Verifique se a regra principal foi respeitada antes de responder
+4. Se faltar informação, pergunte antes de assumir
+
+## Formato de saída
+${formato}
+
+## Regras importantes
+- ${regra}
+- Sempre confirme o entendimento antes de executar tarefas longas
+- Em caso de ambiguidade, apresente 2 interpretações e pergunte qual é a correta
+
+## Notas de uso
+Esta Skill foi criada em ${new Date().toLocaleDateString('pt-BR')} e deve ser revisada periodicamente.`;
+  document.getElementById('skillOutput').textContent=skill;
+  document.getElementById('skillResult').classList.add('show');
+}
+function copySkill(){const t=document.getElementById('skillOutput').textContent;navigator.clipboard.writeText(t).then(()=>alert('SKILL.md copiado! Salve como SKILL.md na pasta do seu projeto Claude Code.'));}
+// Quiz
+let sc=0;const an={};
+const cor={'q11-1':2,'q11-2':1,'q11-3':3};
+const fb={'q11-1':{c:'✅ Correto! O Cowork age diretamente no sistema de arquivos e mantém memória entre sessões — diferente do chat que reseta a cada conversa.',w:'❌ A diferença principal é que o Cowork acessa arquivos do seu computador e mantém memória persistente entre sessões. O chat é sempre stateless.'},'q11-2':{c:'✅ Certo! Uma Skill é um arquivo SKILL.md com instruções que o Claude carrega automaticamente quando detecta que a tarefa corresponde ao domínio da Skill.',w:'❌ Skills são arquivos SKILL.md com instruções especializadas que o Claude ativa automaticamente. Funcionam no Claude Code, no app e na API.'},'q11-3':{c:'✅ Exato! Ações irreversíveis com impacto externo — envio de e-mails, pagamentos, publicação em redes sociais — sempre precisam de aprovação humana antes.',w:'❌ E-mails externos e pagamentos são ações irreversíveis com impacto real. Um agente nunca deve executar essas ações sem ao menos uma etapa de aprovação humana.'}};
+function ans(qId,el,sel,cor_val){if(an[qId])return;an[qId]=true;const opts=el.closest('.q-options').querySelectorAll('.q-option');opts.forEach((o,i)=>{o.classList.add('disabled');if(i===cor_val)o.classList.add('selected','correct');});const ok=sel===cor_val;if(!ok)el.classList.add('selected','wrong');const f=document.getElementById('fb-'+qId);f.textContent=ok?fb[qId].c:fb[qId].w;f.className='q-feedback show '+(ok?'correct':'wrong');document.getElementById('nxt-'+qId).classList.add('show');if(ok)sc++;}
+function nxtQ(c,n){document.getElementById(c).style.display='none';const el=document.getElementById(n);el.classList.add('active');el.style.display='block';}
+function showRes(){document.getElementById('q11-3').style.display='none';document.getElementById('res-q11').classList.add('show');document.getElementById('sc-q11').textContent=sc+'/3';const p=sc===3?['🏆 Perfeito!','Cowork & Agents dominados!']:sc>=2?['✅ Muito bem!','Revise o que errou.']:['📚 Continue estudando','Releia as aulas 11.1 e 11.3.'];document.getElementById('rl-q11').textContent=p[0];document.getElementById('rd-q11').textContent=p[1];}
+function retry(){sc=0;['q11-1','q11-2','q11-3'].forEach((q,i)=>{delete an[q];const el=document.getElementById(q);el.style.display=i===0?'block':'none';el.className=i===0?'quiz-question active':'quiz-question';el.querySelectorAll('.q-option').forEach(o=>o.className='q-option');const f=document.getElementById('fb-'+q);if(f){f.className='q-feedback';f.textContent='';}const nb=document.getElementById('nxt-'+q);if(nb)nb.classList.remove('show');});document.getElementById('res-q11').classList.remove('show');}
+
+// Sincronizar progresso com index.html
+function syncProgressToIndex(num, pct, done) {
+  try {
+    const STORAGE_KEY = 'cm_progress_v2';
+    const p = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    p[num] = { pct: pct, done: done };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(p));
+  } catch(e) {}
+}
+
+</script>
+</body>
+</html>
