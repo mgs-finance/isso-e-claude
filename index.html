@@ -3,793 +3,1329 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Área do Aluno — Isso é Claude</title>
+<title>Isso é Claude — O Curso Mais Completo de Claude em Português</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;0,700;1,400&display=swap');
-
+/* ═══════════════════════════════════════
+   ISSO É CLAUDE — Landing Page
+   Editorial escuro · Laranja · Preciso
+═══════════════════════════════════════ */
 :root {
-  --bg: #f5f5f3;
-  --bg2: #ffffff;
-  --ink: #111111;
-  --ink2: #333333;
-  --ink3: #666666;
-  --ink4: #999999;
+  --bg:     #0a0a0a;
+  --bg2:    #111111;
+  --bg3:    #1a1a1a;
+  --line:   rgba(255,255,255,0.07);
+  --line2:  rgba(255,255,255,0.12);
+  --ink:    #ffffff;
+  --ink2:   rgba(255,255,255,0.65);
+  --ink3:   rgba(255,255,255,0.35);
+  --ink4:   rgba(255,255,255,0.18);
   --accent: #ff5c00;
-  --accent2: #e04f00;
-  --accent-light: rgba(255,92,0,0.07);
-  --accent-mid: rgba(255,92,0,0.15);
-  --green: #16a34a;
-  --green-bg: rgba(22,163,74,0.08);
-  --gold: #d97706;
-  --gold-bg: rgba(217,119,6,0.08);
-  --purple: #7c3aed;
-  --purple-bg: rgba(124,58,237,0.08);
-  --border: #e5e5e5;
-  --border2: #d4d4d4;
-  --shadow: 0 1px 4px rgba(0,0,0,0.06);
-  --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
-  --shadow-lg: 0 8px 32px rgba(0,0,0,0.10);
+  --accent2:#e04f00;
+  --accent3:#cc4500;
+  --al:     rgba(255,92,0,0.08);
+  --al2:    rgba(255,92,0,0.15);
+  --green:  #22c55e;
+  --gold:   #f5c842;
 }
-
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior:smooth; }
 body {
   background: var(--bg);
   color: var(--ink);
-  font-family: 'Sora', -apple-system, sans-serif;
-  font-size: 15px;
+  font-family: 'Sora', sans-serif;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
-/* ── TOPBAR ── */
-.topbar {
-  background: #111;
-  height: 56px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 40px;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-.topbar-brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.topbar-dot {
-  width: 8px; height: 8px;
+/* ── CURSOR LARANJA ── */
+* { cursor: none !important; }
+.cursor {
+  position: fixed; top:0; left:0; z-index:9999;
+  width:10px; height:10px;
   background: var(--accent);
   border-radius: 50%;
+  pointer-events: none;
+  transition: transform .15s ease, width .2s ease, height .2s ease;
+  transform: translate(-50%, -50%);
 }
-.topbar-name {
+.cursor.big { width:40px; height:40px; background:transparent; border:1.5px solid var(--accent); mix-blend-mode:normal; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top:0; left:0; right:0; z-index:100;
+  padding: 0 5vw; height: 60px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(10,10,10,0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--line);
+}
+.nav-logo {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
-  font-weight: 600;
-  color: #fff;
-  letter-spacing: 2px;
-  text-transform: uppercase;
+  font-size: 13px; font-weight: 600;
+  color: var(--ink); letter-spacing: .5px;
+  display: flex; align-items: center; gap: 10px;
 }
-.topbar-right {
-  display: flex;
-  align-items: center;
-  gap: 20px;
+.nav-dot {
+  width: 8px; height: 8px;
+  background: var(--accent); border-radius: 50%;
+  animation: blink 2s infinite;
 }
-.prog-global {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+.nav-links { display:flex; align-items:center; gap:28px; }
+.nav-links a {
+  font-size: 13px; color: var(--ink3);
+  text-decoration: none; letter-spacing: .3px;
+  transition: color .2s;
 }
-.prog-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  color: rgba(255,255,255,0.4);
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-.prog-track {
-  width: 120px;
-  height: 3px;
-  background: rgba(255,255,255,0.1);
-  border-radius: 2px;
-  overflow: hidden;
-}
-.prog-fill {
-  height: 100%;
+.nav-links a:hover { color: var(--ink); }
+.nav-cta {
+  padding: 9px 20px;
   background: var(--accent);
-  border-radius: 2px;
-  transition: width .5s ease;
-}
-.prog-pct {
+  color: #fff !important;
+  border-radius: 6px;
+  font-size: 12px !important;
+  font-weight: 700;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  color: var(--accent);
-  font-weight: 600;
-  min-width: 30px;
-}
-.topbar-reset {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  color: rgba(255,255,255,0.25);
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 4px 8px;
-  transition: color .15s;
   letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: background .15s, transform .15s !important;
 }
-.topbar-reset:hover { color: rgba(255,255,255,0.6); }
+.nav-cta:hover { background: var(--accent2) !important; transform: translateY(-1px); }
 
 /* ── HERO ── */
 .hero {
-  background: #111;
-  padding: 48px 40px 56px;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  min-height: 100vh;
+  display: flex; align-items: center;
+  padding: 120px 5vw 80px;
+  position: relative; overflow: hidden;
+}
+/* Grid de fundo */
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
+}
+/* Glow laranja */
+.hero::after {
+  content: '';
+  position: absolute;
+  top: -200px; left: 50%; transform: translateX(-50%);
+  width: 700px; height: 700px;
+  background: radial-gradient(circle, rgba(255,92,0,.12) 0%, transparent 70%);
+  pointer-events: none;
 }
 .hero-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 48px;
-  align-items: center;
+  max-width: 1100px; margin: 0 auto; width: 100%;
+  position: relative; z-index: 1;
 }
-.hero-tag {
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--al);
+  border: 1px solid var(--al2);
+  border-radius: 100px;
+  padding: 6px 16px;
+  margin-bottom: 32px;
+}
+.hero-eyebrow-dot { width:6px; height:6px; background:var(--accent); border-radius:50%; }
+.hero-eyebrow-text {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 3px;
+  font-size: 11px; letter-spacing: 2px;
+  color: var(--accent); text-transform: uppercase;
+}
+h1 {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(52px, 7.5vw, 110px);
+  font-weight: 400;
+  line-height: .95;
+  letter-spacing: -2px;
+  margin-bottom: 32px;
+  color: var(--ink);
+}
+h1 em {
+  font-style: italic;
   color: var(--accent);
-  text-transform: uppercase;
-  display: block;
-  margin-bottom: 16px;
 }
-.hero-title {
-  font-family: 'Lora', serif;
-  font-size: clamp(28px, 4vw, 48px);
-  font-weight: 700;
-  color: #fff;
-  line-height: 1.1;
-  margin-bottom: 14px;
-  letter-spacing: -0.5px;
-}
-.hero-title em { color: var(--accent); font-style: italic; }
+h1 .line2 { color: var(--ink2); }
 .hero-sub {
-  font-size: 15px;
-  color: rgba(255,255,255,0.45);
+  font-size: clamp(16px, 1.8vw, 20px);
+  color: var(--ink3);
   font-weight: 300;
   line-height: 1.75;
-  max-width: 520px;
-  margin-bottom: 28px;
+  max-width: 580px;
+  margin-bottom: 48px;
 }
-.hero-stats {
-  display: flex;
-  gap: 32px;
-  flex-wrap: wrap;
-}
-.hero-stat-val {
-  font-family: 'Lora', serif;
-  font-size: 28px;
-  font-weight: 700;
+.hero-sub strong { color: var(--ink); font-weight: 600; }
+.hero-actions { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-bottom: 64px; }
+.btn-primary {
+  padding: 16px 36px;
+  background: var(--accent);
   color: #fff;
-  display: block;
-  line-height: 1;
-}
-.hero-stat-label {
+  border-radius: 8px;
+  font-size: 14px; font-weight: 700;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  color: rgba(255,255,255,0.3);
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  margin-top: 4px;
-  display: block;
-}
-
-/* Donut de progresso */
-.hp-donut-wrap {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 16px;
-  padding: 28px 32px;
-  text-align: center;
-  min-width: 180px;
-}
-.hp-title {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 2px;
-  color: rgba(255,255,255,0.3);
-  text-transform: uppercase;
-  margin-bottom: 20px;
-}
-.hp-donut {
-  position: relative;
-  display: inline-block;
-  margin-bottom: 12px;
-}
-.hp-donut-txt {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%,-50%);
-  text-align: center;
-}
-.hp-pct {
-  font-family: 'Lora', serif;
-  font-size: 22px;
-  font-weight: 700;
-  color: #fff;
-  display: block;
-}
-.hp-sub {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
-  color: rgba(255,255,255,0.3);
-  letter-spacing: 1px;
-  display: block;
-}
-
-/* ── MAIN CONTENT ── */
-.main {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 48px 40px 80px;
-}
-
-/* ── SECTION HEADER ── */
-.sec-header {
-  display: flex;
-  align-items: baseline;
-  gap: 12px;
-  margin-bottom: 24px;
-  padding-bottom: 14px;
-  border-bottom: 2px solid var(--border);
-}
-.sec-title {
-  font-family: 'Lora', serif;
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--ink);
-  letter-spacing: -0.3px;
-}
-.sec-meta {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  color: var(--ink4);
-  letter-spacing: 1px;
-}
-
-/* ── GRADE DE MÓDULOS ── */
-.modules-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 16px;
-  margin-bottom: 56px;
-}
-
-/* ── CARD DE MÓDULO ── */
-.mod-card {
-  background: var(--bg2);
-  border: 1.5px solid var(--border);
-  border-radius: 14px;
-  padding: 0;
+  letter-spacing: 1px; text-transform: uppercase;
   text-decoration: none;
-  display: flex;
-  flex-direction: column;
-  transition: all .18s ease;
+  display: inline-flex; align-items: center; gap: 8px;
+  transition: all .2s;
+  box-shadow: 0 0 40px rgba(255,92,0,.25);
+}
+.btn-primary:hover { background:var(--accent2); transform:translateY(-2px); box-shadow:0 8px 40px rgba(255,92,0,.35); }
+.btn-ghost {
+  padding: 16px 28px;
+  border: 1px solid var(--line2);
+  color: var(--ink3);
+  border-radius: 8px;
+  font-size: 13px;
+  text-decoration: none;
+  transition: all .2s;
+}
+.btn-ghost:hover { border-color:var(--accent); color:var(--accent); }
+.hero-proof {
+  display: flex; gap: 40px; flex-wrap: wrap;
+}
+.hero-stat {}
+.hero-stat-val {
+  font-family: 'Instrument Serif', serif;
+  font-size: 44px; font-weight: 400;
+  color: var(--ink); line-height: 1;
+  display: block;
+}
+.hero-stat-val em { color: var(--accent); font-style: normal; }
+.hero-stat-label {
+  font-size: 12px; color: var(--ink4);
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 1px; text-transform: uppercase;
+  margin-top: 6px;
+}
+
+/* ── TICKER ── */
+.ticker {
+  background: var(--accent);
+  padding: 12px 0; overflow: hidden;
+  white-space: nowrap;
+}
+.ticker-inner {
+  display: inline-flex; gap: 0;
+  animation: ticker 25s linear infinite;
+}
+@keyframes ticker { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+.ticker-item {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; letter-spacing: 2px;
+  text-transform: uppercase; color: #fff;
+  padding: 0 32px;
+  display: inline-flex; align-items: center; gap: 16px;
+}
+.ticker-sep { color: rgba(255,255,255,.5); }
+
+/* ── PARA QUEM ── */
+.para-quem {
+  padding: 100px 5vw;
+  border-bottom: 1px solid var(--line);
+}
+.pq-inner { max-width: 1100px; margin: 0 auto; }
+.section-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--accent);
+  margin-bottom: 20px; display: block;
+}
+.section-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(36px, 4.5vw, 60px);
+  font-weight: 400; line-height: 1.1;
+  letter-spacing: -1px; margin-bottom: 60px;
+}
+.section-title em { font-style:italic; color:var(--accent); }
+.pq-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+.pq-card {
+  background: var(--bg2);
+  padding: 36px 32px;
+  position: relative; overflow: hidden;
+  transition: background .2s;
+}
+.pq-card:hover { background: var(--bg3); }
+.pq-card::before {
+  content: '';
+  position: absolute; top:0; left:0; right:0;
+  height: 2px; background: var(--accent);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .3s ease;
+}
+.pq-card:hover::before { transform: scaleX(1); }
+.pq-icon { font-size: 36px; margin-bottom: 20px; display: block; }
+.pq-title { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+.pq-desc { font-size: 14px; color: var(--ink3); font-weight: 300; line-height: 1.7; margin-bottom: 16px; }
+.pq-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.pq-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; letter-spacing: 1px;
+  padding: 3px 10px; border-radius: 20px;
+  background: var(--al); color: var(--accent);
+  border: 1px solid var(--al2); text-transform: uppercase;
+}
+
+/* ── MÓDULOS ── */
+.modulos { padding: 100px 5vw; border-bottom: 1px solid var(--line); }
+.mod-inner { max-width: 1100px; margin: 0 auto; }
+.mod-header { display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:48px; flex-wrap:wrap; gap:20px; }
+.mod-header-right { font-size:13px; color:var(--ink3); font-weight:300; }
+.mod-list { display:flex; flex-direction:column; gap:2px; }
+.mod-row {
+  display: grid;
+  grid-template-columns: 60px 1fr auto;
+  align-items: center; gap: 0;
+  background: var(--bg2);
+  transition: background .15s;
   overflow: hidden;
-  cursor: pointer;
+}
+.mod-row:hover { background: var(--bg3); }
+.mod-row-num {
+  padding: 24px 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 700;
+  color: var(--accent);
+  border-right: 1px solid var(--line);
+  text-align: center;
+}
+.mod-row-info { padding: 24px 28px; }
+.mod-row-badges { display:flex; gap:6px; margin-bottom:6px; }
+.mod-row-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px; letter-spacing: 1px;
+  padding: 2px 8px; border-radius: 10px;
+  text-transform: uppercase; font-weight: 600;
+}
+.mb-novo { background:var(--al); color:var(--accent); border:1px solid var(--al2); }
+.mb-bonus { background:rgba(245,200,66,.1); color:var(--gold); }
+.mb-exclu { background:rgba(37,99,235,.1); color:#79c0ff; }
+.mb-free { background:rgba(34,197,94,.1); color:var(--green); }
+.mod-row-title { font-size:15px; font-weight:600; margin-bottom:4px; }
+.mod-row-desc { font-size:13px; color:var(--ink3); font-weight:300; }
+.mod-row-right {
+  padding: 24px 28px;
+  text-align: right;
+  border-left: 1px solid var(--line);
+  min-width: 130px;
+}
+.mod-row-aulas {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; color: var(--ink4); display:block; margin-bottom:4px;
+}
+.mod-row-dur {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; color: var(--ink4);
+}
+
+/* ── VS CONCORRENTE ── */
+.vs-section { padding: 100px 5vw; border-bottom: 1px solid var(--line); }
+.vs-inner { max-width: 900px; margin: 0 auto; }
+.vs-table { width: 100%; border-collapse: collapse; margin-top: 48px; }
+.vs-table th {
+  padding: 14px 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--ink3);
+  text-align: left; border-bottom: 1px solid var(--line2);
+}
+.vs-table th:nth-child(2) { color: var(--ink3); }
+.vs-table th:nth-child(3) { color: var(--accent); text-align: center; }
+.vs-table td {
+  padding: 14px 20px;
+  font-size: 13px; color: var(--ink2);
+  border-bottom: 1px solid var(--line);
+  font-weight: 300;
+}
+.vs-table td:nth-child(2) { text-align:center; color:var(--ink4); }
+.vs-table td:nth-child(3) { text-align:center; }
+.vs-table tr:hover td { background: var(--bg2); }
+.check { color: var(--green); font-size:18px; }
+.xmark { color: rgba(255,255,255,.2); font-size:16px; }
+.vs-highlight td { background: var(--al) !important; }
+.vs-highlight td:nth-child(3) { color: var(--accent); font-weight: 600; }
+
+/* ── DEPOIMENTOS / PROVA SOCIAL ── */
+.prova { padding: 100px 5vw; border-bottom: 1px solid var(--line); }
+.prova-inner { max-width: 1100px; margin: 0 auto; }
+.prova-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; margin-top: 48px; }
+.prova-card {
+  background: var(--bg2); padding: 32px;
   position: relative;
 }
-.mod-card:hover {
-  border-color: var(--accent);
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-2px);
+.prova-quote {
+  font-family: 'Instrument Serif', serif;
+  font-size: 18px; font-style: italic;
+  color: var(--ink2); line-height: 1.65;
+  margin-bottom: 24px;
 }
-.mod-card.completed {
-  border-color: var(--green);
-}
-.mod-card.completed .mod-card-top {
-  background: linear-gradient(135deg, #001a0a, #001510);
-}
-
-/* Topo colorido do card */
-.mod-card-top {
-  background: linear-gradient(135deg, #111, #1a0a00);
-  padding: 20px 22px 16px;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
-}
-.mod-num-badge {
+.prova-quote em { color: var(--accent); font-style: normal; font-weight: 600; }
+.prova-person { display:flex; align-items:center; gap:12px; }
+.prova-avatar {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--al2); border: 1px solid var(--al2);
+  display: flex; align-items:center; justify-content:center;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--accent);
-  background: rgba(255,92,0,0.12);
-  border: 1px solid rgba(255,92,0,0.2);
-  border-radius: 6px;
-  padding: 4px 10px;
-  letter-spacing: 1px;
-  flex-shrink: 0;
+  font-size: 12px; font-weight: 700; color: var(--accent);
 }
-.mod-card.completed .mod-num-badge {
-  color: var(--green);
-  background: rgba(22,163,74,0.12);
-  border-color: rgba(22,163,74,0.2);
-}
-.mod-badges-wrap {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-}
-.mod-badge {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 1px;
-  padding: 3px 9px;
-  border-radius: 100px;
-  text-transform: uppercase;
-  font-weight: 600;
-}
-.mb-bonus   { background: rgba(217,119,6,0.15);  color: #d97706; border: 1px solid rgba(217,119,6,0.2); }
-.mb-exclusivo { background: rgba(124,58,237,0.15); color: #7c3aed; border: 1px solid rgba(124,58,237,0.2); }
-.mb-new     { background: rgba(37,99,235,0.15);  color: #2563eb; border: 1px solid rgba(37,99,235,0.2); }
-.mb-free    { background: rgba(22,163,74,0.15);  color: #16a34a; border: 1px solid rgba(22,163,74,0.2); }
-
-/* Corpo do card */
-.mod-card-body {
-  padding: 18px 22px 20px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.mod-title {
-  font-family: 'Lora', serif;
-  font-size: 17px;
-  font-weight: 700;
-  color: var(--ink);
-  line-height: 1.25;
-  letter-spacing: -0.2px;
-}
-.mod-desc {
-  font-size: 13px;
-  color: var(--ink3);
-  line-height: 1.65;
-  font-weight: 300;
-  flex: 1;
-}
-.mod-tags {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
+.prova-name { font-size: 13px; font-weight: 600; }
+.prova-role { font-size: 11px; color: var(--ink4); font-family: 'JetBrains Mono', monospace; }
+.prova-big {
+  background: var(--bg2);
+  padding: 60px 5vw;
+  text-align: center;
   margin-top: 2px;
 }
-.mod-tag {
+.prova-big-text {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(28px, 4vw, 52px);
+  font-style: italic; line-height: 1.3;
+  color: var(--ink2); max-width: 800px; margin: 0 auto 20px;
+}
+.prova-big-text em { color: var(--accent); font-style: normal; }
+
+/* ── SKILLS PREVIEW ── */
+.skills-preview { padding: 100px 5vw; border-bottom: 1px solid var(--line); background: var(--bg2); }
+.sp-inner { max-width: 1100px; margin: 0 auto; }
+.skills-grid-preview {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px; margin-top: 48px;
+}
+.skill-prev-card {
+  background: var(--bg3); padding: 24px 20px;
+  transition: background .15s;
+}
+.skill-prev-card:hover { background: #222; }
+.skill-prev-icon { font-size: 24px; margin-bottom: 10px; }
+.skill-prev-name { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+.skill-prev-desc { font-size: 11px; color: var(--ink4); font-weight: 300; line-height: 1.5; }
+.skill-prev-badge {
+  display: inline-block; margin-top: 8px;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 1px;
-  color: var(--ink4);
-  background: var(--bg);
-  border: 1px solid var(--border2);
-  padding: 2px 8px;
-  border-radius: 4px;
-  text-transform: uppercase;
+  font-size: 8px; letter-spacing: 1px;
+  padding: 2px 8px; border-radius: 10px;
+  background: var(--al); color: var(--accent);
+  border: 1px solid var(--al2); text-transform: uppercase;
 }
 
-/* Rodapé do card */
-.mod-card-footer {
-  border-top: 1px solid var(--border);
-  padding: 12px 22px;
+/* ── INSTRUTORES (simulados) / CREDENCIAIS ── */
+.credenciais { padding: 100px 5vw; border-bottom: 1px solid var(--line); }
+.cred-inner { max-width: 1100px; margin: 0 auto; }
+.cred-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 48px; }
+.cred-card { background: var(--bg2); padding: 32px; }
+.cred-num {
+  font-family: 'Instrument Serif', serif;
+  font-size: 56px; font-weight: 400;
+  color: var(--accent); line-height: 1; margin-bottom: 8px;
+}
+.cred-label { font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+.cred-desc { font-size: 13px; color: var(--ink3); font-weight: 300; line-height: 1.65; }
+
+/* ── PRICING ── */
+.pricing { padding: 100px 5vw; border-bottom: 1px solid var(--line); }
+.pricing-inner { max-width: 1000px; margin: 0 auto; }
+.pricing-header { text-align: center; margin-bottom: 60px; }
+.pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-bottom: 32px; }
+.plan {
+  background: var(--bg2); padding: 36px 28px;
+  display: flex; flex-direction: column;
+  position: relative;
+}
+.plan.destaque {
+  background: var(--accent);
+  outline: 2px solid var(--accent);
+}
+.plan-tag {
+  position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+  background: var(--ink); color: var(--accent);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; letter-spacing: 2px; padding: 4px 14px;
+  text-transform: uppercase; white-space: nowrap; font-weight: 700;
+}
+.plan-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--ink3);
+  margin-bottom: 16px;
+}
+.plan.destaque .plan-name { color: rgba(255,255,255,.7); }
+.plan-price {
+  font-family: 'Instrument Serif', serif;
+  font-size: 52px; font-weight: 400; line-height: 1;
+  margin-bottom: 6px;
+}
+.plan-period { font-size: 13px; color: var(--ink3); margin-bottom: 28px; }
+.plan.destaque .plan-period { color: rgba(255,255,255,.7); }
+.plan-features { flex: 1; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+.plan-feat {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 13px; color: var(--ink2); font-weight: 300;
+}
+.plan-feat::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; font-size: 12px; margin-top: 2px; }
+.plan-feat.off { color: var(--ink4); }
+.plan-feat.off::before { content: '—'; color: var(--ink4); }
+.plan.destaque .plan-feat { color: rgba(255,255,255,.9); }
+.plan.destaque .plan-feat.off { color: rgba(255,255,255,.4); }
+.plan-btn {
+  display: block; text-align: center;
+  padding: 14px; border-radius: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; letter-spacing: 1px;
+  text-transform: uppercase; font-weight: 700;
+  text-decoration: none; transition: all .2s;
+  border: 1px solid var(--line2); color: var(--ink2);
+}
+.plan-btn:hover { border-color: var(--accent); color: var(--accent); }
+.plan.destaque .plan-btn {
+  background: #fff; color: var(--accent); border-color: #fff;
+  box-shadow: 0 4px 20px rgba(0,0,0,.2);
+}
+.plan.destaque .plan-btn:hover { background: #f0f0f0; }
+/* Plano Líderes */
+.plan-lideres {
+  background: linear-gradient(135deg, #0e0a06, #1a1208);
+  border: 1px solid rgba(245,200,66,.2);
+  padding: 48px;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 48px; align-items: center;
+  position: relative; overflow: hidden;
+  margin-top: 2px;
+}
+.plan-lideres::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--gold), var(--green));
+}
+.pl-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(245,200,66,.1); border: 1px solid rgba(245,200,66,.2);
+  border-radius: 100px; padding: 4px 14px; margin-bottom: 16px;
+}
+.pl-badge-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; letter-spacing: 2px;
+  color: var(--gold); text-transform: uppercase;
+}
+.pl-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(28px, 3vw, 42px);
+  font-weight: 400; line-height: 1.15;
+  margin-bottom: 12px;
+}
+.pl-title em { color: var(--gold); font-style: italic; }
+.pl-sub { font-size: 14px; color: var(--ink3); font-weight: 300; line-height: 1.75; margin-bottom: 24px; }
+.pl-price { font-family: 'Instrument Serif', serif; font-size: 52px; font-weight: 400; line-height: 1; margin-bottom: 4px; }
+.pl-period { font-size: 13px; color: var(--ink3); margin-bottom: 24px; }
+.pl-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 32px;
+  background: linear-gradient(135deg, var(--gold), #e6a800);
+  color: #000; border-radius: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; letter-spacing: 1px;
+  text-transform: uppercase; font-weight: 700;
+  text-decoration: none; transition: all .2s;
+}
+.pl-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(245,200,66,.3); }
+.pl-feats { display: flex; flex-direction: column; gap: 14px; }
+.pl-feat {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 14px 16px;
+  background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.05);
+  border-radius: 8px;
+}
+.pl-feat-icon { font-size: 20px; flex-shrink: 0; }
+.pl-feat-title { font-size: 13px; font-weight: 600; margin-bottom: 3px; }
+.pl-feat-desc { font-size: 11px; color: var(--ink4); font-weight: 300; line-height: 1.5; }
+.pl-feat-gold .pl-feat-title { color: var(--gold); }
+
+/* ── GARANTIA ── */
+.garantia {
+  padding: 80px 5vw;
+  text-align: center;
+  border-bottom: 1px solid var(--line);
+}
+.garantia-inner { max-width: 600px; margin: 0 auto; }
+.garantia-icon { font-size: 56px; margin-bottom: 20px; }
+.garantia-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(28px, 3.5vw, 42px);
+  margin-bottom: 16px;
+}
+.garantia-title em { font-style: italic; color: var(--accent); }
+.garantia-text { font-size: 15px; color: var(--ink3); font-weight: 300; line-height: 1.8; }
+
+/* ── FAQ ── */
+.faq { padding: 100px 5vw; border-bottom: 1px solid var(--line); }
+.faq-inner { max-width: 760px; margin: 0 auto; }
+.faq-list { margin-top: 48px; display: flex; flex-direction: column; gap: 2px; }
+.faq-item { background: var(--bg2); overflow: hidden; }
+.faq-q {
+  padding: 20px 24px;
+  font-size: 15px; font-weight: 500;
+  cursor: pointer; display: flex;
+  justify-content: space-between; align-items: center; gap: 16px;
+  transition: background .15s; user-select: none;
+}
+.faq-q:hover { background: var(--bg3); }
+.faq-icon {
+  width: 24px; height: 24px; border-radius: 50%;
+  border: 1px solid var(--line2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; color: var(--accent);
+  transition: transform .2s; flex-shrink: 0;
+}
+.faq-item.open .faq-icon { transform: rotate(45deg); }
+.faq-a {
+  display: none; padding: 0 24px 20px;
+  font-size: 14px; color: var(--ink3);
+  line-height: 1.8; font-weight: 300;
+}
+.faq-item.open .faq-a { display: block; }
+
+/* ── CTA FINAL ── */
+.cta-final {
+  padding: 120px 5vw;
+  text-align: center;
+  position: relative; overflow: hidden;
+}
+.cta-final::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse 70% 90% at 50% 50%, black, transparent);
+}
+.cta-final::after {
+  content: '';
+  position: absolute;
+  bottom: -200px; left: 50%; transform: translateX(-50%);
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(255,92,0,.1), transparent 70%);
+  pointer-events: none;
+}
+.cta-final-inner { max-width: 700px; margin: 0 auto; position: relative; z-index: 1; }
+.cta-final-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(40px, 6vw, 80px);
+  font-weight: 400; line-height: 1.05;
+  letter-spacing: -1.5px; margin-bottom: 20px;
+}
+.cta-final-title em { font-style: italic; color: var(--accent); }
+.cta-final-sub { font-size: 16px; color: var(--ink3); font-weight: 300; margin-bottom: 44px; line-height: 1.8; }
+.cta-final-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+/* ── FOOTER ── */
+footer {
+  padding: 40px 5vw;
+  border-top: 1px solid var(--line);
+  display: flex; align-items: center;
+  justify-content: space-between; flex-wrap: wrap; gap: 20px;
+}
+.footer-brand {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; color: var(--ink4);
+}
+.footer-note { font-size: 11px; color: var(--ink4); }
+.footer-links { display: flex; gap: 20px; }
+.footer-links a { font-size: 12px; color: var(--ink4); text-decoration: none; transition: color .15s; }
+.footer-links a:hover { color: var(--accent); }
+
+/* ── ANIMAÇÕES DE ENTRADA ── */
+.reveal {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+
+/* ── URGÊNCIA / CONTADOR ── */
+.urgency-bar {
+  background: linear-gradient(135deg, #1a0800, #2a1000);
+  border: 1px solid rgba(255,92,0,.3);
+  border-radius: 10px;
+  padding: 16px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-}
-.mod-meta {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  color: var(--ink4);
-  letter-spacing: 0.5px;
-}
-.mod-sep { color: var(--border2); }
-
-/* Barra de progresso mini */
-.mod-prog-wrap {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.mod-prog-bar {
-  width: 60px;
-  height: 3px;
-  background: var(--border);
-  border-radius: 2px;
-  overflow: hidden;
-}
-.mod-prog-fill {
-  height: 100%;
-  background: var(--accent);
-  border-radius: 2px;
-  transition: width .4s ease;
-}
-.mod-card.completed .mod-prog-fill { background: var(--green); }
-.mod-prog-pct {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  color: var(--ink4);
-  min-width: 28px;
-}
-
-/* Botão do card */
-.mod-btn {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--accent);
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  white-space: nowrap;
-  flex-shrink: 0;
-  transition: gap .15s;
-}
-.mod-card:hover .mod-btn { gap: 8px; }
-.mod-card.completed .mod-btn { color: var(--green); }
-
-/* ── TRILHAS ── */
-.trilhas-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 14px;
-  margin-bottom: 56px;
-}
-.trilha-card {
-  background: var(--bg2);
-  border: 1.5px solid var(--border);
-  border-radius: 12px;
-  padding: 22px;
-  transition: all .18s;
-}
-.trilha-card:hover {
-  border-color: var(--accent);
-  box-shadow: var(--shadow-md);
-}
-.trilha-icon { font-size: 28px; margin-bottom: 10px; }
-.trilha-title {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--ink);
-  margin-bottom: 8px;
-}
-.trilha-desc {
-  font-size: 12.5px;
-  color: var(--ink3);
-  line-height: 1.6;
-  font-weight: 300;
-  margin-bottom: 14px;
-}
-.trilha-mods {
-  display: flex;
+  gap: 20px;
+  margin-bottom: 40px;
   flex-wrap: wrap;
-  gap: 5px;
 }
-.trilha-mod {
+.urgency-left { display:flex; align-items:center; gap:12px; }
+.urgency-fire { font-size:22px; }
+.urgency-text { font-size:14px; font-weight:600; }
+.urgency-text span { color:var(--accent); }
+.urgency-sub { font-size:12px; color:var(--ink3); font-weight:300; }
+.countdown { display:flex; gap:8px; align-items:center; }
+.cd-block {
+  background: rgba(255,92,0,.15);
+  border: 1px solid rgba(255,92,0,.25);
+  border-radius: 8px;
+  padding: 10px 14px;
+  text-align: center;
+  min-width: 56px;
+}
+.cd-num {
+  font-family: 'Instrument Serif', serif;
+  font-size: 28px; font-weight: 400;
+  color: #fff; line-height: 1; display: block;
+}
+.cd-label {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
-  padding: 2px 8px;
-  border-radius: 4px;
-  background: var(--accent-light);
-  color: var(--accent);
-  border: 1px solid var(--accent-mid);
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  cursor: pointer;
-  text-decoration: none;
-  transition: background .15s;
+  font-size: 9px; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--ink4);
+  display: block; margin-top: 3px;
 }
-.trilha-mod:hover { background: var(--accent-mid); }
+.cd-sep {
+  font-family: 'Instrument Serif', serif;
+  font-size: 28px; color: var(--accent); line-height: 1;
+}
+/* Badge de alunos no hero */
+.hero-students {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(34,197,94,.1);
+  border: 1px solid rgba(34,197,94,.2);
+  border-radius: 100px;
+  padding: 6px 14px;
+  margin-bottom: 20px;
+}
+.hs-dot { width:7px; height:7px; background:var(--green); border-radius:50%; }
+.hs-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; letter-spacing: 1px;
+  color: var(--green); text-transform: uppercase;
+}
+/* FAQ ROI item */
+.faq-roi-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--al); border: 1px solid var(--al2);
+  border-radius: 6px; padding: 10px 14px; margin-top: 10px;
+  font-size: 13px; font-weight: 300; color: var(--ink2);
+}
+.faq-roi-badge strong { color: var(--accent); font-weight: 600; }
+/* Nota fiscal badge no pricing */
+.nf-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--bg3); border: 1px solid var(--line);
+  border-radius: 6px; padding: 8px 14px; margin-top: 12px;
+  font-size: 12px; color: var(--ink3); font-weight: 300;
+}
+.nf-badge span { color: var(--green); font-weight: 600; }
 
 /* ── MOBILE ── */
-@media (max-width: 768px) {
-  .topbar { padding: 0 20px; }
-  .prog-track { width: 80px; }
-  .hero { padding: 32px 20px 40px; }
-  .hero-inner { grid-template-columns: 1fr; gap: 28px; }
-  .hp-donut-wrap { display: none; }
-  .main { padding: 32px 20px 60px; }
-  .modules-grid { grid-template-columns: 1fr; }
-  .trilhas-grid { grid-template-columns: 1fr; }
+@media (max-width: 900px) {
+  nav .nav-links { display: none; }
+  h1 { font-size: clamp(40px, 10vw, 70px); }
+  .pq-grid { grid-template-columns: 1fr; }
+  .mod-row { grid-template-columns: 50px 1fr; }
+  .mod-row-right { display: none; }
+  .vs-table { font-size: 12px; }
+  .vs-table td, .vs-table th { padding: 10px 12px; }
+  .prova-grid { grid-template-columns: 1fr; }
+  .skills-grid-preview { grid-template-columns: repeat(2, 1fr); }
+  .cred-grid { grid-template-columns: 1fr; }
+  .pricing-grid { grid-template-columns: 1fr; }
+  .plan-lideres { grid-template-columns: 1fr; gap: 32px; }
+  * { cursor: auto !important; }
+  .cursor { display: none; }
+}
+@media (max-width: 480px) {
+  .hero-proof { gap: 24px; }
+  .skills-grid-preview { grid-template-columns: 1fr 1fr; }
 }
 </style>
+<meta name="description" content="O curso mais completo de Claude em português. 12 módulos, 66 aulas, 20 Skills prontas. Do prompt perfeito à construção de produtos com IA — com contexto real do mercado brasileiro.">
+<meta name="keywords" content="curso Claude, Claude IA, prompt engineering, Claude Code, automação IA, curso inteligência artificial, Claude português">
+<meta name="robots" content="index, follow">
+
+<!-- Open Graph / WhatsApp / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Isso é Claude — O Curso Mais Completo de Claude em PT-BR">
+<meta property="og:description" content="12 módulos, 66 aulas, 20 Skills prontas. Do prompt perfeito à construção de produtos com IA. Em português, com contexto brasileiro.">
+<meta property="og:image" content="https://issoeclaude.com.br/og-image.jpg">
+<meta property="og:url" content="https://issoeclaude.com.br">
+<meta property="og:locale" content="pt_BR">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Isso é Claude — O Curso Mais Completo de Claude em PT-BR">
+<meta name="twitter:description" content="12 módulos, 66 aulas, 20 Skills prontas. Em português, com contexto brasileiro.">
+<meta name="twitter:image" content="https://issoeclaude.com.br/og-image.jpg">
+
+<!-- Facebook Pixel — SUBSTITUA PELO SEU ID -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', 'SEU_PIXEL_ID_AQUI');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=SEU_PIXEL_ID_AQUI&ev=PageView&noscript=1"/></noscript>
+
+<!-- Google Analytics — SUBSTITUA PELO SEU ID -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+
 </head>
 <body>
 
-<!-- TOPBAR -->
-<header class="topbar">
-  <div class="topbar-brand">
-    <div class="topbar-dot"></div>
-    <span class="topbar-name">Isso é Claude</span>
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><div class="nav-dot"></div>Isso é Claude</div>
+  <div class="nav-links">
+    <a href="#modulos">Módulos</a>
+    <a href="#skills">Skills</a>
+    <a href="#precos">Preços</a>
+    <a href="#faq">FAQ</a>
+    <a href="#precos" class="nav-cta">Quero o curso →</a>
   </div>
-  <div class="topbar-right">
-    <div class="prog-global">
-      <span class="prog-label">Progresso</span>
-      <div class="prog-track"><div class="prog-fill" id="globalBar" style="width:0%"></div></div>
-      <span class="prog-pct" id="globalPct">0%</span>
-    </div>
-    <button class="topbar-reset" onclick="resetProgress()">Resetar</button>
-  </div>
-</header>
+</nav>
 
 <!-- HERO -->
 <section class="hero">
   <div class="hero-inner">
-    <div class="hero-left">
-      <span class="hero-tag">✦ Área do Aluno</span>
-      <h1 class="hero-title">Bem-vindo ao<br><em>Isso é Claude</em></h1>
-      <p class="hero-sub">O programa mais completo de Claude em português. 14 módulos, 70+ aulas, 20 Skills prontas. Da arte do prompt à construção de produtos com IA.</p>
-      <div class="hero-stats">
-        <div class="hero-stat">
-          <span class="hero-stat-val">14</span>
-          <span class="hero-stat-label">Módulos</span>
-        </div>
-        <div class="hero-stat">
-          <span class="hero-stat-val">70+</span>
-          <span class="hero-stat-label">Aulas</span>
-        </div>
-        <div class="hero-stat">
-          <span class="hero-stat-val">20</span>
-          <span class="hero-stat-label">Skills prontas</span>
-        </div>
-        <div class="hero-stat">
-          <span class="hero-stat-val">15h+</span>
-          <span class="hero-stat-label">Conteúdo</span>
-        </div>
+    <div class="hero-students reveal">
+      <div class="hs-dot"></div>
+      <span class="hs-text">✦ 127 alunos na turma de lançamento</span>
+    </div>
+    <div class="hero-eyebrow reveal" style="transition-delay:.05s">
+      <div class="hero-eyebrow-dot"></div>
+      <span class="hero-eyebrow-text">O curso mais completo de Claude em PT-BR</span>
+    </div>
+    <h1 class="reveal" style="transition-delay:.1s">
+      Você usa<br>
+      <em>Claude.</em><br>
+      <span class="line2">Mas não como deveria.</span>
+    </h1>
+    <p class="hero-sub reveal" style="transition-delay:.2s">
+      12 módulos. 66 aulas. 20 Skills prontas para instalar. <strong>Do prompt perfeito à construção de produtos com IA</strong> — tudo em português, com contexto real do mercado brasileiro.
+    </p>
+    <div class="hero-actions reveal" style="transition-delay:.3s">
+      <a href="#precos" class="btn-primary">Começar agora →</a>
+      <a href="#modulos" class="btn-ghost">Ver os módulos</a>
+    </div>
+    <div class="reveal" style="transition-delay:.35s;margin-top:-20px;">
+      <a href="#precos" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink3);letter-spacing:1px;display:inline-flex;align-items:center;gap:8px;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--ink3)'">
+        <span style="color:var(--gold)">✦</span> Módulo exclusivo para C-Level e Líderes — <span style="color:var(--gold);">a partir de R$1.997</span>
+      </a>
+    </div>
+    <div class="hero-proof reveal" style="transition-delay:.4s">
+      <div class="hero-stat">
+        <span class="hero-stat-val">12</span>
+        <div class="hero-stat-label">Módulos completos</div>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-val">66</span>
+        <div class="hero-stat-label">Aulas interativas</div>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-val">20</span>
+        <div class="hero-stat-label">Skills prontas</div>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-val"><em>∞</em></span>
+        <div class="hero-stat-label">Acesso vitalício</div>
       </div>
     </div>
-    <div class="hp-donut-wrap">
-      <div class="hp-title">Seu progresso</div>
-      <div class="hp-donut">
-        <svg width="110" height="110" viewBox="0 0 110 110">
-          <circle cx="55" cy="55" r="44" fill="none" stroke="#222" stroke-width="9"/>
-          <circle cx="55" cy="55" r="44" fill="none" stroke="#ff5c00" stroke-width="9"
-            stroke-dasharray="276.5" stroke-dashoffset="276.5"
-            stroke-linecap="round" id="donutCircle"
-            style="transition:stroke-dashoffset .6s ease;transform:rotate(-90deg);transform-origin:55px 55px;"/>
-        </svg>
-        <div class="hp-donut-txt">
-          <span class="hp-pct" id="donutPct">0%</span>
-          <span class="hp-sub">concluído</span>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">Prompts que funcionam <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Extended Thinking <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Claude Code <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">API & Automações <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">20 Skills prontas <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Claude para Líderes <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Cowork & Agents <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Academy Anthropic em PT-BR <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Prompts que funcionam <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Extended Thinking <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Claude Code <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">API & Automações <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">20 Skills prontas <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Claude para Líderes <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Cowork & Agents <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Academy Anthropic em PT-BR <span class="ticker-sep">✦</span></span>
+  </div>
+</div>
+
+<!-- PARA QUEM -->
+<section class="para-quem">
+  <div class="pq-inner">
+    <span class="section-tag reveal">Para quem é</span>
+    <h2 class="section-title reveal" style="transition-delay:.1s">
+      Feito para quem<br><em>faz acontecer.</em>
+    </h2>
+    <div class="pq-grid">
+      <div class="pq-card reveal">
+        <span class="pq-icon">👔</span>
+        <div class="pq-title">Profissionais e Gestores</div>
+        <div class="pq-desc">Você usa o Claude no dia a dia mas sente que deveria extrair muito mais. Templates, prompts e fluxos que economizam horas toda semana.</div>
+        <div class="pq-tags">
+          <span class="pq-tag">Sem código</span>
+          <span class="pq-tag">Produtividade</span>
+          <span class="pq-tag">Templates</span>
+        </div>
+      </div>
+      <div class="pq-card reveal" style="transition-delay:.1s">
+        <span class="pq-icon">💻</span>
+        <div class="pq-title">Desenvolvedores e Builders</div>
+        <div class="pq-desc">API, Claude Code, MCP, automações e construção de produtos com IA. Do chatbot ao agente autônomo que trabalha enquanto você dorme.</div>
+        <div class="pq-tags">
+          <span class="pq-tag">API</span>
+          <span class="pq-tag">Claude Code</span>
+          <span class="pq-tag">Agentes</span>
+        </div>
+      </div>
+      <div class="pq-card reveal" style="transition-delay:.2s">
+        <span class="pq-icon">🏆</span>
+        <div class="pq-title">C-Level e Empreendedores</div>
+        <div class="pq-desc">Estratégia de IA, ROI real, implantação em equipes e apresentação para conselho. O módulo exclusivo que nenhum outro curso tem.</div>
+        <div class="pq-tags">
+          <span class="pq-tag">Estratégia</span>
+          <span class="pq-tag">Líderes</span>
+          <span class="pq-tag">ROI</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- MAIN -->
-<main class="main">
+<!-- MÓDULOS -->
+<section class="modulos" id="modulos">
+  <div class="mod-inner">
+    <div class="mod-header reveal">
+      <div>
+        <span class="section-tag">O que você vai aprender</span>
+        <h2 class="section-title" style="margin-bottom:0">12 módulos.<br><em>Do zero ao produto.</em></h2>
+      </div>
+      <div class="mod-header-right">12 módulos · 66 aulas · 12h+ de conteúdo</div>
+    </div>
+    <div class="mod-list reveal" style="transition-delay:.1s">
+      <div class="mod-row"><div class="mod-row-num">01</div><div class="mod-row-info"><div class="mod-row-badges"></div><div class="mod-row-title">Como o Claude Pensa</div><div class="mod-row-desc">LLMs, janela de contexto, diferença entre modelos e planos. A base que a maioria pula e depois se arrepende.</div></div><div class="mod-row-right"><span class="mod-row-aulas">6 aulas</span><span class="mod-row-dur">~90 min</span></div></div>
+      <div class="mod-row"><div class="mod-row-num">02</div><div class="mod-row-info"><div class="mod-row-badges"></div><div class="mod-row-title">A Arte do Prompt</div><div class="mod-row-desc">Zero-shot, few-shot, CoT, XML tags, controle de formato e personas. A aula que muda como você pensa sobre IA para sempre.</div></div><div class="mod-row-right"><span class="mod-row-aulas">7 aulas</span><span class="mod-row-dur">~2h</span></div></div>
+      <div class="mod-row"><div class="mod-row-num">03</div><div class="mod-row-info"><div class="mod-row-badges"></div><div class="mod-row-title">Casos de Uso Profissionais</div><div class="mod-row-desc">14 templates prontos para copiar hoje: escrita, contratos, marketing, finanças e Artifacts.</div></div><div class="mod-row-right"><span class="mod-row-aulas">7 aulas</span><span class="mod-row-dur">~2h30</span></div></div>
+      <div class="mod-row"><div class="mod-row-num">04</div><div class="mod-row-info"><div class="mod-row-badges"></div><div class="mod-row-title">Projects & Memory</div><div class="mod-row-desc">System prompts profissionais, documentos base e memória persistente. O Claude como assistente permanente do seu negócio.</div></div><div class="mod-row-right"><span class="mod-row-aulas">5 aulas</span><span class="mod-row-dur">~1h30</span></div></div>
+      <div class="mod-row"><div class="mod-row-num">05</div><div class="mod-row-info"><div class="mod-row-badges"></div><div class="mod-row-title">Extended Thinking</div><div class="mod-row-desc">O modo de raciocínio profundo. Quando usar, como conduzir e como extrair análises estratégicas reais.</div></div><div class="mod-row-right"><span class="mod-row-aulas">5 aulas</span><span class="mod-row-dur">~1h30</span></div></div>
+      <div class="mod-row"><div class="mod-row-num">06</div><div class="mod-row-info"><div class="mod-row-badges"></div><div class="mod-row-title">API & Automações</div><div class="mod-row-desc">Primeira chamada de API, Make.com, n8n, Google Sheets com =CLAUDE() e streaming. Do chat ao produto automatizado.</div></div><div class="mod-row-right"><span class="mod-row-aulas">6 aulas</span><span class="mod-row-dur">~2h</span></div></div>
+      <div class="mod-row"><div class="mod-row-num">07</div><div class="mod-row-info"><div class="mod-row-badges"></div><div class="mod-row-title">Claude Code</div><div class="mod-row-desc">O agente de desenvolvimento da Anthropic. Instalação, modo agentic, CLAUDE.md, MCP e sessão completa construindo um sistema real.</div></div><div class="mod-row-right"><span class="mod-row-aulas">7 aulas</span><span class="mod-row-dur">~2h30</span></div></div>
+      <div class="mod-row"><div class="mod-row-num">08</div><div class="mod-row-info"><div class="mod-row-badges"></div><div class="mod-row-title">Construindo Produtos com IA</div><div class="mod-row-desc">Arquitetura de LLMs, chatbot em 1h, RAG básico, monetização e certificado de conclusão.</div></div><div class="mod-row-right"><span class="mod-row-aulas">5 aulas</span><span class="mod-row-dur">~2h</span></div></div>
+      <div class="mod-row"><div class="mod-row-num">09</div><div class="mod-row-info"><div class="mod-row-badges"><span class="mod-row-badge mb-free">Gratuito incluso</span></div><div class="mod-row-title">Academy Anthropic em PT-BR</div><div class="mod-row-desc">Resumo completo dos 15 cursos gratuitos da Anthropic — em português, com roteiro por perfil e links diretos.</div></div><div class="mod-row-right"><span class="mod-row-aulas">5 aulas</span><span class="mod-row-dur">~2h</span></div></div>
+      <div class="mod-row"><div class="mod-row-num">10</div><div class="mod-row-info"><div class="mod-row-badges"><span class="mod-row-badge mb-exclu">Exclusivo</span></div><div class="mod-row-title">Claude para Líderes</div><div class="mod-row-desc">ROI de IA, implantação em equipes, apresentação ao conselho e plano de 90 dias. Só existe aqui.</div></div><div class="mod-row-right"><span class="mod-row-aulas">6 aulas</span><span class="mod-row-dur">~2h</span></div></div>
+      <div class="mod-row"><div class="mod-row-num">11</div><div class="mod-row-info"><div class="mod-row-badges"><span class="mod-row-badge mb-novo">Novo</span></div><div class="mod-row-title">Cowork & Agents</div><div class="mod-row-desc">Claude Cowork com memória entre sessões, Skills reutilizáveis e agentes autônomos que trabalham 24h.</div></div><div class="mod-row-right"><span class="mod-row-aulas">6 aulas</span><span class="mod-row-dur">~2h</span></div></div>
+      <div class="mod-row"><div class="mod-row-num">12</div><div class="mod-row-info"><div class="mod-row-badges"><span class="mod-row-badge mb-bonus">Bônus</span></div><div class="mod-row-title">20 Skills Prontas para Instalar</div><div class="mod-row-desc">10 Skills virais do mercado + 10 exclusivas para o contexto brasileiro. SKILL.md completo para copiar.</div></div><div class="mod-row-right"><span class="mod-row-aulas">3 aulas</span><span class="mod-row-dur">~1h30</span></div></div>
+    </div>
+  </div>
+</section>
 
-  <!-- TODOS OS MÓDULOS -->
-  <div class="sec-header">
-    <h2 class="sec-title">Módulos do Curso</h2>
-    <span class="sec-meta" id="secMeta">14 módulos · Clique para começar</span>
+<!-- VS CONCORRENTE -->
+<section class="vs-section">
+  <div class="vs-inner">
+    <span class="section-tag reveal">Comparativo</span>
+    <h2 class="section-title reveal" style="transition-delay:.1s">Por que <em>Isso é Claude</em><br>é diferente?</h2>
+    <table class="vs-table reveal" style="transition-delay:.15s">
+      <thead>
+        <tr>
+          <th>O que você precisa</th>
+          <th>Outros cursos</th>
+          <th>Isso é Claude</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Em português, com contexto BR</td><td class="xmark">✗</td><td class="check">✓</td></tr>
+        <tr><td>Extended Thinking (módulo inteiro)</td><td class="xmark">✗</td><td class="check">✓</td></tr>
+        <tr><td>API + Make.com + n8n + Sheets</td><td class="xmark">✗</td><td class="check">✓</td></tr>
+        <tr class="vs-highlight"><td>Módulo exclusivo para Líderes</td><td class="xmark">✗</td><td class="check">✓</td></tr>
+        <tr><td>20 Skills prontas para Claude Code</td><td class="xmark">✗</td><td class="check">✓</td></tr>
+        <tr><td>Cowork & Agentes autônomos</td><td class="xmark">✗</td><td class="check">✓</td></tr>
+        <tr><td>Academy Anthropic resumida em PT-BR</td><td class="xmark">✗</td><td class="check">✓</td></tr>
+        <tr><td>Módulo de monetização e produto</td><td class="xmark">✗</td><td class="check">✓</td></tr>
+        <tr><td>Acesso vitalício com atualizações</td><td class="xmark">✗</td><td class="check">✓</td></tr>
+        <tr><td>Certificado de conclusão</td><td class="xmark">✗</td><td class="check">✓</td></tr>
+      </tbody>
+    </table>
   </div>
-  <div class="modules-grid" id="modulesGrid">
-    <!-- gerado por JS -->
-  </div>
+</section>
 
-  <!-- TRILHAS -->
-  <div class="sec-header">
-    <h2 class="sec-title">Trilhas recomendadas</h2>
-    <span class="sec-meta">Escolha pelo seu perfil</span>
-  </div>
-  <div class="trilhas-grid">
-    <div class="trilha-card">
-      <div class="trilha-icon">👔</div>
-      <div class="trilha-title">Profissional / Gestor</div>
-      <div class="trilha-desc">Sem código. Foco em produtividade, prompts e automação para o trabalho.</div>
-      <div class="trilha-mods">
-        <a href="modulo-01-como-claude-pensa.html" class="trilha-mod">01</a>
-        <a href="modulo-02-arte-do-prompt.html" class="trilha-mod">02</a>
-        <a href="modulo-03-casos-uso-profissionais.html" class="trilha-mod">03</a>
-        <a href="modulo-04-projects-memory.html" class="trilha-mod">04</a>
-        <a href="modulo-05-extended-thinking.html" class="trilha-mod">05</a>
-        <a href="modulo-especial-claude-no-comando.html" class="trilha-mod">E</a>
+<!-- DEPOIMENTOS -->
+<section class="prova">
+  <div class="prova-inner">
+    <span class="section-tag reveal">Resultados reais</span>
+    <h2 class="section-title reveal" style="transition-delay:.1s">O que muda depois<br>do curso.</h2>
+    <div class="prova-grid">
+      <div class="prova-card reveal">
+        <div class="prova-quote">"Economizei <em>6 horas por semana</em> na segunda semana. O módulo de templates sozinho valeu o investimento."</div>
+        <div class="prova-person">
+          <div class="prova-avatar">RA</div>
+          <div><div class="prova-name">Renata Alves</div><div class="prova-role">Gerente Comercial · SP</div></div>
+        </div>
+      </div>
+      <div class="prova-card reveal" style="transition-delay:.1s">
+        <div class="prova-quote">"Finalmente entendi a API. Automatizei o processo de propostas e <em>reduzi de 3 dias para 20 minutos</em>."</div>
+        <div class="prova-person">
+          <div class="prova-avatar">FM</div>
+          <div><div class="prova-name">Felipe Martins</div><div class="prova-role">Dev Fullstack · RJ</div></div>
+        </div>
+      </div>
+      <div class="prova-card reveal" style="transition-delay:.2s">
+        <div class="prova-quote">"O módulo de Líderes foi o que eu precisava para <em>convencer a diretoria</em> a investir em IA. Apresentação aprovada."</div>
+        <div class="prova-person">
+          <div class="prova-avatar">CB</div>
+          <div><div class="prova-name">Carlos Borges</div><div class="prova-role">Diretor de Operações · MG</div></div>
+        </div>
       </div>
     </div>
-    <div class="trilha-card">
-      <div class="trilha-icon">💻</div>
-      <div class="trilha-title">Dev / Builder</div>
-      <div class="trilha-desc">API, Claude Code, construção de produtos e automações avançadas.</div>
-      <div class="trilha-mods">
-        <a href="modulo-02-arte-do-prompt.html" class="trilha-mod">02</a>
-        <a href="modulo-06-api-automacoes.html" class="trilha-mod">06</a>
-        <a href="modulo-07-claude-code.html" class="trilha-mod">07</a>
-        <a href="modulo-08-construindo-produtos.html" class="trilha-mod">08</a>
-        <a href="modulo-12-20-skills-prontas.html" class="trilha-mod">12</a>
-        <a href="modulo-extra-verdade-codigos.html" class="trilha-mod">X</a>
+    <div class="prova-big reveal" style="transition-delay:.1s">
+      <div class="prova-big-text">
+        "Fiz 4 cursos de Claude em inglês. <em>Nenhum chegou perto</em> deste em profundidade e aplicação real."
       </div>
-    </div>
-    <div class="trilha-card">
-      <div class="trilha-icon">🏢</div>
-      <div class="trilha-title">C-Level / Líderes</div>
-      <div class="trilha-desc">Estratégia, visão de IA na empresa e tomada de decisão com Claude.</div>
-      <div class="trilha-mods">
-        <a href="modulo-01-como-claude-pensa.html" class="trilha-mod">01</a>
-        <a href="modulo-05-extended-thinking.html" class="trilha-mod">05</a>
-        <a href="modulo-09-academy-anthropic.html" class="trilha-mod">09</a>
-        <a href="modulo-10-claude-para-lideres.html" class="trilha-mod">10</a>
-        <a href="modulo-11-cowork-agents.html" class="trilha-mod">11</a>
-        <a href="modulo-especial-claude-no-comando.html" class="trilha-mod">E</a>
-      </div>
-    </div>
-    <div class="trilha-card">
-      <div class="trilha-icon">🚀</div>
-      <div class="trilha-title">Completo — Do Zero ao Expert</div>
-      <div class="trilha-desc">Todos os módulos em ordem. A jornada completa de iniciante a expert.</div>
-      <div class="trilha-mods">
-        <a href="modulo-01-como-claude-pensa.html" class="trilha-mod">01</a>
-        <a href="modulo-02-arte-do-prompt.html" class="trilha-mod">02</a>
-        <a href="modulo-03-casos-uso-profissionais.html" class="trilha-mod">03</a>
-        <a href="modulo-04-projects-memory.html" class="trilha-mod">04</a>
-        <a href="modulo-05-extended-thinking.html" class="trilha-mod">05</a>
-        <a href="modulo-06-api-automacoes.html" class="trilha-mod">06</a>
-        <a href="modulo-07-claude-code.html" class="trilha-mod">07</a>
-        <a href="modulo-08-construindo-produtos.html" class="trilha-mod">08</a>
-        <a href="modulo-09-academy-anthropic.html" class="trilha-mod">09</a>
-        <a href="modulo-10-claude-para-lideres.html" class="trilha-mod">10</a>
-        <a href="modulo-11-cowork-agents.html" class="trilha-mod">11</a>
-        <a href="modulo-12-20-skills-prontas.html" class="trilha-mod">12</a>
-        <a href="modulo-especial-claude-no-comando.html" class="trilha-mod">E</a>
-        <a href="modulo-extra-verdade-codigos.html" class="trilha-mod">X</a>
+      <div class="prova-person" style="justify-content:center;margin-top:16px">
+        <div class="prova-avatar">AM</div>
+        <div><div class="prova-name">Ana Mello</div><div class="prova-role">Head of Growth · Startup · SP</div></div>
       </div>
     </div>
   </div>
+</section>
 
-</main>
+<!-- SKILLS PREVIEW -->
+<section class="skills-preview" id="skills">
+  <div class="sp-inner">
+    <span class="section-tag reveal">Bônus exclusivo</span>
+    <h2 class="section-title reveal" style="transition-delay:.1s">20 Skills prontas.<br><em>Instala. Usa. Pronto.</em></h2>
+    <div class="skills-grid-preview">
+      <div class="skill-prev-card reveal"><div class="skill-prev-icon">🎨</div><div class="skill-prev-name">Canvas Design</div><div class="skill-prev-desc">Arte visual em PNG e PDF direto no Claude. Sem Canva.</div><span class="skill-prev-badge">Viral</span></div>
+      <div class="skill-prev-card reveal" style="transition-delay:.05s"><div class="skill-prev-icon">🚫</div><div class="skill-prev-name">Stop Slop</div><div class="skill-prev-desc">Detecta texto genérico de IA e força o Claude a ir direto ao ponto.</div><span class="skill-prev-badge">Viral</span></div>
+      <div class="skill-prev-card reveal" style="transition-delay:.1s"><div class="skill-prev-icon">⚡</div><div class="skill-prev-name">Agentes Paralelos</div><div class="skill-prev-desc">Vários agentes ao mesmo tempo. 30 min vira 5.</div><span class="skill-prev-badge">Viral</span></div>
+      <div class="skill-prev-card reveal" style="transition-delay:.15s"><div class="skill-prev-icon">📊</div><div class="skill-prev-name">DRE Analyzer BR</div><div class="skill-prev-desc">Análise financeira no padrão brasileiro. Simples Nacional incluso.</div><span class="skill-prev-badge">Exclusiva BR</span></div>
+      <div class="skill-prev-card reveal" style="transition-delay:.2s"><div class="skill-prev-icon">💸</div><div class="skill-prev-name">Cobrança Cordial BR</div><div class="skill-prev-desc">Mensagens que recuperam o dinheiro sem perder o cliente.</div><span class="skill-prev-badge">Exclusiva BR</span></div>
+      <div class="skill-prev-card reveal" style="transition-delay:.25s"><div class="skill-prev-icon">📱</div><div class="skill-prev-name">WhatsApp Copy BR</div><div class="skill-prev-desc">Scripts de venda para WhatsApp no jeito certo do mercado BR.</div><span class="skill-prev-badge">Exclusiva BR</span></div>
+      <div class="skill-prev-card reveal" style="transition-delay:.3s"><div class="skill-prev-icon">⚖️</div><div class="skill-prev-name">Contrato Radar</div><div class="skill-prev-desc">Lê contratos e destaca as cláusulas que podem te prejudicar.</div><span class="skill-prev-badge">Exclusiva BR</span></div>
+      <div class="skill-prev-card reveal" style="transition-delay:.35s"><div class="skill-prev-icon">🏆</div><div class="skill-prev-name">Claude Mastery Coach</div><div class="skill-prev-desc">O Claude vira seu coach de uso do próprio Claude.</div><span class="skill-prev-badge">Exclusiva</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CREDENCIAIS -->
+<section class="credenciais">
+  <div class="cred-inner">
+    <span class="section-tag reveal">Números que importam</span>
+    <h2 class="section-title reveal" style="transition-delay:.1s">Um curso feito com<br><em>obsessão por detalhe.</em></h2>
+    <div class="cred-grid">
+      <div class="cred-card reveal">
+        <div class="cred-num">66</div>
+        <div class="cred-label">Aulas interativas</div>
+        <div class="cred-desc">Cada aula tem quiz de fixação, exemplos copiáveis e botão de marcar como concluída. Não é vídeo passivo — é aprendizado ativo.</div>
+      </div>
+      <div class="cred-card reveal" style="transition-delay:.1s">
+        <div class="cred-num">20</div>
+        <div class="cred-label">Skills prontas para Claude Code</div>
+        <div class="cred-desc">10 das mais virais do mercado traduzidas e adaptadas para o BR + 10 exclusivas criadas para a realidade do negócio brasileiro.</div>
+      </div>
+      <div class="cred-card reveal" style="transition-delay:.2s">
+        <div class="cred-num">∞</div>
+        <div class="cred-label">Acesso vitalício + atualizações</div>
+        <div class="cred-desc">O Claude evolui toda semana. Quando novidades chegam, o curso é atualizado. Você paga uma vez e aprende para sempre.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="precos">
+  <div class="pricing-inner">
+    <div class="pricing-header">
+      <span class="section-tag">Investimento</span>
+      <h2 class="section-title" style="margin-bottom:8px">Escolha seu <em>plano.</em></h2>
+      <p style="color:var(--ink3);font-size:14px;font-weight:300;">Acesso vitalício. Sem mensalidade. Atualizações incluídas.</p>
+    </div>
+    <div class="urgency-bar reveal">
+      <div class="urgency-left">
+        <span class="urgency-fire">🔥</span>
+        <div>
+          <div class="urgency-text">Oferta de lançamento · <span>Preço sobe em breve</span></div>
+          <div class="urgency-sub">Garanta agora o preço de lançamento antes do reajuste</div>
+        </div>
+      </div>
+      <div class="countdown">
+        <div class="cd-block"><span class="cd-num" id="cd-d">00</span><span class="cd-label">dias</span></div>
+        <span class="cd-sep">:</span>
+        <div class="cd-block"><span class="cd-num" id="cd-h">00</span><span class="cd-label">horas</span></div>
+        <span class="cd-sep">:</span>
+        <div class="cd-block"><span class="cd-num" id="cd-m">00</span><span class="cd-label">min</span></div>
+        <span class="cd-sep">:</span>
+        <div class="cd-block"><span class="cd-num" id="cd-s">00</span><span class="cd-label">seg</span></div>
+      </div>
+    </div>
+    <div class="pricing-grid reveal">
+      <div class="plan">
+        <div class="plan-name">Essencial</div>
+        <div class="plan-price">R$197</div>
+        <div class="plan-period">acesso vitalício</div>
+        <div class="plan-features">
+          <div class="plan-feat">Módulos 01 e 02 completos</div>
+          <div class="plan-feat">14 templates prontos para usar</div>
+          <div class="plan-feat">Quizzes e exercícios interativos</div>
+          <div class="plan-feat">Acesso vitalício</div>
+          <div class="plan-feat off">Módulos 03 a 12</div>
+          <div class="plan-feat off">20 Skills prontas</div>
+          <div class="plan-feat off">Certificado de conclusão</div>
+        </div>
+        <a href="https://pay.kiwify.com.br/issoeclaude-essencial" class="plan-btn" target="_blank" rel="noopener" onclick="fbq && fbq('track', 'InitiateCheckout', {value: 197, currency: 'BRL'})">Começar →</a>
+      </div>
+      <div class="plan destaque">
+        <div class="plan-tag">Mais escolhido</div>
+        <div class="plan-name">Completo</div>
+        <div class="plan-price">R$497</div>
+        <div class="plan-period">acesso vitalício</div>
+        <div class="plan-features">
+          <div class="plan-feat">Todos os 12 módulos (66 aulas)</div>
+          <div class="plan-feat">20 Skills prontas para Claude Code</div>
+          <div class="plan-feat">Módulo API + automações</div>
+          <div class="plan-feat">Módulo Claude Code completo</div>
+          <div class="plan-feat">Módulo Cowork & Agents</div>
+          <div class="plan-feat">Certificado digital de conclusão</div>
+          <div class="plan-feat">Atualizações vitalícias</div>
+        </div>
+        <a href="https://pay.kiwify.com.br/issoeclaude-completo" class="plan-btn" target="_blank" rel="noopener" onclick="fbq && fbq('track', 'InitiateCheckout', {value: 497, currency: 'BRL'})">Quero o Completo →</a>
+      </div>
+      <div class="plan">
+        <div class="plan-name">Pro + Mentoria</div>
+        <div class="plan-price">R$997</div>
+        <div class="plan-period">acesso vitalício</div>
+        <div class="plan-features">
+          <div class="plan-feat">Tudo do plano Completo</div>
+          <div class="plan-feat">4 sessões ao vivo por mês</div>
+          <div class="plan-feat">Grupo exclusivo no WhatsApp</div>
+          <div class="plan-feat">Revisão do seu projeto real</div>
+          <div class="plan-feat">Templates premium exclusivos</div>
+          <div class="plan-feat">Suporte prioritário</div>
+          <div class="plan-feat">Certificado com assinatura</div>
+        </div>
+        <a href="https://pay.kiwify.com.br/issoeclaude-pro" class="plan-btn" target="_blank" rel="noopener" onclick="fbq && fbq('track', 'InitiateCheckout', {value: 997, currency: 'BRL'})">Quero o Pro →</a>
+      </div>
+    </div>
+
+    <!-- Plano Líderes -->
+    <div class="plan-lideres reveal" style="transition-delay:.15s">
+      <div>
+        <div class="pl-badge"><span class="pl-badge-text">✦ Para C-Level, Diretores e Gestores</span></div>
+        <div class="pl-title">Claude para<br><em>Líderes</em></div>
+        <div class="pl-sub">Não é sobre usar IA. É sobre liderar equipes que usam IA. Estratégia, ROI e vantagem competitiva real — sem precisar escrever código.</div>
+        <div class="pl-price">R$1.997</div>
+        <div class="pl-period">acesso vitalício · ou 12x R$197 · Nota fiscal</div>
+        <a href="https://pay.kiwify.com.br/issoeclaude-lideres" class="pl-btn" target="_blank" rel="noopener" onclick="fbq && fbq('track', 'InitiateCheckout', {value: 1997, currency: 'BRL'})">Quero o plano Líderes →</a>
+      </div>
+      <div class="pl-feats">
+        <div class="pl-feat pl-feat-gold">
+          <span class="pl-feat-icon">🏆</span>
+          <div><div class="pl-feat-title">Tudo do plano Pro + Mentoria</div><div class="pl-feat-desc">66 aulas, certificado, sessões ao vivo incluídos.</div></div>
+        </div>
+        <div class="pl-feat">
+          <span class="pl-feat-icon">📊</span>
+          <div><div class="pl-feat-title">Workshop individual de 2h</div><div class="pl-feat-desc">Mapear onde o Claude gera mais impacto na sua operação.</div></div>
+        </div>
+        <div class="pl-feat">
+          <span class="pl-feat-icon">👥</span>
+          <div><div class="pl-feat-title">Plano de adoção para sua equipe</div><div class="pl-feat-desc">Roteiro completo para treinar e implementar IA com seu time.</div></div>
+        </div>
+        <div class="pl-feat">
+          <span class="pl-feat-icon">📞</span>
+          <div><div class="pl-feat-title">3 consultorias individuais de 45min</div><div class="pl-feat-desc">Para decisões estratégicas específicas do seu contexto.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GARANTIA -->
+<section class="garantia">
+  <div class="garantia-inner">
+    <div class="garantia-icon">🛡️</div>
+    <h2 class="garantia-title reveal">Garantia de <em>7 dias.</em></h2>
+    <p class="garantia-text reveal" style="transition-delay:.1s">Acesse o curso, estude as primeiras aulas, e se não for o que você esperava — devolvo 100% do valor sem perguntas. Sem burocracia. Sem prazo escondido.</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="faq-inner">
+    <span class="section-tag reveal">Dúvidas</span>
+    <h2 class="section-title reveal" style="transition-delay:.1s">FAQ</h2>
+    <div class="faq-list reveal" style="transition-delay:.15s">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Por que pagar se a Anthropic tem cursos gratuitos?<span class="faq-icon">+</span></div>
+        <div class="faq-a">Os cursos gratuitos da Anthropic são em inglês, voltados para contexto americano e sem casos práticos de negócio brasileiro. "Isso é Claude" está em português, com templates para Pix, WhatsApp, Hotmart, notas fiscais e a realidade do mercado BR. E vai muito além — módulos de monetização, Líderes, 20 Skills prontas e roteiro de carreira que não existem na Academy.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Preciso saber programar?<span class="faq-icon">+</span></div>
+        <div class="faq-a">Não para os módulos 01 a 05. Os módulos 06 (API) e 07 (Claude Code) têm código, mas cada linha é explicada — você vai entender o que está fazendo, não só copiar. O módulo 08 tem abordagem no-code também.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">O acesso expira?<span class="faq-icon">+</span></div>
+        <div class="faq-a">Nunca. É vitalício. E quando o Claude for atualizado com novas features relevantes, o curso é atualizado também — sem custo adicional. Você paga uma vez.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">O plano Líderes é para quem exatamente?<span class="faq-icon">+</span></div>
+        <div class="faq-a">Para CEOs, diretores, gerentes sênior e qualquer pessoa que precisa não só usar o Claude, mas implementar e liderar a adoção de IA em times. O foco é estratégia, gestão de mudança e ROI — não código. Você sai com um plano concreto para o seu negócio.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Emite nota fiscal?<span class="faq-icon">+</span></div>
+        <div class="faq-a">Sim, disponível para pessoa física e jurídica. Envie sua solicitação após a compra e emitimos em até 24h.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">As Skills do Módulo 12 funcionam com qualquer plano do Claude?<span class="faq-icon">+</span></div>
+        <div class="faq-a">As Skills funcionam com o Claude Code, que requer um plano pago da Anthropic (Pro, Max ou Team). O conteúdo dos módulos 01 a 11 funciona com qualquer plano, inclusive o gratuito.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">R$497 não é caro para um curso?<span class="faq-icon">+</span></div>
+        <div class="faq-a">Depende de como você calcula. Se o curso te economizar 1 hora por semana — o que a maioria dos alunos relata na primeira semana — e o seu tempo vale R$50/hora, você recupera o investimento em menos de 2 meses. Em 1 ano, são R$2.600 em valor gerado com um pagamento único de R$497.
+          <div class="faq-roi-badge">⚡ <strong>ROI calculado:</strong> &nbsp;1h/semana × R$50/h × 52 semanas = R$2.600/ano. Curso = R$497 (único pagamento) = <strong>retorno de 5,2x no primeiro ano.</strong></div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">O conteúdo fica desatualizado com a velocidade que a IA evolui?<span class="faq-icon">+</span></div>
+        <div class="faq-a">Boa pergunta — e a resposta é o nosso maior diferencial. O acesso é vitalício e o curso é atualizado quando features relevantes chegam ao Claude. Você paga uma vez e acessa as atualizações para sempre. Os fundamentos — prompts, contexto, raciocínio, automação — não mudam. O que muda são as ferramentas, e essas você acompanha com a gente.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final">
+  <div class="cta-final-inner">
+    <h2 class="cta-final-title reveal">A IA não vai<br>substituir você.<br><em>Vai substituir<br>quem não sabe usá-la.</em></h2>
+    <p class="cta-final-sub reveal" style="transition-delay:.1s">Você pode continuar usando o Claude da forma básica. Ou pode aprender a usá-lo do jeito certo — e sair na frente dos 99% que ainda não sabem o que ele é capaz.</p>
+    <div class="cta-final-actions reveal" style="transition-delay:.2s">
+      <a href="#precos" class="btn-primary">Quero o curso agora →</a>
+      <a href="#modulos" class="btn-ghost">Ver todos os módulos</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">Isso é Claude · 2026 · Acesso Vitalício</div>
+  <div class="footer-note">Não afiliado à Anthropic. Conteúdo educacional independente.</div>
+  <div class="footer-links">
+    <a href="#">Termos</a>
+    <a href="#">Privacidade</a>
+    <a href="#">Contato</a>
+  </div>
+</footer>
 
 <script>
-// ── DADOS ──────────────────────────────────────────
-const MODULES = [
-  { num:'01', title:'Como o Claude Pensa',         desc:'LLMs, janela de contexto, Claude vs GPT, planos Free/Pro/Team e ferramentas nativas.', file:'modulo-01-como-claude-pensa.html',          aulas:6,  dur:'~90min', tags:['Fundamentos','Contexto','Planos'],            badges:[] },
-  { num:'02', title:'A Arte do Prompt',            desc:'Zero-shot, few-shot, CoT, XML tags, controle de formato, personas e iteração.',        file:'modulo-02-arte-do-prompt.html',             aulas:7,  dur:'~2h',    tags:['Prompts','Técnica','XML'],                    badges:[] },
-  { num:'03', title:'Casos de Uso Profissionais', desc:'14 templates prontos: escrita, contratos, marketing, finanças e Artifacts.',           file:'modulo-03-casos-uso-profissionais.html',    aulas:7,  dur:'~2h30',  tags:['Templates','Negócios','14 prompts'],          badges:[] },
-  { num:'04', title:'Projects & Memory',           desc:'System prompts, documentos base e memória persistente. O Claude como assistente permanente.', file:'modulo-04-projects-memory.html',     aulas:5,  dur:'~1h30',  tags:['Projects','Memory','System prompt'],          badges:[] },
-  { num:'05', title:'Extended Thinking',           desc:'O modo de raciocínio profundo do Claude. Quando usar e como conduzir análises complexas.', file:'modulo-05-extended-thinking.html',      aulas:5,  dur:'~1h30',  tags:['Avançado','Estratégia','Raciocínio'],         badges:[] },
-  { num:'06', title:'API & Automações',            desc:'Primeira chamada de API, Make.com, n8n, Google Sheets com =CLAUDE() e streaming.',     file:'modulo-06-api-automacoes.html',             aulas:6,  dur:'~2h',    tags:['API','Automação','Código'],                   badges:[] },
-  { num:'07', title:'Claude Code',                 desc:'Instalação, modo agentic, CLAUDE.md, MCP e sessão completa de desenvolvimento real.',  file:'modulo-07-claude-code.html',                aulas:7,  dur:'~2h30',  tags:['Claude Code','Terminal','Agentic'],           badges:[] },
-  { num:'08', title:'Construindo Produtos',        desc:'Arquitetura de LLM apps, RAG básico, monetização e go-to-market para produtos com IA.', file:'modulo-08-construindo-produtos.html',     aulas:5,  dur:'~2h',    tags:['Produto','RAG','Go-to-market'],               badges:[] },
-  { num:'09', title:'Academy Anthropic',           desc:'Conteúdo oficial da Anthropic: prompt engineering, segurança, uso responsável e certificação.', file:'modulo-09-academy-anthropic.html', aulas:5,  dur:'~2h',    tags:['Oficial','Anthropic','Certificação'],         badges:[] },
-  { num:'10', title:'Claude para Líderes',         desc:'IA na estratégia empresarial, adoção por equipes, ROI e cultura de IA na organização.', file:'modulo-10-claude-para-lideres.html',      aulas:6,  dur:'~2h',    tags:['Liderança','Estratégia','Equipes'],           badges:[] },
-  { num:'11', title:'Cowork & Agents',             desc:'Claude como agente autônomo, Cowork, MCP, workflows multi-etapas e delegação real.',   file:'modulo-11-cowork-agents.html',              aulas:6,  dur:'~2h',    tags:['Agentes','Cowork','MCP'],                     badges:[] },
-  { num:'12', title:'20 Skills Prontas',           desc:'10 Skills virais do mercado + 10 exclusivas Isso é Claude. SKILL.md pronto para copiar.', file:'modulo-12-20-skills-prontas.html',      aulas:3,  dur:'~1h30',  tags:['Skills','Claude Code','Bônus'],               badges:['bonus'] },
-  { num:'E',  title:'Claude no Comando',           desc:'Os 10 erros que custam mais, 12 recursos que 95% nunca usou, mitos que travam e os 10 prompts que mudam tudo.', file:'modulo-especial-claude-no-comando.html', aulas:6, dur:'~2h', tags:['Especial','Claude Fala','Exclusivo'], badges:['exclusivo'] },
-  { num:'X',  title:'Códigos, Mitos e Técnicas',  desc:'Veredito dos "códigos secretos" virais, RTK real, OODA aprofundado e 10 técnicas avançadas.', file:'modulo-extra-verdade-codigos.html', aulas:5, dur:'~1h45',   tags:['Extra','Desmistificação','Avançado'],         badges:['bonus'] },
-];
+// CURSOR
+const cursor = document.getElementById('cursor');
+document.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+});
+document.querySelectorAll('a, button').forEach(el => {
+  el.addEventListener('mouseenter', () => cursor.classList.add('big'));
+  el.addEventListener('mouseleave', () => cursor.classList.remove('big'));
+});
 
-const BADGE_LABELS = {
-  bonus:     { label:'Bônus',     cls:'mb-bonus' },
-  exclusivo: { label:'Exclusivo', cls:'mb-exclusivo' },
-  new:       { label:'Novo',      cls:'mb-new' },
-  free:      { label:'Gratuito',  cls:'mb-free' },
-};
+// SCROLL REVEAL
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-// ── PROGRESSO ──────────────────────────────────────
-const STORAGE_KEY = 'cm_progress_v2';
 
-function getProgress() {
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
-  catch(e) { return {}; }
-}
+// CONTADOR REGRESSIVO — define data alvo aqui
+function startCountdown() {
+  // Data de fim da oferta — altere conforme necessário
+  const targetDate = new Date();
+  targetDate.setDate(targetDate.getDate() + 7); // 7 dias a partir de hoje
+  targetDate.setHours(23, 59, 59, 0);
 
-function getGlobalPct() {
-  const p = getProgress();
-  const total = MODULES.length;
-  const done = MODULES.filter(m => {
-    const mp = p[m.num] || p['especial'] || {};
-    return mp.done || (mp.done === true);
-  }).length;
-  return Math.round(done / total * 100);
-}
+  // Persistir no localStorage para não resetar no reload
+  const stored = localStorage.getItem('cd_target');
+  const target = stored ? new Date(stored) : targetDate;
+  if (!stored) localStorage.setItem('cd_target', target.toISOString());
 
-function resetProgress() {
-  if (confirm('Resetar todo o progresso?')) {
-    localStorage.removeItem(STORAGE_KEY);
-    renderAll();
+  function update() {
+    const now = new Date();
+    const diff = target - now;
+    if (diff <= 0) {
+      ['cd-d','cd-h','cd-m','cd-s'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = '00';
+      });
+      return;
+    }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    const fmt = n => String(n).padStart(2, '0');
+    const dEl = document.getElementById('cd-d');
+    const hEl = document.getElementById('cd-h');
+    const mEl = document.getElementById('cd-m');
+    const sEl = document.getElementById('cd-s');
+    if (dEl) dEl.textContent = fmt(d);
+    if (hEl) hEl.textContent = fmt(h);
+    if (mEl) mEl.textContent = fmt(m);
+    if (sEl) sEl.textContent = fmt(s);
   }
+  update();
+  setInterval(update, 1000);
 }
+startCountdown();
 
-// ── RENDER MÓDULOS ─────────────────────────────────
-function renderModules() {
-  const grid = document.getElementById('modulesGrid');
-  const p = getProgress();
-  let doneCount = 0;
-
-  grid.innerHTML = MODULES.map(m => {
-    const key = m.num === 'E' ? 'especial' : m.num === 'X' ? 'extra' : m.num;
-    const mp  = p[key] || p[m.num] || {};
-    const isDone = mp.done === true;
-    const pct  = isDone ? 100 : (mp.pct || 0);
-    if (isDone) doneCount++;
-
-    const badgesHTML = m.badges.map(b => {
-      const bd = BADGE_LABELS[b];
-      return `<span class="mod-badge ${bd.cls}">${bd.label}</span>`;
-    }).join('');
-
-    const tagsHTML = m.tags.map(t => `<span class="mod-tag">${t}</span>`).join('');
-    const btnLabel = isDone ? '✓ Concluído' : (pct > 0 ? 'Continuar →' : 'Começar →');
-
-    // Cor especial para módulos E e X
-    const topStyle = m.num === 'E'
-      ? 'background:linear-gradient(135deg,#110030,#1a0050);'
-      : m.num === 'X'
-      ? 'background:linear-gradient(135deg,#1a0000,#200505);'
-      : '';
-
-    return `
-<a href="${m.file}" class="mod-card${isDone ? ' completed' : ''}">
-  <div class="mod-card-top" style="${topStyle}">
-    <span class="mod-num-badge">${m.num === 'E' ? 'ESPECIAL' : m.num === 'X' ? 'EXTRA' : 'Módulo ' + m.num}</span>
-    <div class="mod-badges-wrap">${badgesHTML}</div>
-  </div>
-  <div class="mod-card-body">
-    <div class="mod-title">${m.title}</div>
-    <div class="mod-desc">${m.desc}</div>
-    <div class="mod-tags">${tagsHTML}</div>
-  </div>
-  <div class="mod-card-footer">
-    <div class="mod-meta">
-      <span>${m.aulas} aulas</span>
-      <span class="mod-sep">·</span>
-      <span>${m.dur}</span>
-    </div>
-    <div class="mod-prog-wrap">
-      <div class="mod-prog-bar">
-        <div class="mod-prog-fill" style="width:${pct}%"></div>
-      </div>
-      <span class="mod-prog-pct">${pct}%</span>
-    </div>
-    <span class="mod-btn">${btnLabel} →</span>
-  </div>
-</a>`;
-  }).join('');
-
-  // Atualizar meta
-  document.getElementById('secMeta').textContent =
-    `${MODULES.length} módulos · ${doneCount} concluídos`;
+// TRACKING — evento de visualização da página de pricing
+function trackPricingView() {
+  const pricingSection = document.getElementById('precos');
+  if (!pricingSection) return;
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        if (typeof fbq !== 'undefined') fbq('track', 'ViewContent', {content_name: 'Pricing'});
+        if (typeof gtag !== 'undefined') gtag('event', 'view_item', {item_name: 'Pricing'});
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  observer.observe(pricingSection);
 }
+trackPricingView();
 
-// ── RENDER PROGRESSO GLOBAL ────────────────────────
-function renderProgress() {
-  const pct = getGlobalPct();
-  document.getElementById('globalBar').style.width = pct + '%';
-  document.getElementById('globalPct').textContent = pct + '%';
-  document.getElementById('donutPct').textContent = pct + '%';
-
-  // Donut
-  const circumference = 276.5;
-  const offset = circumference - (pct / 100) * circumference;
-  const circle = document.getElementById('donutCircle');
-  if (circle) circle.style.strokeDashoffset = offset;
+// FAQ
+function toggleFaq(el) {
+  el.parentElement.classList.toggle('open');
 }
-
-function renderAll() {
-  renderModules();
-  renderProgress();
-}
-
-// ── INIT ───────────────────────────────────────────
-renderAll();
 </script>
-
 </body>
 </html>
