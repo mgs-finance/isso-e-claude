@@ -3,207 +3,511 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Isso é Claude — Área do Aluno</title>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<title>Área do Aluno — Isso é Claude</title>
 <style>
-:root{
-  --bg:#ffffff;--bg2:#f5f5f5;--bg3:#fafafa;
-  --ink:#111111;--ink2:#333333;--ink3:#666666;--ink4:#999999;
-  --accent:#ff5c00;--accent2:#e04f00;
-  --accent-light:rgba(255,92,0,0.07);--accent-mid:rgba(255,92,0,0.18);
-  --green:#16a34a;--green-bg:rgba(22,163,74,0.07);
-  --blue:#2563eb;--gold:#d97706;
-  --border:#e5e5e5;--border2:#d4d4d4;
-  --shadow:0 1px 4px rgba(0,0,0,0.06);
-  --shadow-md:0 4px 20px rgba(0,0,0,0.08);
-  --shadow-lg:0 8px 40px rgba(0,0,0,0.12);
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+:root {
+  --bg: #f5f5f3;
+  --bg2: #ffffff;
+  --ink: #111111;
+  --ink2: #333333;
+  --ink3: #666666;
+  --ink4: #999999;
+  --accent: #ff5c00;
+  --accent2: #e04f00;
+  --accent-light: rgba(255,92,0,0.07);
+  --accent-mid: rgba(255,92,0,0.15);
+  --green: #16a34a;
+  --green-bg: rgba(22,163,74,0.08);
+  --gold: #d97706;
+  --gold-bg: rgba(217,119,6,0.08);
+  --purple: #7c3aed;
+  --purple-bg: rgba(124,58,237,0.08);
+  --border: #e5e5e5;
+  --border2: #d4d4d4;
+  --shadow: 0 1px 4px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.10);
 }
-*{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;}
-body{background:var(--bg);color:var(--ink);font-family:'Sora',sans-serif;line-height:1.6;min-height:100vh;}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Sora', -apple-system, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
 
 /* ── TOPBAR ── */
-.topbar{
-  background:#111;
-  padding:0 5vw;
-  height:56px;
-  display:flex;align-items:center;justify-content:space-between;
-  position:sticky;top:0;z-index:100;
+.topbar {
+  background: #111;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
-.topbar-brand{display:flex;align-items:center;gap:12px;}
-.topbar-dot{width:8px;height:8px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite;}
-@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
-.topbar-name{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:#fff;letter-spacing:.5px;}
-.topbar-right{display:flex;align-items:center;gap:20px;}
-.progress-global{display:flex;align-items:center;gap:10px;}
-.prog-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,.4);letter-spacing:1px;}
-.prog-track{width:120px;height:3px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden;}
-.prog-fill{height:100%;background:var(--accent);border-radius:2px;transition:width .5s ease;}
-.prog-pct{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);font-weight:600;min-width:32px;}
-.topbar-reset{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,.25);background:none;border:none;cursor:pointer;letter-spacing:.5px;padding:4px 8px;border-radius:4px;transition:color .15s;}
-.topbar-reset:hover{color:rgba(255,255,255,.5);}
+.topbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.topbar-dot {
+  width: 8px; height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+.topbar-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.prog-global {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.prog-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.prog-track {
+  width: 120px;
+  height: 3px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.prog-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: width .5s ease;
+}
+.prog-pct {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--accent);
+  font-weight: 600;
+  min-width: 30px;
+}
+.topbar-reset {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: rgba(255,255,255,0.25);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: color .15s;
+  letter-spacing: 1px;
+}
+.topbar-reset:hover { color: rgba(255,255,255,0.6); }
 
 /* ── HERO ── */
-.hero{padding:56px 5vw 48px;border-bottom:1px solid var(--border);background:var(--bg);}
-.hero-inner{max-width:1100px;margin:0 auto;display:flex;align-items:flex-start;justify-content:space-between;gap:48px;flex-wrap:wrap;}
-.hero-left{}
-.hero-tag{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:14px;display:block;}
-.hero-title{font-family:'Lora',serif;font-size:clamp(32px,4vw,52px);font-weight:700;color:var(--ink);line-height:1.1;margin-bottom:14px;letter-spacing:-1px;}
-.hero-title em{color:var(--accent);font-style:italic;}
-.hero-sub{font-size:16px;color:var(--ink3);font-weight:300;line-height:1.8;max-width:520px;margin-bottom:28px;}
-.hero-stats{display:flex;gap:32px;flex-wrap:wrap;}
-.hero-stat{}
-.hero-stat-val{font-family:'Lora',serif;font-size:36px;font-weight:700;color:var(--ink);display:block;line-height:1;}
-.hero-stat-label{font-size:12px;color:var(--ink4);font-family:'JetBrains Mono',monospace;letter-spacing:1px;margin-top:4px;}
-/* Progress card no hero */
-.hero-progress{background:var(--bg3);border:1px solid var(--border);border-radius:16px;padding:28px;min-width:280px;flex-shrink:0;}
-.hp-title{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ink4);margin-bottom:16px;}
-.hp-donut{position:relative;width:100px;height:100px;margin:0 auto 20px;}
-.hp-donut svg{transform:rotate(-90deg);}
-.hp-donut-txt{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-.hp-pct{font-family:'Lora',serif;font-size:26px;font-weight:700;color:var(--ink);line-height:1;}
-.hp-sub{font-size:10px;color:var(--ink4);font-family:'JetBrains Mono',monospace;}
-.hp-list{display:flex;flex-direction:column;gap:6px;}
-.hp-item{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink3);}
-.hp-item-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
-.hp-item-dot.done{background:var(--green);}
-.hp-item-dot.pend{background:var(--border2);}
-.hp-item.done-item{color:var(--green);}
-
-/* ── MAIN GRID ── */
-.main{padding:48px 5vw 80px;max-width:1100px;margin:0 auto;}
-
-/* SEÇÃO de módulos */
-.section-header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--border);}
-.section-title{font-family:'Lora',serif;font-size:20px;font-weight:600;color:var(--ink);}
-.section-meta{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink4);letter-spacing:1px;}
-
-/* MÓDULO CARD — o coração da UI */
-.modules-list{display:flex;flex-direction:column;gap:12px;margin-bottom:48px;}
-
-.mod-card{
-  background:#fff;
-  border:1px solid var(--border);
-  border-radius:12px;
-  display:grid;
-  grid-template-columns:64px 1fr auto;
-  align-items:center;
-  gap:0;
-  overflow:hidden;
-  transition:all .2s;
-  cursor:pointer;
-  text-decoration:none;
+.hero {
+  background: #111;
+  padding: 48px 40px 56px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
 }
-.mod-card:hover{border-color:var(--accent);box-shadow:var(--shadow-md);transform:translateY(-1px);}
-.mod-card.completed{border-color:var(--green);background:#fff;}
-.mod-card.locked{opacity:.5;cursor:not-allowed;pointer-events:none;}
-
-/* Coluna esquerda — número */
-.mod-num-col{
-  display:flex;align-items:center;justify-content:center;
-  height:100%;
-  background:var(--bg3);
-  border-right:1px solid var(--border);
-  padding:20px 0;
-  flex-direction:column;gap:4px;
+.hero-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 48px;
+  align-items: center;
 }
-.mod-num{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;color:var(--accent);}
-.mod-check{font-size:16px;color:var(--green);display:none;}
-.mod-card.completed .mod-num{display:none;}
-.mod-card.completed .mod-check{display:block;}
-
-/* Coluna central — info */
-.mod-info{padding:18px 22px;}
-.mod-badges{display:flex;gap:6px;margin-bottom:6px;flex-wrap:wrap;}
-.mod-badge{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:1px;padding:2px 8px;border-radius:10px;font-weight:600;text-transform:uppercase;}
-.mb-new{background:rgba(255,92,0,0.1);color:var(--accent);border:1px solid var(--accent-mid);}
-.mb-bonus{background:rgba(217,119,6,0.1);color:var(--gold);}
-.mb-exclusivo{background:rgba(37,99,235,0.08);color:var(--blue);}
-.mb-free{background:rgba(22,163,74,0.08);color:var(--green);}
-.mod-title{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:5px;}
-.mod-desc{font-size:13px;color:var(--ink3);font-weight:300;line-height:1.5;}
-.mod-tags{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;}
-.mod-tag{font-size:11px;color:var(--ink4);}
-.mod-tag::before{content:'·';margin-right:4px;}
-.mod-tag:first-child::before{content:'';}
-
-/* Coluna direita — ação */
-.mod-action{padding:18px 22px;display:flex;flex-direction:column;align-items:flex-end;gap:8px;border-left:1px solid var(--border);min-width:140px;}
-.mod-aulas{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink4);}
-.mod-dur{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink4);}
-.mod-btn{
-  padding:8px 18px;
-  background:var(--accent);
-  color:#fff;
-  border-radius:6px;
-  font-family:'JetBrains Mono',monospace;
-  font-size:10px;
-  letter-spacing:1px;
-  text-transform:uppercase;
-  font-weight:700;
-  text-decoration:none;
-  transition:all .15s;
-  display:inline-flex;align-items:center;gap:6px;
-  white-space:nowrap;
+.hero-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--accent);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 16px;
 }
-.mod-btn:hover{background:var(--accent2);}
-.mod-card.completed .mod-btn{background:var(--green);}
-.mod-mini-prog{width:100%;height:3px;background:var(--border);border-radius:2px;overflow:hidden;}
-.mod-mini-fill{height:100%;background:var(--accent);border-radius:2px;transition:width .5s;}
-.mod-card.completed .mod-mini-fill{background:var(--green);width:100%!important;}
-
-/* TRILHAS */
-.trilhas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:48px;}
-.trilha-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:22px;transition:all .2s;}
-.trilha-card:hover{border-color:var(--accent);box-shadow:var(--shadow-md);}
-.trilha-icon{font-size:28px;margin-bottom:12px;}
-.trilha-title{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:6px;}
-.trilha-desc{font-size:12px;color:var(--ink3);font-weight:300;line-height:1.6;margin-bottom:14px;}
-.trilha-mods{display:flex;flex-direction:column;gap:4px;}
-.trilha-mod{font-size:12px;color:var(--ink4);display:flex;align-items:center;gap:6px;}
-.trilha-mod::before{content:'→';color:var(--accent);font-size:10px;}
-.trilha-btn{margin-top:16px;padding:8px 16px;border:1px solid var(--border2);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;background:transparent;color:var(--ink3);transition:all .15s;width:100%;}
-.trilha-btn:hover{border-color:var(--accent);color:var(--accent);}
-
-/* RECURSOS */
-.recursos-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:48px;}
-.recurso-card{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:18px;text-align:center;}
-.recurso-icon{font-size:24px;margin-bottom:8px;}
-.recurso-title{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:4px;}
-.recurso-desc{font-size:11px;color:var(--ink4);font-weight:300;}
-
-/* BÔNUS */
-.bonus-banner{background:var(--ink);border-radius:12px;padding:28px 32px;display:flex;align-items:center;gap:28px;margin-bottom:48px;}
-.bonus-icon{font-size:40px;flex-shrink:0;}
-.bonus-info{flex:1;}
-.bonus-tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:6px;display:block;}
-.bonus-title{font-family:'Lora',serif;font-size:20px;font-weight:600;color:#fff;margin-bottom:6px;}
-.bonus-desc{font-size:13px;color:rgba(255,255,255,.5);font-weight:300;}
-.bonus-btn{padding:12px 24px;background:var(--accent);color:#fff;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:700;text-decoration:none;white-space:nowrap;flex-shrink:0;transition:background .15s;}
-.bonus-btn:hover{background:var(--accent2);}
-
-/* FOOTER */
-.footer{border-top:1px solid var(--border);padding:28px 5vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
-.footer-brand{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink4);}
-.footer-links{display:flex;gap:20px;}
-.footer-links a{font-size:12px;color:var(--ink4);text-decoration:none;transition:color .15s;}
-.footer-links a:hover{color:var(--accent);}
-.footer-suporte{font-size:12px;color:var(--ink4);}
-
-/* MOBILE */
-@media(max-width:768px){
-  .hero-inner{flex-direction:column;}
-  .hero-progress{width:100%;}
-  .mod-card{grid-template-columns:52px 1fr;}
-  .mod-action{display:none;}
-  .trilhas-grid{grid-template-columns:1fr;}
-  .recursos-grid{grid-template-columns:repeat(2,1fr);}
-  .bonus-banner{flex-direction:column;text-align:center;}
-  .topbar-reset{display:none;}
+.hero-title {
+  font-family: 'Lora', serif;
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 14px;
+  letter-spacing: -0.5px;
 }
-@media(max-width:480px){
-  .hero-stats{gap:20px;}
-  .recursos-grid{grid-template-columns:1fr 1fr;}
+.hero-title em { color: var(--accent); font-style: italic; }
+.hero-sub {
+  font-size: 15px;
+  color: rgba(255,255,255,0.45);
+  font-weight: 300;
+  line-height: 1.75;
+  max-width: 520px;
+  margin-bottom: 28px;
+}
+.hero-stats {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.hero-stat-val {
+  font-family: 'Lora', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #fff;
+  display: block;
+  line-height: 1;
+}
+.hero-stat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-top: 4px;
+  display: block;
+}
+
+/* Donut de progresso */
+.hp-donut-wrap {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 28px 32px;
+  text-align: center;
+  min-width: 180px;
+}
+.hp-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.3);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.hp-donut {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+.hp-donut-txt {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  text-align: center;
+}
+.hp-pct {
+  font-family: 'Lora', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+  display: block;
+}
+.hp-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 1px;
+  display: block;
+}
+
+/* ── MAIN CONTENT ── */
+.main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 48px 40px 80px;
+}
+
+/* ── SECTION HEADER ── */
+.sec-header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--border);
+}
+.sec-title {
+  font-family: 'Lora', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.3px;
+}
+.sec-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--ink4);
+  letter-spacing: 1px;
+}
+
+/* ── GRADE DE MÓDULOS ── */
+.modules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+  margin-bottom: 56px;
+}
+
+/* ── CARD DE MÓDULO ── */
+.mod-card {
+  background: var(--bg2);
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  padding: 0;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  transition: all .18s ease;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+}
+.mod-card:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+.mod-card.completed {
+  border-color: var(--green);
+}
+.mod-card.completed .mod-card-top {
+  background: linear-gradient(135deg, #001a0a, #001510);
+}
+
+/* Topo colorido do card */
+.mod-card-top {
+  background: linear-gradient(135deg, #111, #1a0a00);
+  padding: 20px 22px 16px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.mod-num-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent);
+  background: rgba(255,92,0,0.12);
+  border: 1px solid rgba(255,92,0,0.2);
+  border-radius: 6px;
+  padding: 4px 10px;
+  letter-spacing: 1px;
+  flex-shrink: 0;
+}
+.mod-card.completed .mod-num-badge {
+  color: var(--green);
+  background: rgba(22,163,74,0.12);
+  border-color: rgba(22,163,74,0.2);
+}
+.mod-badges-wrap {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.mod-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+  padding: 3px 9px;
+  border-radius: 100px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.mb-bonus   { background: rgba(217,119,6,0.15);  color: #d97706; border: 1px solid rgba(217,119,6,0.2); }
+.mb-exclusivo { background: rgba(124,58,237,0.15); color: #7c3aed; border: 1px solid rgba(124,58,237,0.2); }
+.mb-new     { background: rgba(37,99,235,0.15);  color: #2563eb; border: 1px solid rgba(37,99,235,0.2); }
+.mb-free    { background: rgba(22,163,74,0.15);  color: #16a34a; border: 1px solid rgba(22,163,74,0.2); }
+
+/* Corpo do card */
+.mod-card-body {
+  padding: 18px 22px 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.mod-title {
+  font-family: 'Lora', serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.25;
+  letter-spacing: -0.2px;
+}
+.mod-desc {
+  font-size: 13px;
+  color: var(--ink3);
+  line-height: 1.65;
+  font-weight: 300;
+  flex: 1;
+}
+.mod-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 2px;
+}
+.mod-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: var(--ink4);
+  background: var(--bg);
+  border: 1px solid var(--border2);
+  padding: 2px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+/* Rodapé do card */
+.mod-card-footer {
+  border-top: 1px solid var(--border);
+  padding: 12px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.mod-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--ink4);
+  letter-spacing: 0.5px;
+}
+.mod-sep { color: var(--border2); }
+
+/* Barra de progresso mini */
+.mod-prog-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.mod-prog-bar {
+  width: 60px;
+  height: 3px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.mod-prog-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: width .4s ease;
+}
+.mod-card.completed .mod-prog-fill { background: var(--green); }
+.mod-prog-pct {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--ink4);
+  min-width: 28px;
+}
+
+/* Botão do card */
+.mod-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: gap .15s;
+}
+.mod-card:hover .mod-btn { gap: 8px; }
+.mod-card.completed .mod-btn { color: var(--green); }
+
+/* ── TRILHAS ── */
+.trilhas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
+  margin-bottom: 56px;
+}
+.trilha-card {
+  background: var(--bg2);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 22px;
+  transition: all .18s;
+}
+.trilha-card:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
+}
+.trilha-icon { font-size: 28px; margin-bottom: 10px; }
+.trilha-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.trilha-desc {
+  font-size: 12.5px;
+  color: var(--ink3);
+  line-height: 1.6;
+  font-weight: 300;
+  margin-bottom: 14px;
+}
+.trilha-mods {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.trilha-mod {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--accent-light);
+  color: var(--accent);
+  border: 1px solid var(--accent-mid);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background .15s;
+}
+.trilha-mod:hover { background: var(--accent-mid); }
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+  .topbar { padding: 0 20px; }
+  .prog-track { width: 80px; }
+  .hero { padding: 32px 20px 40px; }
+  .hero-inner { grid-template-columns: 1fr; gap: 28px; }
+  .hp-donut-wrap { display: none; }
+  .main { padding: 32px 20px 60px; }
+  .modules-grid { grid-template-columns: 1fr; }
+  .trilhas-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -216,7 +520,7 @@ body{background:var(--bg);color:var(--ink);font-family:'Sora',sans-serif;line-he
     <span class="topbar-name">Isso é Claude</span>
   </div>
   <div class="topbar-right">
-    <div class="progress-global">
+    <div class="prog-global">
       <span class="prog-label">Progresso</span>
       <div class="prog-track"><div class="prog-fill" id="globalBar" style="width:0%"></div></div>
       <span class="prog-pct" id="globalPct">0%</span>
@@ -229,32 +533,42 @@ body{background:var(--bg);color:var(--ink);font-family:'Sora',sans-serif;line-he
 <section class="hero">
   <div class="hero-inner">
     <div class="hero-left">
-      <span class="hero-tag">Área do Aluno</span>
+      <span class="hero-tag">✦ Área do Aluno</span>
       <h1 class="hero-title">Bem-vindo ao<br><em>Isso é Claude</em></h1>
-      <p class="hero-sub">O programa mais completo de Claude em português. 12 módulos, 66 aulas, 20 Skills prontas. Da arte do prompt à construção de produtos com IA.</p>
+      <p class="hero-sub">O programa mais completo de Claude em português. 14 módulos, 70+ aulas, 20 Skills prontas. Da arte do prompt à construção de produtos com IA.</p>
       <div class="hero-stats">
-        <div class="hero-stat"><span class="hero-stat-val">12</span><span class="hero-stat-label">Módulos</span></div>
-        <div class="hero-stat"><span class="hero-stat-val">66</span><span class="hero-stat-label">Aulas</span></div>
-        <div class="hero-stat"><span class="hero-stat-val">20</span><span class="hero-stat-label">Skills prontas</span></div>
-        <div class="hero-stat"><span class="hero-stat-val">12h+</span><span class="hero-stat-label">Conteúdo</span></div>
+        <div class="hero-stat">
+          <span class="hero-stat-val">14</span>
+          <span class="hero-stat-label">Módulos</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-val">70+</span>
+          <span class="hero-stat-label">Aulas</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-val">20</span>
+          <span class="hero-stat-label">Skills prontas</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-val">15h+</span>
+          <span class="hero-stat-label">Conteúdo</span>
+        </div>
       </div>
     </div>
-    <div class="hero-progress">
+    <div class="hp-donut-wrap">
       <div class="hp-title">Seu progresso</div>
       <div class="hp-donut">
-        <svg width="100" height="100" viewBox="0 0 100 100">
-          <circle cx="50" cy="50" r="40" fill="none" stroke="#e5e5e5" stroke-width="8"/>
-          <circle cx="50" cy="50" r="40" fill="none" stroke="#ff5c00" stroke-width="8"
-            stroke-dasharray="251.2" stroke-dashoffset="251.2"
-            stroke-linecap="round" id="donutCircle" style="transition:stroke-dashoffset .6s ease;"/>
+        <svg width="110" height="110" viewBox="0 0 110 110">
+          <circle cx="55" cy="55" r="44" fill="none" stroke="#222" stroke-width="9"/>
+          <circle cx="55" cy="55" r="44" fill="none" stroke="#ff5c00" stroke-width="9"
+            stroke-dasharray="276.5" stroke-dashoffset="276.5"
+            stroke-linecap="round" id="donutCircle"
+            style="transition:stroke-dashoffset .6s ease;transform:rotate(-90deg);transform-origin:55px 55px;"/>
         </svg>
         <div class="hp-donut-txt">
           <span class="hp-pct" id="donutPct">0%</span>
           <span class="hp-sub">concluído</span>
         </div>
-      </div>
-      <div class="hp-list" id="hpList">
-        <!-- gerado por JS -->
       </div>
     </div>
   </div>
@@ -263,237 +577,112 @@ body{background:var(--bg);color:var(--ink);font-family:'Sora',sans-serif;line-he
 <!-- MAIN -->
 <main class="main">
 
-  <!-- MÓDULOS PRINCIPAIS -->
-  <div class="section-header">
-    <h2 class="section-title">Módulos do Curso</h2>
-    <span class="section-meta">12 módulos · Clique para acessar</span>
+  <!-- TODOS OS MÓDULOS -->
+  <div class="sec-header">
+    <h2 class="sec-title">Módulos do Curso</h2>
+    <span class="sec-meta" id="secMeta">14 módulos · Clique para começar</span>
   </div>
-  <div class="modules-list" id="modulesList">
+  <div class="modules-grid" id="modulesGrid">
     <!-- gerado por JS -->
   </div>
 
-  <!-- TRILHAS DE ESTUDO -->
-  <div class="section-header">
-    <h2 class="section-title">Trilhas recomendadas</h2>
-    <span class="section-meta">Escolha pelo seu perfil</span>
+  <!-- TRILHAS -->
+  <div class="sec-header">
+    <h2 class="sec-title">Trilhas recomendadas</h2>
+    <span class="sec-meta">Escolha pelo seu perfil</span>
   </div>
   <div class="trilhas-grid">
     <div class="trilha-card">
       <div class="trilha-icon">👔</div>
       <div class="trilha-title">Profissional / Gestor</div>
-      <div class="trilha-desc">Sem código. Foco em produtividade, prompts e casos de uso reais de negócio.</div>
+      <div class="trilha-desc">Sem código. Foco em produtividade, prompts e automação para o trabalho.</div>
       <div class="trilha-mods">
-        <div class="trilha-mod">Módulos 01 a 05</div>
-        <div class="trilha-mod">Módulo 09 — Academy</div>
-        <div class="trilha-mod">Módulo 12 — Skills</div>
+        <a href="modulo-01-como-claude-pensa.html" class="trilha-mod">01</a>
+        <a href="modulo-02-arte-do-prompt.html" class="trilha-mod">02</a>
+        <a href="modulo-03-casos-uso-profissionais.html" class="trilha-mod">03</a>
+        <a href="modulo-04-projects-memory.html" class="trilha-mod">04</a>
+        <a href="modulo-05-extended-thinking.html" class="trilha-mod">05</a>
+        <a href="modulo-especial-claude-no-comando.html" class="trilha-mod">E</a>
       </div>
-      <button class="trilha-btn" onclick="startTrilha('profissional')">Começar esta trilha →</button>
     </div>
     <div class="trilha-card">
       <div class="trilha-icon">💻</div>
-      <div class="trilha-title">Desenvolvedor / Builder</div>
-      <div class="trilha-desc">Código, API, automações, Claude Code e construção de produtos com IA.</div>
+      <div class="trilha-title">Dev / Builder</div>
+      <div class="trilha-desc">API, Claude Code, construção de produtos e automações avançadas.</div>
       <div class="trilha-mods">
-        <div class="trilha-mod">Módulos 01 a 08</div>
-        <div class="trilha-mod">Módulo 11 — Cowork & Agents</div>
-        <div class="trilha-mod">Módulo 12 — Skills</div>
+        <a href="modulo-02-arte-do-prompt.html" class="trilha-mod">02</a>
+        <a href="modulo-06-api-automacoes.html" class="trilha-mod">06</a>
+        <a href="modulo-07-claude-code.html" class="trilha-mod">07</a>
+        <a href="modulo-08-construindo-produtos.html" class="trilha-mod">08</a>
+        <a href="modulo-12-20-skills-prontas.html" class="trilha-mod">12</a>
+        <a href="modulo-extra-verdade-codigos.html" class="trilha-mod">X</a>
       </div>
-      <button class="trilha-btn" onclick="startTrilha('dev')">Começar esta trilha →</button>
     </div>
     <div class="trilha-card">
-      <div class="trilha-icon">🏆</div>
+      <div class="trilha-icon">🏢</div>
       <div class="trilha-title">C-Level / Líderes</div>
-      <div class="trilha-desc">Estratégia, ROI, implantação em equipes e vantagem competitiva com IA.</div>
+      <div class="trilha-desc">Estratégia, visão de IA na empresa e tomada de decisão com Claude.</div>
       <div class="trilha-mods">
-        <div class="trilha-mod">Módulos 01 a 05</div>
-        <div class="trilha-mod">Módulo 08 — Produtos</div>
-        <div class="trilha-mod">Módulo 10 — Líderes</div>
+        <a href="modulo-01-como-claude-pensa.html" class="trilha-mod">01</a>
+        <a href="modulo-05-extended-thinking.html" class="trilha-mod">05</a>
+        <a href="modulo-09-academy-anthropic.html" class="trilha-mod">09</a>
+        <a href="modulo-10-claude-para-lideres.html" class="trilha-mod">10</a>
+        <a href="modulo-11-cowork-agents.html" class="trilha-mod">11</a>
+        <a href="modulo-especial-claude-no-comando.html" class="trilha-mod">E</a>
       </div>
-      <button class="trilha-btn" onclick="startTrilha('lider')">Começar esta trilha →</button>
     </div>
-  </div>
-
-  <!-- RECURSOS -->
-  <div class="section-header">
-    <h2 class="section-title">Recursos do curso</h2>
-    <span class="section-meta">Materiais incluídos</span>
-  </div>
-  <div class="recursos-grid">
-    <div class="recurso-card">
-      <div class="recurso-icon">📋</div>
-      <div class="recurso-title">14 Templates</div>
-      <div class="recurso-desc">Prontos para copiar e usar hoje no Módulo 03</div>
+    <div class="trilha-card">
+      <div class="trilha-icon">🚀</div>
+      <div class="trilha-title">Completo — Do Zero ao Expert</div>
+      <div class="trilha-desc">Todos os módulos em ordem. A jornada completa de iniciante a expert.</div>
+      <div class="trilha-mods">
+        <a href="modulo-01-como-claude-pensa.html" class="trilha-mod">01</a>
+        <a href="modulo-02-arte-do-prompt.html" class="trilha-mod">02</a>
+        <a href="modulo-03-casos-uso-profissionais.html" class="trilha-mod">03</a>
+        <a href="modulo-04-projects-memory.html" class="trilha-mod">04</a>
+        <a href="modulo-05-extended-thinking.html" class="trilha-mod">05</a>
+        <a href="modulo-06-api-automacoes.html" class="trilha-mod">06</a>
+        <a href="modulo-07-claude-code.html" class="trilha-mod">07</a>
+        <a href="modulo-08-construindo-produtos.html" class="trilha-mod">08</a>
+        <a href="modulo-09-academy-anthropic.html" class="trilha-mod">09</a>
+        <a href="modulo-10-claude-para-lideres.html" class="trilha-mod">10</a>
+        <a href="modulo-11-cowork-agents.html" class="trilha-mod">11</a>
+        <a href="modulo-12-20-skills-prontas.html" class="trilha-mod">12</a>
+        <a href="modulo-especial-claude-no-comando.html" class="trilha-mod">E</a>
+        <a href="modulo-extra-verdade-codigos.html" class="trilha-mod">X</a>
+      </div>
     </div>
-    <div class="recurso-card">
-      <div class="recurso-icon">⚡</div>
-      <div class="recurso-title">20 Skills</div>
-      <div class="recurso-desc">SKILL.md prontos para Claude Code no Módulo 12</div>
-    </div>
-    <div class="recurso-card">
-      <div class="recurso-icon">🎓</div>
-      <div class="recurso-title">Certificado</div>
-      <div class="recurso-desc">Personalizado com seu nome ao concluir o Módulo 08</div>
-    </div>
-    <div class="recurso-card">
-      <div class="recurso-icon">🆓</div>
-      <div class="recurso-title">15 Cursos Gratuitos</div>
-      <div class="recurso-desc">Academy Anthropic resumida em PT-BR no Módulo 09</div>
-    </div>
-  </div>
-
-  <!-- BÔNUS BANNER -->
-  <div class="bonus-banner">
-    <span class="bonus-icon">✦</span>
-    <div class="bonus-info">
-      <span class="bonus-tag">Módulo Exclusivo</span>
-      <div class="bonus-title">Claude para Líderes</div>
-      <div class="bonus-desc">ROI de IA, implantação em equipes, apresentação ao conselho e plano de 90 dias. Conteúdo que não existe em nenhum outro curso de Claude.</div>
-    </div>
-    <a href="modulo-10-claude-para-lideres.html" class="bonus-btn">Acessar agora →</a>
   </div>
 
 </main>
 
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="footer-brand">Isso é Claude · Acesso Vitalício · Atualizado em Abril 2026</div>
-  <div class="footer-links">
-    <a href="modulo-09-academy-anthropic.html">Academy Anthropic</a>
-    <a href="modulo-12-20-skills-prontas.html">20 Skills</a>
-    <a href="modulo-08-construindo-produtos.html">Certificado</a>
-  </div>
-  <div class="footer-suporte">Suporte: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="95e6e0e5fae7e1f0d5fce6e6faf0f6f9f4e0f1f0bbf6faf8bbf7e7">[email&#160;protected]</a></div>
-</footer>
-
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-// ══════════════════════════════════════
-// DADOS DOS MÓDULOS
-// ══════════════════════════════════════
+<script>
+// ── DADOS ──────────────────────────────────────────
 const MODULES = [
-  {
-    num: '01', title: 'Como o Claude Pensa',
-    desc: 'LLMs, janela de contexto, Claude vs GPT, planos Free/Pro/Team e ferramentas nativas.',
-    file: 'modulo-01-como-claude-pensa.html',
-    aulas: 6, dur: '~90min',
-    tags: ['Fundamentos', 'Contexto', 'Planos'],
-    badges: [],
-  },
-  {
-    num: '02', title: 'A Arte do Prompt',
-    desc: 'Zero-shot, few-shot, CoT, XML tags, controle de formato, personas e iteração.',
-    file: 'modulo-02-arte-do-prompt.html',
-    aulas: 7, dur: '~2h',
-    tags: ['Prompts', 'Técnica', 'XML'],
-    badges: [],
-  },
-  {
-    num: '03', title: 'Casos de Uso Profissionais',
-    desc: '14 templates prontos: escrita, contratos, marketing, finanças e Artifacts.',
-    file: 'modulo-03-casos-uso-profissionais.html',
-    aulas: 7, dur: '~2h30',
-    tags: ['Templates', 'Negócios', '14 prompts'],
-    badges: [],
-  },
-  {
-    num: '04', title: 'Projects & Memory',
-    desc: 'System prompts, documentos base e memória persistente. O Claude como assistente permanente.',
-    file: 'modulo-04-projects-memory.html',
-    aulas: 5, dur: '~1h30',
-    tags: ['Projects', 'Memory', 'System prompt'],
-    badges: [],
-  },
-  {
-    num: '05', title: 'Extended Thinking',
-    desc: 'O modo de raciocínio profundo do Claude. Quando usar e como conduzir análises complexas.',
-    file: 'modulo-05-extended-thinking.html',
-    aulas: 5, dur: '~1h30',
-    tags: ['Avançado', 'Estratégia', 'Raciocínio'],
-    badges: [],
-  },
-  {
-    num: '06', title: 'API & Automações',
-    desc: 'Primeira chamada de API, Make.com, n8n, Google Sheets com =CLAUDE() e streaming.',
-    file: 'modulo-06-api-automacoes.html',
-    aulas: 6, dur: '~2h',
-    tags: ['API', 'Automação', 'Código'],
-    badges: [],
-  },
-  {
-    num: '07', title: 'Claude Code',
-    desc: 'Instalação, modo agentic, CLAUDE.md, MCP e sessão completa de desenvolvimento real.',
-    file: 'modulo-07-claude-code.html',
-    aulas: 7, dur: '~2h30',
-    tags: ['Claude Code', 'Dev', 'MCP'],
-    badges: [],
-  },
-  {
-    num: '08', title: 'Construindo Produtos com IA',
-    desc: 'Arquitetura, chatbot em 1h, RAG básico, monetização e certificado de conclusão.',
-    file: 'modulo-08-construindo-produtos.html',
-    aulas: 5, dur: '~2h',
-    tags: ['Produto', 'Monetização', 'Certificado'],
-    badges: [],
-  },
-  {
-    num: '09', title: 'Academy Anthropic — PT-BR',
-    desc: 'Resumo completo em português dos 15 cursos gratuitos da Anthropic com links e roteiro.',
-    file: 'modulo-09-academy-anthropic.html',
-    aulas: 5, dur: '~2h',
-    tags: ['Academy', 'Gratuito', 'Certificados'],
-    badges: ['free'],
-  },
-  {
-    num: '10', title: 'Claude para Líderes',
-    desc: 'Estratégia, ROI, implantação em equipes, apresentação ao conselho e plano de 90 dias.',
-    file: 'modulo-10-claude-para-lideres.html',
-    aulas: 6, dur: '~2h',
-    tags: ['C-Level', 'Estratégia', 'ROI'],
-    badges: ['exclusivo'],
-  },
-  {
-    num: '11', title: 'Cowork & Agents',
-    desc: 'Claude Cowork com memória, Skills reutilizáveis e agentes autônomos 24h.',
-    file: 'modulo-11-cowork-agents.html',
-    aulas: 6, dur: '~2h',
-    tags: ['Cowork', 'Agents', 'Skills'],
-    badges: ['new'],
-  },
-  {
-    num: '12', title: '20 Skills Prontas',
-    desc: '10 Skills virais do mercado + 10 exclusivas Isso é Claude. SKILL.md pronto para copiar.',
-    file: 'modulo-12-20-skills-prontas.html',
-    aulas: 3, dur: '~1h30',
-    tags: ['Skills', 'Claude Code', 'Bônus'],
-    badges: ['bonus'],
-  },
-  {
-    num: 'E', title: 'Claude no Comando',
-    desc: 'Os 10 erros que custam mais, 12 recursos que 95% nunca usou, mitos que travam, o que o Claude faz de melhor — e os 10 prompts que mudam tudo.',
-    file: 'modulo-especial-claude-no-comando.html',
-    aulas: 6, dur: '~2h',
-    tags: ['Especial', 'Claude Fala', 'Exclusivo'],
-    badges: ['exclusivo'],
-  },
-  {
-    num: 'X', title: 'Códigos, Mitos e Técnicas Reais',
-    desc: 'Veredito dos "códigos secretos" virais, RTK real para Claude Code, OODA aprofundado e 10 técnicas avançadas que não viralizam.',
-    file: 'modulo-extra-verdade-codigos.html',
-    aulas: 5, dur: '~1h45',
-    tags: ['Extra', 'Desmistificação', 'Avançado'],
-    badges: ['bonus'],
-  },
+  { num:'01', title:'Como o Claude Pensa',         desc:'LLMs, janela de contexto, Claude vs GPT, planos Free/Pro/Team e ferramentas nativas.', file:'modulo-01-como-claude-pensa.html',          aulas:6,  dur:'~90min', tags:['Fundamentos','Contexto','Planos'],            badges:[] },
+  { num:'02', title:'A Arte do Prompt',            desc:'Zero-shot, few-shot, CoT, XML tags, controle de formato, personas e iteração.',        file:'modulo-02-arte-do-prompt.html',             aulas:7,  dur:'~2h',    tags:['Prompts','Técnica','XML'],                    badges:[] },
+  { num:'03', title:'Casos de Uso Profissionais', desc:'14 templates prontos: escrita, contratos, marketing, finanças e Artifacts.',           file:'modulo-03-casos-uso-profissionais.html',    aulas:7,  dur:'~2h30',  tags:['Templates','Negócios','14 prompts'],          badges:[] },
+  { num:'04', title:'Projects & Memory',           desc:'System prompts, documentos base e memória persistente. O Claude como assistente permanente.', file:'modulo-04-projects-memory.html',     aulas:5,  dur:'~1h30',  tags:['Projects','Memory','System prompt'],          badges:[] },
+  { num:'05', title:'Extended Thinking',           desc:'O modo de raciocínio profundo do Claude. Quando usar e como conduzir análises complexas.', file:'modulo-05-extended-thinking.html',      aulas:5,  dur:'~1h30',  tags:['Avançado','Estratégia','Raciocínio'],         badges:[] },
+  { num:'06', title:'API & Automações',            desc:'Primeira chamada de API, Make.com, n8n, Google Sheets com =CLAUDE() e streaming.',     file:'modulo-06-api-automacoes.html',             aulas:6,  dur:'~2h',    tags:['API','Automação','Código'],                   badges:[] },
+  { num:'07', title:'Claude Code',                 desc:'Instalação, modo agentic, CLAUDE.md, MCP e sessão completa de desenvolvimento real.',  file:'modulo-07-claude-code.html',                aulas:7,  dur:'~2h30',  tags:['Claude Code','Terminal','Agentic'],           badges:[] },
+  { num:'08', title:'Construindo Produtos',        desc:'Arquitetura de LLM apps, RAG básico, monetização e go-to-market para produtos com IA.', file:'modulo-08-construindo-produtos.html',     aulas:5,  dur:'~2h',    tags:['Produto','RAG','Go-to-market'],               badges:[] },
+  { num:'09', title:'Academy Anthropic',           desc:'Conteúdo oficial da Anthropic: prompt engineering, segurança, uso responsável e certificação.', file:'modulo-09-academy-anthropic.html', aulas:5,  dur:'~2h',    tags:['Oficial','Anthropic','Certificação'],         badges:[] },
+  { num:'10', title:'Claude para Líderes',         desc:'IA na estratégia empresarial, adoção por equipes, ROI e cultura de IA na organização.', file:'modulo-10-claude-para-lideres.html',      aulas:6,  dur:'~2h',    tags:['Liderança','Estratégia','Equipes'],           badges:[] },
+  { num:'11', title:'Cowork & Agents',             desc:'Claude como agente autônomo, Cowork, MCP, workflows multi-etapas e delegação real.',   file:'modulo-11-cowork-agents.html',              aulas:6,  dur:'~2h',    tags:['Agentes','Cowork','MCP'],                     badges:[] },
+  { num:'12', title:'20 Skills Prontas',           desc:'10 Skills virais do mercado + 10 exclusivas Isso é Claude. SKILL.md pronto para copiar.', file:'modulo-12-20-skills-prontas.html',      aulas:3,  dur:'~1h30',  tags:['Skills','Claude Code','Bônus'],               badges:['bonus'] },
+  { num:'E',  title:'Claude no Comando',           desc:'Os 10 erros que custam mais, 12 recursos que 95% nunca usou, mitos que travam e os 10 prompts que mudam tudo.', file:'modulo-especial-claude-no-comando.html', aulas:6, dur:'~2h', tags:['Especial','Claude Fala','Exclusivo'], badges:['exclusivo'] },
+  { num:'X',  title:'Códigos, Mitos e Técnicas',  desc:'Veredito dos "códigos secretos" virais, RTK real, OODA aprofundado e 10 técnicas avançadas.', file:'modulo-extra-verdade-codigos.html', aulas:5, dur:'~1h45',   tags:['Extra','Desmistificação','Avançado'],         badges:['bonus'] },
 ];
 
 const BADGE_LABELS = {
-  new: { label: 'Novo', cls: 'mb-new' },
-  bonus: { label: 'Bônus', cls: 'mb-bonus' },
-  exclusivo: { label: 'Exclusivo', cls: 'mb-exclusivo' },
-  free: { label: 'Gratuito incluso', cls: 'mb-free' },
+  bonus:     { label:'Bônus',     cls:'mb-bonus' },
+  exclusivo: { label:'Exclusivo', cls:'mb-exclusivo' },
+  new:       { label:'Novo',      cls:'mb-new' },
+  free:      { label:'Gratuito',  cls:'mb-free' },
 };
 
-// ══════════════════════════════════════
-// PERSISTÊNCIA DE PROGRESSO
-// ══════════════════════════════════════
+// ── PROGRESSO ──────────────────────────────────────
 const STORAGE_KEY = 'cm_progress_v2';
 
 function getProgress() {
@@ -501,48 +690,35 @@ function getProgress() {
   catch(e) { return {}; }
 }
 
-function saveProgress(data) {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
-  catch(e) {}
-}
-
-function getModuleProgress(num) {
-  const p = getProgress();
-  return p[num] || { pct: 0, done: false };
-}
-
-function setModuleProgress(num, pct, done) {
-  const p = getProgress();
-  p[num] = { pct, done };
-  saveProgress(p);
-  renderAll();
-}
-
 function getGlobalPct() {
   const p = getProgress();
   const total = MODULES.length;
-  const done = MODULES.filter(m => p[m.num]?.done).length;
+  const done = MODULES.filter(m => {
+    const mp = p[m.num] || p['especial'] || {};
+    return mp.done || (mp.done === true);
+  }).length;
   return Math.round(done / total * 100);
 }
 
 function resetProgress() {
-  if (confirm('Resetar todo o progresso? Esta ação não pode ser desfeita.')) {
+  if (confirm('Resetar todo o progresso?')) {
     localStorage.removeItem(STORAGE_KEY);
     renderAll();
   }
 }
 
-// ══════════════════════════════════════
-// RENDER
-// ══════════════════════════════════════
+// ── RENDER MÓDULOS ─────────────────────────────────
 function renderModules() {
-  const container = document.getElementById('modulesList');
+  const grid = document.getElementById('modulesGrid');
   const p = getProgress();
+  let doneCount = 0;
 
-  container.innerHTML = MODULES.map(m => {
-    const mp = p[m.num] || { pct: 0, done: false };
-    const isDone = mp.done;
-    const pct = isDone ? 100 : (mp.pct || 0);
+  grid.innerHTML = MODULES.map(m => {
+    const key = m.num === 'E' ? 'especial' : m.num === 'X' ? 'extra' : m.num;
+    const mp  = p[key] || p[m.num] || {};
+    const isDone = mp.done === true;
+    const pct  = isDone ? 100 : (mp.pct || 0);
+    if (isDone) doneCount++;
 
     const badgesHTML = m.badges.map(b => {
       const bd = BADGE_LABELS[b];
@@ -550,105 +726,70 @@ function renderModules() {
     }).join('');
 
     const tagsHTML = m.tags.map(t => `<span class="mod-tag">${t}</span>`).join('');
-
     const btnLabel = isDone ? '✓ Concluído' : (pct > 0 ? 'Continuar →' : 'Começar →');
 
+    // Cor especial para módulos E e X
+    const topStyle = m.num === 'E'
+      ? 'background:linear-gradient(135deg,#110030,#1a0050);'
+      : m.num === 'X'
+      ? 'background:linear-gradient(135deg,#1a0000,#200505);'
+      : '';
+
     return `
-<a href="${m.file}" class="mod-card${isDone ? ' completed' : ''}" onclick="trackOpen('${m.num}')">
-  <div class="mod-num-col">
-    <span class="mod-num">${m.num}</span>
-    <span class="mod-check">✓</span>
+<a href="${m.file}" class="mod-card${isDone ? ' completed' : ''}">
+  <div class="mod-card-top" style="${topStyle}">
+    <span class="mod-num-badge">${m.num === 'E' ? 'ESPECIAL' : m.num === 'X' ? 'EXTRA' : 'Módulo ' + m.num}</span>
+    <div class="mod-badges-wrap">${badgesHTML}</div>
   </div>
-  <div class="mod-info">
-    <div class="mod-badges">${badgesHTML}</div>
+  <div class="mod-card-body">
     <div class="mod-title">${m.title}</div>
     <div class="mod-desc">${m.desc}</div>
     <div class="mod-tags">${tagsHTML}</div>
   </div>
-  <div class="mod-action">
-    <span class="mod-aulas">${m.aulas} aulas</span>
-    <span class="mod-dur">${m.dur}</span>
-    <div class="mod-mini-prog"><div class="mod-mini-fill" style="width:${pct}%"></div></div>
-    <span class="mod-btn">${btnLabel}</span>
+  <div class="mod-card-footer">
+    <div class="mod-meta">
+      <span>${m.aulas} aulas</span>
+      <span class="mod-sep">·</span>
+      <span>${m.dur}</span>
+    </div>
+    <div class="mod-prog-wrap">
+      <div class="mod-prog-bar">
+        <div class="mod-prog-fill" style="width:${pct}%"></div>
+      </div>
+      <span class="mod-prog-pct">${pct}%</span>
+    </div>
+    <span class="mod-btn">${btnLabel} →</span>
   </div>
 </a>`;
   }).join('');
+
+  // Atualizar meta
+  document.getElementById('secMeta').textContent =
+    `${MODULES.length} módulos · ${doneCount} concluídos`;
 }
 
-function renderGlobalProgress() {
+// ── RENDER PROGRESSO GLOBAL ────────────────────────
+function renderProgress() {
   const pct = getGlobalPct();
-  const p = getProgress();
-
-  // Topbar
   document.getElementById('globalBar').style.width = pct + '%';
   document.getElementById('globalPct').textContent = pct + '%';
-
-  // Donut
-  const circumference = 251.2;
-  const offset = circumference - (pct / 100 * circumference);
-  document.getElementById('donutCircle').style.strokeDashoffset = offset;
   document.getElementById('donutPct').textContent = pct + '%';
 
-  // Mini lista no hero
-  const hpList = document.getElementById('hpList');
-  const show = MODULES.slice(0, 6);
-  hpList.innerHTML = show.map(m => {
-    const isDone = p[m.num]?.done;
-    return `<div class="hp-item${isDone ? ' done-item' : ''}">
-      <div class="hp-item-dot ${isDone ? 'done' : 'pend'}"></div>
-      <span>Módulo ${m.num} — ${m.title}</span>
-    </div>`;
-  }).join('');
+  // Donut
+  const circumference = 276.5;
+  const offset = circumference - (pct / 100) * circumference;
+  const circle = document.getElementById('donutCircle');
+  if (circle) circle.style.strokeDashoffset = offset;
 }
 
 function renderAll() {
   renderModules();
-  renderGlobalProgress();
+  renderProgress();
 }
 
-// ══════════════════════════════════════
-// TRACKING E TRILHAS
-// ══════════════════════════════════════
-function trackOpen(num) {
-  // Salvar que o aluno abriu o módulo (progresso mínimo)
-  const p = getProgress();
-  if (!p[num]) {
-    p[num] = { pct: 10, done: false };
-    saveProgress(p);
-  }
-}
+// ── INIT ───────────────────────────────────────────
+renderAll();
+</script>
 
-function startTrilha(type) {
-  const targets = {
-    profissional: 'modulo-01-como-claude-pensa.html',
-    dev: 'modulo-01-como-claude-pensa.html',
-    lider: 'modulo-01-como-claude-pensa.html',
-  };
-  window.location.href = targets[type] || 'modulo-01-como-claude-pensa.html';
-}
-
-// ══════════════════════════════════════
-// RECEBER PROGRESSO DOS MÓDULOS FILHOS
-// via postMessage ou sessionStorage
-// ══════════════════════════════════════
-window.addEventListener('message', function(e) {
-  if (e.data && e.data.type === 'cm_progress') {
-    setModuleProgress(e.data.num, e.data.pct, e.data.done);
-  }
-});
-
-// Verificar se voltou de um módulo com progresso
-function checkReturnProgress() {
-  const pending = sessionStorage.getItem('cm_pending_progress');
-  if (pending) {
-    try {
-      const d = JSON.parse(pending);
-      setModuleProgress(d.num, d.pct, d.done);
-    } catch(e) {}
-    sessionStorage.removeItem('cm_pending_progress');
-  }
-}
-
-// ══════════════════════════════════════
-// INIT
-// ══════════════════════════════════════
+</body>
+</html>
