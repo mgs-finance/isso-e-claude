@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 01 — Como o Claude Pensa | Isso é Claude</title>
+
+<style>
+
+
+/* ISSO É CLAUDE — Design System v2.0 */
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+:root{
+  --bg:#ffffff;--bg2:#f5f5f5;--bg3:#fafafa;
+  --ink:#111111;--ink2:#333333;--ink3:#666666;--ink4:#999999;
+  --accent:#ff5c00;--accent2:#e04f00;--accent3:#cc4500;
+  --accent-light:rgba(255,92,0,0.07);--accent-mid:rgba(255,92,0,0.15);
+  --green:#16a34a;--green-bg:rgba(22,163,74,0.07);
+  --blue:#2563eb;--blue-bg:rgba(37,99,235,0.07);
+  --gold:#d97706;--gold-bg:rgba(217,119,6,0.07);
+  --red:#dc2626;--red-bg:rgba(220,38,38,0.07);
+  --purple:#7c3aed;--purple-bg:rgba(124,58,237,0.07);
+  --border:#e5e5e5;--border2:#d4d4d4;
+  --shadow:0 2px 12px rgba(0,0,0,0.07);--shadow-md:0 4px 20px rgba(0,0,0,0.09);--shadow-lg:0 8px 40px rgba(0,0,0,0.11);
+  --code-bg:#111111;--code-fg:#e8e8e8;
+  --sidebar-bg:#111111;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+
+
+
+/* SIDEBAR */
+
+
+
+.sb-brand{padding:28px 22px 20px;border-bottom:1px solid rgba(255,255,255,0.06);}
+.sb-tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--accent);text-transform:uppercase;margin-bottom:8px;display:block;}
+.sb-name{font-size:14px;font-weight:700;color:#fff;line-height:1.4;}
+.sb-mod{padding:12px 22px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,0.25);text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.04);}
+.nav-lessons{padding:8px 0;flex:1;}
+.nav-item{display:flex;align-items:flex-start;gap:10px;padding:10px 22px;cursor:pointer;transition:background 0.15s;border-left:3px solid transparent;}
+.nav-item:hover{background:rgba(255,92,0,0.08);}
+.nav-item.active{background:rgba(255,92,0,0.13);border-left-color:var(--accent);}
+.nav-item.done .nav-num::after{content:' ✓';color:var(--green);}
+.nav-num{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent);padding-top:2px;min-width:28px;font-weight:600;}
+.nav-title{font-size:11.5px;color:rgba(255,255,255,0.52);line-height:1.45;}
+.nav-item.active .nav-title{color:#fff;font-weight:500;}
+.sb-progress{padding:16px 22px;border-top:1px solid rgba(255,255,255,0.05);}
+.prog-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,0.22);text-transform:uppercase;margin-bottom:8px;}
+.prog-bar{height:2px;background:rgba(255,255,255,0.07);border-radius:1px;overflow:hidden;margin-bottom:6px;}
+.prog-fill{height:100%;background:var(--accent);border-radius:1px;transition:width 0.5s ease;}
+.prog-text{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.22);}
+/* MAIN */
+
+
+
+
+
+
+
+
+
+/* LESSON */
+
+
+.lesson-header{margin-bottom:48px;padding-bottom:32px;border-bottom:1px solid var(--border);}
+.lesson-meta{display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap;}
+.lesson-tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;padding:3px 10px;border-radius:3px;text-transform:uppercase;font-weight:600;border:1px solid transparent;}
+.tag-teoria{background:var(--blue-bg);color:var(--blue);border-color:rgba(37,99,235,0.2);}
+.tag-pratica{background:var(--green-bg);color:var(--green);border-color:rgba(22,163,74,0.2);}
+.tag-lab{background:var(--purple-bg);color:var(--purple);border-color:rgba(124,58,237,0.2);}
+.tag-tecnica{background:var(--accent-light);color:var(--accent);border-color:var(--accent-mid);}
+.tag-guia{background:var(--green-bg);color:var(--green);border-color:rgba(22,163,74,0.2);}
+.tag-resumo{background:var(--blue-bg);color:var(--blue);border-color:rgba(37,99,235,0.2);}
+.tag-dev{background:var(--purple-bg);color:var(--purple);border-color:rgba(124,58,237,0.2);}
+.tag-agente{background:var(--blue-bg);color:var(--blue);border-color:rgba(37,99,235,0.2);}
+.tag-skill{background:var(--purple-bg);color:var(--purple);border-color:rgba(124,58,237,0.2);}
+.tag-bonus{background:var(--gold-bg);color:var(--gold);border-color:rgba(217,119,6,0.2);}
+.tag-final{background:var(--accent-light);color:var(--accent);border-color:var(--accent-mid);}
+.tag-lider{background:var(--gold-bg);color:var(--gold);border-color:rgba(217,119,6,0.2);}
+.tag-estrategia{background:var(--accent-light);color:var(--accent);border-color:var(--accent-mid);}
+.tag-workshop{background:var(--green-bg);color:var(--green);border-color:rgba(22,163,74,0.2);}
+.tag-framework{background:var(--blue-bg);color:var(--blue);border-color:rgba(37,99,235,0.2);}
+.lesson-num-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink4);letter-spacing:1px;}
+.lesson-dur{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink4);}
+.lesson-title{font-family:'Lora',serif;font-size:clamp(28px,3.5vw,46px);font-weight:700;color:var(--ink);line-height:1.15;margin-bottom:16px;letter-spacing:-0.5px;}
+.lesson-title em{color:var(--accent);font-style:italic;}
+.lesson-sub{font-size:16px;color:var(--ink3);font-weight:300;line-height:1.8;max-width:640px;}
+/* BLOCKS */
+.block{margin-bottom:48px;}
+.block h2{font-family:'Lora',serif;font-size:22px;font-weight:600;color:var(--ink);margin-bottom:16px;display:flex;align-items:center;gap:12px;letter-spacing:-0.3px;}
+.block h2::before{content:'';width:4px;height:22px;background:var(--accent);border-radius:2px;flex-shrink:0;}
+.block p{font-size:15px;color:var(--ink2);line-height:1.85;margin-bottom:14px;font-weight:300;}
+.block p strong{color:var(--ink);font-weight:600;}
+/* CALLOUTS */
+.callout{border-radius:8px;padding:18px 22px;margin:20px 0;display:flex;gap:14px;align-items:flex-start;}
+.callout-icon{font-size:20px;flex-shrink:0;padding-top:2px;}
+.callout-body h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:5px;}
+.callout-body p{font-size:13.5px;margin:0;line-height:1.75;font-weight:300;color:var(--ink2);}
+.callout.tip{background:var(--green-bg);border-left:3px solid var(--green);}.callout.tip .callout-body h4{color:var(--green);}
+.callout.key{background:var(--accent-light);border-left:3px solid var(--accent);}.callout.key .callout-body h4{color:var(--accent);}
+.callout.insight{background:var(--blue-bg);border-left:3px solid var(--blue);}.callout.insight .callout-body h4{color:var(--blue);}
+.callout.warning{background:var(--gold-bg);border-left:3px solid var(--gold);}.callout.warning .callout-body h4{color:var(--gold);}
+.callout.purple{background:var(--purple-bg);border-left:3px solid var(--purple);}.callout.purple .callout-body h4{color:var(--purple);}
+.callout.gold{background:var(--gold-bg);border:1px solid rgba(217,119,6,0.2);}.callout.gold .callout-body h4{color:var(--gold);}
+/* CODE */
+.code-wrap{background:var(--code-bg);border-radius:10px;overflow:hidden;margin:20px 0;box-shadow:var(--shadow-md);}
+.code-header{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;background:rgba(255,255,255,0.03);border-bottom:1px solid rgba(255,255,255,0.06);}
+.code-dots{display:flex;gap:6px;}
+.code-dot{width:10px;height:10px;border-radius:50%;}
+.dot-r{background:#ff5f57;}.dot-y{background:#febc2e;}.dot-g{background:#28c840;}
+.code-lang{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:2px;text-transform:uppercase;}
+.code-copy{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.35);background:rgba(255,255,255,0.06);border:none;cursor:pointer;padding:4px 10px;border-radius:4px;transition:all 0.15s;}
+.code-copy:hover{background:rgba(255,92,0,0.2);color:var(--accent);}
+.code-
+.c-cm{color:#6e7681;}.c-good{color:#7ee787;}.c-bad{color:#ff7b72;}.c-tag{color:#ffa657;}.c-hl{color:#79c0ff;}.c-str{color:#a5d6ff;}
+/* STEPS */
+.step-flow{display:flex;flex-direction:column;gap:0;margin:24px 0;}
+.step{display:flex;gap:20px;align-items:flex-start;position:relative;padding-bottom:24px;}
+.step:last-child{padding-bottom:0;}
+.step:not(:last-child)::after{content:'';position:absolute;left:19px;top:44px;bottom:0;width:2px;background:linear-gradient(to bottom,var(--accent),transparent);opacity:0.18;}
+.step-num{width:40px;height:40px;background:var(--accent);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;flex-shrink:0;}
+.step-
+.step-title{font-size:15px;font-weight:600;margin-bottom:6px;color:var(--ink);}
+.step-desc{font-size:13px;color:var(--ink3);line-height:1.7;font-weight:300;}
+.step-tip{margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);background:var(--accent-light);padding:5px 12px;border-radius:4px;display:inline-block;border:1px solid var(--accent-mid);}
+/* TABS */
+.tab-group{margin:20px 0;}
+.tabs{display:flex;border-bottom:2px solid var(--border);gap:0;}
+.tab{padding:9px 20px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border:none;background:transparent;color:var(--ink4);transition:all 0.15s;border-bottom:2px solid transparent;margin-bottom:-2px;font-weight:500;}
+.tab:hover{color:var(--ink);}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent);}
+.tab-panel{display:none;}.tab-panel.active{display:block;}
+/* QUIZ */
+.quiz{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:32px 0;box-shadow:var(--shadow);}
+.quiz-header{padding:20px 28px;background:var(--ink);border-bottom:3px solid var(--accent);}
+.quiz-tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--accent);text-transform:uppercase;margin-bottom:6px;display:block;}
+.quiz-title{font-family:'Lora',serif;font-size:20px;font-weight:600;color:#fff;}
+.quiz-
+.quiz-question{display:none;}.quiz-question.active{display:block;}
+.q-num{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--ink4);text-transform:uppercase;margin-bottom:10px;}
+.q-text{font-size:15px;font-weight:500;margin-bottom:20px;line-height:1.6;color:var(--ink);}
+.q-options{display:flex;flex-direction:column;gap:8px;margin-bottom:16px;}
+.q-option{padding:12px 16px;border:1.5px solid var(--border);border-radius:8px;cursor:pointer;font-size:13.5px;color:var(--ink2);transition:all 0.15s;display:flex;align-items:flex-start;gap:10px;font-weight:300;background:#fff;}
+.q-option:hover{border-color:var(--accent);background:var(--accent-light);}
+.q-option.selected.correct{border-color:var(--green);background:var(--green-bg);color:var(--green);}
+.q-option.selected.wrong{border-color:var(--red);background:var(--red-bg);}
+.q-option.disabled{pointer-events:none;}
+.q-letter{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--ink4);min-width:16px;padding-top:2px;}
+.q-feedback{padding:12px 16px;border-radius:8px;font-size:13.5px;line-height:1.65;display:none;font-weight:300;margin-bottom:8px;}
+.q-feedback.show{display:block;}
+.q-feedback.correct{background:var(--green-bg);border-left:3px solid var(--green);color:var(--green);}
+.q-feedback.wrong{background:var(--red-bg);border-left:3px solid var(--red);color:var(--red);}
+.q-next{margin-top:8px;padding:9px 22px;background:var(--ink);color:#fff;border:none;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;display:none;transition:background 0.15s;}
+.q-next.show{display:inline-block;}.q-next:hover{background:var(--accent);}
+.quiz-result{display:none;text-align:center;padding:40px 20px;}.quiz-result.show{display:block;}
+.result-score{font-family:'Lora',serif;font-size:64px;font-weight:700;color:var(--accent);line-height:1;margin-bottom:12px;}
+.result-label{font-size:18px;font-weight:600;margin-bottom:8px;color:var(--ink);}
+.result-desc{font-size:14px;color:var(--ink3);margin-bottom:24px;font-weight:300;}
+.result-retry{padding:11px 32px;background:var(--accent);color:#fff;border:none;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-weight:600;}
+.result-retry:hover{background:var(--accent2);}
+/* FOOTER */
+.lesson-footer{margin-top:60px;padding-top:28px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:20px;}
+.footer-next{display:flex;flex-direction:column;gap:4px;}
+.footer-next-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--ink4);}
+.footer-next-title{font-size:14px;font-weight:600;color:var(--ink);}
+.complete-btn{padding:13px 28px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;font-weight:700;transition:all 0.2s;white-space:nowrap;box-shadow:0 2px 8px rgba(255,92,0,0.22);}
+.complete-btn:hover{background:var(--accent2);transform:translateY(-1px);box-shadow:0 4px 16px rgba(255,92,0,0.28);}
+.complete-btn.done{background:var(--green);box-shadow:0 2px 8px rgba(22,163,74,0.22);}
+/* MOBILE */
+.sidebar-toggle{display:none;position:fixed;bottom:24px;right:24px;width:52px;height:52px;background:var(--accent);color:#fff;border:none;border-radius:50%;font-size:20px;cursor:pointer;z-index:200;box-shadow:var(--shadow-lg);align-items:center;justify-content:center;}
+
+  .sidebar.open{transform:translateX(0);}
+  
+  .sidebar-toggle{display:flex;}
+  
+  
+  .lesson-footer{flex-direction:column-reverse;align-items:stretch;}
+  .complete-btn{text-align:center;}
+}
+
+/* ── CSS específico do módulo ── */
+
+
+
+
+
+/* LESSON */
+
+/* VISUAL DIAGRAMS */
+.diagram { background:#fff; border:1px solid var(--border); border-radius:10px; overflow:hidden; margin:20px 0; box-shadow:var(--shadow); }
+.diagram-title { padding:14px 22px; background:var(--ink); color:#fff; font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:2px; text-transform:uppercase; }
+.diagram-body { padding:24px; }
+/* CONTEXT WINDOW VISUAL */
+.ctx-window {
+  border:2px solid var(--accent);
+  border-radius:8px;
+  padding:20px;
+  position:relative;
+  margin:16px 0;
+  background:var(--accent-light);
+}
+.ctx-window-label {
+  position:absolute; top:-12px; left:16px;
+  background:var(--accent); color:#fff;
+  font-family:'JetBrains Mono',monospace; font-size:10px;
+  padding:3px 12px; border-radius:3px;
+  letter-spacing:1px; text-transform:uppercase;
+}
+.ctx-block {
+  border-radius:5px; padding:10px 16px; margin:8px 0;
+  font-size:13px; line-height:1.5; font-weight:300;
+}
+.ctx-system { background:rgba(108,63,212,0.12); border-left:3px solid var(--purple); color:var(--purple); }
+.ctx-user { background:rgba(26,110,255,0.1); border-left:3px solid var(--accent); color:var(--accent2); }
+.ctx-assistant { background:rgba(15,122,74,0.1); border-left:3px solid var(--green); color:var(--green); }
+.ctx-label { font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; font-weight:600; margin-bottom:4px; opacity:0.8; }
+/* MODEL COMPARISON */
+.model-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:20px 0; }
+.model-card { background:#fff; border:1px solid var(--border); border-radius:8px; padding:20px; text-align:center; transition:all 0.2s; }
+.model-card:hover { border-color:var(--accent); transform:translateY(-2px); box-shadow:var(--shadow); }
+.model-icon { font-size:32px; margin-bottom:10px; }
+.model-name { font-weight:700; font-size:14px; margin-bottom:6px; }
+.model-use { font-size:12px; color:var(--ink3); line-height:1.5; font-weight:300; margin-bottom:12px; }
+.model-tag { display:inline-block; font-family:'JetBrains Mono',monospace; font-size:9px; padding:3px 8px; border-radius:3px; letter-spacing:1px; text-transform:uppercase; }
+.mt-fast { background:rgba(15,122,74,0.1); color:var(--green); }
+.mt-bal { background:rgba(26,110,255,0.1); color:var(--accent); }
+.mt-deep { background:rgba(108,63,212,0.1); color:var(--purple); }
+/* TOKEN METER */
+.token-demo { background:#fff; border:1px solid var(--border); border-radius:8px; padding:22px; margin:18px 0; }
+.token-demo h4 { font-size:13px; font-weight:600; margin-bottom:14px; }
+.token-bar-wrap { margin-bottom:12px; }
+.token-bar-label { display:flex; justify-content:space-between; font-size:12px; margin-bottom:5px; }
+.token-bar-label span { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--ink3); }
+.token-bar { height:10px; background:var(--bg2); border-radius:5px; overflow:hidden; }
+.token-fill { height:100%; border-radius:5px; transition:width 1s ease; }
+.tf-green { background:linear-gradient(90deg, var(--green), #1a9e5f); }
+.tf-blue { background:linear-gradient(90deg, var(--accent), #4d8fff); }
+.tf-red { background:linear-gradient(90deg, #e74c3c, #c0392b); }
+.tf-purple { background:linear-gradient(90deg, var(--purple), #8b5cf6); }
+/* PLAN COMPARE */
+.plan-table { width:100%; border-collapse:collapse; margin:18px 0; font-size:13px; }
+.plan-table th { background:var(--ink); color:#fff; padding:12px 16px; text-align:left; font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:1px; text-transform:uppercase; font-weight:500; }
+.plan-table td { padding:11px 16px; border-bottom:1px solid var(--border); color:var(--ink2); font-weight:300; }
+.plan-table tr:last-child td { border-bottom:none; }
+.plan-table tr:hover td { background:var(--accent-light); }
+.plan-table td:first-child { font-weight:500; color:var(--ink); }
+.check { color:var(--green); font-weight:700; }
+.cross { color:var(--red); }
+.partial { color:var(--gold); }
+/* INTERFACE TOUR */
+.ui-tour { display:grid; gap:14px; margin:18px 0; }
+.ui-feature { display:flex; gap:16px; align-items:flex-start; background:#fff; border:1px solid var(--border); border-radius:8px; padding:18px 20px; transition:all 0.2s; }
+.ui-feature:hover { border-color:var(--accent); box-shadow:var(--shadow); }
+.ui-icon { font-size:26px; flex-shrink:0; }
+.ui-name { font-size:14px; font-weight:600; margin-bottom:4px; }
+.ui-desc { font-size:13px; color:var(--ink3); line-height:1.55; font-weight:300; }
+.ui-badge { display:inline-block; margin-top:6px; font-family:'JetBrains Mono',monospace; font-size:9px; padding:2px 8px; border-radius:3px; letter-spacing:1px; text-transform:uppercase; }
+.ub-pro { background:rgba(26,110,255,0.1); color:var(--accent); }
+.ub-free { background:rgba(15,122,74,0.1); color:var(--green); }
+.ub-api { background:rgba(108,63,212,0.1); color:var(--purple); }
+/* QUIZ */
+.quiz { background:#fff; border:1px solid var(--border); border-radius:10px; overflow:hidden; margin:28px 0; box-shadow:var(--shadow); }
+/* LESSON FOOTER */
+.lesson-footer { margin-top:56px; padding-top:28px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:20px; }
+/* SIDEBAR TOGGLE */
+.sidebar-toggle { display:none; position:fixed; bottom:22px; right:22px; width:50px; height:50px; background:var(--accent); color:#fff; border:none; border-radius:50%; font-size:20px; cursor:pointer; z-index:200; box-shadow:var(--shadow-lg); }
+
+
+
+.back-btn:hover{color:var(--accent);}
+
+
+
+
+
+
+/* TOPBAR unificada */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  height: 48px;
+  min-height: 48px;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  white-space: nowrap;
+}
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  overflow: hidden;
+}
+.topbar-home {
+  color: var(--ink4);
+  text-decoration: none;
+  transition: color .15s;
+  white-space: nowrap;
+}
+.topbar-home:hover { color: var(--accent); }
+.topbar-sep { color: var(--border2); }
+.topbar-bc { color: var(--ink3); white-space: nowrap; }
+.topbar-aula { color: var(--accent); font-weight: 700; white-space: nowrap; }
+.topbar-nav { display: flex; gap: 8px; flex-shrink: 0; }
+.tb-btn {
+  padding: 6px 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--ink3);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all .15s;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.tb-btn:hover { border-color: var(--accent); color: var(--accent); }
+.tb-btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+.tb-btn.primary:hover { background: var(--accent2); }
+
+/* ═══════════════════════════════════════
+   LAYOUT — Isso é Claude v3
+   Testado: sidebar fixa, scroll no body
+   ═══════════════════════════════════════ */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Sora', -apple-system, sans-serif;
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+/* SIDEBAR — fixa, scroll próprio */
+.sidebar {
+  width: 272px;
+  background: var(--sidebar-bg);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid rgba(255,255,255,0.04);
+}
+.sidebar::-webkit-scrollbar { width: 3px; }
+.sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 2px; }
+
+/* MAIN — empurrado pela sidebar, scroll do body */
+.main {
+  margin-left: 272px;
+}
+
+/* TOPBAR — sticky no topo do viewport com scroll do body */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  height: 52px;
+  padding: 0 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* LESSON — ocupa a largura disponível */
+.lesson-content {
+  display: none;
+  padding: 56px 48px 80px;
+  max-width: 860px;
+  box-sizing: border-box;
+}
+.lesson-content.active {
+  display: block;
+}
+
+/* MOBILE */
+@media (max-width: 860px) {
+  .sidebar {
+    transform: translateX(-272px);
+    transition: transform .25s ease;
+  }
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  .main {
+    margin-left: 0;
+  }
+  .topbar {
+    padding: 0 16px;
+    height: 52px;
+  }
+  .lesson-content {
+    padding: 32px 20px 64px;
+  }
+}
+
+</style>
+</head>
+<body>
+<div class="layout">
+
+<!-- SIDEBAR -->
+<nav class="sidebar" id="sidebar">
+  <div class="sb-brand">
+    <span class="sb-tag">Isso é Claude</span>
+    <div class="sb-name">Módulo 01<br>Como o Claude Pensa</div>
+  </div>
+  <div class="sb-mod">6 aulas · ~90 minutos</div>
+  <div class="nav-lessons">
+    <div class="nav-item active" onclick="goTo(0)"><span class="nav-num">01.1</span><span class="nav-title">O que é o Claude? Diferença real entre LLMs</span></div>
+    <div class="nav-item" onclick="goTo(1)"><span class="nav-num">01.2</span><span class="nav-title">Como funciona uma janela de contexto</span></div>
+    <div class="nav-item" onclick="goTo(2)"><span class="nav-num">01.3</span><span class="nav-title">Sua primeira conversa estruturada</span></div>
+    <div class="nav-item" onclick="goTo(3)"><span class="nav-num">01.4</span><span class="nav-title">Claude.ai vs API — quando usar cada um</span></div>
+    <div class="nav-item" onclick="goTo(4)"><span class="nav-num">01.5</span><span class="nav-title">Planos Free, Pro e Team — o que vale</span></div>
+    <div class="nav-item" onclick="goTo(5)"><span class="nav-num">01.6</span><span class="nav-title">Ferramentas nativas: Artifacts, Projects e mais</span></div>
+  </div>
+  <div class="sb-progress">
+    <div class="prog-label">Progresso</div>
+    <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:16%"></div></div>
+    <div class="prog-text" id="progText">1 de 6 aulas</div>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="topbar">
+    <div class="topbar-left">
+      <a href="index.html" class="topbar-home">← Área do Aluno</a>
+      <span class="topbar-sep">›</span>
+      <span class="topbar-bc">Módulo 01</span>
+      <span class="topbar-sep">›</span>
+      <span class="topbar-aula" id="topLabel">Aula 01.1</span>
+    </div>
+    <div class="topbar-nav">
+      <button class="tb-btn" onclick="prev()">← Anterior</button>
+      <button class="tb-btn primary" onclick="next()">Próxima →</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════ -->
+  <!-- AULA 01.1 -->
+  <!-- ══════════════════════════════ -->
+  <div class="lesson-content active" id="l0">
+    <div class="lesson-header">
+      <div class="lesson-meta">
+        <span class="lesson-num-label">Aula 01.1</span>
+        <span class="lesson-tag tag-teoria">Teoria</span>
+        <span class="lesson-dur">⏱ ~15 minutos</span>
+      </div>
+      <h1 class="lesson-title">O que é o Claude?<br>A diferença real entre LLMs</h1>
+      <p class="lesson-sub">Antes de aprender a usar o Claude bem, você precisa entender o que ele é — e o que ele não é. E por que ele é diferente do ChatGPT, do Gemini e de qualquer outra IA que você já usou.</p>
+    </div>
+
+    <div class="block">
+      <h2>O que é um LLM, de verdade</h2>
+      <p>Claude é um <strong>Large Language Model (LLM)</strong> — um modelo de linguagem de grande escala. Mas o que isso significa na prática?</p>
+      <p>Um LLM é uma rede neural treinada em quantidades massivas de texto humano — livros, artigos, código, conversas — para aprender padrões de linguagem com tal profundidade que consegue <strong>prever e gerar texto com coerência e raciocínio</strong>.</p>
+      <p>Ele não "pensa" como um ser humano pensa. Ele <strong>completa padrões com altíssima sofisticação</strong>. A diferença entre LLMs ruins e bons está na qualidade do treinamento, no alinhamento com intenções humanas e na arquitetura.</p>
+
+      <div class="callout insight">
+        <div class="callout-icon">🧠</div>
+        <div class="callout-body">
+          <h4>A Analogia Mais Honesta</h4>
+          <p>Imagine um ser que leu toda a produção escrita da humanidade e aprendeu a sintetizar, raciocinar e responder com base nesses padrões. Não é uma enciclopédia — é um <em>raciocínio sobre enciclopédias</em>. A diferença é crucial.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2>Claude vs GPT vs Gemini — a diferença real</h2>
+      <p>Todos são LLMs poderosos. Mas há diferenças filosóficas e técnicas que importam para quem usa profissionalmente:</p>
+
+      <div class="model-grid">
+        <div class="model-card">
+          <div class="model-icon">🟠</div>
+          <div class="model-name">Claude (Anthropic)</div>
+          <div class="model-use">Foco em segurança, honestidade e raciocínio longo. Excelente para análise complexa, escrita e código. Janela de contexto enorme (200k tokens). Recusa menos que os concorrentes em tarefas legítimas.</div>
+          <span class="model-tag mt-deep">Raciocínio profundo</span>
+        </div>
+        <div class="model-card">
+          <div class="model-icon">🟢</div>
+          <div class="model-name">ChatGPT (OpenAI)</div>
+          <div class="model-use">O mais popular. Forte em criatividade e geração de conteúdo. Ecossistema de plugins e GPTs personalizados. Tende a ser mais "concordante" com o usuário, às vezes em detrimento da precisão.</div>
+          <span class="model-tag mt-bal">Ecossistema amplo</span>
+        </div>
+        <div class="model-card">
+          <div class="model-icon">🔵</div>
+          <div class="model-name">Gemini (Google)</div>
+          <div class="model-use">Integrado ao ecossistema Google (Gmail, Drive, Docs). Forte em buscas e dados atuais. Melhor para quem vive dentro do Google Workspace. Raciocínio ainda em amadurecimento vs Claude.</div>
+          <span class="model-tag mt-fast">Integração Google</span>
+        </div>
+      </div>
+
+      <div class="callout tip">
+        <div class="callout-icon">✅</div>
+        <div class="callout-body">
+          <h4>Por que este curso foca no Claude</h4>
+          <p>Claude tem a maior janela de contexto (você pode colar documentos inteiros), o melhor raciocínio em análise longa, o comportamento mais honesto quando não sabe algo — e a API mais acessível para construir produtos. Para uso profissional e construção de ferramentas, ele é a melhor escolha em 2025.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2>A Família Claude — Qual modelo usar</h2>
+      <p>A Anthropic lança modelos em famílias. Cada um tem um perfil de velocidade × profundidade × custo:</p>
+
+      <div class="diagram">
+        <div class="diagram-title">Família Claude 2025 — Escolha certa para cada tarefa</div>
+        <div class="diagram-body">
+          <div class="ui-feature">
+            <div class="ui-icon">⚡</div>
+            <div>
+              <div class="ui-name">Claude Haiku — O Rápido</div>
+              <div class="ui-desc">O mais leve e barato. Ideal para tarefas de alto volume, classificações, resumos curtos, chatbots de atendimento. Não é o mais inteligente, mas responde em milissegundos. Perfeito para automações onde velocidade importa mais que profundidade.</div>
+              <span class="ui-badge ub-free">Mais rápido · Mais barato</span>
+            </div>
+          </div>
+          <div class="ui-feature">
+            <div class="ui-icon">⚖️</div>
+            <div>
+              <div class="ui-name">Claude Sonnet — O Equilibrado</div>
+              <div class="ui-desc">O ponto-doce de inteligência × velocidade × custo. É o modelo padrão do Claude.ai. Resolve 90% das tarefas profissionais com excelência: análise, escrita, código, raciocínio complexo. Para a maioria das pessoas, é o modelo certo.</div>
+              <span class="ui-badge ub-pro">Recomendado para uso diário</span>
+            </div>
+          </div>
+          <div class="ui-feature">
+            <div class="ui-icon">🧠</div>
+            <div>
+              <div class="ui-name">Claude Opus — O Profundo</div>
+              <div class="ui-desc">O mais inteligente da família. Para problemas que exigem raciocínio de múltiplos passos, análise de documentos complexos, código avançado, pesquisa técnica. Mais lento e mais caro — use quando a profundidade é inegociável.</div>
+              <span class="ui-badge ub-api">Máxima capacidade</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2>O que o Claude NÃO é</h2>
+      <p>Tão importante quanto saber o que o Claude é, é entender o que ele <strong>não é</strong> — para não criar expectativas erradas:</p>
+
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div>
+          <span class="code-lang">Mitos vs Realidade</span>
+        </div>
+        <div class="code-body"><span class="c-bad">❌ MITO: "Claude sabe tudo"</span>
+<span class="c-good">✅ REALIDADE: Ele tem conhecimento até sua data de corte e pode alucinar.
+   Sempre valide informações críticas em fontes primárias.</span>
+
+<span class="c-bad">❌ MITO: "Claude lembra de conversas anteriores"</span>
+<span class="c-good">✅ REALIDADE: Cada conversa começa do zero (exceto com Projects e Memória ativados).
+   Contexto não persiste por padrão entre sessões.</span>
+
+<span class="c-bad">❌ MITO: "Claude está acessando a internet em tempo real"</span>
+<span class="c-good">✅ REALIDADE: Só quando a pesquisa web está habilitada.
+   Por padrão ele responde com conhecimento do treinamento.</span>
+
+<span class="c-bad">❌ MITO: "Se o Claude errou, a IA é ruim"</span>
+<span class="c-good">✅ REALIDADE: LLMs erram, especialmente com dados específicos.
+   O skill de usar IA inclui saber quando e o que verificar.</span>
+
+<span class="c-bad">❌ MITO: "Quanto mais longo o prompt, melhor"</span>
+<span class="c-good">✅ REALIDADE: Prompts longos e mal estruturados confundem.
+   O segredo é ser específico, não extenso. (Isso você vai dominar no Módulo 02)</span></div>
+      </div>
+    </div>
+
+    <div class="lesson-footer">
+      <div class="footer-next">
+        <div class="footer-next-label">Próxima aula</div>
+        <div class="footer-next-title">01.2 — Como funciona uma janela de contexto</div>
+      </div>
+      <button class="complete-btn" id="cb0" onclick="complete(0)">Marcar como concluída ✓</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════ -->
+  <!-- AULA 01.2 -->
+  <!-- ══════════════════════════════ -->
+  <div class="lesson-content" id="l1">
+    <div class="lesson-header">
+      <div class="lesson-meta">
+        <span class="lesson-num-label">Aula 01.2</span>
+        <span class="lesson-tag tag-teoria">Teoria</span>
+        <span class="lesson-dur">⏱ ~18 minutos</span>
+      </div>
+      <h1 class="lesson-title">Como Funciona uma<br>Janela de Contexto</h1>
+      <p class="lesson-sub">O conceito mais importante para usar o Claude com profundidade. Entender a janela de contexto muda completamente como você estrutura conversas, projetos e automações.</p>
+    </div>
+
+    <div class="block">
+      <h2>O que é a Janela de Contexto</h2>
+      <p>A janela de contexto é <strong>tudo que o Claude consegue "ver" de uma vez</strong> durante uma conversa. Imagine como a memória de trabalho de um humano — enquanto você está resolvendo um problema, você só consegue manter uma quantidade de informação "na cabeça" ao mesmo tempo.</p>
+      <p>No Claude, essa janela é medida em <strong>tokens</strong> — pedaços de texto que podem ser palavras, partes de palavras ou pontuações. Em média, 1.000 tokens ≈ 750 palavras em português.</p>
+
+      <div class="diagram">
+        <div class="diagram-title">Anatomia da Janela de Contexto</div>
+        <div class="diagram-body">
+          <div class="ctx-window">
+            <div class="ctx-window-label">JANELA DE CONTEXTO — 200.000 tokens</div>
+            <div class="ctx-block ctx-system">
+              <div class="ctx-label">System Prompt</div>
+              Instruções base, persona, regras de comportamento, contexto do projeto
+            </div>
+            <div class="ctx-block ctx-user">
+              <div class="ctx-label">Mensagem do Usuário [1]</div>
+              Sua primeira pergunta ou instrução
+            </div>
+            <div class="ctx-block ctx-assistant">
+              <div class="ctx-label">Resposta do Claude [1]</div>
+              A resposta gerada pelo modelo
+            </div>
+            <div class="ctx-block ctx-user">
+              <div class="ctx-label">Mensagem do Usuário [2]</div>
+              Seu follow-up, refinamento ou nova instrução
+            </div>
+            <div class="ctx-block ctx-assistant">
+              <div class="ctx-label">Resposta do Claude [2]</div>
+              Resposta baseada em TUDO acima — ele vê toda a conversa
+            </div>
+          </div>
+          <p style="font-size:13px;color:var(--ink3);margin-top:12px;font-weight:300;">↑ O Claude processa toda a janela em cada resposta. Quanto mais contexto relevante você fornecer, mais precisa a resposta.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2>Tokens na Prática — Quanto cabe?</h2>
+      <p>O Claude (versão Pro) tem janela de <strong>200.000 tokens</strong>. Para ter noção de escala:</p>
+
+      <div class="token-demo">
+        <h4>Quanto cabe em 200k tokens?</h4>
+
+        <div class="token-bar-wrap">
+          <div class="token-bar-label"><span>Uma mensagem curta de WhatsApp</span><span>~10 tokens · 0,005%</span></div>
+          <div class="token-bar"><div class="token-fill tf-green" style="width:0.5%"></div></div>
+        </div>
+
+        <div class="token-bar-wrap">
+          <div class="token-bar-label"><span>Este módulo inteiro do curso</span><span>~8.000 tokens · 4%</span></div>
+          <div class="token-bar"><div class="token-fill tf-blue" style="width:4%"></div></div>
+        </div>
+
+        <div class="token-bar-wrap">
+          <div class="token-bar-label"><span>Um contrato de 50 páginas</span><span>~35.000 tokens · 17%</span></div>
+          <div class="token-bar"><div class="token-fill tf-purple" style="width:17%"></div></div>
+        </div>
+
+        <div class="token-bar-wrap">
+          <div class="token-bar-label"><span>Um livro inteiro (~300 páginas)</span><span>~120.000 tokens · 60%</span></div>
+          <div class="token-bar"><div class="token-fill tf-red" style="width:60%"></div></div>
+        </div>
+
+        <p style="font-size:12px;color:var(--ink3);margin-top:14px;font-weight:300;">💡 Isso significa que você pode colar um contrato completo, um relatório anual, ou todo o histórico de e-mails de um projeto — e o Claude analisa tudo de uma vez.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2>Por que a Janela de Contexto Muda Tudo</h2>
+      <p>A maioria dos usuários trata o Claude como uma calculadora — faz uma pergunta, recebe uma resposta, nova pergunta. Mas o Claude é muito mais poderoso quando você pensa na <strong>conversa como um documento colaborativo em construção</strong>.</p>
+
+      <div class="callout key">
+        <div class="callout-icon">🔑</div>
+        <div class="callout-body">
+          <h4>A Estratégia do Contexto Rico</h4>
+          <p>No início de uma sessão de trabalho, <em>despeje contexto</em> antes de fazer pedidos. Quem você é, qual é o projeto, qual o objetivo, quais restrições. Esse "briefing inicial" vai melhorar TODAS as respostas seguintes da conversa — porque o Claude vê tudo aquilo em cada resposta.</p>
+        </div>
+      </div>
+
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div>
+          <span class="code-lang">Estratégia de contexto rico — Abertura de sessão</span>
+          <button class="code-copy" onclick="copyCode(this)">copiar</button>
+        </div>
+        <div class="code-body"><span class="c-cm">// Abertura de sessão com contexto rico (faça isso uma vez no início)</span>
+
+<span class="c-good">Olá! Antes de começar, deixa eu te contextualizar para que nossas
+trocas nessa sessão sejam mais precisas:
+
+Sou dono de uma empresa de motofranchising em São Paulo.
+Tenho 40 motos YBR 150 alugadas para entregadores de apps.
+Meu foco agora é: (1) melhorar o controle de manutenção,
+(2) reduzir inadimplência nos contratos semanais,
+(3) avaliar expansão para o ABC Paulista.
+
+Minha linguagem preferida: direta, sem rodeios.
+Formatos que prefiro: listas quando há múltiplos itens,
+parágrafos quando é análise. Nunca use linguagem corporativa vaga.
+
+Com esse contexto, vou fazer várias perguntas ao longo dessa sessão.</span>
+
+<span class="c-cm">// A partir daqui, todas as respostas do Claude vão carregar esse contexto.
+// Você não precisa repetir quem você é em cada mensagem.</span></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2>O que acontece quando o contexto esgota</h2>
+      <p>Em conversas muito longas, o Claude começa a "esquecer" o início da conversa — as mensagens mais antigas saem da janela para dar lugar às novas. Isso é chamado de <strong>context overflow</strong>.</p>
+
+      <div class="callout warning">
+        <div class="callout-icon">⚠️</div>
+        <div class="callout-body">
+          <h4>Sinais de que o contexto está se perdendo</h4>
+          <p>O Claude começa a contradizer o que disse antes · Esquece restrições que você definiu no início · Respostas ficam mais genéricas · Referências a informações anteriores ficam imprecisas. Quando isso acontece: comece uma nova conversa e recoloque o contexto essencial.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2>🎯 Quiz Rápido</h2>
+      <div class="quiz" id="quiz-l1">
+        <div class="quiz-header">
+          <span class="quiz-tag">Fixação de conteúdo</span>
+          <div class="quiz-title">Janela de Contexto</div>
+        </div>
+        <div class="quiz-body">
+          <div class="quiz-question active" id="q1a">
+            <div class="q-num">Pergunta 1 de 3</div>
+            <div class="q-text">Você vai analisar um contrato de 80 páginas com o Claude Pro. Qual é a melhor abordagem?</div>
+            <div class="q-options">
+              <div class="q-option" onclick="ans('q1a',this,0,0)"><span class="q-letter">A</span>Copiar o contrato inteiro e colar de uma vez no chat</div>
+              <div class="q-option" onclick="ans('q1a',this,1,0)"><span class="q-letter">B</span>Dividir o contrato em partes de 10 páginas e analisar separadamente</div>
+              <div class="q-option" onclick="ans('q1a',this,2,0)"><span class="q-letter">C</span>Resumir manualmente o contrato antes de mandar para o Claude</div>
+              <div class="q-option" onclick="ans('q1a',this,3,0)"><span class="q-letter">D</span>Usar o Gemini porque ele tem contexto maior</div>
+            </div>
+            <div class="q-feedback" id="fb-q1a"></div>
+            <button class="q-next" id="nxt-q1a" onclick="nxtQ('q1a','q2a')">Próxima →</button>
+          </div>
+          <div class="quiz-question" id="q2a">
+            <div class="q-num">Pergunta 2 de 3</div>
+            <div class="q-text">Qual é a principal vantagem de fazer um "briefing inicial" no começo de uma sessão de trabalho com o Claude?</div>
+            <div class="q-options">
+              <div class="q-option" onclick="ans('q2a',this,0,1)"><span class="q-letter">A</span>O Claude fica mais simpático e agradável nas respostas</div>
+              <div class="q-option" onclick="ans('q2a',this,1,1)"><span class="q-letter">B</span>O contexto fica disponível para todas as respostas seguintes sem precisar repetir</div>
+              <div class="q-option" onclick="ans('q2a',this,2,1)"><span class="q-letter">C</span>O Claude usa modelos melhores quando recebe mais texto</div>
+              <div class="q-option" onclick="ans('q2a',this,3,1)"><span class="q-letter">D</span>Economiza tokens e deixa a resposta mais barata</div>
+            </div>
+            <div class="q-feedback" id="fb-q2a"></div>
+            <button class="q-next" id="nxt-q2a" onclick="nxtQ('q2a','q3a')">Próxima →</button>
+          </div>
+          <div class="quiz-question" id="q3a">
+            <div class="q-num">Pergunta 3 de 3</div>
+            <div class="q-text">O Claude começa a "esquecer" restrições que você definiu no início da conversa. Qual é a causa mais provável?</div>
+            <div class="q-options">
+              <div class="q-option" onclick="ans('q3a',this,0,2)"><span class="q-letter">A</span>O Claude tem bugs nessa versão</div>
+              <div class="q-option" onclick="ans('q3a',this,1,2)"><span class="q-letter">B</span>Suas instruções não foram claras o suficiente</div>
+              <div class="q-option" onclick="ans('q3a',this,2,2)"><span class="q-letter">C</span>A conversa ficou muito longa e as mensagens antigas saíram da janela de contexto</div>
+              <div class="q-option" onclick="ans('q3a',this,3,2)"><span class="q-letter">D</span>O Claude ignora restrições intencionalmente</div>
+            </div>
+            <div class="q-feedback" id="fb-q3a"></div>
+            <button class="q-next" id="nxt-q3a" onclick="showRes('quiz-l1',3)">Ver resultado →</button>
+          </div>
+          <div class="quiz-result" id="result-quiz-l1">
+            <div class="result-score" id="score-quiz-l1">0/3</div>
+            <div class="result-label" id="rl-quiz-l1"></div>
+            <div class="result-desc" id="rd-quiz-l1"></div>
+            <button class="result-retry" onclick="retry('quiz-l1',['q1a','q2a','q3a'])">Tentar novamente</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-footer">
+      <div class="footer-next">
+        <div class="footer-next-label">Próxima aula</div>
+        <div class="footer-next-title">01.3 — Sua primeira conversa estruturada</div>
+      </div>
+      <button class="complete-btn" id="cb1" onclick="complete(1)">Marcar como concluída ✓</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════ -->
+  <!-- AULA 01.3 -->
+  <!-- ══════════════════════════════ -->
+  <div class="lesson-content" id="l2">
+    <div class="lesson-header">
+      <div class="lesson-meta">
+        <span class="lesson-num-label">Aula 01.3</span>
+        <span class="lesson-tag tag-pratica">Prática</span>
+        <span class="lesson-dur">⏱ ~16 minutos</span>
+      </div>
+      <h1 class="lesson-title">Sua Primeira Conversa<br>Estruturada</h1>
+      <p class="lesson-sub">Teoria é ótimo, mas aprender fazendo é melhor. Aqui você monta uma conversa estruturada completa — com papel, contexto, tarefa e formato — e entende por que cada elemento importa.</p>
+    </div>
+
+    <div class="block">
+      <h2>Os 4 Pilares de uma Conversa Profissional</h2>
+      <p>Antes de ir a fundo em prompt engineering (Módulo 02), você precisa internalizar os pilares básicos que tornam qualquer conversa com o Claude mais produtiva:</p>
+
+      <div class="diagram">
+        <div class="diagram-title">Os 4 Pilares</div>
+        <div class="diagram-body">
+          <div class="ui-feature">
+            <div class="ui-icon">🎭</div>
+            <div>
+              <div class="ui-name">1. PAPEL — Quem o Claude deve ser</div>
+              <div class="ui-desc">Defina o especialista que você precisa. Quanto mais específico, mais calibrado o conhecimento e o tom da resposta. "Especialista em marketing" é fraco. "CMO com experiência em e-commerce brasileiro que prefere decisões baseadas em dados" é forte.</div>
+            </div>
+          </div>
+          <div class="ui-feature">
+            <div class="ui-icon">📋</div>
+            <div>
+              <div class="ui-name">2. CONTEXTO — O que o Claude precisa saber</div>
+              <div class="ui-desc">Forneça o cenário completo: sua empresa, seu objetivo, seus dados, suas restrições. O Claude não sabe nada sobre você. Contexto é a matéria-prima da qualidade.</div>
+            </div>
+          </div>
+          <div class="ui-feature">
+            <div class="ui-icon">🎯</div>
+            <div>
+              <div class="ui-name">3. TAREFA — O que você quer que ele faça</div>
+              <div class="ui-desc">Seja específico e acionável. Use verbos de ação: "escreva", "analise", "compare", "liste", "sugira". Evite pedidos abertos demais como "me ajuda com meu negócio".</div>
+            </div>
+          </div>
+          <div class="ui-feature">
+            <div class="ui-icon">📐</div>
+            <div>
+              <div class="ui-name">4. FORMATO — Como você quer receber</div>
+              <div class="ui-desc">Especifique: tamanho, estrutura, tom, markdown, tabela, lista. Sem especificar, o Claude escolhe — e pode não ser o que você precisava.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2>Construindo ao Vivo — Do Ruim ao Excelente</h2>
+      <p>Veja a transformação de um pedido comum em três versões progressivamente melhores:</p>
+
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div>
+          <span class="code-lang">Evolução de um prompt — 3 versões</span>
+          <button class="code-copy" onclick="copyCode(this)">copiar</button>
+        </div>
+        <div class="code-body"><span class="c-cm">// VERSÃO 1 — Básico (resultado: genérico)</span>
+<span class="c-bad">"Me dá ideias de marketing para minha empresa."</span>
+
+<span class="c-cm">// VERSÃO 2 — Intermediário (resultado: melhor, ainda vago)</span>
+<span class="c-tag">"Me dá 5 ideias de marketing digital para uma empresa de aluguel
+de motos em São Paulo, focadas em atrair entregadores de app."</span>
+
+<span class="c-cm">// VERSÃO 3 — Estruturado (resultado: cirúrgico)</span>
+<span class="c-good">"Você é um especialista em growth marketing com experiência em
+empresas de gig economy e mobilidade urbana no Brasil.
+
+Contexto: Tenho 40 motos YBR 150 alugadas semanalmente para
+entregadores de iFood, Rappi e Loggi em São Paulo — zona leste e sul.
+Meu diferencial é manutenção inclusa e troca rápida em caso de pane.
+Orçamento de marketing: R$2.000/mês.
+
+Tarefa: Sugira 5 ações de marketing digital para atrair novos
+entregadores. Priorize canais com custo baixo e retorno rápido.
+
+Formato: Lista numerada. Para cada ação: nome da ação,
+canal específico, como executar em 1 semana, custo estimado."</span></div>
+      </div>
+
+      <div class="callout tip">
+        <div class="callout-icon">💡</div>
+        <div class="callout-body">
+          <h4>O Teste dos 3 Segundos</h4>
+          <p>Antes de enviar um prompt, leia-o e responda: <em>Se eu fosse um consultor especialista e recebesse exatamente isso, teria tudo que preciso para responder com precisão?</em> Se a resposta for não — adicione o que falta.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-footer">
+      <div class="footer-next">
+        <div class="footer-next-label">Próxima aula</div>
+        <div class="footer-next-title">01.4 — Claude.ai vs API</div>
+      </div>
+      <button class="complete-btn" id="cb2" onclick="complete(2)">Marcar como concluída ✓</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════ -->
+  <!-- AULA 01.4 -->
+  <!-- ══════════════════════════════ -->
+  <div class="lesson-content" id="l3">
+    <div class="lesson-header">
+      <div class="lesson-meta">
+        <span class="lesson-num-label">Aula 01.4</span>
+        <span class="lesson-tag tag-guia">Guia</span>
+        <span class="lesson-dur">⏱ ~14 minutos</span>
+      </div>
+      <h1 class="lesson-title">Claude.ai vs API —<br>Quando Usar Cada Um</h1>
+      <p class="lesson-sub">Existem duas formas de acessar o Claude: pelo chat em claude.ai e pela API. Entender a diferença decide se você vai usar como ferramenta ou vai construir ferramentas com ele.</p>
+    </div>
+
+    <div class="block">
+      <h2>As Duas Portas de Entrada</h2>
+
+      <div class="diagram">
+        <div class="diagram-title">Claude.ai vs API — Mapa de Decisão</div>
+        <div class="diagram-body">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+            <div style="background:rgba(26,110,255,0.05);border:1px solid rgba(26,110,255,0.2);border-radius:8px;padding:20px;">
+              <div style="font-size:24px;margin-bottom:10px;">🖥️</div>
+              <div style="font-weight:700;font-size:15px;margin-bottom:8px;color:var(--accent)">Claude.ai</div>
+              <div style="font-size:13px;color:var(--ink2);line-height:1.7;font-weight:300;">
+                Interface de chat pronta<br>
+                ✅ Zero configuração<br>
+                ✅ Projects e memória<br>
+                ✅ Upload de arquivos<br>
+                ✅ Artifacts visuais<br>
+                ✅ Pesquisa na web<br>
+                ❌ Não integra com seus sistemas<br>
+                ❌ Não automatiza fluxos<br><br>
+                <strong>Para quem:</strong> Uso pessoal e profissional direto
+              </div>
+            </div>
+            <div style="background:rgba(108,63,212,0.05);border:1px solid rgba(108,63,212,0.2);border-radius:8px;padding:20px;">
+              <div style="font-size:24px;margin-bottom:10px;">⚙️</div>
+              <div style="font-weight:700;font-size:15px;margin-bottom:8px;color:var(--purple)">API Anthropic</div>
+              <div style="font-size:13px;color:var(--ink2);line-height:1.7;font-weight:300;">
+                Acesso programático<br>
+                ✅ Integra com qualquer sistema<br>
+                ✅ Automação total<br>
+                ✅ Sistema prompt customizado<br>
+                ✅ Escala infinita<br>
+                ✅ Constrói produtos<br>
+                ❌ Requer código ou no-code<br>
+                ❌ Custo por token<br><br>
+                <strong>Para quem:</strong> Builders, devs, automações
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2>Quando Usar Cada Um</h2>
+
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div>
+          <span class="code-lang">Guia de decisão rápida</span>
+        </div>
+        <div class="code-body"><span class="c-cm">// USE CLAUDE.AI QUANDO:</span>
+<span class="c-good">✅ Você está fazendo análise de um documento específico
+✅ Está escrevendo, revisando ou criando conteúdo
+✅ Precisa de uma sessão de trabalho colaborativa
+✅ Quer usar Artifacts para gerar HTML, planilhas, slides
+✅ Precisa de pesquisa na web integrada
+✅ Está explorando ideias sem um output final definido</span>
+
+<span class="c-cm">// USE A API QUANDO:</span>
+<span class="c-good">✅ Quer automatizar uma tarefa repetitiva
+✅ Precisa integrar Claude a um software existente
+✅ Vai construir um chatbot, ferramenta ou produto
+✅ Quer processar centenas de itens em lote
+✅ Precisa de um system prompt permanente e customizado
+✅ Quer que o Claude tome ações automáticas (enviar e-mail, preencher planilha)</span>
+
+<span class="c-cm">// CASOS HÍBRIDOS — ambos, em momentos diferentes:</span>
+<span class="c-hl">→ Desenvolve e testa o prompt no Claude.ai
+→ Quando está pronto, implementa via API em produção</span></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2>A Jornada Típica de um Power User</h2>
+      <p>A maioria das pessoas começa no Claude.ai e migra para a API conforme evolui:</p>
+
+      <div class="diagram">
+        <div class="diagram-title">Jornada de evolução — 4 estágios</div>
+        <div class="diagram-body">
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div style="display:flex;gap:16px;align-items:center;background:rgba(15,122,74,0.06);padding:14px 18px;border-radius:6px;border-left:3px solid var(--green)">
+              <div style="font-size:22px">1️⃣</div>
+              <div><strong style="font-size:13px">Iniciante (Claude.ai Free)</strong><br><span style="font-size:12px;color:var(--ink3)">Primeiros prompts, uso casual, descoberta das capacidades</span></div>
+            </div>
+            <div style="display:flex;gap:16px;align-items:center;background:rgba(26,110,255,0.06);padding:14px 18px;border-radius:6px;border-left:3px solid var(--accent)">
+              <div style="font-size:22px">2️⃣</div>
+              <div><strong style="font-size:13px">Profissional (Claude.ai Pro)</strong><br><span style="font-size:12px;color:var(--ink3)">Projects, contexto persistente, análise de documentos, uso diário no trabalho</span></div>
+            </div>
+            <div style="display:flex;gap:16px;align-items:center;background:rgba(184,134,11,0.06);padding:14px 18px;border-radius:6px;border-left:3px solid var(--gold)">
+              <div style="font-size:22px">3️⃣</div>
+              <div><strong style="font-size:13px">Builder (API + Make/n8n)</strong><br><span style="font-size:12px;color:var(--ink3)">Primeiras automações sem código, integração com ferramentas existentes</span></div>
+            </div>
+            <div style="display:flex;gap:16px;align-items:center;background:rgba(108,63,212,0.06);padding:14px 18px;border-radius:6px;border-left:3px solid var(--purple)">
+              <div style="font-size:22px">4️⃣</div>
+              <div><strong style="font-size:13px">Creator (API + Código + Claude Code)</strong><br><span style="font-size:12px;color:var(--ink3)">Produtos SaaS, ferramentas customizadas, automações complexas</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout insight">
+        <div class="callout-icon">🗺️</div>
+        <div class="callout-body">
+          <h4>Este curso cobre toda a jornada</h4>
+          <p>Módulos 01-04 = Estágios 1-2. Módulos 05-06 = Estágio 3. Módulos 07-08 = Estágio 4. Você vai sair daqui no Estágio 4.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-footer">
+      <div class="footer-next">
+        <div class="footer-next-label">Próxima aula</div>
+        <div class="footer-next-title">01.5 — Planos Free, Pro e Team</div>
+      </div>
+      <button class="complete-btn" id="cb3" onclick="complete(3)">Marcar como concluída ✓</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════ -->
+  <!-- AULA 01.5 -->
+  <!-- ══════════════════════════════ -->
+  <div class="lesson-content" id="l4">
+    <div class="lesson-header">
+      <div class="lesson-meta">
+        <span class="lesson-num-label">Aula 01.5</span>
+        <span class="lesson-tag tag-guia">Guia</span>
+        <span class="lesson-dur">⏱ ~12 minutos</span>
+      </div>
+      <h1 class="lesson-title">Planos Free, Pro e Team —<br>O que Vale a Pena</h1>
+      <p class="lesson-sub">Qual plano faz sentido para o seu uso? Uma análise direta e sem enrolação para você tomar a decisão certa — sem pagar por recursos que não vai usar.</p>
+    </div>
+
+    <div class="block">
+      <h2>Comparativo dos Planos</h2>
+
+      <table class="plan-table">
+        <thead>
+          <tr>
+            <th>Recurso</th>
+            <th>Free</th>
+            <th>Pro (~R$100–120/mês <span style="font-size:11px;color:var(--ink4);font-family:'JetBrains Mono',monospace;">(verifique o valor atual em claude.ai/pricing)</span>)</th>
+            <th>Team (~R$130–160/usuário <span style="font-size:11px;color:var(--ink4);font-family:'JetBrains Mono',monospace;">(verifique o valor atual em claude.ai/pricing)</span>)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Acesso ao Claude Sonnet</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+          <tr><td>Acesso ao Claude Opus</td><td class="cross">✗</td><td class="check">✓</td><td class="check">✓</td></tr>
+          <tr><td>Limite de mensagens</td><td class="partial">Baixo</td><td class="partial">Alto</td><td class="check">Maior</td></tr>
+          <tr><td>Projects (contexto persistente)</td><td class="cross">✗</td><td class="check">✓</td><td class="check">✓</td></tr>
+          <tr><td>Artifacts (HTML, código, docs)</td><td class="partial">Limitado</td><td class="check">✓</td><td class="check">✓</td></tr>
+          <tr><td>Pesquisa na web</td><td class="partial">Limitado</td><td class="check">✓</td><td class="check">✓</td></tr>
+          <tr><td>Upload de arquivos grandes</td><td class="cross">✗</td><td class="check">✓</td><td class="check">✓</td></tr>
+          <tr><td>Extended Thinking</td><td class="cross">✗</td><td class="check">✓</td><td class="check">✓</td></tr>
+          <tr><td>Claude Code</td><td class="cross">✗</td><td class="check">✓</td><td class="check">✓</td></tr>
+          <tr><td>Colaboração em equipe</td><td class="cross">✗</td><td class="cross">✗</td><td class="check">✓</td></tr>
+          <tr><td>Admin e controle de acesso</td><td class="cross">✗</td><td class="cross">✗</td><td class="check">✓</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="block">
+      <h2>Guia de Decisão — Qual plano é seu?</h2>
+
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div>
+          <span class="code-lang">Decisão por perfil de uso</span>
+        </div>
+        <div class="code-body"><span class="c-cm">// FIQUE NO FREE SE:</span>
+<span class="c-tag">→ Está apenas explorando e aprendendo
+→ Usa Claude menos de 1h por dia
+→ Não precisa de Projects ou análise de documentos grandes
+→ Não vai construir nada com a ferramenta</span>
+
+<span class="c-cm">// ASSINE O PRO SE:</span>
+<span class="c-good">→ Usa Claude como ferramenta de trabalho real
+→ Precisa de análise de PDFs, contratos, planilhas
+→ Quer Projects com contexto persistente por área
+→ Vai usar Artifacts para criar HTMLs, dashboards, docs
+→ Vai acompanhar este curso até o final (Módulo 07 exige Pro)
+→ Faz pesquisa e síntese de conteúdo regularmente</span>
+
+<span class="c-cm">// CONSIDERE O TEAM SE:</span>
+<span class="c-hl">→ Tem uma equipe de 3+ pessoas que vão usar
+→ Precisa de controle de acesso e gestão centralizada
+→ Projetos compartilhados entre membros da empresa</span></div>
+      </div>
+
+      <div class="callout key">
+        <div class="callout-icon">💰</div>
+        <div class="callout-body">
+          <h4>O ROI Real do Pro</h4>
+          <p>Se o Claude Pro substituir 2 horas de trabalho manual por semana — ou evitar uma consulta de R$500 com um advogado, contador ou designer — ele se paga em menos de um mês. A pergunta certa não é "vale R$110 <span style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--ink4);">(verificar em claude.ai/pricing)</span>?" mas "quanto vale 2h do meu tempo?"</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-footer">
+      <div class="footer-next">
+        <div class="footer-next-label">Última aula do módulo</div>
+        <div class="footer-next-title">01.6 — Ferramentas nativas: Artifacts, Projects e mais</div>
+      </div>
+      <button class="complete-btn" id="cb4" onclick="complete(4)">Marcar como concluída ✓</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════ -->
+  <!-- AULA 01.6 -->
+  <!-- ══════════════════════════════ -->
+  <div class="lesson-content" id="l5">
+    <div class="lesson-header">
+      <div class="lesson-meta">
+        <span class="lesson-num-label">Aula 01.6</span>
+        <span class="lesson-tag tag-demo">Demo</span>
+        <span class="lesson-dur">⏱ ~15 minutos</span>
+      </div>
+      <h1 class="lesson-title">Ferramentas Nativas —<br>Artifacts, Projects e Mais</h1>
+      <p class="lesson-sub">O Claude tem um ecossistema de ferramentas poderosas que a maioria dos usuários não conhece ou usa pela metade. Aqui você vai conhecer cada uma e saber exatamente quando acioná-las.</p>
+    </div>
+
+    <div class="block">
+      <h2>O Ecossistema de Ferramentas do Claude</h2>
+
+      <div class="ui-tour">
+        <div class="ui-feature">
+          <div class="ui-icon">🎨</div>
+          <div>
+            <div class="ui-name">Artifacts — Crie sem sair do chat</div>
+            <div class="ui-desc">Artifacts são documentos, códigos ou interfaces gerados pelo Claude que ficam em um painel ao lado da conversa. Você pode criar: páginas HTML completas, scripts Python e JavaScript, documentos Markdown formatados, gráficos SVG, diagramas Mermaid. O Artifact pode ser editado iterativamente — você pede ajustes e o Claude atualiza em tempo real.</div>
+            <span class="ui-badge ub-pro">Pro</span>
+          </div>
+        </div>
+
+        <div class="ui-feature">
+          <div class="ui-icon">📁</div>
+          <div>
+            <div class="ui-name">Projects — Contexto Permanente por Área</div>
+            <div class="ui-desc">Projects permitem criar "espaços de trabalho" com contexto permanente. Você define um system prompt para o projeto, sobe documentos base (manuais, contratos, dados), e toda conversa dentro do projeto herda esse contexto. Ideal para: projeto de negócio específico, base de conhecimento de uma área, assistente especializado permanente.</div>
+            <span class="ui-badge ub-pro">Pro</span>
+          </div>
+        </div>
+
+        <div class="ui-feature">
+          <div class="ui-icon">🔍</div>
+          <div>
+            <div class="ui-name">Pesquisa na Web — Informação Atual</div>
+            <div class="ui-desc">Quando ativada, o Claude pode buscar na internet antes de responder. Essencial para: preços atuais, notícias recentes, dados de mercado, legislação atualizada. Ele cita as fontes consultadas. Use quando seu tema pode ter mudado depois do treinamento do modelo.</div>
+            <span class="ui-badge ub-free">Free e Pro</span>
+          </div>
+        </div>
+
+        <div class="ui-feature">
+          <div class="ui-icon">📄</div>
+          <div>
+            <div class="ui-name">Análise de Arquivos — PDFs, Planilhas, Imagens</div>
+            <div class="ui-desc">Você pode subir PDFs (contratos, relatórios, livros), planilhas Excel/CSV, imagens e documentos Word. O Claude lê e processa tudo. Ideal para: revisar contratos, analisar dados, extrair informações de documentos longos, transcrever e organizar conteúdo de PDFs escaneados.</div>
+            <span class="ui-badge ub-pro">Pro (arquivos maiores)</span>
+          </div>
+        </div>
+
+        <div class="ui-feature">
+          <div class="ui-icon">🧠</div>
+          <div>
+            <div class="ui-name">Extended Thinking — Raciocínio Longo</div>
+            <div class="ui-desc">Modo especial em que o Claude "pensa em voz alta" antes de responder — como um rascunho de raciocínio visível. Aumenta significativamente a precisão em problemas complexos: análises estratégicas, problemas matemáticos, decisões com múltiplos critérios. (Módulo 05 inteiro sobre isso)</div>
+            <span class="ui-badge ub-pro">Pro</span>
+          </div>
+        </div>
+
+        <div class="ui-feature">
+          <div class="ui-icon">💻</div>
+          <div>
+            <div class="ui-name">Claude Code — Agente de Programação</div>
+            <div class="ui-desc">Não é uma funcionalidade do chat — é uma ferramenta separada de linha de comando. O Claude Code acessa seus arquivos locais, executa código, cria e edita projetos inteiros de forma autônoma. É o nível mais avançado de uso. (Módulo 07 inteiro sobre isso)</div>
+            <span class="ui-badge ub-api">Avançado</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2>Quando Acionar Cada Ferramenta</h2>
+
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div>
+          <span class="code-lang">Guia de ativação por situação</span>
+        </div>
+        <div class="code-body" style="padding:0;">
+          <table style="width:100%;border-collapse:collapse;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.6;">
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+              <td style="padding:14px 22px;color:#6e7681;width:55%;">"Quero criar uma calculadora de orçamento para enviar para clientes"</td>
+              <td style="padding:14px 22px;color:#7ee787;border-left:1px solid rgba(255,255,255,0.06);">→ Use: <strong style="color:#7ee787;">Artifact</strong> (HTML interativo)</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+              <td style="padding:14px 22px;color:#6e7681;">"Quero que o Claude conheça minha empresa para todas as conversas"</td>
+              <td style="padding:14px 22px;color:#7ee787;border-left:1px solid rgba(255,255,255,0.06);">→ Use: <strong style="color:#7ee787;">Project</strong> com system prompt + docs</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+              <td style="padding:14px 22px;color:#6e7681;">"Preciso analisar um contrato de 60 páginas"</td>
+              <td style="padding:14px 22px;color:#7ee787;border-left:1px solid rgba(255,255,255,0.06);">→ Use: <strong style="color:#7ee787;">Upload de arquivo</strong> + prompt estruturado</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+              <td style="padding:14px 22px;color:#6e7681;">"Quero saber quais são as taxas de juros do Banco Central hoje"</td>
+              <td style="padding:14px 22px;color:#7ee787;border-left:1px solid rgba(255,255,255,0.06);">→ Use: <strong style="color:#7ee787;">Pesquisa na web</strong> ativada</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+              <td style="padding:14px 22px;color:#6e7681;">"Preciso decidir se abro uma filial — análise complexa"</td>
+              <td style="padding:14px 22px;color:#7ee787;border-left:1px solid rgba(255,255,255,0.06);">→ Use: <strong style="color:#7ee787;">Extended Thinking</strong> + Chain-of-Thought</td>
+            </tr>
+            <tr>
+              <td style="padding:14px 22px;color:#6e7681;">"Quero que o Claude crie um sistema de gestão para mim"</td>
+              <td style="padding:14px 22px;color:#7ee787;border-left:1px solid rgba(255,255,255,0.06);">→ Use: <strong style="color:#7ee787;">Claude Code</strong> (Módulo 07)</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="callout key">
+        <div class="callout-icon">🏁</div>
+        <div class="callout-body">
+          <h4>Parabéns — Módulo 01 Concluído!</h4>
+          <p>Você agora entende o que o Claude é, como funciona a janela de contexto, a diferença entre interface e API, qual plano faz sentido e quais ferramentas existem. Base sólida para o que vem a seguir. <strong>Módulo 02: A Arte do Prompt</strong> — onde você aprende a falar com o Claude como um especialista.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-footer">
+      <div class="footer-next">
+        <div class="footer-next-label">Próximo módulo</div>
+        <div class="footer-next-title">Módulo 02 — A Arte do Prompt</div>
+      </div>
+      <button class="complete-btn" id="cb5" onclick="complete(5)">🎉 Concluir Módulo!</button>
+    </div>
+  </div>
+
+</main>
+</div>
+
+<button class="sidebar-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+
+<script>
+let cur = 0;
+const total = 6;
+const done = new Set();
+const nums = ['01.1','01.2','01.3','01.4','01.5','01.6'];
+
+function goTo(i) {
+  document.querySelectorAll('.lesson-content').forEach(l=>l.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('l'+i).classList.add('active');
+  document.querySelectorAll('.nav-item')[i].classList.add('active');
+  document.getElementById('topLabel').textContent = 'Aula '+nums[i];
+  cur = i;
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(window.innerWidth<900) document.getElementById('sidebar').classList.remove('open');
+}
+function next(){if(cur<total-1)goTo(cur+1);}
+function prev(){if(cur>0)goTo(cur-1);}
+function complete(i){
+  done.add(i);
+  const b=document.getElementById('cb'+i);
+  b.classList.add('done'); b.textContent='✓ Concluída!';
+  document.querySelectorAll('.nav-item')[i].classList.add('done');
+  const pct=Math.round((done.size/total)*100);
+  syncProgressToIndex('01', Math.round(done.size/total*100), done.size===total);
+  document.getElementById('progFill').style.width=pct+'%';
+  document.getElementById('progText').textContent=done.size+' de '+total+' aulas';
+  if(i<total-1) setTimeout(()=>goTo(i+1),600);
+}
+function copyCode(btn){
+  const t=btn.closest('.code-wrap').querySelector('.code-body').innerText;
+  navigator.clipboard.writeText(t).then(()=>{btn.textContent='✓ copiado!';setTimeout(()=>btn.textContent='copiar',2000);});
+}
+
+// QUIZ ENGINE
+const scores = {};
+const answered = {};
+const correctMap = {'q1a':0,'q2a':1,'q3a':2};
+const feedbacks = {
+  'q1a':{
+    correct:'✅ Exato! O Claude Pro tem janela de 200k tokens — um contrato de 80 páginas cabe com folga. Colar tudo de uma vez garante que o Claude veja o documento completo ao analisar qualquer parte.',
+    wrong:'❌ Não é a melhor escolha. O Claude Pro tem janela de 200k tokens — equivalente a mais de 300 páginas. Você pode e deve colar o contrato inteiro de uma vez para análise completa.'
+  },
+  'q2a':{
+    correct:'✅ Correto! O briefing inicial fica na janela de contexto e o Claude vê em todas as respostas seguintes. Você não precisa repetir quem você é — o contexto já está "na memória" da sessão.',
+    wrong:'❌ A razão real é técnica: o contexto fica na janela e é processado em cada resposta. Isso significa que um bom briefing inicial melhora todas as perguntas seguintes sem repetição.'
+  },
+  'q3a':{
+    correct:'✅ Correto! Em conversas muito longas, as mensagens mais antigas saem da janela para dar lugar às novas. A solução é começar uma nova conversa e reintroduzir o contexto essencial.',
+    wrong:'❌ O Claude não tem bugs aqui — é uma característica fundamental dos LLMs. A janela de contexto tem limite, e mensagens antigas saem quando a conversa fica muito longa.'
+  }
+};
+
+function ans(qId, el, sel, cor) {
+  if(answered[qId]) return;
+  answered[qId] = true;
+  const opts = el.closest('.q-options').querySelectorAll('.q-option');
+  opts.forEach((o,i)=>{o.classList.add('disabled'); if(i===cor) o.classList.add('selected','correct');});
+  const ok = sel===cor;
+  if(!ok) el.classList.add('selected','wrong');
+  const fb=document.getElementById('fb-'+qId);
+  fb.textContent = ok ? feedbacks[qId].correct : feedbacks[qId].wrong;
+  fb.className = 'q-feedback show '+(ok?'correct':'wrong');
+  document.getElementById('nxt-'+qId).classList.add('show');
+  if(!scores['quiz-l1']) scores['quiz-l1']=0;
+  if(ok) scores['quiz-l1']++;
+}
+function nxtQ(cur,nxt){
+  document.getElementById(cur).style.display='none';
+  const n=document.getElementById(nxt);
+  n.classList.add('active'); n.style.display='block';
+}
+function showRes(qId,total){
+  document.getElementById('q3a').style.display='none';
+  const s=scores[qId]||0;
+  document.getElementById('result-'+qId).classList.add('show');
+  document.getElementById('score-'+qId).textContent=s+'/'+total;
+  const perf = s===total?['🏆 Perfeito!','Você dominou a janela de contexto!']:s>=2?['✅ Muito bem!','Quase lá — revise o que errou.']:['📚 Continue estudando','Releia a aula e tente novamente.'];
+  document.getElementById('rl-'+qId).textContent=perf[0];
+  document.getElementById('rd-'+qId).textContent=perf[1];
+}
+function retry(qId,qs){
+  scores[qId]=0;
+  qs.forEach(q=>{delete answered[q];});
+  document.getElementById('result-'+qId).classList.remove('show');
+  qs.forEach((q,i)=>{
+    const el=document.getElementById(q);
+    el.style.display=i===0?'block':'none';
+    el.className=i===0?'quiz-question active':'quiz-question';
+    el.querySelectorAll('.q-option').forEach(o=>o.className='q-option');
+    const fb=document.getElementById('fb-'+q); if(fb){fb.className='q-feedback';fb.textContent='';}
+    const nb=document.getElementById('nxt-'+q); if(nb) nb.classList.remove('show');
+  });
+}
+
+// Sincronizar progresso com index.html
+function syncProgressToIndex(num, pct, done) {
+  try {
+    const STORAGE_KEY = 'cm_progress_v2';
+    const p = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    p[num] = { pct: pct, done: done };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(p));
+  } catch(e) {}
+}
+
+</script>
+</body>
+</html>

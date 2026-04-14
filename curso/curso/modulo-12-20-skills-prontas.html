@@ -1,0 +1,1618 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 12 — 20 Skills Prontas | Isso é Claude</title>
+
+<style>
+/* ISSO É CLAUDE — Design System v2.0 */
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+:root{
+  --bg:#ffffff;--bg2:#f5f5f5;--bg3:#fafafa;
+  --ink:#111111;--ink2:#333333;--ink3:#666666;--ink4:#999999;
+  --accent:#ff5c00;--accent2:#e04f00;--accent3:#cc4500;
+  --accent-light:rgba(255,92,0,0.07);--accent-mid:rgba(255,92,0,0.15);
+  --green:#16a34a;--green-bg:rgba(22,163,74,0.07);
+  --blue:#2563eb;--blue-bg:rgba(37,99,235,0.07);
+  --gold:#d97706;--gold-bg:rgba(217,119,6,0.07);
+  --red:#dc2626;--red-bg:rgba(220,38,38,0.07);
+  --purple:#7c3aed;--purple-bg:rgba(124,58,237,0.07);
+  --border:#e5e5e5;--border2:#d4d4d4;
+  --shadow:0 2px 12px rgba(0,0,0,0.07);--shadow-md:0 4px 20px rgba(0,0,0,0.09);--shadow-lg:0 8px 40px rgba(0,0,0,0.11);
+  --code-bg:#111111;--code-fg:#e8e8e8;
+  --sidebar-bg:#111111;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+
+
+
+/* SIDEBAR */
+
+
+
+.sb-brand{padding:28px 22px 20px;border-bottom:1px solid rgba(255,255,255,0.06);}
+.sb-tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--accent);text-transform:uppercase;margin-bottom:8px;display:block;}
+.sb-name{font-size:14px;font-weight:700;color:#fff;line-height:1.4;}
+.sb-mod{padding:12px 22px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,0.25);text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.04);}
+.nav-lessons{padding:8px 0;flex:1;}
+.nav-item{display:flex;align-items:flex-start;gap:10px;padding:10px 22px;cursor:pointer;transition:background 0.15s;border-left:3px solid transparent;}
+.nav-item:hover{background:rgba(255,92,0,0.08);}
+.nav-item.active{background:rgba(255,92,0,0.13);border-left-color:var(--accent);}
+.nav-item.done .nav-num::after{content:' ✓';color:var(--green);}
+.nav-num{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent);padding-top:2px;min-width:28px;font-weight:600;}
+.nav-title{font-size:11.5px;color:rgba(255,255,255,0.52);line-height:1.45;}
+.nav-item.active .nav-title{color:#fff;font-weight:500;}
+.sb-progress{padding:16px 22px;border-top:1px solid rgba(255,255,255,0.05);}
+.prog-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,0.22);text-transform:uppercase;margin-bottom:8px;}
+.prog-bar{height:2px;background:rgba(255,255,255,0.07);border-radius:1px;overflow:hidden;margin-bottom:6px;}
+.prog-fill{height:100%;background:var(--accent);border-radius:1px;transition:width 0.5s ease;}
+.prog-text{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.22);}
+/* MAIN */
+
+
+/* LESSON */
+
+
+.lesson-header{margin-bottom:48px;padding-bottom:32px;border-bottom:1px solid var(--border);}
+.lesson-meta{display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap;}
+.lesson-tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;padding:3px 10px;border-radius:3px;text-transform:uppercase;font-weight:600;border:1px solid transparent;}
+.tag-teoria{background:var(--blue-bg);color:var(--blue);border-color:rgba(37,99,235,0.2);}
+.tag-pratica{background:var(--green-bg);color:var(--green);border-color:rgba(22,163,74,0.2);}
+.tag-lab{background:var(--purple-bg);color:var(--purple);border-color:rgba(124,58,237,0.2);}
+.tag-tecnica{background:var(--accent-light);color:var(--accent);border-color:var(--accent-mid);}
+.tag-guia{background:var(--green-bg);color:var(--green);border-color:rgba(22,163,74,0.2);}
+.tag-resumo{background:var(--blue-bg);color:var(--blue);border-color:rgba(37,99,235,0.2);}
+.tag-dev{background:var(--purple-bg);color:var(--purple);border-color:rgba(124,58,237,0.2);}
+.tag-agente{background:var(--blue-bg);color:var(--blue);border-color:rgba(37,99,235,0.2);}
+.tag-skill{background:var(--purple-bg);color:var(--purple);border-color:rgba(124,58,237,0.2);}
+.tag-bonus{background:var(--gold-bg);color:var(--gold);border-color:rgba(217,119,6,0.2);}
+.tag-final{background:var(--accent-light);color:var(--accent);border-color:var(--accent-mid);}
+.tag-lider{background:var(--gold-bg);color:var(--gold);border-color:rgba(217,119,6,0.2);}
+.tag-estrategia{background:var(--accent-light);color:var(--accent);border-color:var(--accent-mid);}
+.tag-workshop{background:var(--green-bg);color:var(--green);border-color:rgba(22,163,74,0.2);}
+.tag-framework{background:var(--blue-bg);color:var(--blue);border-color:rgba(37,99,235,0.2);}
+.lesson-num-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink4);letter-spacing:1px;}
+.lesson-dur{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink4);}
+.lesson-title{font-family:'Lora',serif;font-size:clamp(28px,3.5vw,46px);font-weight:700;color:var(--ink);line-height:1.15;margin-bottom:16px;letter-spacing:-0.5px;}
+.lesson-title em{color:var(--accent);font-style:italic;}
+.lesson-sub{font-size:16px;color:var(--ink3);font-weight:300;line-height:1.8;max-width:640px;}
+/* BLOCKS */
+.block{margin-bottom:48px;}
+.block h2{font-family:'Lora',serif;font-size:22px;font-weight:600;color:var(--ink);margin-bottom:16px;display:flex;align-items:center;gap:12px;letter-spacing:-0.3px;}
+.block h2::before{content:'';width:4px;height:22px;background:var(--accent);border-radius:2px;flex-shrink:0;}
+.block p{font-size:15px;color:var(--ink2);line-height:1.85;margin-bottom:14px;font-weight:300;}
+.block p strong{color:var(--ink);font-weight:600;}
+/* CALLOUTS */
+.callout{border-radius:8px;padding:18px 22px;margin:20px 0;display:flex;gap:14px;align-items:flex-start;}
+.callout-icon{font-size:20px;flex-shrink:0;padding-top:2px;}
+.callout-body h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:5px;}
+.callout-body p{font-size:13.5px;margin:0;line-height:1.75;font-weight:300;color:var(--ink2);}
+.callout.tip{background:var(--green-bg);border-left:3px solid var(--green);}.callout.tip .callout-body h4{color:var(--green);}
+.callout.key{background:var(--accent-light);border-left:3px solid var(--accent);}.callout.key .callout-body h4{color:var(--accent);}
+.callout.insight{background:var(--blue-bg);border-left:3px solid var(--blue);}.callout.insight .callout-body h4{color:var(--blue);}
+.callout.warning{background:var(--gold-bg);border-left:3px solid var(--gold);}.callout.warning .callout-body h4{color:var(--gold);}
+.callout.purple{background:var(--purple-bg);border-left:3px solid var(--purple);}.callout.purple .callout-body h4{color:var(--purple);}
+.callout.gold{background:var(--gold-bg);border:1px solid rgba(217,119,6,0.2);}.callout.gold .callout-body h4{color:var(--gold);}
+/* CODE */
+.code-wrap{background:var(--code-bg);border-radius:10px;overflow:hidden;margin:20px 0;box-shadow:var(--shadow-md);}
+.code-header{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;background:rgba(255,255,255,0.03);border-bottom:1px solid rgba(255,255,255,0.06);}
+.code-dots{display:flex;gap:6px;}
+.code-dot{width:10px;height:10px;border-radius:50%;}
+.dot-r{background:#ff5f57;}.dot-y{background:#febc2e;}.dot-g{background:#28c840;}
+.code-lang{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:2px;text-transform:uppercase;}
+.code-copy{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.35);background:rgba(255,255,255,0.06);border:none;cursor:pointer;padding:4px 10px;border-radius:4px;transition:all 0.15s;}
+.code-copy:hover{background:rgba(255,92,0,0.2);color:var(--accent);}
+.code-
+.c-cm{color:#6e7681;}.c-good{color:#7ee787;}.c-bad{color:#ff7b72;}.c-tag{color:#ffa657;}.c-hl{color:#79c0ff;}.c-str{color:#a5d6ff;}
+/* STEPS */
+.step-flow{display:flex;flex-direction:column;gap:0;margin:24px 0;}
+.step{display:flex;gap:20px;align-items:flex-start;position:relative;padding-bottom:24px;}
+.step:last-child{padding-bottom:0;}
+.step:not(:last-child)::after{content:'';position:absolute;left:19px;top:44px;bottom:0;width:2px;background:linear-gradient(to bottom,var(--accent),transparent);opacity:0.18;}
+.step-num{width:40px;height:40px;background:var(--accent);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;flex-shrink:0;}
+.step-
+.step-title{font-size:15px;font-weight:600;margin-bottom:6px;color:var(--ink);}
+.step-desc{font-size:13px;color:var(--ink3);line-height:1.7;font-weight:300;}
+.step-tip{margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);background:var(--accent-light);padding:5px 12px;border-radius:4px;display:inline-block;border:1px solid var(--accent-mid);}
+/* TABS */
+.tab-group{margin:20px 0;}
+.tabs{display:flex;border-bottom:2px solid var(--border);gap:0;}
+.tab{padding:9px 20px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border:none;background:transparent;color:var(--ink4);transition:all 0.15s;border-bottom:2px solid transparent;margin-bottom:-2px;font-weight:500;}
+.tab:hover{color:var(--ink);}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent);}
+.tab-panel{display:none;}.tab-panel.active{display:block;}
+/* QUIZ */
+.quiz{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:32px 0;box-shadow:var(--shadow);}
+.quiz-header{padding:20px 28px;background:var(--ink);border-bottom:3px solid var(--accent);}
+.quiz-tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--accent);text-transform:uppercase;margin-bottom:6px;display:block;}
+.quiz-title{font-family:'Lora',serif;font-size:20px;font-weight:600;color:#fff;}
+.quiz-
+.quiz-question{display:none;}.quiz-question.active{display:block;}
+.q-num{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--ink4);text-transform:uppercase;margin-bottom:10px;}
+.q-text{font-size:15px;font-weight:500;margin-bottom:20px;line-height:1.6;color:var(--ink);}
+.q-options{display:flex;flex-direction:column;gap:8px;margin-bottom:16px;}
+.q-option{padding:12px 16px;border:1.5px solid var(--border);border-radius:8px;cursor:pointer;font-size:13.5px;color:var(--ink2);transition:all 0.15s;display:flex;align-items:flex-start;gap:10px;font-weight:300;background:#fff;}
+.q-option:hover{border-color:var(--accent);background:var(--accent-light);}
+.q-option.selected.correct{border-color:var(--green);background:var(--green-bg);color:var(--green);}
+.q-option.selected.wrong{border-color:var(--red);background:var(--red-bg);}
+.q-option.disabled{pointer-events:none;}
+.q-letter{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--ink4);min-width:16px;padding-top:2px;}
+.q-feedback{padding:12px 16px;border-radius:8px;font-size:13.5px;line-height:1.65;display:none;font-weight:300;margin-bottom:8px;}
+.q-feedback.show{display:block;}
+.q-feedback.correct{background:var(--green-bg);border-left:3px solid var(--green);color:var(--green);}
+.q-feedback.wrong{background:var(--red-bg);border-left:3px solid var(--red);color:var(--red);}
+.q-next{margin-top:8px;padding:9px 22px;background:var(--ink);color:#fff;border:none;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;display:none;transition:background 0.15s;}
+.q-next.show{display:inline-block;}.q-next:hover{background:var(--accent);}
+.quiz-result{display:none;text-align:center;padding:40px 20px;}.quiz-result.show{display:block;}
+.result-score{font-family:'Lora',serif;font-size:64px;font-weight:700;color:var(--accent);line-height:1;margin-bottom:12px;}
+.result-label{font-size:18px;font-weight:600;margin-bottom:8px;color:var(--ink);}
+.result-desc{font-size:14px;color:var(--ink3);margin-bottom:24px;font-weight:300;}
+.result-retry{padding:11px 32px;background:var(--accent);color:#fff;border:none;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-weight:600;}
+.result-retry:hover{background:var(--accent2);}
+/* FOOTER */
+.lesson-footer{margin-top:60px;padding-top:28px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:20px;}
+.footer-next{display:flex;flex-direction:column;gap:4px;}
+.footer-next-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--ink4);}
+.footer-next-title{font-size:14px;font-weight:600;color:var(--ink);}
+.complete-btn{padding:13px 28px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;font-weight:700;transition:all 0.2s;white-space:nowrap;box-shadow:0 2px 8px rgba(255,92,0,0.22);}
+.complete-btn:hover{background:var(--accent2);transform:translateY(-1px);box-shadow:0 4px 16px rgba(255,92,0,0.28);}
+.complete-btn.done{background:var(--green);box-shadow:0 2px 8px rgba(22,163,74,0.22);}
+/* MOBILE */
+.sidebar-toggle{display:none;position:fixed;bottom:24px;right:24px;width:52px;height:52px;background:var(--accent);color:#fff;border:none;border-radius:50%;font-size:20px;cursor:pointer;z-index:200;box-shadow:var(--shadow-lg);align-items:center;justify-content:center;}
+
+
+/* ── CSS específico do módulo ── */
+:root{--bg:#faf7f2;--bg2:#f0ebe0;--ink:#1a1510;--ink2:#3d3628;--ink3:#8a7e6a;--accent:#ff5c00;--accent2:#cc4900;--accent-light:rgba(255,92,0,0.08);--green:#0f7a4a;--blue:#1a4fd4;--gold:#b8860b;--gold2:#f5c842;--purple:#6c3fd4;--border:#e0d8cc;--code-bg:#0d1117;--code-fg:#e6edf3;--shadow:0 2px 14px rgba(255,92,0,0.06);--shadow-lg:0 8px 40px rgba(0,0,0,.10);}
+*{margin:0;padding:0;box-sizing:border-box;}
+
+
+
+/* SIDEBAR */
+
+/* TOPBAR */
+
+
+/* AULAS */
+
+/* BLOCOS */
+.block{margin-bottom:44px;}
+/* CALLOUTS */
+.callout{border-radius:6px;padding:18px 22px;margin:20px 0;display:flex;gap:14px;}
+/* SKILL CARDS — o núcleo do módulo */
+.skills-grid{display:grid;grid-template-columns:1fr;gap:20px;margin:24px 0;}
+.skill-card{background:#fff;border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:all .2s;}
+.skill-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-2px);}
+/* Variantes de cor por categoria */
+.skill-card.cat-design .skill-card-header{border-left:4px solid var(--purple);}
+.skill-card.cat-producao .skill-card-header{border-left:4px solid var(--accent);}
+.skill-card.cat-qualidade .skill-card-header{border-left:4px solid var(--green);}
+.skill-card.cat-negocio .skill-card-header{border-left:4px solid var(--blue);}
+.skill-card.cat-exclusivo .skill-card-header{border-left:4px solid var(--gold);}
+.skill-card-header{padding:16px 20px;display:flex;align-items:flex-start;gap:14px;border-bottom:1px solid var(--border);}
+.skill-emoji{font-size:28px;flex-shrink:0;line-height:1;}
+.skill-header-info{flex:1;}
+.skill-header-top{display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap;}
+.skill-name{font-size:16px;font-weight:700;color:var(--ink);}
+.skill-badge{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:1px;padding:2px 8px;border-radius:20px;font-weight:600;text-transform:uppercase;}
+.sb-viral{background:rgba(255,92,0,.1);color:var(--accent);border:1px solid rgba(255,92,0,.2);}
+.sb-exclusivo{background:rgba(245,200,66,.15);color:var(--gold);border:1px solid rgba(245,200,66,.25);}
+.sb-gratis{background:rgba(15,122,74,.1);color:var(--green);}
+.skill-tagline{font-size:13px;color:var(--ink3);font-weight:300;}
+.skill-card-
+.skill-desc{font-size:14px;color:var(--ink2);line-height:1.75;font-weight:300;margin-bottom:16px;}
+.skill-desc strong{color:var(--ink);font-weight:600;}
+/* O SKILL.md dentro do card */
+.skill-file{background:var(--code-bg);border-radius:8px;overflow:hidden;}
+.skill-file-header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.06);}
+.skill-file-name{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,.5);display:flex;align-items:center;gap:8px;}
+.skill-file-icon{font-size:12px;}
+.skill-copy-btn{font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(255,255,255,.4);background:rgba(255,255,255,.06);border:none;padding:4px 10px;border-radius:4px;cursor:pointer;letter-spacing:1px;transition:all .15s;}
+.skill-copy-btn:hover{background:rgba(255,92,0,.2);color:var(--accent);}
+.skill-file-
+.sk-h1{color:var(--gold2);font-size:13px;font-weight:700;}
+.sk-h2{color:#79c0ff;}
+.sk-bullet{color:#7ee787;}
+.sk-comment{color:#484f58;}
+.sk-value{color:#ffa657;}
+/* Separador de seção */
+.section-divider{display:flex;align-items:center;gap:16px;margin:40px 0 28px;}
+.section-divider-line{flex:1;height:1px;background:var(--border);}
+.section-divider-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ink3);white-space:nowrap;padding:0 4px;}
+.section-divider-badge{font-family:'JetBrains Mono',monospace;font-size:9px;padding:4px 12px;border-radius:20px;font-weight:600;letter-spacing:1px;}
+.sdb-viral{background:rgba(255,92,0,.1);color:var(--accent);border:1px solid rgba(255,92,0,.2);}
+.sdb-exclusivo{background:rgba(245,200,66,.12);color:var(--gold);border:1px solid rgba(245,200,66,.25);}
+/* RODAPÉ */
+.lesson-footer{margin-top:56px;padding-top:28px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:20px;}
+
+.back-btn:hover{color:var(--accent);}
+
+/* TOPBAR unificada */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  height: 48px;
+  min-height: 48px;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  white-space: nowrap;
+}
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  overflow: hidden;
+}
+.topbar-home {
+  color: var(--ink4);
+  text-decoration: none;
+  transition: color .15s;
+  white-space: nowrap;
+}
+.topbar-home:hover { color: var(--accent); }
+.topbar-sep { color: var(--border2); }
+.topbar-bc { color: var(--ink3); white-space: nowrap; }
+.topbar-aula { color: var(--accent); font-weight: 700; white-space: nowrap; }
+.topbar-nav { display: flex; gap: 8px; flex-shrink: 0; }
+.tb-btn {
+  padding: 6px 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--ink3);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all .15s;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.tb-btn:hover { border-color: var(--accent); color: var(--accent); }
+.tb-btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+.tb-btn.primary:hover { background: var(--accent2); }
+
+/* ═══════════════════════════════════════
+   LAYOUT — Isso é Claude v3
+   Testado: sidebar fixa, scroll no body
+   ═══════════════════════════════════════ */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Sora', -apple-system, sans-serif;
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+/* SIDEBAR — fixa, scroll próprio */
+.sidebar {
+  width: 272px;
+  background: var(--sidebar-bg);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid rgba(255,255,255,0.04);
+}
+.sidebar::-webkit-scrollbar { width: 3px; }
+.sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 2px; }
+
+/* MAIN — empurrado pela sidebar, scroll do body */
+.main {
+  margin-left: 272px;
+}
+
+/* TOPBAR — sticky no topo do viewport com scroll do body */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  height: 52px;
+  padding: 0 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* LESSON — ocupa a largura disponível */
+.lesson-content {
+  display: none;
+  padding: 56px 48px 80px;
+  max-width: 860px;
+  box-sizing: border-box;
+}
+.lesson-content.active {
+  display: block;
+}
+
+/* MOBILE */
+@media (max-width: 860px) {
+  .sidebar {
+    transform: translateX(-272px);
+    transition: transform .25s ease;
+  }
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  .main {
+    margin-left: 0;
+  }
+  .topbar {
+    padding: 0 16px;
+    height: 52px;
+  }
+  .lesson-content {
+    padding: 32px 20px 64px;
+  }
+}
+
+
+</style>
+</head>
+<body>
+<div class="layout">
+
+<!-- SIDEBAR -->
+<nav class="sidebar" id="sidebar">
+  <div class="sb-brand">
+    <span class="sb-tag">Isso é Claude</span>
+    <div class="sb-name">Módulo 12<br>20 Skills Prontas</div>
+    <div class="sb-bonus"><span class="sb-bonus-text">✦ Bônus Exclusivo</span></div>
+  </div>
+  <div class="sb-mod">3 aulas · ~1h30</div>
+  <div class="nav-lessons">
+    <div class="nav-group">Aulas</div>
+    <div class="nav-item active" onclick="goTo(0)"><span class="nav-num">12.1</span><span class="nav-title">O que são Skills e como instalar</span></div>
+    <div class="nav-item" onclick="goTo(1)"><span class="nav-num">12.2</span><span class="nav-title">10 Skills virais — completas em PT-BR</span></div>
+    <div class="nav-item" onclick="goTo(2)"><span class="nav-num">12.3</span><span class="nav-title">10 Skills exclusivas Isso é Claude</span></div>
+  </div>
+  <div class="sb-progress">
+    <div class="prog-label">Progresso</div>
+    <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:33%"></div></div>
+    <div class="prog-text" id="progText">1 de 3 aulas</div>
+  </div>
+</nav>
+
+<main class="main">
+  <div class="topbar">
+    <div class="topbar-left">
+      <a href="index.html" class="topbar-home">← Área do Aluno</a>
+      <span class="topbar-sep">›</span>
+      <span class="topbar-bc">Módulo 12</span>
+      <span class="topbar-sep">›</span>
+      <span class="topbar-aula" id="topLabel">Aula 12.1</span>
+    </div>
+    <div class="topbar-nav">
+      <button class="tb-btn" onclick="prev()">← Anterior</button>
+      <button class="tb-btn primary" onclick="next()">Próxima →</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════
+       AULA 12.1 — INTRODUÇÃO
+  ══════════════════════════════ -->
+  <div class="lesson-content active" id="l0">
+    <div class="lesson-header">
+      <div class="lesson-meta">
+        <span class="lesson-num-label">Aula 12.1</span>
+        <span class="lesson-tag tag-bonus">✦ Bônus</span>
+        <span class="lesson-dur">⏱ ~15 min</span>
+      </div>
+      <h1 class="lesson-title">20 Skills Prontas<br>para <em>Instalar Agora</em></h1>
+      <p class="lesson-sub">Skills são arquivos SKILL.md que o Claude Code carrega automaticamente. Neste módulo bônus você recebe 20 Skills completas — 10 das mais virais do mercado + 10 exclusivas do Isso é Claude, em português, prontas para usar.</p>
+    </div>
+
+    <div class="block">
+      <h2>Como instalar uma Skill</h2>
+      <p>O processo é sempre o mesmo: copie o conteúdo do SKILL.md, cole num arquivo de texto, salve com o nome correto e coloque na pasta certa do seu projeto. O Claude Code detecta automaticamente.</p>
+
+      <div class="skill-file" style="border-radius:8px;margin:20px 0;">
+        <div class="skill-file-header">
+          <span class="skill-file-name"><span class="skill-file-icon">📁</span> Estrutura de pastas recomendada</span>
+        </div>
+        <div class="skill-file-body"><span class="sk-comment"># Opção 1 — Skill global (funciona em qualquer projeto)</span>
+~/.claude/skills/nome-da-skill.md
+
+<span class="sk-comment"># Opção 2 — Skill do projeto (só neste repositório)</span>
+meu-projeto/
+  .claude/
+    skills/
+      nome-da-skill.md
+  CLAUDE.md
+  src/
+
+<span class="sk-comment"># Verificar se foi carregada (dentro do Claude Code):</span>
+<span class="sk-value">/skills list</span>   → mostra todas as Skills ativas
+<span class="sk-value">/skills test</span>  → testa se a Skill está sendo ativada</div>
+      </div>
+
+      <div class="callout tip">
+        <div class="callout-icon">💡</div>
+        <div class="callout-body">
+          <h4>Dica de ouro</h4>
+          <p>Cada Skill tem um gatilho de ativação. O Claude lê a seção "Quando usar" e decide automaticamente quando aplicar. Você não precisa invocar a Skill — ela entra em ação quando a tarefa combina. Quanto mais específico o gatilho, mais precisa é a ativação.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2>As 20 Skills deste módulo</h2>
+      <div class="callout gold">
+        <div class="callout-icon">✦</div>
+        <div class="callout-body">
+          <h4>O que você recebe nas próximas aulas</h4>
+          <p><strong>Aula 12.2 — 10 Skills virais:</strong> Canvas Design · Token Optimizer · Dispatching Parallel Agents · UI UX Pro Max · Stop Slop · Arquivos (PDF/Word/Excel/PPT) · Verification Before Completion · Transcription · Writing Plans · Brainstorming Estruturado</p>
+          <p style="margin-top:8px;"><strong>Aula 12.3 — 10 Skills exclusivas Isso é Claude:</strong> DRE Analyzer BR · Prompt Surgeon · Contrato Radar · Cobrança Cordial · WhatsApp Copy · Revisão Anti-Juridiquês · KPI Dashboard · SEO BR · Pitch Deck Critic · Isso é Claude Coach</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-footer">
+      <div class="footer-next"><div class="footer-next-label">Próxima aula</div><div class="footer-next-title">12.2 — 10 Skills virais em PT-BR</div></div>
+      <button class="complete-btn" id="cb0" onclick="complete(0)">Marcar como concluída ✓</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════
+       AULA 12.2 — 10 SKILLS VIRAIS
+  ══════════════════════════════ -->
+  <div class="lesson-content" id="l1">
+    <div class="lesson-header">
+      <div class="lesson-meta">
+        <span class="lesson-num-label">Aula 12.2</span>
+        <span class="lesson-tag tag-skill">Skills</span>
+        <span class="lesson-dur">⏱ ~35 min</span>
+      </div>
+      <h1 class="lesson-title">10 Skills Virais<br><em>em Português</em></h1>
+      <p class="lesson-sub">As 10 Skills mais comentadas do mercado — traduzidas, adaptadas e aprimoradas para o contexto brasileiro. Cada uma vem com o SKILL.md completo pronto para copiar.</p>
+    </div>
+
+    <!-- SEPARADOR -->
+    <div class="section-divider">
+      <div class="section-divider-line"></div>
+      <span class="section-divider-label">Skills 1–10</span>
+      <span class="section-divider-badge sdb-viral">🔥 Virais do mercado</span>
+      <div class="section-divider-line"></div>
+    </div>
+
+    <!-- SKILL 1 — Canvas Design -->
+    <div class="skills-grid">
+      <div class="skill-card cat-design">
+        <div class="skill-card-header">
+          <span class="skill-emoji">🎨</span>
+          <div class="skill-header-info">
+            <div class="skill-header-top">
+              <span class="skill-name">Canvas Design</span>
+              <span class="skill-badge sb-viral">🔥 Viral</span>
+              <span class="skill-badge sb-gratis">Gratuita</span>
+            </div>
+            <div class="skill-tagline">Cria arte visual em PNG e PDF direto no Claude. Sem Canva. Sem designer.</div>
+          </div>
+        </div>
+        <div class="skill-card-body">
+          <p class="skill-desc">Transforma o Claude Code num designer visual completo. Gera SVGs e HTMLs com design profissional, exporta em PNG e PDF, aplica paletas de cores consistentes e mantém identidade visual entre peças. Ideal para criar posts, capas de e-book, apresentações e materiais de marketing sem abrir nenhuma outra ferramenta.</p>
+          <div class="skill-file">
+            <div class="skill-file-header">
+              <span class="skill-file-name"><span class="skill-file-icon">📄</span> canvas-design.md</span>
+              <button class="skill-copy-btn" onclick="copySkill(this)">📋 Copiar SKILL.md</button>
+            </div>
+            <div class="skill-file-body"><span class="sk-h1"># Canvas Design</span>
+
+<span class="sk-h2">## Quando usar esta Skill</span>
+Use quando o usuário pedir qualquer criação visual: post para redes sociais,
+banner, capa de e-book, card de citação, apresentação, logotipo, infográfico,
+flyer ou qualquer material gráfico.
+
+<span class="sk-h2">## Processo de criação</span>
+<span class="sk-bullet">1.</span> Pergunte: dimensões, plataforma destino, cores preferidas e referência visual
+<span class="sk-bullet">2.</span> Crie o design em HTML/CSS ou SVG com código limpo e comentado
+<span class="sk-bullet">3.</span> Use tipografia moderna (Google Fonts via CDN)
+<span class="sk-bullet">4.</span> Mantenha hierarquia visual clara: título > subtítulo > corpo > CTA
+<span class="sk-bullet">5.</span> Salve sempre em dois formatos: HTML editável + PNG exportado
+
+<span class="sk-h2">## Padrões de design</span>
+<span class="sk-bullet">-</span> Espaçamento generoso: mínimo 24px de padding nas bordas
+<span class="sk-bullet">-</span> Contraste mínimo 4.5:1 para acessibilidade
+<span class="sk-bullet">-</span> Máximo 2 famílias tipográficas por peça
+<span class="sk-bullet">-</span> Sempre use variáveis CSS para cores (facilita alteração)
+
+<span class="sk-h2">## Exportação</span>
+Para gerar PNG: use Puppeteer via MCP ou instrua o usuário a usar
+a extensão "Screenshot" do navegador. Para PDF: use print CSS com
+@media print configurado corretamente.
+
+<span class="sk-h2">## Dimensões padrão BR</span>
+<span class="sk-bullet">-</span> Instagram Feed: 1080x1080px
+<span class="sk-bullet">-</span> Instagram Stories: 1080x1920px
+<span class="sk-bullet">-</span> LinkedIn: 1200x627px
+<span class="sk-bullet">-</span> Apresentação: 1920x1080px</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SKILL 2 — Token Optimizer -->
+      <div class="skill-card cat-negocio">
+        <div class="skill-card-header">
+          <span class="skill-emoji">💰</span>
+          <div class="skill-header-info">
+            <div class="skill-header-top">
+              <span class="skill-name">Token Optimizer</span>
+              <span class="skill-badge sb-viral">🔥 Viral</span>
+            </div>
+            <div class="skill-tagline">Mostra onde você está desperdiçando crédito e o valor em reais.</div>
+          </div>
+        </div>
+        <div class="skill-card-body">
+          <p class="skill-desc">Analisa seu uso de tokens e identifica onde o custo está escapando: prompts muito longos, contexto desnecessário, histórico acumulado. Calcula o custo real em reais de cada sessão e sugere otimizações concretas para reduzir a conta sem perder qualidade.</p>
+          <div class="skill-file">
+            <div class="skill-file-header">
+              <span class="skill-file-name"><span class="skill-file-icon">📄</span> token-optimizer.md</span>
+              <button class="skill-copy-btn" onclick="copySkill(this)">📋 Copiar SKILL.md</button>
+            </div>
+            <div class="skill-file-body"><span class="sk-h1"># Token Optimizer</span>
+
+<span class="sk-h2">## Quando usar esta Skill</span>
+Use quando o usuário pedir análise de custo, perguntar sobre tokens,
+quiser reduzir gastos com API ou pedir para otimizar prompts.
+
+<span class="sk-h2">## Análise de custo</span>
+Preços de referência (claude-sonnet-4-5, em USD):
+<span class="sk-bullet">-</span> Input: $3 por 1 milhão de tokens
+<span class="sk-bullet">-</span> Output: $15 por 1 milhão de tokens
+<span class="sk-bullet">-</span> Conversão aproximada: USD × 5.8 = BRL
+
+Fórmula de custo por sessão:
+custo = (tokens_input/1M × 3 + tokens_output/1M × 15) × 5.8
+
+<span class="sk-h2">## Diagnóstico de desperdício</span>
+Verifique e reporte cada item:
+<span class="sk-bullet">1.</span> Histórico acumulado: sessões longas gastam 3-10x mais
+<span class="sk-bullet">2.</span> System prompts verbosos: cada chamada re-envia o sistema
+<span class="sk-bullet">3.</span> Contexto irrelevante: arquivos grandes desnecessários
+<span class="sk-bullet">4.</span> Max tokens alto: se resposta usa 200, não defina 4096
+
+<span class="sk-h2">## Relatório de saída</span>
+Gere sempre:
+<span class="sk-bullet">-</span> Custo estimado da sessão atual em R$
+<span class="sk-bullet">-</span> Top 3 fontes de desperdício identificadas
+<span class="sk-bullet">-</span> Economia potencial com cada otimização (%)
+<span class="sk-bullet">-</span> Comando /compact se histórico > 40 mensagens</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SKILL 3 — Parallel Agents -->
+      <div class="skill-card cat-producao">
+        <div class="skill-card-header">
+          <span class="skill-emoji">⚡</span>
+          <div class="skill-header-info">
+            <div class="skill-header-top">
+              <span class="skill-name">Agentes Paralelos</span>
+              <span class="skill-badge sb-viral">🔥 Viral</span>
+            </div>
+            <div class="skill-tagline">Vários agentes ao mesmo tempo. O que levaria 30 min fica pronto em 5.</div>
+          </div>
+        </div>
+        <div class="skill-card-body">
+          <p class="skill-desc">Divide tarefas complexas em subtarefas independentes e as executa em paralelo usando subagentes especializados. Em vez de processar sequencialmente, despacha múltiplos agentes simultaneamente e consolida os resultados. Ideal para análise de múltiplos documentos, pesquisa em várias fontes ou geração de variações de conteúdo.</p>
+          <div class="skill-file">
+            <div class="skill-file-header">
+              <span class="skill-file-name"><span class="skill-file-icon">📄</span> agentes-paralelos.md</span>
+              <button class="skill-copy-btn" onclick="copySkill(this)">📋 Copiar SKILL.md</button>
+            </div>
+            <div class="skill-file-body"><span class="sk-h1"># Agentes Paralelos</span>
+
+<span class="sk-h2">## Quando usar esta Skill</span>
+Use quando a tarefa puder ser dividida em partes independentes que não
+dependem umas das outras para serem executadas. Exemplos: analisar 10
+contratos, pesquisar 5 concorrentes, gerar 8 variações de copy.
+
+<span class="sk-h2">## Processo de paralelização</span>
+<span class="sk-bullet">1.</span> Identifique se as subtarefas são independentes entre si
+<span class="sk-bullet">2.</span> Defina o número ideal de agentes (máximo recomendado: 5)
+<span class="sk-bullet">3.</span> Crie um prompt específico para cada agente
+<span class="sk-bullet">4.</span> Despache todos simultaneamente via subagentes
+<span class="sk-bullet">5.</span> Colete todos os resultados antes de consolidar
+<span class="sk-bullet">6.</span> Consolide com análise comparativa se relevante
+
+<span class="sk-h2">## Template de despacho</span>
+Agente [N] — Missão: [tarefa específica]
+Contexto: [apenas o contexto relevante para esta subtarefa]
+Formato de saída: [estrutura esperada para facilitar consolidação]
+Limite: máximo [X] palavras/tokens
+
+<span class="sk-h2">## Quando NÃO usar paralelização</span>
+<span class="sk-bullet">-</span> Subtarefas que dependem do resultado da anterior
+<span class="sk-bullet">-</span> Tarefas que exigem raciocínio sequencial
+<span class="sk-bullet">-</span> Quando a consolidação é mais complexa do que a tarefa</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SKILL 4 — UI UX Pro Max -->
+      <div class="skill-card cat-design">
+        <div class="skill-card-header">
+          <span class="skill-emoji">🎭</span>
+          <div class="skill-header-info">
+            <div class="skill-header-top">
+              <span class="skill-name">UI UX Pro Max</span>
+              <span class="skill-badge sb-viral">🔥 Viral</span>
+            </div>
+            <div class="skill-tagline">67 estilos visuais, 161 paletas de cores. Interfaces profissionais em segundos.</div>
+          </div>
+        </div>
+        <div class="skill-card-body">
+          <p class="skill-desc">Transforma o Claude num especialista de UI/UX com acesso a um arsenal de estilos visuais e sistemas de design pré-configurados. Gera interfaces web com componentes consistentes, responsivos e acessíveis — com paletas de cores profissionais, hierarquia tipográfica e sistemas de espaçamento corretos.</p>
+          <div class="skill-file">
+            <div class="skill-file-header">
+              <span class="skill-file-name"><span class="skill-file-icon">📄</span> ui-ux-pro-max.md</span>
+              <button class="skill-copy-btn" onclick="copySkill(this)">📋 Copiar SKILL.md</button>
+            </div>
+            <div class="skill-file-body"><span class="sk-h1"># UI UX Pro Max</span>
+
+<span class="sk-h2">## Quando usar esta Skill</span>
+Use quando pedir interface, componente, tela, dashboard, landing page,
+formulário, app ou qualquer elemento visual de software.
+
+<span class="sk-h2">## Sistema de design padrão</span>
+Espaçamento: escala 4px (4, 8, 12, 16, 24, 32, 48, 64, 96)
+Border radius: 4px (sharp), 8px (default), 16px (card), 999px (pill)
+Sombras: sm (0 1px 3px), md (0 4px 6px), lg (0 10px 15px), xl (0 20px 25px)
+
+<span class="sk-h2">## Paletas prontas (selecione pelo tom da marca)</span>
+Corporativo sóbrio: #1a1a2e / #16213e / #0f3460 / #e94560
+Moderno laranja: #ff5c00 / #1a1510 / #faf7f2 / #0f7a4a
+Tech azul: #0d1117 / #161b22 / #21262d / #58a6ff / #7ee787
+Saúde verde: #f0f9f4 / #0f7a4a / #1a1510 / #e8f5e9
+Fintech escuro: #0a0e1a / #1a2035 / #f5c842 / #4ade80
+
+<span class="sk-h2">## Checklist de qualidade</span>
+<span class="sk-bullet">-</span> Contraste mínimo AA (4.5:1 texto normal, 3:1 texto grande)
+<span class="sk-bullet">-</span> Responsivo: mobile-first com breakpoints 640px / 768px / 1024px
+<span class="sk-bullet">-</span> Estados interativos: hover, focus, active, disabled
+<span class="sk-bullet">-</span> Loading states para ações assíncronas
+<span class="sk-bullet">-</span> Mensagens de erro claras e acionáveis</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SKILL 5 — Stop Slop -->
+      <div class="skill-card cat-qualidade">
+        <div class="skill-card-header">
+          <span class="skill-emoji">🚫</span>
+          <div class="skill-header-info">
+            <div class="skill-header-top">
+              <span class="skill-name">Stop Slop</span>
+              <span class="skill-badge sb-viral">🔥 Viral</span>
+            </div>
+            <div class="skill-tagline">Detecta texto genérico de IA e força o Claude a ir direto ao ponto.</div>
+          </div>
+        </div>
+        <div class="skill-card-body">
+          <p class="skill-desc">Elimina o "slop" — o texto genérico, vago e cheio de frases de efeito que a IA produz quando não tem direcionamento suficiente. Força o Claude a ser específico, direto e útil: sem rodeios, sem clichês, sem respostas que parecem escritas para agradar a todos e não ajudam ninguém.</p>
+          <div class="skill-file">
+            <div class="skill-file-header">
+              <span class="skill-file-name"><span class="skill-file-icon">📄</span> stop-slop.md</span>
+              <button class="skill-copy-btn" onclick="copySkill(this)">📋 Copiar SKILL.md</button>
+            </div>
+            <div class="skill-file-body"><span class="sk-h1"># Stop Slop</span>
+
+<span class="sk-h2">## Quando usar esta Skill</span>
+Esta Skill está SEMPRE ativa. Aplique em todas as respostas.
+
+<span class="sk-h2">## Palavras e frases proibidas</span>
+Nunca use estas expressões — são indicadores de texto genérico:
+<span class="sk-bullet">-</span> "Com certeza!", "Claro!", "Ótima pergunta!"
+<span class="sk-bullet">-</span> "É importante ressaltar que...", "Vale destacar que..."
+<span class="sk-bullet">-</span> "No mundo de hoje...", "Na era digital..."
+<span class="sk-bullet">-</span> "Isso é fundamental para o sucesso..."
+<span class="sk-bullet">-</span> "Em resumo...", "Em conclusão...", "Portanto..."
+<span class="sk-bullet">-</span> Qualquer frase que poderia ser verdadeira para qualquer pessoa
+
+<span class="sk-h2">## Teste antes de responder</span>
+Antes de enviar, verifique: "Esta resposta poderia ter sido escrita
+para qualquer pessoa com esta pergunta?" Se sim, reescreva com
+detalhes específicos do contexto fornecido.
+
+<span class="sk-h2">## Padrão de escrita exigido</span>
+<span class="sk-bullet">-</span> Primeira frase: já responde a pergunta principal
+<span class="sk-bullet">-</span> Evidências: números, exemplos ou casos específicos
+<span class="sk-bullet">-</span> Tom: conversa direta com um especialista, não apresentação corporativa
+<span class="sk-bullet">-</span> Comprimento: o necessário. Nem mais, nem menos.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SKILL 6 — Arquivos -->
+      <div class="skill-card cat-producao">
+        <div class="skill-card-header">
+          <span class="skill-emoji">📁</span>
+          <div class="skill-header-info">
+            <div class="skill-header-top">
+              <span class="skill-name">Mestre dos Arquivos</span>
+              <span class="skill-badge sb-viral">🔥 Viral</span>
+            </div>
+            <div class="skill-tagline">Lê, edita, cria e exporta PDF, Word, Excel e PowerPoint.</div>
+          </div>
+        </div>
+        <div class="skill-card-body">
+          <p class="skill-desc">Configura o Claude Code para lidar com qualquer formato de arquivo de escritório: ler e extrair dados de PDFs, editar documentos Word, criar planilhas Excel com fórmulas funcionais e montar apresentações PowerPoint com design consistente. Tudo sem sair do Claude Code.</p>
+          <div class="skill-file">
+            <div class="skill-file-header">
+              <span class="skill-file-name"><span class="skill-file-icon">📄</span> mestre-arquivos.md</span>
+              <button class="skill-copy-btn" onclick="copySkill(this)">📋 Copiar SKILL.md</button>
+            </div>
+            <div class="skill-file-body"><span class="sk-h1"># Mestre dos Arquivos</span>
+
+<span class="sk-h2">## Quando usar esta Skill</span>
+Use ao trabalhar com PDF, DOCX, XLSX, PPTX ou qualquer arquivo de escritório.
+
+<span class="sk-h2">## PDF</span>
+Leitura: use PyPDF2 ou pdfplumber para extrair texto e tabelas
+Criação: use reportlab (simples) ou weasyprint (HTML→PDF profissional)
+Comando: pip install pdfplumber reportlab --break-system-packages
+
+<span class="sk-h2">## Word (DOCX)</span>
+Leitura e edição: use python-docx
+Criação: preserve estilos, cabeçalhos e rodapés existentes
+Comando: pip install python-docx --break-system-packages
+
+<span class="sk-h2">## Excel (XLSX)</span>
+Leitura: use openpyxl ou pandas
+Criação: mantenha formatação, fórmulas e validações de dados
+Comando: pip install openpyxl pandas --break-system-packages
+
+<span class="sk-h2">## PowerPoint (PPTX)</span>
+Criação e edição: use python-pptx
+Sempre mantenha o tema/master slide existente quando editar
+Comando: pip install python-pptx --break-system-packages
+
+<span class="sk-h2">## Fluxo padrão</span>
+<span class="sk-bullet">1.</span> Identifique o formato do arquivo
+<span class="sk-bullet">2.</span> Instale a dependência necessária
+<span class="sk-bullet">3.</span> Leia primeiro, confirme o conteúdo, depois edite
+<span class="sk-bullet">4.</span> Salve sempre com nome novo (não sobrescreva o original)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SKILL 7 — Verification -->
+      <div class="skill-card cat-qualidade">
+        <div class="skill-card-header">
+          <span class="skill-emoji">✅</span>
+          <div class="skill-header-info">
+            <div class="skill-header-top">
+              <span class="skill-name">Verificação Antes de Entregar</span>
+              <span class="skill-badge sb-viral">🔥 Viral</span>
+            </div>
+            <div class="skill-tagline">O Claude verifica o próprio trabalho antes de entregar. Zero retrabalho.</div>
+          </div>
+        </div>
+        <div class="skill-card-body">
+          <p class="skill-desc">Força o Claude a executar um protocolo de autorrevisão antes de marcar qualquer tarefa como concluída. Verifica se o código roda, se o texto atende o briefing, se os números batem e se os arquivos foram salvos corretamente. Reduz drasticamente o retrabalho.</p>
+          <div class="skill-file">
+            <div class="skill-file-header">
+              <span class="skill-file-name"><span class="skill-file-icon">📄</span> verificacao-antes-entregar.md</span>
+              <button class="skill-copy-btn" onclick="copySkill(this)">📋 Copiar SKILL.md</button>
+            </div>
+            <div class="skill-file-body"><span class="sk-h1"># Verificação Antes de Entregar</span>
+
+<span class="sk-h2">## Quando usar esta Skill</span>
+SEMPRE, antes de declarar qualquer tarefa como concluída.
+
+<span class="sk-h2">## Protocolo de verificação por tipo de entrega</span>
+
+Para CÓDIGO:
+<span class="sk-bullet">-</span> Execute o código e confirme que roda sem erros
+<span class="sk-bullet">-</span> Teste o caso mais comum E o caso extremo
+<span class="sk-bullet">-</span> Verifique se as dependências estão listadas
+<span class="sk-bullet">-</span> Confirme que os logs não mostram warnings críticos
+
+Para TEXTO/DOCUMENTOS:
+<span class="sk-bullet">-</span> Releia e confirme que responde ao que foi pedido
+<span class="sk-bullet">-</span> Verifique ortografia e concordância
+<span class="sk-bullet">-</span> Confirme que o tom está adequado ao público-alvo
+<span class="sk-bullet">-</span> Choque com o briefing original ponto a ponto
+
+Para ARQUIVOS:
+<span class="sk-bullet">-</span> Confirme que o arquivo foi salvo no caminho correto
+<span class="sk-bullet">-</span> Abra e verifique que o conteúdo está intacto
+<span class="sk-bullet">-</span> Confirme o tamanho do arquivo (0KB indica erro)
+
+<span class="sk-h2">## Formato de entrega após verificação</span>
+"✅ Verificação concluída:
+- [O que foi feito]
+- [Como testei]
+- [Resultado do teste]
+- Arquivo salvo em: [caminho]"</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SKILL 8 — Transcription -->
+      <div class="skill-card cat-producao">
+        <div class="skill-card-header">
+          <span class="skill-emoji">🎙️</span>
+          <div class="skill-header-info">
+            <div class="skill-header-top">
+              <span class="skill-name">Transcrição de Áudio e Vídeo</span>
+              <span class="skill-badge sb-viral">🔥 Viral</span>
+            </div>
+            <div class="skill-tagline">Manda qualquer vídeo ou áudio. O Claude transcreve tudo em português.</div>
+          </div>
+        </div>
+        <div class="skill-card-body">
+          <p class="skill-desc">Configura o Claude Code para transcrever arquivos de áudio e vídeo usando Whisper da OpenAI (gratuito e local). Suporta MP3, MP4, WAV, M4A, MOV e mais. Gera transcrições em português com identificação de falantes, timestamps e formatação para atas de reunião.</p>
+          <div class="skill-file">
+            <div class="skill-file-header">
+              <span class="skill-file-name"><span class="skill-file-icon">📄</span> transcricao-audio-video.md</span>
+              <button class="skill-copy-btn" onclick="copySkill(this)">📋 Copiar SKILL.md</button>
+            </div>
+            <div class="skill-file-body"><span class="sk-h1"># Transcrição de Áudio e Vídeo</span>
+
+<span class="sk-h2">## Quando usar esta Skill</span>
+Use quando receber arquivo de áudio (MP3, WAV, M4A, OGG) ou vídeo
+(MP4, MOV, AVI, MKV) com pedido de transcrição ou legenda.
+
+<span class="sk-h2">## Instalação (primeira vez)</span>
+pip install openai-whisper --break-system-packages
+pip install ffmpeg-python --break-system-packages
+<span class="sk-comment"># macOS: brew install ffmpeg</span>
+<span class="sk-comment"># Ubuntu: apt install ffmpeg</span>
+
+<span class="sk-h2">## Processo de transcrição</span>
+import whisper
+model = whisper.load_model("medium")  <span class="sk-comment"># ou "large" para mais precisão</span>
+result = model.transcribe("arquivo.mp3", language="pt")
+print(result["text"])
+
+<span class="sk-h2">## Para vídeo: extraia o áudio primeiro</span>
+import subprocess
+subprocess.run(["ffmpeg", "-i", "video.mp4", "-q:a", "0",
+                "-map", "a", "audio.mp3"])
+
+<span class="sk-h2">## Formatação da saída</span>
+Após transcrever, formate como:
+<span class="sk-bullet">-</span> Ata de reunião: com tópicos, decisões e próximos passos
+<span class="sk-bullet">-</span> Legenda: formato SRT com timestamps
+<span class="sk-bullet">-</span> Texto corrido: com parágrafos e pontuação corrigida
+<span class="sk-bullet">-</span> Resumo executivo: 5 bullets dos pontos principais</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SKILL 9 — Writing Plans -->
+      <div class="skill-card cat-qualidade">
+        <div class="skill-card-header">
+          <span class="skill-emoji">📝</span>
+          <div class="skill-header-info">
+            <div class="skill-header-top">
+              <span class="skill-name">Plano Antes de Escrever</span>
+              <span class="skill-badge sb-viral">🔥 Viral</span>
+            </div>
+            <div class="skill-tagline">Você aprova o plano primeiro. Só depois o Claude executa.</div>
+          </div>
+        </div>
+        <div class="skill-card-body">
+          <p class="skill-desc">Para qualquer escrita longa ou complexa, o Claude apresenta primeiro um plano detalhado — estrutura, ângulo, tom, argumentos principais — e só escreve depois da sua aprovação. Elimina o retrabalho de textos que foram na direção errada e garante alinhamento antes de investir tempo.</p>
+          <div class="skill-file">
+            <div class="skill-file-header">
+              <span class="skill-file-name"><span class="skill-file-icon">📄</span> plano-antes-escrever.md</span>
+              <button class="skill-copy-btn" onclick="copySkill(this)">📋 Copiar SKILL.md</button>
+            </div>
+            <div class="skill-file-body"><span class="sk-h1"># Plano Antes de Escrever</span>
+
+<span class="sk-h2">## Quando usar esta Skill</span>
+Use para qualquer escrita acima de 300 palavras: artigo, post longo,
+relatório, proposta comercial, e-mail formal, roteiro ou documento.
+
+<span class="sk-h2">## Formato do plano (sempre antes de escrever)</span>
+Apresente este plano e aguarde aprovação:
+
+📋 PLANO DE ESCRITA
+Objetivo: [o que este texto precisa fazer]
+Público: [quem vai ler e o que sabe sobre o tema]
+Ângulo: [a perspectiva ou argumento central]
+Tom: [formal/informal/técnico/emocional]
+Estrutura:
+  1. [Abertura — como vou capturar atenção]
+  2. [Desenvolvimento — os 3-4 pontos principais]
+  3. [Fechamento — CTA ou conclusão]
+Tamanho estimado: [X palavras / Y minutos de leitura]
+
+Aguardando sua aprovação para começar. Quer alterar algo?
+
+<span class="sk-h2">## Após aprovação</span>
+Escreva seguindo o plano aprovado fielmente.
+Se precisar desviar do plano, pause e informe antes de continuar.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SKILL 10 — Brainstorming -->
+      <div class="skill-card cat-producao">
+        <div class="skill-card-header">
+          <span class="skill-emoji">🧪</span>
+          <div class="skill-header-info">
+            <div class="skill-header-top">
+              <span class="skill-name">Brainstorming Estruturado</span>
+              <span class="skill-badge sb-viral">🔥 Viral</span>
+            </div>
+            <div class="skill-tagline">Sessão estruturada de ideação antes de qualquer projeto.</div>
+          </div>
+        </div>
+        <div class="skill-card-body">
+          <p class="skill-desc">Transforma o Claude num facilitador de brainstorming profissional. Em vez de gerar uma lista genérica de ideias, conduz uma sessão estruturada com múltiplas técnicas de ideação (SCAMPER, lateral thinking, inversão), avalia as ideias geradas e entrega um ranking com justificativa para as melhores.</p>
+          <div class="skill-file">
+            <div class="skill-file-header">
+              <span class="skill-file-name"><span class="skill-file-icon">📄</span> brainstorming-estruturado.md</span>
+              <button class="skill-copy-btn" onclick="copySkill(this)">📋 Copiar SKILL.md</button>
+            </div>
+            <div class="skill-file-body"><span class="sk-h1"># Brainstorming Estruturado</span>
+
+<span class="sk-h2">## Quando usar esta Skill</span>
+Use quando pedir ideias, soluções criativas, nomes, conceitos,
+estratégias, campanhas ou qualquer geração de opções.
+
+<span class="sk-h2">## Protocolo de ideação (5 etapas)</span>
+<span class="sk-bullet">1. DIVERGÊNCIA</span>
+   Gere 15 ideias sem filtro. Inclua as óbvias E as absurdas.
+   Regra: nenhuma ideia é descartada nesta fase.
+
+<span class="sk-bullet">2. EXPANSÃO</span>
+   Pegue as 3 ideias mais promissoras e expanda cada uma:
+   - Versão mais ousada
+   - Versão mais simples e executável hoje
+   - Versão híbrida combinando com outra ideia
+
+<span class="sk-bullet">3. INVERSÃO</span>
+   Pergunte: "O que faria esta ideia falhar completamente?"
+   Use a resposta para fortalecer a ideia principal.
+
+<span class="sk-bullet">4. AVALIAÇÃO</span>
+   Pontue cada ideia finalista (1-10) em:
+   - Viabilidade (consegue executar?)
+   - Impacto potencial
+   - Originalidade
+
+<span class="sk-bullet">5. ENTREGA</span>
+   Ranking das top 3 com justificativa e próximo passo concreto.</div>
+          </div>
+        </div>
+      </div>
+    </div><!-- fim skills-grid -->
+
+    <div class="lesson-footer">
+      <div class="footer-next"><div class="footer-next-label">Próxima aula</div><div class="footer-next-title">12.3 — 10 Skills exclusivas Isso é Claude</div></div>
+      <button class="complete-btn" id="cb1" onclick="complete(1)">Marcar como concluída ✓</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════
+       AULA 12.3 — 10 SKILLS EXCLUSIVAS
+  ══════════════════════════════ -->
+  <div class="lesson-content" id="l2">
+    <div class="lesson-header">
+      <div class="lesson-meta">
+        <span class="lesson-num-label">Aula 12.3</span>
+        <span class="lesson-tag tag-pratica">Exclusivas</span>
+        <span class="lesson-dur">⏱ ~35 min</span>
+      </div>
+      <h1 class="lesson-title">10 Skills<br><em>Exclusivas Isso é Claude</em></h1>
+      <p class="lesson-sub">Skills criadas especificamente para a realidade brasileira de negócios — finanças, contratos, WhatsApp, cobrança e gestão. Você não encontra estas em nenhum outro curso.</p>
+    </div>
+
+    <div class="section-divider">
+      <div class="section-divider-line"></div>
+      <span class="section-divider-label">Skills 11–20</span>
+      <span class="section-divider-badge sdb-exclusivo">✦ Exclusivas Isso é Claude</span>
+      <div class="section-divider-line"></div>
+    </div>
+
+    <div class="skills-grid">
+
+      <!-- SKILL 11 — DRE Analyzer BR -->
+      <div class="skill-card cat-exclusivo">
+        <div class="skill-card-header">
+          <span class="skill-emoji">📊</span>
+          <div class="skill-header-info">
+            <div class="skill-header-top">
+              <span class="skill-name">DRE Analyzer BR</span>
+              <span class="skill-badge sb-exclusivo">✦ Exclusiva</span>
+            </div>
+            <div class="skill-tagline">Analisa DRE no padrão brasileiro, Simples Nacional e NBC TG 27.</div>
+          </div>
+        </div>
+        <div class="skill-card-body">
+          <p class="skill-desc">Especialista em demonstrações financeiras no padrão brasileiro. Lê planilhas de DRE, identifica anomalias, calcula margens reais, compara com benchmarks do setor e gera relatório executivo com alertas de saúde financeira. Conhece a estrutura do Simples Nacional, Lucro Presumido e as normas NBC TG.</p>
+          <div class="skill-file">
+            <div class="skill-file-header">
+              <span class="skill-file-name"><span class="skill-file-icon">📄</span> dre-analyzer-br.md</span>
+              <button class="skill-copy-btn" onclick="copySkill(this)">📋 Copiar SKILL.md</button>
+            </div>
+            <div class="skill-file-body"><span class="sk-h1"># DRE Analyzer BR</span>
+
+<span class="sk-h2">## Quando usar esta Skill</span>
+Use ao receber DRE, balancete, fluxo de caixa ou qualquer
+demonstração financeira para análise.
+
+<span class="sk-h2">## Estrutura esperada do DRE brasileiro</span>
+Receita Bruta
+(-) Deduções (impostos, devoluções)
+= Receita Líquida
+(-) CMV / CPV
+= Lucro Bruto
+(-) Despesas Operacionais
+= EBITDA
+(-) Depreciação e Amortização
+= EBIT
+(-/+) Resultado Financeiro
+= Lucro Antes do IR
+(-) IR e CSLL
+= Lucro Líquido
+
+<span class="sk-h2">## Análise obrigatória</span>
+<span class="sk-bullet">1.</span> Margem Bruta: Lucro Bruto / Receita Líquida (meta: >40%)
+<span class="sk-bullet">2.</span> Margem EBITDA: EBITDA / Receita Líquida (meta: >15%)
+<span class="sk-bullet">3.</span> Margem Líquida: Lucro Líquido / Receita Líquida
+<span class="sk-bullet">4.</span> Crescimento YoY se dados históricos disponíveis
+<span class="sk-bullet">5.</span> Destaques de custo acima de 30% da receita
+
+<span class="sk-h2">## Alertas automáticos</span>
+🔴 CRÍTICO: Margem bruta < 20% ou prejuízo líquido
+🟡 ATENÇÃO: Despesas financeiras > 5% da receita
+🟢 SAUDÁVEL: EBITDA positivo e crescendo
+
+<span class="sk-h2">## Regime tributário</span>
+Identifique e considere: Simples Nacional, Lucro Presumido ou Real.
+Alíquotas variam significativamente entre regimes.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SKILL 12 — Prompt Surgeon -->
+      <div class="skill-card cat-exclusivo">
+        <div class="skill-card-header">
+          <span class="skill-emoji">🔬</span>
+          <div class="skill-header-info">
+            <div class="skill-header-top">
+              <span class="skill-name">Prompt Surgeon</span>
+              <span class="skill-badge sb-exclusivo">✦ Exclusiva</span>
+            </div>
+            <div class="skill-tagline">Pega qualquer prompt fraco e opera para entregar resultados 10x melhores.</div>
+          </div>
+        </div>
+        <div class="skill-card-body">
+          <p class="skill-desc">Especialista em diagnóstico e melhoria de prompts. Recebe um prompt qualquer, identifica os problemas (vago, sem contexto, sem formato definido, sem exemplo), reescreve com todas as técnicas do Módulo 02 aplicadas e explica cada melhoria feita. O médico dos seus prompts ruins.</p>
+          <div class="skill-file">
+            <div class="skill-file-header">
+              <span class="skill-file-name"><span class="skill-file-icon">📄</span> prompt-surgeon.md</span>
+              <button class="skill-copy-btn" onclick="copySkill(this)">📋 Copiar SKILL.md</button>
+            </div>
+            <div class="skill-file-body"><span class="sk-h1"># Prompt Surgeon</span>
+
+<span class="sk-h2">## Quando usar esta Skill</span>
+Use quando pedir para melhorar, corrigir, reescrever ou avaliar um prompt.
+
+<span class="sk-h2">## Diagnóstico (avalie cada dimensão de 1-5)</span>
+<span class="sk-bullet">-</span> Clareza: o objetivo está explícito?
+<span class="sk-bullet">-</span> Contexto: fornece informação suficiente para o modelo?
+<span class="sk-bullet">-</span> Formato de saída: especifica como deve ser a resposta?
+<span class="sk-bullet">-</span> Tom e persona: define quem está falando / para quem?
+<span class="sk-bullet">-</span> Restrições: o que NÃO deve fazer?
+<span class="sk-bullet">-</span> Exemplos: tem pelo menos 1 exemplo de saída esperada?
+
+<span class="sk-h2">## Processo de cirurgia</span>
+<span class="sk-bullet">1.</span> Mostre o diagnóstico (pontuação por dimensão)
+<span class="sk-bullet">2.</span> Liste os 3 maiores problemas identificados
+<span class="sk-bullet">3.</span> Reescreva o prompt com XML tags estruturadas
+<span class="sk-bullet">4.</span> Explique cada mudança feita e por que melhora
+
+<span class="sk-h2">## Template de prompt cirurgiado</span>
+&lt;persona&gt;Você é [especialista específico]&lt;/persona&gt;
+&lt;contexto&gt;[situação detalhada]&lt;/contexto&gt;
+&lt;tarefa&gt;[o que fazer, passo a passo]&lt;/tarefa&gt;
+&lt;formato&gt;[como deve ser a saída]&lt;/formato&gt;
+&lt;restricoes&gt;[o que NÃO fazer]&lt;/restricoes&gt;
+&lt;exemplo&gt;[exemplo de saída ideal]&lt;/exemplo&gt;</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SKILL 13 — Contrato Radar -->
+      <div class="skill-card cat-exclusivo">
+        <div class="skill-card-header">
+          <span class="skill-emoji">⚖️</span>
+          <div class="skill-header-info">
+            <div class="skill-header-top">
+              <span class="skill-name">Contrato Radar</span>
+              <span class="skill-badge sb-exclusivo">✦ Exclusiva</span>
+            </div>
+            <div class="skill-tagline">Lê qualquer contrato e destaca as cláusulas que podem te prejudicar.</div>
+          </div>
+        </div>
+        <div class="skill-card-body">
+          <p class="skill-desc">Analisa contratos em português identificando cláusulas abusivas, prazos escondidos, multas desproporcionais e obrigações que podem surpreender negativamente. Não substitui advogado, mas entrega em segundos o que levaria horas para ler — com um resumo executivo e lista de pontos para negociar.</p>
+          <div class="skill-file">
+            <div class="skill-file-header">
+              <span class="skill-file-name"><span class="skill-file-icon">📄</span> contrato-radar.md</span>
+              <button class="skill-copy-btn" onclick="copySkill(this)">📋 Copiar SKILL.md</button>
+            </div>
+            <div class="skill-file-body"><span class="sk-h1"># Contrato Radar</span>
+
+<span class="sk-h2">## Quando usar esta Skill</span>
+Use ao receber qualquer contrato, NDA, acordo, termo de serviço
+ou documento jurídico para análise.
+
+<span class="sk-h2">## Análise obrigatória (em ordem)</span>
+<span class="sk-bullet">1.</span> RESUMO EXECUTIVO (máximo 5 linhas):
+   Quem são as partes, o que está sendo acordado, por quanto tempo
+
+<span class="sk-bullet">2.</span> CLÁUSULAS DE ALERTA 🔴:
+   Busque ativamente por: multas acima de 20% do valor, cláusulas
+   de exclusividade, renovação automática sem aviso, foro de
+   eleição desfavorável, limitação desproporcional de responsabilidade
+
+<span class="sk-bullet">3.</span> OBRIGAÇÕES DA PARTE CONTRATANTE:
+   Liste todas as obrigações em linguagem simples
+
+<span class="sk-bullet">4.</span> DIREITOS DA PARTE CONTRATANTE:
+   O que a parte tem garantido pelo contrato
+
+<span class="sk-bullet">5.</span> PONTOS PARA NEGOCIAR:
+   As 3 cláusulas mais favoráveis de alterar antes de assinar
+
+<span class="sk-h2">## Aviso obrigatório</span>
+Sempre finalize com: "Esta análise é informativa e não substitui
+consultoria jurídica profissional. Para decisões importantes,
+consulte um advogado especializado."</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SKILL 14 — Cobrança Cordial -->
+      <div class="skill-card cat-exclusivo">
+        <div class="skill-card-header">
+          <span class="skill-emoji">💸</span>
+          <div class="skill-header-info">
+            <div class="skill-header-top">
+              <span class="skill-name">Cobrança Cordial BR</span>
+              <span class="skill-badge sb-exclusivo">✦ Exclusiva</span>
+            </div>
+            <div class="skill-tagline">Mensagens de cobrança que recuperam o dinheiro sem perder o cliente.</div>
+          </div>
+        </div>
+        <div class="skill-card-body">
+          <p class="skill-desc">Especialista em comunicação de cobrança no contexto brasileiro. Gera mensagens calibradas por nível de atraso (1 a 90+ dias), canal (WhatsApp, e-mail, SMS) e perfil de cliente. Tom progressivo: amigável no início, firme no final. Conhece o Código de Defesa do Consumidor e o que não pode ser dito.</p>
+          <div class="skill-file">
+            <div class="skill-file-header">
+              <span class="skill-file-name"><span class="skill-file-icon">📄</span> cobranca-cordial-br.md</span>
+              <button class="skill-copy-btn" onclick="copySkill(this)">📋 Copiar SKILL.md</button>
+            </div>
+            <div class="skill-file-body"><span class="sk-h1"># Cobrança Cordial BR</span>
+
+<span class="sk-h2">## Quando usar esta Skill</span>
+Use ao pedir mensagem de cobrança, lembrete de pagamento,
+comunicado de inadimplência ou negociação de dívida.
+
+<span class="sk-h2">## Escala de tom por dias de atraso</span>
+1–7 dias: Lembrete amigável — assume esquecimento, sem drama
+8–30 dias: Notificação formal — menciona valor e data, oferece facilidade
+31–60 dias: Alerta de inadimplência — cita consequências, propõe negociação
+61–90 dias: Comunicado final — prazo definido, menciona restrições
+90+ dias: Encaminhamento jurídico ou Serasa — linguagem formal e direta
+
+<span class="sk-h2">## Por canal</span>
+WhatsApp: máximo 3 parágrafos, tom conversacional, emoji moderado
+E-mail: formal, com assunto claro, assinatura profissional
+SMS: máximo 160 caracteres, objetivo direto
+
+<span class="sk-h2">## O que NUNCA dizer (CDC art. 42)</span>
+<span class="sk-bullet">-</span> Ameaças (físicas, morais ou profissionais)
+<span class="sk-bullet">-</span> Expor o devedor ao ridículo
+<span class="sk-bullet">-</span> Contato com terceiros sobre a dívida sem autorização
+<span class="sk-bullet">-</span> Informações falsas sobre as consequências
+
+<span class="sk-h2">## Sempre inclua na mensagem</span>
+Valor exato + vencimento original + forma de pagamento + contato</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SKILL 15 — WhatsApp Copy -->
+      <div class="skill-card cat-exclusivo">
+        <div class="skill-card-header">
+          <span class="skill-emoji">📱</span>
+          <div class="skill-header-info">
+            <div class="skill-header-top">
+              <span class="skill-name">WhatsApp Copy BR</span>
+              <span class="skill-badge sb-exclusivo">✦ Exclusiva</span>
+            </div>
+            <div class="skill-tagline">Mensagens de vendas para WhatsApp no jeito certo do mercado brasileiro.</div>
+          </div>
+        </div>
+        <div class="skill-card-body">
+          <p class="skill-desc">Especialista em copywriting para WhatsApp no contexto brasileiro. Sabe a diferença entre uma mensagem que converte e uma que vai para o spam. Gera sequências de follow-up, scripts de vendas, mensagens de reativação e broadcasts que respeitam o tom informal do canal sem perder a conversão.</p>
+          <div class="skill-file">
+            <div class="skill-file-header">
+              <span class="skill-file-name"><span class="skill-file-icon">📄</span> whatsapp-copy-br.md</span>
+              <button class="skill-copy-btn" onclick="copySkill(this)">📋 Copiar SKILL.md</button>
+            </div>
+            <div class="skill-file-body"><span class="sk-h1"># WhatsApp Copy BR</span>
+
+<span class="sk-h2">## Quando usar esta Skill</span>
+Use ao pedir mensagem, script ou sequência para WhatsApp Business,
+seja venda, reativação, broadcast ou follow-up.
+
+<span class="sk-h2">## Regras de ouro do WhatsApp BR</span>
+<span class="sk-bullet">-</span> Primeira mensagem: máximo 3 linhas. Gancho + contexto + CTA
+<span class="sk-bullet">-</span> Nunca comece com "Olá, tudo bem?" — já perdeu a atenção
+<span class="sk-bullet">-</span> Quebre o texto em blocos curtos (máximo 3 linhas por bloco)
+<span class="sk-bullet">-</span> Use *negrito* para destacar o benefício principal
+<span class="sk-bullet">-</span> Emoji: 1 por bloco de texto, no início ou fim — nunca no meio
+<span class="sk-bullet">-</span> CTA claro no final: "Responde SIM que eu te mando os detalhes"
+
+<span class="sk-h2">## Estrutura de sequência de vendas (3 mensagens)</span>
+Msg 1 — Gancho: benefício + prova social + pergunta de qualificação
+Msg 2 — Valor: oferta detalhada + urgência real (não falsa escassez)
+Msg 3 — Follow-up: "Ei, vi que não respondeu. Ainda faz sentido?"
+
+<span class="sk-h2">## Tom padrão</span>
+Escreva como um amigo que entende do assunto — não como vendedor.
+Português informal sem ser desleixado. Sem "confira", "adquira",
+"aproveite" — essas palavras soam como SPAM.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SKILL 16 — Anti-Juridiquês -->
+      <div class="skill-card cat-exclusivo">
+        <div class="skill-card-header">
+          <span class="skill-emoji">🔓</span>
+          <div class="skill-header-info">
+            <div class="skill-header-top">
+              <span class="skill-name">Anti-Juridiquês</span>
+              <span class="skill-badge sb-exclusivo">✦ Exclusiva</span>
+            </div>
+            <div class="skill-tagline">Traduz qualquer documento jurídico para português simples e direto.</div>
+          </div>
+        </div>
+        <div class="skill-card-body">
+          <p class="skill-desc">Traduz documentos jurídicos, regulatórios e burocráticos para linguagem acessível sem perder precisão. Contratos, editais, legislação, ofícios, regulamentos — tudo vira texto que qualquer pessoa consegue entender. Fundamental para equipes comerciais, RH e atendimento que precisam entender documentos legais sem ser advogados.</p>
+          <div class="skill-file">
+            <div class="skill-file-header">
+              <span class="skill-file-name"><span class="skill-file-icon">📄</span> anti-juridiques.md</span>
+              <button class="skill-copy-btn" onclick="copySkill(this)">📋 Copiar SKILL.md</button>
+            </div>
+            <div class="skill-file-body"><span class="sk-h1"># Anti-Juridiquês</span>
+
+<span class="sk-h2">## Quando usar esta Skill</span>
+Use ao receber texto jurídico, legal, regulatório ou burocrático
+com pedido de explicação, tradução ou simplificação.
+
+<span class="sk-h2">## Processo de simplificação</span>
+<span class="sk-bullet">1.</span> Leia o documento inteiro antes de simplificar
+<span class="sk-bullet">2.</span> Identifique o objetivo central (o que este documento quer dizer?)
+<span class="sk-bullet">3.</span> Divida em seções lógicas
+<span class="sk-bullet">4.</span> Reescreva cada seção em linguagem simples
+<span class="sk-bullet">5.</span> Mantenha os termos técnicos essenciais com explicação entre parênteses
+
+<span class="sk-h2">## Substituições automáticas</span>
+"doravante denominado" → "chamado de agora em diante"
+"in fine" → "no final do artigo"
+"ressalvadas as hipóteses" → "exceto quando"
+"consoante" → "conforme" / "de acordo com"
+"mister" → "necessário"
+"ad referendum" → "sujeito à aprovação"
+
+<span class="sk-h2">## Formato de entrega</span>
+Original (citação curta) → Tradução em português simples
+Ao final: "Em resumo: [o que este documento significa para você]"
+
+<span class="sk-h2">## Aviso</span>
+Sempre finalize com: "Esta simplificação é para entendimento geral.
+Para decisões jurídicas, consulte um advogado."</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SKILL 17 — KPI Dashboard -->
+      <div class="skill-card cat-exclusivo">
+        <div class="skill-card-header">
+          <span class="skill-emoji">📈</span>
+          <div class="skill-header-info">
+            <div class="skill-header-top">
+              <span class="skill-name">KPI Dashboard Gerador</span>
+              <span class="skill-badge sb-exclusivo">✦ Exclusiva</span>
+            </div>
+            <div class="skill-tagline">Cola os dados brutos, recebe um dashboard HTML interativo em segundos.</div>
+          </div>
+        </div>
+        <div class="skill-card-body">
+          <p class="skill-desc">Transforma dados brutos (planilha, CSV, números colados no chat) em dashboards HTML interativos com gráficos, KPIs destacados e análise automática. Usa Chart.js para visualizações profissionais. Ideal para relatórios de gestão, reuniões de diretoria e acompanhamento de metas.</p>
+          <div class="skill-file">
+            <div class="skill-file-header">
+              <span class="skill-file-name"><span class="skill-file-icon">📄</span> kpi-dashboard-gerador.md</span>
+              <button class="skill-copy-btn" onclick="copySkill(this)">📋 Copiar SKILL.md</button>
+            </div>
+            <div class="skill-file-body"><span class="sk-h1"># KPI Dashboard Gerador</span>
+
+<span class="sk-h2">## Quando usar esta Skill</span>
+Use ao receber dados numéricos com pedido de dashboard, gráfico,
+visualização, relatório visual ou análise de KPIs.
+
+<span class="sk-h2">## Processo</span>
+<span class="sk-bullet">1.</span> Identifique os KPIs principais (máximo 6 cards no topo)
+<span class="sk-bullet">2.</span> Determine os melhores tipos de gráfico para cada dado:
+   - Evolução temporal → linha ou área
+   - Comparação entre categorias → barras
+   - Proporção/parte do todo → pizza ou donut
+   - Correlação → scatter plot
+<span class="sk-bullet">3.</span> Calcule variações vs. período anterior
+<span class="sk-bullet">4.</span> Gere o HTML com Chart.js via CDN
+
+<span class="sk-h2">## Estrutura do dashboard HTML</span>
+Header: título + período + data de atualização
+Linha 1: Cards de KPI (fundo colorido por performance)
+  🟢 acima da meta | 🟡 na meta | 🔴 abaixo da meta
+Linha 2: Gráfico principal (maior, mais importante)
+Linha 3: Gráficos secundários (2 lado a lado)
+Footer: fonte dos dados + observações
+
+<span class="sk-h2">## Cores padrão BR</span>
+Verde meta: #0f7a4a | Vermelho alerta: #c0392b
+Azul destaque: #1a4fd4 | Cinza neutro: #6b7280</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SKILL 18 — SEO BR -->
+      <div class="skill-card cat-exclusivo">
+        <div class="skill-card-header">
+          <span class="skill-emoji">🔍</span>
+          <div class="skill-header-info">
+            <div class="skill-header-top">
+              <span class="skill-name">SEO BR Optimizer</span>
+              <span class="skill-badge sb-exclusivo">✦ Exclusiva</span>
+            </div>
+            <div class="skill-tagline">Otimiza qualquer texto para o Google brasileiro com as práticas corretas.</div>
+          </div>
+        </div>
+        <div class="skill-card-body">
+          <p class="skill-desc">Especialista em SEO para o mercado brasileiro. Analisa e reescreve textos para posicionar no Google.com.br considerando as particularidades do português brasileiro, comportamento de busca local e concorrência real. Inclui otimização de meta tags, estrutura de headings, densidade de palavras-chave e schema markup.</p>
+          <div class="skill-file">
+            <div class="skill-file-header">
+              <span class="skill-file-name"><span class="skill-file-icon">📄</span> seo-br-optimizer.md</span>
+              <button class="skill-copy-btn" onclick="copySkill(this)">📋 Copiar SKILL.md</button>
+            </div>
+            <div class="skill-file-body"><span class="sk-h1"># SEO BR Optimizer</span>
+
+<span class="sk-h2">## Quando usar esta Skill</span>
+Use para otimizar texto, artigo, landing page ou qualquer conteúdo
+com foco em posicionamento no Google Brasil.
+
+<span class="sk-h2">## Checklist de otimização</span>
+<span class="sk-bullet">□</span> Palavra-chave principal na primeira linha (idealmente nas primeiras 100 chars)
+<span class="sk-bullet">□</span> H1 único e descritivo com a keyword
+<span class="sk-bullet">□</span> H2s com variações e perguntas relacionadas (People Also Ask)
+<span class="sk-bullet">□</span> Densidade de keyword: 1-2% (não mais que isso)
+<span class="sk-bullet">□</span> Primeiro parágrafo responde diretamente o que o usuário busca
+<span class="sk-bullet">□</span> Meta title: máximo 60 caracteres com keyword no início
+<span class="sk-bullet">□</span> Meta description: 155 chars com CTA e keyword
+
+<span class="sk-h2">## Particularidades do BR</span>
+<span class="sk-bullet">-</span> Busque as versões com e sem acento: "café" e "cafe"
+<span class="sk-bullet">-</span> Considere gírias e termos regionais (SP vs. NE vs. SUL)
+<span class="sk-bullet">-</span> "Como fazer" e "O que é" lideram buscas informacionais no BR
+<span class="sk-bullet">-</span> Conteúdo em PT-BR sempre supera PT-PT no Google.com.br
+
+<span class="sk-h2">## Formato de entrega</span>
+<span class="sk-bullet">1.</span> Diagnóstico SEO do texto original (pontuação 0-100)
+<span class="sk-bullet">2.</span> Lista de problemas encontrados
+<span class="sk-bullet">3.</span> Texto otimizado
+<span class="sk-bullet">4.</span> Meta title e meta description prontos</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SKILL 19 — Pitch Deck Critic -->
+      <div class="skill-card cat-exclusivo">
+        <div class="skill-card-header">
+          <span class="skill-emoji">🎯</span>
+          <div class="skill-header-info">
+            <div class="skill-header-top">
+              <span class="skill-name">Pitch Deck Critic</span>
+              <span class="skill-badge sb-exclusivo">✦ Exclusiva</span>
+            </div>
+            <div class="skill-tagline">Avalia seu pitch como um investidor brasileiro faria. Sem papas na língua.</div>
+          </div>
+        </div>
+        <div class="skill-card-body">
+          <p class="skill-desc">Analisa apresentações de pitch com o olhar crítico de um investidor de venture capital brasileiro. Identifica os slides fracos, os argumentos sem dados, as projeções irrealistas e as lacunas que todo investidor vai perguntar. Entrega feedback estruturado e a versão melhorada de cada slide problemático.</p>
+          <div class="skill-file">
+            <div class="skill-file-header">
+              <span class="skill-file-name"><span class="skill-file-icon">📄</span> pitch-deck-critic.md</span>
+              <button class="skill-copy-btn" onclick="copySkill(this)">📋 Copiar SKILL.md</button>
+            </div>
+            <div class="skill-file-body"><span class="sk-h1"># Pitch Deck Critic</span>
+
+<span class="sk-h2">## Quando usar esta Skill</span>
+Use ao receber pitch deck, apresentação para investidor, proposta
+comercial ou qualquer documento de captação de recursos.
+
+<span class="sk-h2">## Estrutura ideal de pitch (10 slides)</span>
+<span class="sk-bullet">1.</span> Problema: dor real, dados de tamanho do problema
+<span class="sk-bullet">2.</span> Solução: como resolve, diferencial claro
+<span class="sk-bullet">3.</span> Mercado: TAM/SAM/SOM com fonte credível
+<span class="sk-bullet">4.</span> Produto: demo ou screenshots, não só texto
+<span class="sk-bullet">5.</span> Modelo de negócio: como ganha dinheiro, unit economics
+<span class="sk-bullet">6.</span> Tração: MRR, usuários, crescimento — números reais
+<span class="sk-bullet">7.</span> Concorrência: mapa honesto, não "não temos concorrentes"
+<span class="sk-bullet">8.</span> Time: por que vocês? Experiência relevante
+<span class="sk-bullet">9.</span> Financeiro: projeções 3 anos, premissas realistas
+<span class="sk-bullet">10.</span> Pedido: quanto capta, para que, valuation
+
+<span class="sk-h2">## Perguntas que todo investidor BR vai fazer</span>
+<span class="sk-bullet">-</span> "Qual o CAC e LTV?"
+<span class="sk-bullet">-</span> "Por que agora e não daqui 2 anos?"
+<span class="sk-bullet">-</span> "O que impede um grande de copiar?"
+<span class="sk-bullet">-</span> "Quanto tempo até o breakeven?"
+<span class="sk-bullet">-</span> "Qual a margem bruta do produto/serviço?"
+
+<span class="sk-h2">## Formato de crítica</span>
+Para cada slide: nota (1-5) + o que está bom + o que está fraco + como melhorar
+Ao final: pontuação geral e os 3 slides mais urgentes de refazer</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SKILL 20 — Isso é Claude Coach -->
+      <div class="skill-card cat-exclusivo">
+        <div class="skill-card-header">
+          <span class="skill-emoji">🏆</span>
+          <div class="skill-header-info">
+            <div class="skill-header-top">
+              <span class="skill-name">Isso é Claude Coach</span>
+              <span class="skill-badge sb-exclusivo">✦ Exclusiva</span>
+            </div>
+            <div class="skill-tagline">Seu coach pessoal de uso do Claude. Diagnostica e melhora como você trabalha com IA.</div>
+          </div>
+        </div>
+        <div class="skill-card-body">
+          <p class="skill-desc">A Skill meta: o Claude vira um coach especialista em ajudar você a usar o próprio Claude melhor. Analisa sua sessão de trabalho, identifica padrões de uso ineficiente, sugere qual módulo do Isso é Claude revisar e propõe como você poderia ter chegado no resultado 3x mais rápido.</p>
+          <div class="skill-file">
+            <div class="skill-file-header">
+              <span class="skill-file-name"><span class="skill-file-icon">📄</span> isso-e-claude-coach.md</span>
+              <button class="skill-copy-btn" onclick="copySkill(this)">📋 Copiar SKILL.md</button>
+            </div>
+            <div class="skill-file-body"><span class="sk-h1"># Isso é Claude Coach</span>
+
+<span class="sk-h2">## Quando usar esta Skill</span>
+Use quando pedir feedback sobre como está usando o Claude,
+revisão de sessão, ou ajuda para melhorar seu fluxo de trabalho com IA.
+
+<span class="sk-h2">## Diagnóstico de uso</span>
+Avalie a sessão do usuário em 5 dimensões:
+
+<span class="sk-bullet">1. QUALIDADE DOS PROMPTS</span>
+   Estão usando contexto suficiente? XML tags? Exemplos?
+   → Se não: sugira revisar Módulo 02 do Isso é Claude
+
+<span class="sk-bullet">2. GESTÃO DE CONTEXTO</span>
+   Sessão muito longa sem /compact? Histórico acumulando custo?
+   → Sugira /compact a cada 30 trocas
+
+<span class="sk-bullet">3. USO DAS FERRAMENTAS CERTAS</span>
+   Usando chat para o que deveria ser Cowork?
+   Usando Claude quando automação resolveria?
+   → Sugira o módulo certo
+
+<span class="sk-bullet">4. ITERAÇÃO EFICIENTE</span>
+   Reescrevendo prompts do zero em vez de refinar?
+   → Ensine a técnica de refinamento progressivo do Módulo 02
+
+<span class="sk-bullet">5. APROVEITAMENTO DE SKILLS</span>
+   Quais Skills do Módulo 12 se aplicam ao trabalho deles?
+   → Recomende as 3 mais relevantes para o contexto
+
+<span class="sk-h2">## Formato de coaching</span>
+"🔍 Diagnóstico da sua sessão:
+✅ O que você fez bem: [específico]
+⚠️ Oportunidade de melhoria: [específico com exemplo]
+🚀 Como ficaria 3x mais rápido: [recomendação concreta]
+📚 Para se aprofundar: [módulo específico do Isso é Claude]"</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- fim skills-grid -->
+
+    <div class="callout key" style="margin-top:36px;">
+      <div class="callout-icon">🏁</div>
+      <div class="callout-body">
+        <h4>Módulo 12 Concluído — Isso é Claude Completo!</h4>
+        <p>Você agora tem 20 Skills prontas para instalar, sendo 10 das mais virais do mercado (traduzidas e aprimoradas para o BR) + 10 exclusivas para a realidade do negócio brasileiro. Use a Skill <strong>Isso é Claude Coach</strong> para continuar melhorando seu uso ao longo do tempo.</p>
+      </div>
+    </div>
+
+    <div class="lesson-footer">
+      <div class="footer-next"><div class="footer-next-label">Fim do curso</div><div class="footer-next-title">Isso é Claude — 12 módulos · 66 aulas ✦</div></div>
+      <button class="complete-btn" id="cb2" onclick="complete(2)" style="background:linear-gradient(135deg,var(--accent),var(--gold));">🏆 Concluir o Isso é Claude!</button>
+    </div>
+  </div>
+
+</main>
+</div>
+<button class="sidebar-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+
+<script>
+let cur=0;const total=3;const done=new Set();
+const nums=['12.1','12.2','12.3'];
+function goTo(i){
+  document.querySelectorAll('.lesson-content').forEach(l=>l.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('l'+i).classList.add('active');
+  document.querySelectorAll('.nav-item')[i].classList.add('active');
+  document.getElementById('topLabel').textContent='Aula '+nums[i];
+  cur=i;window.scrollTo({top:0,behavior:'smooth'});
+  if(window.innerWidth<900)document.getElementById('sidebar').classList.remove('open');
+}
+function next(){if(cur<total-1)goTo(cur+1);}
+function prev(){if(cur>0)goTo(cur-1);}
+function complete(i){
+  done.add(i);
+  const b=document.getElementById('cb'+i);
+  b.classList.add('done');
+  b.textContent=i===2?'✦ Isso é Claude Concluído!':'✓ Concluída!';
+  document.querySelectorAll('.nav-item')[i].classList.add('done');
+  syncProgressToIndex('12', Math.round(done.size/total*100), done.size===total);
+  document.getElementById('progFill').style.width=Math.round(done.size/total*100)+'%';
+  document.getElementById('progText').textContent=done.size+' de '+total+' aulas';
+  if(i<total-1)setTimeout(()=>goTo(i+1),600);
+}
+function copySkill(btn){
+  const body=btn.closest('.skill-file').querySelector('.skill-file-body');
+  const text=body.innerText;
+  navigator.clipboard.writeText(text).then(()=>{
+    btn.textContent='✓ Copiado!';
+    setTimeout(()=>btn.textContent='📋 Copiar SKILL.md',2500);
+  });
+}
+
+// Sincronizar progresso com index.html
+function syncProgressToIndex(num, pct, done) {
+  try {
+    const STORAGE_KEY = 'cm_progress_v2';
+    const p = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    p[num] = { pct: pct, done: done };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(p));
+  } catch(e) {}
+}
+
+</script>
+</body>
+</html>

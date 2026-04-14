@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 06 — API & Automações | Isso é Claude</title>
+
+<style>
+/* ISSO É CLAUDE — Design System v2.0 */
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+:root{
+  --bg:#ffffff;--bg2:#f5f5f5;--bg3:#fafafa;
+  --ink:#111111;--ink2:#333333;--ink3:#666666;--ink4:#999999;
+  --accent:#ff5c00;--accent2:#e04f00;--accent3:#cc4500;
+  --accent-light:rgba(255,92,0,0.07);--accent-mid:rgba(255,92,0,0.15);
+  --green:#16a34a;--green-bg:rgba(22,163,74,0.07);
+  --blue:#2563eb;--blue-bg:rgba(37,99,235,0.07);
+  --gold:#d97706;--gold-bg:rgba(217,119,6,0.07);
+  --red:#dc2626;--red-bg:rgba(220,38,38,0.07);
+  --purple:#7c3aed;--purple-bg:rgba(124,58,237,0.07);
+  --border:#e5e5e5;--border2:#d4d4d4;
+  --shadow:0 2px 12px rgba(0,0,0,0.07);--shadow-md:0 4px 20px rgba(0,0,0,0.09);--shadow-lg:0 8px 40px rgba(0,0,0,0.11);
+  --code-bg:#111111;--code-fg:#e8e8e8;
+  --sidebar-bg:#111111;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+
+
+
+/* SIDEBAR */
+
+
+
+.sb-brand{padding:28px 22px 20px;border-bottom:1px solid rgba(255,255,255,0.06);}
+.sb-tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--accent);text-transform:uppercase;margin-bottom:8px;display:block;}
+.sb-name{font-size:14px;font-weight:700;color:#fff;line-height:1.4;}
+.sb-mod{padding:12px 22px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,0.25);text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.04);}
+.nav-lessons{padding:8px 0;flex:1;}
+.nav-item{display:flex;align-items:flex-start;gap:10px;padding:10px 22px;cursor:pointer;transition:background 0.15s;border-left:3px solid transparent;}
+.nav-item:hover{background:rgba(255,92,0,0.08);}
+.nav-item.active{background:rgba(255,92,0,0.13);border-left-color:var(--accent);}
+.nav-item.done .nav-num::after{content:' ✓';color:var(--green);}
+.nav-num{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent);padding-top:2px;min-width:28px;font-weight:600;}
+.nav-title{font-size:11.5px;color:rgba(255,255,255,0.52);line-height:1.45;}
+.nav-item.active .nav-title{color:#fff;font-weight:500;}
+.sb-progress{padding:16px 22px;border-top:1px solid rgba(255,255,255,0.05);}
+.prog-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,0.22);text-transform:uppercase;margin-bottom:8px;}
+.prog-bar{height:2px;background:rgba(255,255,255,0.07);border-radius:1px;overflow:hidden;margin-bottom:6px;}
+.prog-fill{height:100%;background:var(--accent);border-radius:1px;transition:width 0.5s ease;}
+.prog-text{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.22);}
+/* MAIN */
+
+
+/* LESSON */
+
+
+.lesson-header{margin-bottom:48px;padding-bottom:32px;border-bottom:1px solid var(--border);}
+.lesson-meta{display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap;}
+.lesson-tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;padding:3px 10px;border-radius:3px;text-transform:uppercase;font-weight:600;border:1px solid transparent;}
+.tag-teoria{background:var(--blue-bg);color:var(--blue);border-color:rgba(37,99,235,0.2);}
+.tag-pratica{background:var(--green-bg);color:var(--green);border-color:rgba(22,163,74,0.2);}
+.tag-lab{background:var(--purple-bg);color:var(--purple);border-color:rgba(124,58,237,0.2);}
+.tag-tecnica{background:var(--accent-light);color:var(--accent);border-color:var(--accent-mid);}
+.tag-guia{background:var(--green-bg);color:var(--green);border-color:rgba(22,163,74,0.2);}
+.tag-resumo{background:var(--blue-bg);color:var(--blue);border-color:rgba(37,99,235,0.2);}
+.tag-dev{background:var(--purple-bg);color:var(--purple);border-color:rgba(124,58,237,0.2);}
+.tag-agente{background:var(--blue-bg);color:var(--blue);border-color:rgba(37,99,235,0.2);}
+.tag-skill{background:var(--purple-bg);color:var(--purple);border-color:rgba(124,58,237,0.2);}
+.tag-bonus{background:var(--gold-bg);color:var(--gold);border-color:rgba(217,119,6,0.2);}
+.tag-final{background:var(--accent-light);color:var(--accent);border-color:var(--accent-mid);}
+.tag-lider{background:var(--gold-bg);color:var(--gold);border-color:rgba(217,119,6,0.2);}
+.tag-estrategia{background:var(--accent-light);color:var(--accent);border-color:var(--accent-mid);}
+.tag-workshop{background:var(--green-bg);color:var(--green);border-color:rgba(22,163,74,0.2);}
+.tag-framework{background:var(--blue-bg);color:var(--blue);border-color:rgba(37,99,235,0.2);}
+.lesson-num-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink4);letter-spacing:1px;}
+.lesson-dur{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink4);}
+.lesson-title{font-family:'Lora',serif;font-size:clamp(28px,3.5vw,46px);font-weight:700;color:var(--ink);line-height:1.15;margin-bottom:16px;letter-spacing:-0.5px;}
+.lesson-title em{color:var(--accent);font-style:italic;}
+.lesson-sub{font-size:16px;color:var(--ink3);font-weight:300;line-height:1.8;max-width:640px;}
+/* BLOCKS */
+.block{margin-bottom:48px;}
+.block h2{font-family:'Lora',serif;font-size:22px;font-weight:600;color:var(--ink);margin-bottom:16px;display:flex;align-items:center;gap:12px;letter-spacing:-0.3px;}
+.block h2::before{content:'';width:4px;height:22px;background:var(--accent);border-radius:2px;flex-shrink:0;}
+.block p{font-size:15px;color:var(--ink2);line-height:1.85;margin-bottom:14px;font-weight:300;}
+.block p strong{color:var(--ink);font-weight:600;}
+/* CALLOUTS */
+.callout{border-radius:8px;padding:18px 22px;margin:20px 0;display:flex;gap:14px;align-items:flex-start;}
+.callout-icon{font-size:20px;flex-shrink:0;padding-top:2px;}
+.callout-body h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:5px;}
+.callout-body p{font-size:13.5px;margin:0;line-height:1.75;font-weight:300;color:var(--ink2);}
+.callout.tip{background:var(--green-bg);border-left:3px solid var(--green);}.callout.tip .callout-body h4{color:var(--green);}
+.callout.key{background:var(--accent-light);border-left:3px solid var(--accent);}.callout.key .callout-body h4{color:var(--accent);}
+.callout.insight{background:var(--blue-bg);border-left:3px solid var(--blue);}.callout.insight .callout-body h4{color:var(--blue);}
+.callout.warning{background:var(--gold-bg);border-left:3px solid var(--gold);}.callout.warning .callout-body h4{color:var(--gold);}
+.callout.purple{background:var(--purple-bg);border-left:3px solid var(--purple);}.callout.purple .callout-body h4{color:var(--purple);}
+.callout.gold{background:var(--gold-bg);border:1px solid rgba(217,119,6,0.2);}.callout.gold .callout-body h4{color:var(--gold);}
+/* CODE */
+.code-wrap{background:var(--code-bg);border-radius:10px;overflow:hidden;margin:20px 0;box-shadow:var(--shadow-md);}
+.code-header{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;background:rgba(255,255,255,0.03);border-bottom:1px solid rgba(255,255,255,0.06);}
+.code-dots{display:flex;gap:6px;}
+.code-dot{width:10px;height:10px;border-radius:50%;}
+.dot-r{background:#ff5f57;}.dot-y{background:#febc2e;}.dot-g{background:#28c840;}
+.code-lang{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:2px;text-transform:uppercase;}
+.code-copy{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.35);background:rgba(255,255,255,0.06);border:none;cursor:pointer;padding:4px 10px;border-radius:4px;transition:all 0.15s;}
+.code-copy:hover{background:rgba(255,92,0,0.2);color:var(--accent);}
+.code-
+.c-cm{color:#6e7681;}.c-good{color:#7ee787;}.c-bad{color:#ff7b72;}.c-tag{color:#ffa657;}.c-hl{color:#79c0ff;}.c-str{color:#a5d6ff;}
+/* STEPS */
+.step-flow{display:flex;flex-direction:column;gap:0;margin:24px 0;}
+.step{display:flex;gap:20px;align-items:flex-start;position:relative;padding-bottom:24px;}
+.step:last-child{padding-bottom:0;}
+.step:not(:last-child)::after{content:'';position:absolute;left:19px;top:44px;bottom:0;width:2px;background:linear-gradient(to bottom,var(--accent),transparent);opacity:0.18;}
+.step-num{width:40px;height:40px;background:var(--accent);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;flex-shrink:0;}
+.step-
+.step-title{font-size:15px;font-weight:600;margin-bottom:6px;color:var(--ink);}
+.step-desc{font-size:13px;color:var(--ink3);line-height:1.7;font-weight:300;}
+.step-tip{margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);background:var(--accent-light);padding:5px 12px;border-radius:4px;display:inline-block;border:1px solid var(--accent-mid);}
+/* TABS */
+.tab-group{margin:20px 0;}
+.tabs{display:flex;border-bottom:2px solid var(--border);gap:0;}
+.tab{padding:9px 20px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border:none;background:transparent;color:var(--ink4);transition:all 0.15s;border-bottom:2px solid transparent;margin-bottom:-2px;font-weight:500;}
+.tab:hover{color:var(--ink);}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent);}
+.tab-panel{display:none;}.tab-panel.active{display:block;}
+/* QUIZ */
+.quiz{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:32px 0;box-shadow:var(--shadow);}
+.quiz-header{padding:20px 28px;background:var(--ink);border-bottom:3px solid var(--accent);}
+.quiz-tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--accent);text-transform:uppercase;margin-bottom:6px;display:block;}
+.quiz-title{font-family:'Lora',serif;font-size:20px;font-weight:600;color:#fff;}
+.quiz-
+.quiz-question{display:none;}.quiz-question.active{display:block;}
+.q-num{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--ink4);text-transform:uppercase;margin-bottom:10px;}
+.q-text{font-size:15px;font-weight:500;margin-bottom:20px;line-height:1.6;color:var(--ink);}
+.q-options{display:flex;flex-direction:column;gap:8px;margin-bottom:16px;}
+.q-option{padding:12px 16px;border:1.5px solid var(--border);border-radius:8px;cursor:pointer;font-size:13.5px;color:var(--ink2);transition:all 0.15s;display:flex;align-items:flex-start;gap:10px;font-weight:300;background:#fff;}
+.q-option:hover{border-color:var(--accent);background:var(--accent-light);}
+.q-option.selected.correct{border-color:var(--green);background:var(--green-bg);color:var(--green);}
+.q-option.selected.wrong{border-color:var(--red);background:var(--red-bg);}
+.q-option.disabled{pointer-events:none;}
+.q-letter{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--ink4);min-width:16px;padding-top:2px;}
+.q-feedback{padding:12px 16px;border-radius:8px;font-size:13.5px;line-height:1.65;display:none;font-weight:300;margin-bottom:8px;}
+.q-feedback.show{display:block;}
+.q-feedback.correct{background:var(--green-bg);border-left:3px solid var(--green);color:var(--green);}
+.q-feedback.wrong{background:var(--red-bg);border-left:3px solid var(--red);color:var(--red);}
+.q-next{margin-top:8px;padding:9px 22px;background:var(--ink);color:#fff;border:none;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;display:none;transition:background 0.15s;}
+.q-next.show{display:inline-block;}.q-next:hover{background:var(--accent);}
+.quiz-result{display:none;text-align:center;padding:40px 20px;}.quiz-result.show{display:block;}
+.result-score{font-family:'Lora',serif;font-size:64px;font-weight:700;color:var(--accent);line-height:1;margin-bottom:12px;}
+.result-label{font-size:18px;font-weight:600;margin-bottom:8px;color:var(--ink);}
+.result-desc{font-size:14px;color:var(--ink3);margin-bottom:24px;font-weight:300;}
+.result-retry{padding:11px 32px;background:var(--accent);color:#fff;border:none;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-weight:600;}
+.result-retry:hover{background:var(--accent2);}
+/* FOOTER */
+.lesson-footer{margin-top:60px;padding-top:28px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:20px;}
+.footer-next{display:flex;flex-direction:column;gap:4px;}
+.footer-next-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--ink4);}
+.footer-next-title{font-size:14px;font-weight:600;color:var(--ink);}
+.complete-btn{padding:13px 28px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;font-weight:700;transition:all 0.2s;white-space:nowrap;box-shadow:0 2px 8px rgba(255,92,0,0.22);}
+.complete-btn:hover{background:var(--accent2);transform:translateY(-1px);box-shadow:0 4px 16px rgba(255,92,0,0.28);}
+.complete-btn.done{background:var(--green);box-shadow:0 2px 8px rgba(22,163,74,0.22);}
+/* MOBILE */
+.sidebar-toggle{display:none;position:fixed;bottom:24px;right:24px;width:52px;height:52px;background:var(--accent);color:#fff;border:none;border-radius:50%;font-size:20px;cursor:pointer;z-index:200;box-shadow:var(--shadow-lg);align-items:center;justify-content:center;}
+
+
+/* ── CSS específico do módulo ── */
+:root{--bg:#faf7f2;--bg2:#f0ebe0;--ink:#1a1510;--ink2:#3d3628;--ink3:#8a7e6a;--accent:#ff5c00;--accent2:#cc4900;--accent-light:rgba(255,92,0,0.08);--green:#0f7a4a;--blue:#1a4fd4;--gold:#b8860b;--purple:#6c3fd4;--border:#e0d8cc;--code-bg:#1a1510;--code-fg:#f0e8d8;--shadow:0 2px 14px rgba(255,92,0,0.06);--shadow-lg:0 8px 40px rgba(0,0,0,0.10);}
+*{margin:0;padding:0;box-sizing:border-box;}
+
+
+
+
+
+
+.block{margin-bottom:40px;}
+.callout{border-radius:6px;padding:18px 22px;margin:20px 0;display:flex;gap:14px;}
+.tabs{display:flex;border:1px solid var(--border);border-radius:6px 6px 0 0;overflow:hidden;}
+.tab{padding:10px 22px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border:none;background:var(--bg2);color:var(--ink3);transition:all .2s;border-right:1px solid var(--border);}
+.quiz{background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin:28px 0;}
+
+.back-btn:hover{color:var(--accent);}
+
+/* TOPBAR unificada */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  height: 48px;
+  min-height: 48px;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  white-space: nowrap;
+}
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  overflow: hidden;
+}
+.topbar-home {
+  color: var(--ink4);
+  text-decoration: none;
+  transition: color .15s;
+  white-space: nowrap;
+}
+.topbar-home:hover { color: var(--accent); }
+.topbar-sep { color: var(--border2); }
+.topbar-bc { color: var(--ink3); white-space: nowrap; }
+.topbar-aula { color: var(--accent); font-weight: 700; white-space: nowrap; }
+.topbar-nav { display: flex; gap: 8px; flex-shrink: 0; }
+.tb-btn {
+  padding: 6px 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--ink3);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all .15s;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.tb-btn:hover { border-color: var(--accent); color: var(--accent); }
+.tb-btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+.tb-btn.primary:hover { background: var(--accent2); }
+
+/* ═══════════════════════════════════════
+   LAYOUT — Isso é Claude v3
+   Testado: sidebar fixa, scroll no body
+   ═══════════════════════════════════════ */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Sora', -apple-system, sans-serif;
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+/* SIDEBAR — fixa, scroll próprio */
+.sidebar {
+  width: 272px;
+  background: var(--sidebar-bg);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid rgba(255,255,255,0.04);
+}
+.sidebar::-webkit-scrollbar { width: 3px; }
+.sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 2px; }
+
+/* MAIN — empurrado pela sidebar, scroll do body */
+.main {
+  margin-left: 272px;
+}
+
+/* TOPBAR — sticky no topo do viewport com scroll do body */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  height: 52px;
+  padding: 0 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* LESSON — ocupa a largura disponível */
+.lesson-content {
+  display: none;
+  padding: 56px 48px 80px;
+  max-width: 860px;
+  box-sizing: border-box;
+}
+.lesson-content.active {
+  display: block;
+}
+
+/* MOBILE */
+@media (max-width: 860px) {
+  .sidebar {
+    transform: translateX(-272px);
+    transition: transform .25s ease;
+  }
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  .main {
+    margin-left: 0;
+  }
+  .topbar {
+    padding: 0 16px;
+    height: 52px;
+  }
+  .lesson-content {
+    padding: 32px 20px 64px;
+  }
+}
+
+
+</style>
+</head>
+<body>
+<div class="layout">
+<nav class="sidebar" id="sidebar">
+  <div class="sb-brand"><span class="sb-tag">Isso é Claude</span><div class="sb-name">Módulo 06<br>API & Automações</div></div>
+  <div class="sb-mod">6 aulas · ~2h</div>
+  <div class="nav-lessons">
+    <div class="nav-item active" onclick="goTo(0)"><span class="nav-num">06.1</span><span class="nav-title">Sua primeira chamada de API</span></div>
+    <div class="nav-item" onclick="goTo(1)"><span class="nav-num">06.2</span><span class="nav-title">System prompts via API</span></div>
+    <div class="nav-item" onclick="goTo(2)"><span class="nav-num">06.3</span><span class="nav-title">Automação com Make.com</span></div>
+    <div class="nav-item" onclick="goTo(3)"><span class="nav-num">06.4</span><span class="nav-title">n8n — automação self-hosted</span></div>
+    <div class="nav-item" onclick="goTo(4)"><span class="nav-num">06.5</span><span class="nav-title">Google Sheets com IA nativa</span></div>
+    <div class="nav-item" onclick="goTo(5)"><span class="nav-num">06.6</span><span class="nav-title">Streaming e respostas em tempo real</span></div>
+  </div>
+  <div class="sb-progress">
+    <div class="prog-label">Progresso</div>
+    <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:16.6%"></div></div>
+    <div class="prog-text" id="progText">1 de 6 aulas</div>
+  </div>
+</nav>
+<main class="main">
+  <div class="topbar">
+    <div class="topbar-left">
+      <a href="index.html" class="topbar-home">← Área do Aluno</a>
+      <span class="topbar-sep">›</span>
+      <span class="topbar-bc">Módulo 06</span>
+      <span class="topbar-sep">›</span>
+      <span class="topbar-aula" id="topLabel">Aula 06.1</span>
+    </div>
+    <div class="topbar-nav">
+      <button class="tb-btn" onclick="prev()">← Anterior</button>
+      <button class="tb-btn primary" onclick="next()">Próxima →</button>
+    </div>
+  </div>
+
+  <!-- 06.1 -->
+  <div class="lesson-content active" id="l0">
+    <div class="lesson-header">
+      <div class="lesson-meta"><span class="lesson-num-label">Aula 06.1</span><span class="lesson-tag tag-pratica">Prática</span><span class="lesson-dur">⏱ ~22 min</span></div>
+      <h1 class="lesson-title">Sua Primeira Chamada de API</h1>
+      <p class="lesson-sub">Sair do chat e falar diretamente com o Claude via código abre um mundo de possibilidades. Aqui você faz sua primeira chamada funcional em Python e JavaScript.</p>
+    </div>
+    <div class="block">
+      <h2>Por que usar a API?</h2>
+      <p>O Claude.ai é ótimo para uso interativo. Mas quando você quer <strong>integrar o Claude nos seus sistemas</strong>, automatizar tarefas repetitivas, criar produtos ou processar centenas de documentos, a API é o caminho.</p>
+      <div class="callout key"><div class="callout-icon">🔑</div><div class="callout-body"><h4>O que a API permite que o chat não permite</h4><p>Processar documentos em lote · Integrar com seus sistemas · Criar produtos com IA embutida · Controlar cada detalhe do comportamento · Escalar sem limites manuais · Automatizar fluxos completos</p></div></div>
+    </div>
+    <div class="block">
+      <h2>Passo 1 — Obter sua API Key</h2>
+      <div class="step-flow">
+        <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Acesse console.anthropic.com</div><div class="step-desc">Crie conta ou faça login. É separado do Claude.ai — você vai precisar de créditos de API.</div></div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Vá em "API Keys" → "Create Key"</div><div class="step-desc">Dê um nome descritivo. A chave começa com sk-ant- e aparece apenas uma vez — salve em lugar seguro.</div></div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Configure como variável de ambiente</div><div class="step-desc">Nunca coloque a chave no código diretamente.</div><span class="step-tip">export ANTHROPIC_API_KEY="sua-chave" (Linux/Mac)</span></div></div>
+      </div>
+    </div>
+    <div class="block">
+      <h2>Primeira chamada — Python e JavaScript</h2>
+      <div class="tab-group">
+        <div class="tabs">
+          <button class="tab active" onclick="switchTabG(this,'py-1')">Python</button>
+          <button class="tab" onclick="switchTabG(this,'js-1')">JavaScript</button>
+        </div>
+        <div class="tab-panel active" id="py-1">
+          <div class="code-wrap" style="border-radius:0 0 8px 8px;margin-top:0;"><div class="code-header"><div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div><span class="code-lang">Python</span><button class="code-copy" onclick="copyCode(this)">copiar</button></div><div class="code-body"><span class="c-cm"># pip install anthropic</span>
+<span class="c-hl">import</span> anthropic
+
+client = anthropic.Anthropic()  <span class="c-cm"># lê ANTHROPIC_API_KEY do ambiente</span>
+
+message = client.messages.create(
+    model=<span class="c-str">"claude-sonnet-4-5"</span>,
+    max_tokens=<span class="c-hl">1024</span>,
+    messages=[
+        {<span class="c-str">"role"</span>: <span class="c-str">"user"</span>, <span class="c-str">"content"</span>: <span class="c-str">"Explique API em 2 frases."</span>}
+    ]
+)
+<span class="c-hl">print</span>(message.content[<span class="c-hl">0</span>].text)</div></div>
+        </div>
+        <div class="tab-panel" id="js-1">
+          <div class="code-wrap" style="border-radius:0 0 8px 8px;margin-top:0;"><div class="code-header"><div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div><span class="code-lang">JavaScript / Node.js</span><button class="code-copy" onclick="copyCode(this)">copiar</button></div><div class="code-body"><span class="c-cm">// npm install @anthropic-ai/sdk</span>
+<span class="c-hl">import</span> Anthropic <span class="c-hl">from</span> <span class="c-str">'@anthropic-ai/sdk'</span>;
+
+<span class="c-hl">const</span> client = <span class="c-hl">new</span> Anthropic(); <span class="c-cm">// lê process.env.ANTHROPIC_API_KEY</span>
+
+<span class="c-hl">const</span> message = <span class="c-hl">await</span> client.messages.create({
+    model: <span class="c-str">'claude-sonnet-4-5'</span>,
+    max_tokens: <span class="c-hl">1024</span>,
+    messages: [{ role: <span class="c-str">'user'</span>, content: <span class="c-str">'Explique API em 2 frases.'</span> }]
+});
+console.log(message.content[<span class="c-hl">0</span>].text);</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="block">
+      <h2>Entendendo a resposta</h2>
+      <div class="code-wrap"><div class="code-header"><div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div><span class="code-lang">JSON — objeto de resposta</span></div><div class="code-body">{
+  <span class="c-tag">"content"</span>: [{ <span class="c-tag">"type"</span>: <span class="c-str">"text"</span>, <span class="c-tag">"text"</span>: <span class="c-str">"Uma API é..."</span> }],
+  <span class="c-tag">"model"</span>: <span class="c-str">"claude-sonnet-4-5"</span>,
+  <span class="c-tag">"stop_reason"</span>: <span class="c-str">"end_turn"</span>,
+  <span class="c-tag">"usage"</span>: {
+    <span class="c-tag">"input_tokens"</span>: <span class="c-hl">25</span>,   <span class="c-cm">// tokens que você enviou</span>
+    <span class="c-tag">"output_tokens"</span>: <span class="c-hl">89</span>  <span class="c-cm">// tokens da resposta (= custo)</span>
+  }
+}</div></div>
+      <div class="callout tip"><div class="callout-icon">💡</div><div class="callout-body"><h4>Controlando o custo</h4><p>O custo é calculado por tokens: input + output. Use <strong>max_tokens</strong> para limitar respostas. Use system prompts curtos. Monitore o campo <strong>usage</strong> para rastrear consumo.</p></div></div>
+    </div>
+    <div class="lesson-footer">
+      <div class="footer-next"><div class="footer-next-label">Próxima aula</div><div class="footer-next-title">06.2 — System prompts via API</div></div>
+      <button class="complete-btn" id="cb0" onclick="complete(0)">Marcar como concluída ✓</button>
+    </div>
+  </div>
+
+  <!-- 06.2 -->
+  <div class="lesson-content" id="l1">
+    <div class="lesson-header">
+      <div class="lesson-meta"><span class="lesson-num-label">Aula 06.2</span><span class="lesson-tag tag-tecnica">Técnica</span><span class="lesson-dur">⏱ ~18 min</span></div>
+      <h1 class="lesson-title">System Prompts via API</h1>
+      <p class="lesson-sub">O parâmetro system é onde você define identidade, regras e contexto permanente do assistente. Aqui você transforma o Claude num especialista customizado.</p>
+    </div>
+    <div class="block">
+      <h2>System vs User — a diferença que importa</h2>
+      <p>No chat você escreve tudo na mesma caixa. Na API há separação clara: <strong>system</strong> define o contexto permanente (quem é, como se comporta) e <strong>user</strong> é o que o usuário digita em tempo real.</p>
+      <div class="code-wrap"><div class="code-header"><div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div><span class="code-lang">Python — com system prompt</span><button class="code-copy" onclick="copyCode(this)">copiar</button></div><div class="code-body">message = client.messages.create(
+    model=<span class="c-str">"claude-sonnet-4-5"</span>,
+    max_tokens=<span class="c-hl">1024</span>,
+    <span class="c-tag">system</span>=<span class="c-str">"""Você é o assistente de cobrança da Moto Express.
+Resolva pendências de forma cordial.
+Formate valores como R$ X.XXX,XX.
+Nunca prometa descontos sem autorização.
+Responda em português, tom profissional e acolhedor."""</span>,
+    messages=[
+        {<span class="c-str">"role"</span>: <span class="c-str">"user"</span>, <span class="c-str">"content"</span>: <span class="c-str">"Quero negociar minha dívida de R$ 850"</span>}
+    ]
+)</div></div>
+    </div>
+    <div class="block">
+      <h2>Template de System Prompt para API</h2>
+      <div class="code-wrap"><div class="code-header"><div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div><span class="code-lang">Template reutilizável com XML</span><button class="code-copy" onclick="copyCode(this)">copiar</button></div><div class="code-body">SYSTEM_PROMPT = <span class="c-str">"""
+&lt;identidade&gt;
+Você é Assistente Comercial, especialista em atendimento ao cliente.
+Trabalha para Minha Empresa e atende clientes B2B.
+&lt;/identidade&gt;
+
+&lt;tom&gt;
+[profissional / amigável / técnico / consultivo]
+Idioma: português brasileiro
+&lt;/tom&gt;
+
+&lt;regras&gt;
+- [O que deve fazer]
+- [O que NÃO deve fazer]
+- [Como lidar com casos especiais]
+&lt;/regras&gt;
+
+&lt;contexto&gt;
+[Informações sobre produtos, preços, políticas, FAQ]
+&lt;/contexto&gt;
+"""</span></div></div>
+    </div>
+    <div class="block">
+      <h2>Conversas Multi-turn via API</h2>
+      <div class="code-wrap"><div class="code-header"><div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div><span class="code-lang">Python — mantendo histórico</span><button class="code-copy" onclick="copyCode(this)">copiar</button></div><div class="code-body"><span class="c-cm"># A API é stateless — você mantém o histórico</span>
+history = []
+
+<span class="c-hl">def</span> chat(user_msg):
+    history.append({<span class="c-str">"role"</span>: <span class="c-str">"user"</span>, <span class="c-str">"content"</span>: user_msg})
+    res = client.messages.create(
+        model=<span class="c-str">"claude-sonnet-4-5"</span>, max_tokens=<span class="c-hl">1024</span>,
+        system=SYSTEM_PROMPT, messages=history
+    )
+    reply = res.content[<span class="c-hl">0</span>].text
+    history.append({<span class="c-str">"role"</span>: <span class="c-str">"assistant"</span>, <span class="c-str">"content"</span>: reply})
+    <span class="c-hl">return</span> reply
+
+chat(<span class="c-str">"Qual o prazo de entrega?"</span>)
+chat(<span class="c-str">"E para fora de SP?"</span>)  <span class="c-cm"># contexto mantido!</span></div></div>
+      <div class="callout warning"><div class="callout-icon">⚠️</div><div class="callout-body"><h4>Atenção ao custo do histórico</h4><p>Cada chamada envia todo o histórico. Em sessões longas, o custo cresce exponencialmente. Mantenha apenas as últimas N mensagens ou resuma o histórico antigo.</p></div></div>
+    </div>
+    <div class="lesson-footer">
+      <div class="footer-next"><div class="footer-next-label">Próxima aula</div><div class="footer-next-title">06.3 — Automação com Make.com</div></div>
+      <button class="complete-btn" id="cb1" onclick="complete(1)">Marcar como concluída ✓</button>
+    </div>
+  </div>
+
+  <!-- 06.3 -->
+  <div class="lesson-content" id="l2">
+    <div class="lesson-header">
+      <div class="lesson-meta"><span class="lesson-num-label">Aula 06.3</span><span class="lesson-tag tag-pratica">Prática</span><span class="lesson-dur">⏱ ~20 min</span></div>
+      <h1 class="lesson-title">Automação Sem Código<br>com Make.com</h1>
+      <p class="lesson-sub">Sem escrever uma linha de código, conecte o Claude a Gmail, WhatsApp, Notion, Sheets e centenas de outros apps com Make.com.</p>
+    </div>
+    <div class="block">
+      <h2>Como funciona o Make.com</h2>
+      <p>Make.com é uma plataforma visual de automação. Você cria "cenários" conectando módulos em sequência: quando X acontece, faça Y com Claude, depois Z. Sem código.</p>
+      <div class="callout insight"><div class="callout-icon">⚡</div><div class="callout-body"><h4>Casos de uso populares com Claude + Make</h4><p>Novo e-mail → Claude classifica e responde · Formulário preenchido → Claude gera proposta · Produto novo no Shopify → Claude escreve descrição e posta · Mensagem WhatsApp → Claude cria ticket de suporte</p></div></div>
+    </div>
+    <div class="block">
+      <h2>Passo a Passo — Primeiro Cenário</h2>
+      <div class="step-flow">
+        <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Crie conta em make.com</div><div class="step-desc">Plano gratuito tem 1.000 operações/mês — suficiente para testar. Clique em "Create a new scenario".</div></div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Adicione um Trigger (gatilho)</div><div class="step-desc">Ex: Gmail → Watch Emails (novo e-mail), Sheets → Watch Rows (nova linha), Webhook (chamada HTTP).</div></div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Adicione módulo HTTP → Make a Request</div><div class="step-desc">Aqui você chama a API do Claude. Configure URL, método POST e o JSON body.</div><span class="step-tip">Não há módulo nativo Claude ainda — use HTTP Request</span></div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-body"><div class="step-title">Configure o JSON Body com variáveis</div><div class="step-desc">Use variáveis dinâmicas do Make (ex: &#123;&#123;1.body&#125;&#125;) para personalizar o prompt com dados do trigger.</div></div></div>
+        <div class="step"><div class="step-num">5</div><div class="step-body"><div class="step-title">Adicione ação de saída</div><div class="step-desc">Use a resposta do Claude: enviar e-mail, salvar no Sheets, postar no Slack, criar tarefa no Asana.</div></div></div>
+      </div>
+    </div>
+    <div class="block">
+      <h2>Configuração do Módulo HTTP no Make</h2>
+      <div class="code-wrap"><div class="code-header"><div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div><span class="code-lang">HTTP Request — configuração completa</span><button class="code-copy" onclick="copyCode(this)">copiar</button></div><div class="code-body"><span class="c-cm">URL:</span> https://api.anthropic.com/v1/messages
+<span class="c-cm">Method:</span> POST
+
+<span class="c-cm">Headers:</span>
+  x-api-key: <span class="c-str">SUA_API_KEY</span>
+  anthropic-version: <span class="c-str">2023-06-01</span>
+  content-type: <span class="c-str">application/json</span>
+
+<span class="c-cm">Body (JSON):</span>
+{
+  <span class="c-tag">"model"</span>: <span class="c-str">"claude-sonnet-4-5"</span>,
+  <span class="c-tag">"max_tokens"</span>: <span class="c-hl">500</span>,
+  <span class="c-tag">"system"</span>: <span class="c-str">"Você é um assistente de atendimento..."</span>,
+  <span class="c-tag">"messages"</span>: [{
+    <span class="c-tag">"role"</span>: <span class="c-str">"user"</span>,
+    <span class="c-tag">"content"</span>: <span class="c-str">"{{1.body}}"</span>
+  }]
+}
+
+<span class="c-cm">Parse response: Yes (JSON)</span>
+<span class="c-cm">Acesse resposta: {{http.content[].text}}</span></div></div>
+    </div>
+    <div class="lesson-footer">
+      <div class="footer-next"><div class="footer-next-label">Próxima aula</div><div class="footer-next-title">06.4 — n8n self-hosted</div></div>
+      <button class="complete-btn" id="cb2" onclick="complete(2)">Marcar como concluída ✓</button>
+    </div>
+  </div>
+
+  <!-- 06.4 -->
+  <div class="lesson-content" id="l3">
+    <div class="lesson-header">
+      <div class="lesson-meta"><span class="lesson-num-label">Aula 06.4</span><span class="lesson-tag tag-tecnica">Técnica</span><span class="lesson-dur">⏱ ~22 min</span></div>
+      <h1 class="lesson-title">n8n — Automação Self-Hosted</h1>
+      <p class="lesson-sub">O n8n é como o Make.com, mas você instala no seu servidor. Sem limite de operações, dados ficam com você, e tem nó nativo do Claude.</p>
+    </div>
+    <div class="block">
+      <h2>Make.com vs n8n</h2>
+      <div class="code-wrap"><div class="code-header"><div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div><span class="code-lang">Comparação</span></div><div class="code-body"><span class="c-tag">Make.com</span>
+<span class="c-good">✓ Zero configuração — começa em minutos
+✓ Interface polida · Suporte incluído</span>
+<span class="c-bad">✗ Limite de operações · Dados passam pelos servidores deles
+✗ Custo escala com volume</span>
+
+<span class="c-tag">n8n self-hosted</span>
+<span class="c-good">✓ Ilimitado — sem custo por operação
+✓ Dados no seu servidor · Open source
+✓ Nó nativo de Claude/AI</span>
+<span class="c-bad">✗ Requer servidor (VPS ~R$40/mês)
+✗ Você gerencia a infraestrutura</span></div></div>
+    </div>
+    <div class="block">
+      <h2>Instalando o n8n</h2>
+      <div class="tab-group">
+        <div class="tabs">
+          <button class="tab active" onclick="switchTabG(this,'n8n-d')">Docker</button>
+          <button class="tab" onclick="switchTabG(this,'n8n-n')">npm</button>
+          <button class="tab" onclick="switchTabG(this,'n8n-c')">n8n Cloud</button>
+        </div>
+        <div class="tab-panel active" id="n8n-d">
+          <div class="code-wrap" style="border-radius:0 0 8px 8px;margin-top:0;"><div class="code-body">docker run -it --rm \
+  --name n8n -p 5678:5678 \
+  -v ~/.n8n:/home/node/.n8n \
+  -e N8N_BASIC_AUTH_ACTIVE=true \
+  -e N8N_BASIC_AUTH_USER=admin \
+  -e N8N_BASIC_AUTH_PASSWORD=senha123 \
+  docker.n8n.io/n8nio/n8n
+
+<span class="c-cm"># Acesse: http://localhost:5678</span></div></div>
+        </div>
+        <div class="tab-panel" id="n8n-n">
+          <div class="code-wrap" style="border-radius:0 0 8px 8px;margin-top:0;"><div class="code-body">npm install n8n -g
+n8n start
+<span class="c-cm"># Acesse: http://localhost:5678</span></div></div>
+        </div>
+        <div class="tab-panel" id="n8n-c">
+          <div class="code-wrap" style="border-radius:0 0 8px 8px;margin-top:0;"><div class="code-body"><span class="c-cm"># Hospedagem gerenciada — sem instalação</span>
+<span class="c-cm"># Acesse: n8n.io/cloud</span>
+<span class="c-cm"># Trial gratuito de 14 dias · Plano ~$20/mês</span></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="block">
+      <h2>Workflow Exemplo — Resumo de E-mail</h2>
+      <div class="code-wrap"><div class="code-header"><div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div><span class="code-lang">Fluxo n8n</span><button class="code-copy" onclick="copyCode(this)">copiar</button></div><div class="code-body">Nó 1: <span class="c-tag">Gmail Trigger</span>
+  → Evento: "Message Received"
+  → Filtro: label = "Para Resumir"
+
+Nó 2: <span class="c-tag">Anthropic (Claude)</span>
+  → Model: claude-sonnet-4-5
+  → System: "Você é um assistente executivo..."
+  → Prompt: <span class="c-str">"Resuma em 3 bullets: {{$json.body}}"</span>
+
+Nó 3: <span class="c-tag">Gmail → Reply</span>
+  → Para: {{$node["Gmail Trigger"].json["from"]}}
+  → Corpo: <span class="c-str">"Resumo automático:\n{{$node["Claude"].json.text}}"</span></div></div>
+    </div>
+    <div class="lesson-footer">
+      <div class="footer-next"><div class="footer-next-label">Próxima aula</div><div class="footer-next-title">06.5 — Google Sheets com IA nativa</div></div>
+      <button class="complete-btn" id="cb3" onclick="complete(3)">Marcar como concluída ✓</button>
+    </div>
+  </div>
+
+  <!-- 06.5 -->
+  <div class="lesson-content" id="l4">
+    <div class="lesson-header">
+      <div class="lesson-meta"><span class="lesson-num-label">Aula 06.5</span><span class="lesson-tag tag-lab">Lab</span><span class="lesson-dur">⏱ ~20 min</span></div>
+      <h1 class="lesson-title">Google Sheets com IA Nativa</h1>
+      <p class="lesson-sub">Crie uma função =CLAUDE() no Google Sheets com Apps Script. Qualquer pessoa da equipe usa IA diretamente na planilha, sem saber programar.</p>
+    </div>
+    <div class="block">
+      <h2>O que você vai criar</h2>
+      <p>Uma função customizada que permite escrever <code style="font-family:'JetBrains Mono';font-size:13px;background:var(--bg2);padding:2px 8px;border-radius:3px">=CLAUDE("Classifique: "&A2)</code> e ter o Claude respondendo diretamente na célula.</p>
+      <div class="callout key"><div class="callout-icon">🧮</div><div class="callout-body"><h4>Casos de uso reais</h4><p>=CLAUDE("Classifique como Positivo/Negativo: "&A2) · =CLAUDE("Traduza para inglês: "&B3) · =CLAUDE("Extraia o CNPJ desta string: "&C5) · =CLAUDE("Esta descrição está completa? Responda Sim ou Não: "&D2)</p></div></div>
+    </div>
+    <div class="block">
+      <h2>Código Apps Script Completo</h2>
+      <div class="code-wrap"><div class="code-header"><div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div><span class="code-lang">Google Apps Script</span><button class="code-copy" onclick="copyCode(this)">copiar</button></div><div class="code-body"><span class="c-cm">// Extensões → Apps Script → cole → salve → recarregue a planilha</span>
+
+<span class="c-hl">const</span> ANTHROPIC_API_KEY = PropertiesService
+  .getScriptProperties().getProperty(<span class="c-str">'ANTHROPIC_API_KEY'</span>);
+
+<span class="c-tag">/**
+ * Chama o Claude de uma célula do Sheets
+ * @param {string} prompt O prompt para o Claude
+ * @param {string} [system] System prompt opcional
+ * @returns {string} Resposta do Claude
+ * @customfunction
+ */</span>
+<span class="c-hl">function</span> CLAUDE(prompt, system = <span class="c-str">'Responda de forma concisa.'</span>) {
+  <span class="c-hl">const</span> payload = {
+    model: <span class="c-str">'claude-haiku-4-5-20251001'</span>,  <span class="c-cm">// Haiku = mais barato para volume</span>
+    max_tokens: <span class="c-hl">256</span>,
+    system: system,
+    messages: [{ role: <span class="c-str">'user'</span>, content: String(prompt) }]
+  };
+  <span class="c-hl">const</span> options = {
+    method: <span class="c-str">'post'</span>, contentType: <span class="c-str">'application/json'</span>,
+    headers: { <span class="c-str">'x-api-key'</span>: ANTHROPIC_API_KEY, <span class="c-str">'anthropic-version'</span>: <span class="c-str">'2023-06-01'</span> },
+    payload: JSON.stringify(payload)
+  };
+  <span class="c-hl">const</span> res = UrlFetchApp.fetch(<span class="c-str">'https://api.anthropic.com/v1/messages'</span>, options);
+  <span class="c-hl">return</span> JSON.parse(res.getContentText()).content[<span class="c-hl">0</span>].text;
+}
+
+<span class="c-cm">// Configure a API key:</span>
+<span class="c-cm">// Arquivo → Propriedades do projeto → Adicionar propriedade: ANTHROPIC_API_KEY</span></div></div>
+      <div class="callout tip"><div class="callout-icon">💡</div><div class="callout-body"><h4>Dicas de performance</h4><p>Use Haiku para tarefas simples (classificar, traduzir, extrair) · Limite max_tokens ao mínimo · Teste em 5 linhas antes de rodar em 500 · Nunca deixe fórmulas em colunas com recálculo automático</p></div></div>
+    </div>
+    <div class="lesson-footer">
+      <div class="footer-next"><div class="footer-next-label">Última aula</div><div class="footer-next-title">06.6 — Streaming e respostas em tempo real</div></div>
+      <button class="complete-btn" id="cb4" onclick="complete(4)">Marcar como concluída ✓</button>
+    </div>
+  </div>
+
+  <!-- 06.6 -->
+  <div class="lesson-content" id="l5">
+    <div class="lesson-header">
+      <div class="lesson-meta"><span class="lesson-num-label">Aula 06.6</span><span class="lesson-tag tag-tecnica">Técnica</span><span class="lesson-dur">⏱ ~18 min</span></div>
+      <h1 class="lesson-title">Streaming — Respostas<br>em Tempo Real</h1>
+      <p class="lesson-sub">Em vez de esperar a resposta completa, o streaming mostra o texto chegando token por token. Essencial para qualquer produto com boa UX.</p>
+    </div>
+    <div class="block">
+      <h2>Por que Streaming importa</h2>
+      <p>Sem streaming, o usuário fica olhando para uma tela vazia por 5-15 segundos. Com streaming, ele começa a ler imediatamente. A diferença na percepção de velocidade é enorme — e a implementação é simples.</p>
+    </div>
+    <div class="block">
+      <h2>Streaming em Python e Flask (SSE)</h2>
+      <div class="tab-group">
+        <div class="tabs">
+          <button class="tab active" onclick="switchTabG(this,'str-py')">Python simples</button>
+          <button class="tab" onclick="switchTabG(this,'str-flask')">Flask + SSE</button>
+        </div>
+        <div class="tab-panel active" id="str-py">
+          <div class="code-wrap" style="border-radius:0 0 8px 8px;margin-top:0;"><div class="code-header"><div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div><span class="code-lang">Python</span><button class="code-copy" onclick="copyCode(this)">copiar</button></div><div class="code-body"><span class="c-hl">with</span> client.messages.stream(
+    model=<span class="c-str">"claude-sonnet-4-5"</span>,
+    max_tokens=<span class="c-hl">1024</span>,
+    messages=[{<span class="c-str">"role"</span>: <span class="c-str">"user"</span>, <span class="c-str">"content"</span>: <span class="c-str">"Escreva um relatório..."</span>}]
+) <span class="c-hl">as</span> stream:
+    <span class="c-hl">for</span> text <span class="c-hl">in</span> stream.text_stream:
+        <span class="c-hl">print</span>(text, end=<span class="c-str">""</span>, flush=<span class="c-hl">True</span>)
+
+final = stream.get_final_message()</div></div>
+        </div>
+        <div class="tab-panel" id="str-flask">
+          <div class="code-wrap" style="border-radius:0 0 8px 8px;margin-top:0;"><div class="code-header"><div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div><span class="code-lang">Flask — Server-Sent Events</span><button class="code-copy" onclick="copyCode(this)">copiar</button></div><div class="code-body"><span class="c-hl">from</span> flask <span class="c-hl">import</span> Flask, Response, request
+<span class="c-hl">import</span> anthropic
+
+app = Flask(__name__)
+client = anthropic.Anthropic()
+
+<span class="c-tag">@app.route</span>(<span class="c-str">'/stream'</span>, methods=[<span class="c-str">'POST'</span>])
+<span class="c-hl">def</span> stream_response():
+    user_msg = request.json[<span class="c-str">'message'</span>]
+    <span class="c-hl">def</span> generate():
+        <span class="c-hl">with</span> client.messages.stream(
+            model=<span class="c-str">"claude-sonnet-4-5"</span>, max_tokens=<span class="c-hl">1024</span>,
+            messages=[{<span class="c-str">"role"</span>: <span class="c-str">"user"</span>, <span class="c-str">"content"</span>: user_msg}]
+        ) <span class="c-hl">as</span> stream:
+            <span class="c-hl">for</span> text <span class="c-hl">in</span> stream.text_stream:
+                <span class="c-hl">yield</span> <span class="c-hl">f</span><span class="c-str">"data: {text}\n\n"</span>
+        <span class="c-hl">yield</span> <span class="c-str">"data: [DONE]\n\n"</span>
+    <span class="c-hl">return</span> Response(generate(), mimetype=<span class="c-str">'text/event-stream'</span>)</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="block">
+      <h2>Quiz — API & Automações</h2>
+      <div class="quiz">
+        <div class="quiz-header"><span class="quiz-tag">Fixação — Módulo 06</span><div class="quiz-title">API & Automações</div></div>
+        <div class="quiz-body">
+          <div class="quiz-question active" id="q6-1">
+            <div class="q-num">Pergunta 1 de 3</div>
+            <div class="q-text">Para classificar 300 feedbacks no Google Sheets, qual modelo Claude usar?</div>
+            <div class="q-options">
+              <div class="q-option" onclick="ans('q6-1',this,0,2)"><span class="q-letter">A</span>claude-opus-4-5 — mais inteligente</div>
+              <div class="q-option" onclick="ans('q6-1',this,1,2)"><span class="q-letter">B</span>claude-sonnet-4-5 — bom equilíbrio</div>
+              <div class="q-option" onclick="ans('q6-1',this,2,2)"><span class="q-letter">C</span>claude-haiku-4-5 — mais rápido e barato para tarefas simples em volume</div>
+              <div class="q-option" onclick="ans('q6-1',this,3,2)"><span class="q-letter">D</span>Qualquer um — o custo é igual</div>
+            </div>
+            <div class="q-feedback" id="fb-q6-1"></div>
+            <button class="q-next" id="nxt-q6-1" onclick="nxtQ('q6-1','q6-2')">Próxima →</button>
+          </div>
+          <div class="quiz-question" id="q6-2">
+            <div class="q-num">Pergunta 2 de 3</div>
+            <div class="q-text">Qual a principal vantagem do n8n sobre o Make.com?</div>
+            <div class="q-options">
+              <div class="q-option" onclick="ans('q6-2',this,0,1)"><span class="q-letter">A</span>Make é mais avançado tecnicamente</div>
+              <div class="q-option" onclick="ans('q6-2',this,1,1)"><span class="q-letter">B</span>n8n pode ser self-hosted — sem limite de operações e dados no seu servidor</div>
+              <div class="q-option" onclick="ans('q6-2',this,2,1)"><span class="q-letter">C</span>Só o n8n suporta o Claude</div>
+              <div class="q-option" onclick="ans('q6-2',this,3,1)"><span class="q-letter">D</span>São idênticos, apenas marcas diferentes</div>
+            </div>
+            <div class="q-feedback" id="fb-q6-2"></div>
+            <button class="q-next" id="nxt-q6-2" onclick="nxtQ('q6-2','q6-3')">Próxima →</button>
+          </div>
+          <div class="quiz-question" id="q6-3">
+            <div class="q-num">Pergunta 3 de 3</div>
+            <div class="q-text">Para um chatbot onde o texto aparece progressivamente (como no Claude.ai), qual recurso da API usar?</div>
+            <div class="q-options">
+              <div class="q-option" onclick="ans('q6-3',this,0,2)"><span class="q-letter">A</span>Extended Thinking</div>
+              <div class="q-option" onclick="ans('q6-3',this,1,2)"><span class="q-letter">B</span>System prompt longo</div>
+              <div class="q-option" onclick="ans('q6-3',this,2,2)"><span class="q-letter">C</span>Streaming (messages.stream())</div>
+              <div class="q-option" onclick="ans('q6-3',this,3,2)"><span class="q-letter">D</span>max_tokens alto</div>
+            </div>
+            <div class="q-feedback" id="fb-q6-3"></div>
+            <button class="q-next" id="nxt-q6-3" onclick="showRes()">Ver resultado →</button>
+          </div>
+          <div class="quiz-result" id="res-q6">
+            <div class="result-score" id="sc-q6">0/3</div>
+            <div class="result-label" id="rl-q6"></div>
+            <div class="result-desc" id="rd-q6"></div>
+            <button class="result-retry" onclick="retry()">Tentar novamente</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="block">
+      <div class="callout key"><div class="callout-icon">🚀</div><div class="callout-body"><h4>Módulo 06 Concluído!</h4><p>Você agora sabe chamar a API, criar system prompts, automatizar com Make.com e n8n, usar o Claude no Sheets e implementar streaming. Próximo: Claude Code — desenvolvimento assistido por IA no terminal.</p></div></div>
+    </div>
+    <div class="lesson-footer">
+      <div class="footer-next"><div class="footer-next-label">Próximo módulo</div><div class="footer-next-title">Módulo 07 — Claude Code</div></div>
+      <button class="complete-btn" id="cb5" onclick="complete(5)">🎉 Concluir Módulo!</button>
+    </div>
+  </div>
+</main>
+</div>
+<button class="sidebar-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+<script>
+let cur=0;const total=6;const done=new Set();
+const nums=['06.1','06.2','06.3','06.4','06.5','06.6'];
+function goTo(i){document.querySelectorAll('.lesson-content').forEach(l=>l.classList.remove('active'));document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));document.getElementById('l'+i).classList.add('active');document.querySelectorAll('.nav-item')[i].classList.add('active');document.getElementById('topLabel').textContent='Aula '+nums[i];cur=i;window.scrollTo({top:0,behavior:'smooth'});if(window.innerWidth<900)document.getElementById('sidebar').classList.remove('open');}
+function next(){if(cur<total-1)goTo(cur+1);}function prev(){if(cur>0)goTo(cur-1);}
+function complete(i){done.add(i);const b=document.getElementById('cb'+i);b.classList.add('done');b.textContent='✓ Concluída!';document.querySelectorAll('.nav-item')[i].classList.add('done');syncProgressToIndex('06', Math.round(done.size/total*100), done.size===total);
+  document.getElementById('progFill').style.width=Math.round(done.size/total*100)+'%';document.getElementById('progText').textContent=done.size+' de '+total+' aulas';if(i<total-1)setTimeout(()=>goTo(i+1),600);}
+function copyCode(btn){const t=btn.closest('.code-wrap').querySelector('.code-body').innerText;navigator.clipboard.writeText(t).then(()=>{btn.textContent='✓ copiado!';setTimeout(()=>btn.textContent='copiar',2000);});}
+function switchTabG(btn,id){const g=btn.closest('.tab-group');g.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));g.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));btn.classList.add('active');document.getElementById(id).classList.add('active');}
+let sc=0;const an={};
+const cor={'q6-1':2,'q6-2':1,'q6-3':2};
+const fb={'q6-1':{c:'✅ Correto! Claude Haiku é otimizado para velocidade e custo — ideal para tarefas simples em volume.',w:'❌ Para tarefas simples em volume, Claude Haiku é a escolha certa: mais rápido e significativamente mais barato.'},'q6-2':{c:'✅ Certo! n8n self-hosted não tem limite de operações e seus dados ficam no seu servidor.',w:'❌ A principal vantagem do n8n é poder ser self-hosted: sem custo por operação e dados no seu servidor.'},'q6-3':{c:'✅ Exato! Streaming faz o texto aparecer progressivamente, token por token, igual ao chat.',w:'❌ O recurso para texto progressivo é o Streaming (messages.stream()). O texto chega token por token, melhorando a UX.'}};
+function ans(qId,el,sel,cor_val){if(an[qId])return;an[qId]=true;const opts=el.closest('.q-options').querySelectorAll('.q-option');opts.forEach((o,i)=>{o.classList.add('disabled');if(i===cor_val)o.classList.add('selected','correct');});const ok=sel===cor_val;if(!ok)el.classList.add('selected','wrong');const f=document.getElementById('fb-'+qId);f.textContent=ok?fb[qId].c:fb[qId].w;f.className='q-feedback show '+(ok?'correct':'wrong');document.getElementById('nxt-'+qId).classList.add('show');if(ok)sc++;}
+function nxtQ(c,n){document.getElementById(c).style.display='none';const el=document.getElementById(n);el.classList.add('active');el.style.display='block';}
+function showRes(){document.getElementById('q6-3').style.display='none';document.getElementById('res-q6').classList.add('show');document.getElementById('sc-q6').textContent=sc+'/3';const p=sc===3?['🏆 Perfeito!','Módulo dominado!']:sc>=2?['✅ Muito bem!','Revise o que errou.']:['📚 Continue estudando','Releia as aulas.'];document.getElementById('rl-q6').textContent=p[0];document.getElementById('rd-q6').textContent=p[1];}
+function retry(){sc=0;['q6-1','q6-2','q6-3'].forEach((q,i)=>{delete an[q];const el=document.getElementById(q);el.style.display=i===0?'block':'none';el.className=i===0?'quiz-question active':'quiz-question';el.querySelectorAll('.q-option').forEach(o=>o.className='q-option');const f=document.getElementById('fb-'+q);if(f){f.className='q-feedback';f.textContent='';}const nb=document.getElementById('nxt-'+q);if(nb)nb.classList.remove('show');});document.getElementById('res-q6').classList.remove('show');}
+
+// Sincronizar progresso com index.html
+function syncProgressToIndex(num, pct, done) {
+  try {
+    const STORAGE_KEY = 'cm_progress_v2';
+    const p = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    p[num] = { pct: pct, done: done };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(p));
+  } catch(e) {}
+}
+
+</script>
+</body>
+</html>
