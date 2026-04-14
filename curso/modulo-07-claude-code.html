@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 07 — Claude Code | Isso é Claude</title>
+
+<style>
+/* ISSO É CLAUDE — Design System v2.0 */
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+:root{
+  --bg:#ffffff;--bg2:#f5f5f5;--bg3:#fafafa;
+  --ink:#111111;--ink2:#333333;--ink3:#666666;--ink4:#999999;
+  --accent:#ff5c00;--accent2:#e04f00;--accent3:#cc4500;
+  --accent-light:rgba(255,92,0,0.07);--accent-mid:rgba(255,92,0,0.15);
+  --green:#16a34a;--green-bg:rgba(22,163,74,0.07);
+  --blue:#2563eb;--blue-bg:rgba(37,99,235,0.07);
+  --gold:#d97706;--gold-bg:rgba(217,119,6,0.07);
+  --red:#dc2626;--red-bg:rgba(220,38,38,0.07);
+  --purple:#7c3aed;--purple-bg:rgba(124,58,237,0.07);
+  --border:#e5e5e5;--border2:#d4d4d4;
+  --shadow:0 2px 12px rgba(0,0,0,0.07);--shadow-md:0 4px 20px rgba(0,0,0,0.09);--shadow-lg:0 8px 40px rgba(0,0,0,0.11);
+  --code-bg:#111111;--code-fg:#e8e8e8;
+  --sidebar-bg:#111111;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+
+
+
+/* SIDEBAR */
+
+
+
+.sb-brand{padding:28px 22px 20px;border-bottom:1px solid rgba(255,255,255,0.06);}
+.sb-tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--accent);text-transform:uppercase;margin-bottom:8px;display:block;}
+.sb-name{font-size:14px;font-weight:700;color:#fff;line-height:1.4;}
+.sb-mod{padding:12px 22px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,0.25);text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.04);}
+.nav-lessons{padding:8px 0;flex:1;}
+.nav-item{display:flex;align-items:flex-start;gap:10px;padding:10px 22px;cursor:pointer;transition:background 0.15s;border-left:3px solid transparent;}
+.nav-item:hover{background:rgba(255,92,0,0.08);}
+.nav-item.active{background:rgba(255,92,0,0.13);border-left-color:var(--accent);}
+.nav-item.done .nav-num::after{content:' ✓';color:var(--green);}
+.nav-num{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent);padding-top:2px;min-width:28px;font-weight:600;}
+.nav-title{font-size:11.5px;color:rgba(255,255,255,0.52);line-height:1.45;}
+.nav-item.active .nav-title{color:#fff;font-weight:500;}
+.sb-progress{padding:16px 22px;border-top:1px solid rgba(255,255,255,0.05);}
+.prog-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,0.22);text-transform:uppercase;margin-bottom:8px;}
+.prog-bar{height:2px;background:rgba(255,255,255,0.07);border-radius:1px;overflow:hidden;margin-bottom:6px;}
+.prog-fill{height:100%;background:var(--accent);border-radius:1px;transition:width 0.5s ease;}
+.prog-text{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.22);}
+/* MAIN */
+
+
+/* LESSON */
+
+
+.lesson-header{margin-bottom:48px;padding-bottom:32px;border-bottom:1px solid var(--border);}
+.lesson-meta{display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap;}
+.lesson-tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;padding:3px 10px;border-radius:3px;text-transform:uppercase;font-weight:600;border:1px solid transparent;}
+.tag-teoria{background:var(--blue-bg);color:var(--blue);border-color:rgba(37,99,235,0.2);}
+.tag-pratica{background:var(--green-bg);color:var(--green);border-color:rgba(22,163,74,0.2);}
+.tag-lab{background:var(--purple-bg);color:var(--purple);border-color:rgba(124,58,237,0.2);}
+.tag-tecnica{background:var(--accent-light);color:var(--accent);border-color:var(--accent-mid);}
+.tag-guia{background:var(--green-bg);color:var(--green);border-color:rgba(22,163,74,0.2);}
+.tag-resumo{background:var(--blue-bg);color:var(--blue);border-color:rgba(37,99,235,0.2);}
+.tag-dev{background:var(--purple-bg);color:var(--purple);border-color:rgba(124,58,237,0.2);}
+.tag-agente{background:var(--blue-bg);color:var(--blue);border-color:rgba(37,99,235,0.2);}
+.tag-skill{background:var(--purple-bg);color:var(--purple);border-color:rgba(124,58,237,0.2);}
+.tag-bonus{background:var(--gold-bg);color:var(--gold);border-color:rgba(217,119,6,0.2);}
+.tag-final{background:var(--accent-light);color:var(--accent);border-color:var(--accent-mid);}
+.tag-lider{background:var(--gold-bg);color:var(--gold);border-color:rgba(217,119,6,0.2);}
+.tag-estrategia{background:var(--accent-light);color:var(--accent);border-color:var(--accent-mid);}
+.tag-workshop{background:var(--green-bg);color:var(--green);border-color:rgba(22,163,74,0.2);}
+.tag-framework{background:var(--blue-bg);color:var(--blue);border-color:rgba(37,99,235,0.2);}
+.lesson-num-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink4);letter-spacing:1px;}
+.lesson-dur{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink4);}
+.lesson-title{font-family:'Lora',serif;font-size:clamp(28px,3.5vw,46px);font-weight:700;color:var(--ink);line-height:1.15;margin-bottom:16px;letter-spacing:-0.5px;}
+.lesson-title em{color:var(--accent);font-style:italic;}
+.lesson-sub{font-size:16px;color:var(--ink3);font-weight:300;line-height:1.8;max-width:640px;}
+/* BLOCKS */
+.block{margin-bottom:48px;}
+.block h2{font-family:'Lora',serif;font-size:22px;font-weight:600;color:var(--ink);margin-bottom:16px;display:flex;align-items:center;gap:12px;letter-spacing:-0.3px;}
+.block h2::before{content:'';width:4px;height:22px;background:var(--accent);border-radius:2px;flex-shrink:0;}
+.block p{font-size:15px;color:var(--ink2);line-height:1.85;margin-bottom:14px;font-weight:300;}
+.block p strong{color:var(--ink);font-weight:600;}
+/* CALLOUTS */
+.callout{border-radius:8px;padding:18px 22px;margin:20px 0;display:flex;gap:14px;align-items:flex-start;}
+.callout-icon{font-size:20px;flex-shrink:0;padding-top:2px;}
+.callout-body h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:5px;}
+.callout-body p{font-size:13.5px;margin:0;line-height:1.75;font-weight:300;color:var(--ink2);}
+.callout.tip{background:var(--green-bg);border-left:3px solid var(--green);}.callout.tip .callout-body h4{color:var(--green);}
+.callout.key{background:var(--accent-light);border-left:3px solid var(--accent);}.callout.key .callout-body h4{color:var(--accent);}
+.callout.insight{background:var(--blue-bg);border-left:3px solid var(--blue);}.callout.insight .callout-body h4{color:var(--blue);}
+.callout.warning{background:var(--gold-bg);border-left:3px solid var(--gold);}.callout.warning .callout-body h4{color:var(--gold);}
+.callout.purple{background:var(--purple-bg);border-left:3px solid var(--purple);}.callout.purple .callout-body h4{color:var(--purple);}
+.callout.gold{background:var(--gold-bg);border:1px solid rgba(217,119,6,0.2);}.callout.gold .callout-body h4{color:var(--gold);}
+/* CODE */
+.code-wrap{background:var(--code-bg);border-radius:10px;overflow:hidden;margin:20px 0;box-shadow:var(--shadow-md);}
+.code-header{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;background:rgba(255,255,255,0.03);border-bottom:1px solid rgba(255,255,255,0.06);}
+.code-dots{display:flex;gap:6px;}
+.code-dot{width:10px;height:10px;border-radius:50%;}
+.dot-r{background:#ff5f57;}.dot-y{background:#febc2e;}.dot-g{background:#28c840;}
+.code-lang{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:2px;text-transform:uppercase;}
+.code-copy{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.35);background:rgba(255,255,255,0.06);border:none;cursor:pointer;padding:4px 10px;border-radius:4px;transition:all 0.15s;}
+.code-copy:hover{background:rgba(255,92,0,0.2);color:var(--accent);}
+.code-
+.c-cm{color:#6e7681;}.c-good{color:#7ee787;}.c-bad{color:#ff7b72;}.c-tag{color:#ffa657;}.c-hl{color:#79c0ff;}.c-str{color:#a5d6ff;}
+/* STEPS */
+.step-flow{display:flex;flex-direction:column;gap:0;margin:24px 0;}
+.step{display:flex;gap:20px;align-items:flex-start;position:relative;padding-bottom:24px;}
+.step:last-child{padding-bottom:0;}
+.step:not(:last-child)::after{content:'';position:absolute;left:19px;top:44px;bottom:0;width:2px;background:linear-gradient(to bottom,var(--accent),transparent);opacity:0.18;}
+.step-num{width:40px;height:40px;background:var(--accent);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;flex-shrink:0;}
+.step-
+.step-title{font-size:15px;font-weight:600;margin-bottom:6px;color:var(--ink);}
+.step-desc{font-size:13px;color:var(--ink3);line-height:1.7;font-weight:300;}
+.step-tip{margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);background:var(--accent-light);padding:5px 12px;border-radius:4px;display:inline-block;border:1px solid var(--accent-mid);}
+/* TABS */
+.tab-group{margin:20px 0;}
+.tabs{display:flex;border-bottom:2px solid var(--border);gap:0;}
+.tab{padding:9px 20px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border:none;background:transparent;color:var(--ink4);transition:all 0.15s;border-bottom:2px solid transparent;margin-bottom:-2px;font-weight:500;}
+.tab:hover{color:var(--ink);}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent);}
+.tab-panel{display:none;}.tab-panel.active{display:block;}
+/* QUIZ */
+.quiz{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:32px 0;box-shadow:var(--shadow);}
+.quiz-header{padding:20px 28px;background:var(--ink);border-bottom:3px solid var(--accent);}
+.quiz-tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--accent);text-transform:uppercase;margin-bottom:6px;display:block;}
+.quiz-title{font-family:'Lora',serif;font-size:20px;font-weight:600;color:#fff;}
+.quiz-
+.quiz-question{display:none;}.quiz-question.active{display:block;}
+.q-num{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--ink4);text-transform:uppercase;margin-bottom:10px;}
+.q-text{font-size:15px;font-weight:500;margin-bottom:20px;line-height:1.6;color:var(--ink);}
+.q-options{display:flex;flex-direction:column;gap:8px;margin-bottom:16px;}
+.q-option{padding:12px 16px;border:1.5px solid var(--border);border-radius:8px;cursor:pointer;font-size:13.5px;color:var(--ink2);transition:all 0.15s;display:flex;align-items:flex-start;gap:10px;font-weight:300;background:#fff;}
+.q-option:hover{border-color:var(--accent);background:var(--accent-light);}
+.q-option.selected.correct{border-color:var(--green);background:var(--green-bg);color:var(--green);}
+.q-option.selected.wrong{border-color:var(--red);background:var(--red-bg);}
+.q-option.disabled{pointer-events:none;}
+.q-letter{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--ink4);min-width:16px;padding-top:2px;}
+.q-feedback{padding:12px 16px;border-radius:8px;font-size:13.5px;line-height:1.65;display:none;font-weight:300;margin-bottom:8px;}
+.q-feedback.show{display:block;}
+.q-feedback.correct{background:var(--green-bg);border-left:3px solid var(--green);color:var(--green);}
+.q-feedback.wrong{background:var(--red-bg);border-left:3px solid var(--red);color:var(--red);}
+.q-next{margin-top:8px;padding:9px 22px;background:var(--ink);color:#fff;border:none;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;display:none;transition:background 0.15s;}
+.q-next.show{display:inline-block;}.q-next:hover{background:var(--accent);}
+.quiz-result{display:none;text-align:center;padding:40px 20px;}.quiz-result.show{display:block;}
+.result-score{font-family:'Lora',serif;font-size:64px;font-weight:700;color:var(--accent);line-height:1;margin-bottom:12px;}
+.result-label{font-size:18px;font-weight:600;margin-bottom:8px;color:var(--ink);}
+.result-desc{font-size:14px;color:var(--ink3);margin-bottom:24px;font-weight:300;}
+.result-retry{padding:11px 32px;background:var(--accent);color:#fff;border:none;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-weight:600;}
+.result-retry:hover{background:var(--accent2);}
+/* FOOTER */
+.lesson-footer{margin-top:60px;padding-top:28px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:20px;}
+.footer-next{display:flex;flex-direction:column;gap:4px;}
+.footer-next-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--ink4);}
+.footer-next-title{font-size:14px;font-weight:600;color:var(--ink);}
+.complete-btn{padding:13px 28px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;font-weight:700;transition:all 0.2s;white-space:nowrap;box-shadow:0 2px 8px rgba(255,92,0,0.22);}
+.complete-btn:hover{background:var(--accent2);transform:translateY(-1px);box-shadow:0 4px 16px rgba(255,92,0,0.28);}
+.complete-btn.done{background:var(--green);box-shadow:0 2px 8px rgba(22,163,74,0.22);}
+/* MOBILE */
+.sidebar-toggle{display:none;position:fixed;bottom:24px;right:24px;width:52px;height:52px;background:var(--accent);color:#fff;border:none;border-radius:50%;font-size:20px;cursor:pointer;z-index:200;box-shadow:var(--shadow-lg);align-items:center;justify-content:center;}
+
+
+/* ── CSS específico do módulo ── */
+:root{--bg:#faf7f2;--bg2:#f0ebe0;--ink:#1a1510;--ink2:#3d3628;--ink3:#8a7e6a;--accent:#ff5c00;--accent2:#cc4900;--accent-light:rgba(255,92,0,0.08);--green:#0f7a4a;--blue:#1a4fd4;--gold:#b8860b;--purple:#6c3fd4;--border:#e0d8cc;--code-bg:#0d1117;--code-fg:#e6edf3;--shadow:0 2px 14px rgba(255,92,0,0.06);}
+*{margin:0;padding:0;box-sizing:border-box;}
+
+
+
+
+
+
+.block{margin-bottom:40px;}
+.callout{border-radius:6px;padding:18px 22px;margin:20px 0;display:flex;gap:14px;}
+/* Terminal simulado */
+.terminal{background:#0d1117;border-radius:10px;overflow:hidden;margin:20px 0;box-shadow:0 8px 32px rgba(0,0,0,.3);}
+.term-header{padding:12px 18px;background:#161b22;display:flex;align-items:center;gap:10px;}
+.term-dots{display:flex;gap:6px;}
+.term-dot{width:12px;height:12px;border-radius:50%;}
+.term-title{font-family:'JetBrains Mono',monospace;font-size:11px;color:#8b949e;margin-left:8px;}
+.term-copy{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:10px;color:#484f58;background:none;border:none;cursor:pointer;padding:3px 8px;border-radius:3px;transition:all .15s;}
+.term-copy:hover{background:rgba(255,255,255,.06);color:#8b949e;}
+.term-
+.t-prompt{color:#58a6ff;}
+.t-cmd{color:#e6edf3;}
+.t-out{color:#7ee787;}
+.t-err{color:#ff7b72;}
+.t-comment{color:#484f58;}
+.t-path{color:#ffa657;}
+.t-claude{color:#a5d6ff;}
+/* Comandos grid */
+.cmd-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0;}
+.cmd-card{background:#fff;border:1px solid var(--border);border-radius:8px;padding:14px 16px;}
+.cmd-code{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent);font-weight:600;margin-bottom:5px;}
+.cmd-desc{font-size:12px;color:var(--ink2);font-weight:300;line-height:1.5;}
+/* Tabela segurança */
+.security-table{width:100%;border-collapse:collapse;margin:18px 0;border-radius:8px;overflow:hidden;border:1px solid var(--border);}
+.security-table th{padding:11px 16px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;background:var(--ink);color:rgba(255,255,255,.6);text-align:left;}
+.security-table td{padding:11px 16px;font-size:13px;border-bottom:1px solid var(--border);font-weight:300;}
+.security-table tr:last-child td{border-bottom:none;}
+.security-table tr:nth-child(even){background:var(--bg2);}
+.ok{color:#0f7a4a;font-weight:600;}
+.no{color:#c0392b;font-weight:600;}
+/* CLAUDE.md viewer */
+.claudemd{background:#fff;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:18px 0;}
+.claudemd-header{padding:12px 18px;background:var(--ink);display:flex;align-items:center;gap:10px;}
+.claudemd-title{font-family:'JetBrains Mono',monospace;font-size:11px;color:#8b949e;}
+.claudemd-icon{font-size:16px;}
+.claudemd-
+.md-h1{color:var(--accent);font-size:14px;font-weight:700;}
+.md-h2{color:var(--blue);font-weight:600;}
+.md-comment{color:var(--ink3);}
+.md-value{color:var(--green);}
+/* Code wrap padrão */
+.code-wrap{background:var(--code-bg);border-radius:8px;overflow:hidden;margin:18px 0;}
+/* Quiz */
+.quiz{background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin:28px 0;}
+
+.back-btn:hover{color:var(--accent);}
+
+/* TOPBAR unificada */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  height: 48px;
+  min-height: 48px;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  white-space: nowrap;
+}
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  overflow: hidden;
+}
+.topbar-home {
+  color: var(--ink4);
+  text-decoration: none;
+  transition: color .15s;
+  white-space: nowrap;
+}
+.topbar-home:hover { color: var(--accent); }
+.topbar-sep { color: var(--border2); }
+.topbar-bc { color: var(--ink3); white-space: nowrap; }
+.topbar-aula { color: var(--accent); font-weight: 700; white-space: nowrap; }
+.topbar-nav { display: flex; gap: 8px; flex-shrink: 0; }
+.tb-btn {
+  padding: 6px 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--ink3);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all .15s;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.tb-btn:hover { border-color: var(--accent); color: var(--accent); }
+.tb-btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+.tb-btn.primary:hover { background: var(--accent2); }
+
+/* ═══════════════════════════════════════
+   LAYOUT — Isso é Claude v3
+   Testado: sidebar fixa, scroll no body
+   ═══════════════════════════════════════ */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Sora', -apple-system, sans-serif;
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+/* SIDEBAR — fixa, scroll próprio */
+.sidebar {
+  width: 272px;
+  background: var(--sidebar-bg);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid rgba(255,255,255,0.04);
+}
+.sidebar::-webkit-scrollbar { width: 3px; }
+.sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 2px; }
+
+/* MAIN — empurrado pela sidebar, scroll do body */
+.main {
+  margin-left: 272px;
+}
+
+/* TOPBAR — sticky no topo do viewport com scroll do body */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  height: 52px;
+  padding: 0 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* LESSON — ocupa a largura disponível */
+.lesson-content {
+  display: none;
+  padding: 56px 48px 80px;
+  max-width: 860px;
+  box-sizing: border-box;
+}
+.lesson-content.active {
+  display: block;
+}
+
+/* MOBILE */
+@media (max-width: 860px) {
+  .sidebar {
+    transform: translateX(-272px);
+    transition: transform .25s ease;
+  }
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  .main {
+    margin-left: 0;
+  }
+  .topbar {
+    padding: 0 16px;
+    height: 52px;
+  }
+  .lesson-content {
+    padding: 32px 20px 64px;
+  }
+}
+
+
+</style>
+</head>
+<body>
+<div class="layout">
+<nav class="sidebar" id="sidebar">
+  <div class="sb-brand"><span class="sb-tag">Isso é Claude</span><div class="sb-name">Módulo 07<br>Claude Code</div></div>
+  <div class="sb-mod">7 aulas · ~2h30</div>
+  <div class="nav-lessons">
+    <div class="nav-item active" onclick="goTo(0)"><span class="nav-num">07.1</span><span class="nav-title">Instalação e configuração</span></div>
+    <div class="nav-item" onclick="goTo(1)"><span class="nav-num">07.2</span><span class="nav-title">Primeiros comandos e sessões</span></div>
+    <div class="nav-item" onclick="goTo(2)"><span class="nav-num">07.3</span><span class="nav-title">Modo agentic — autonomia real</span></div>
+    <div class="nav-item" onclick="goTo(3)"><span class="nav-num">07.4</span><span class="nav-title">CLAUDE.md — memória do projeto</span></div>
+    <div class="nav-item" onclick="goTo(4)"><span class="nav-num">07.5</span><span class="nav-title">MCP — conectando ferramentas</span></div>
+    <div class="nav-item" onclick="goTo(5)"><span class="nav-num">07.6</span><span class="nav-title">Caso real — sessão completa</span></div>
+    <div class="nav-item" onclick="goTo(6)"><span class="nav-num">07.7</span><span class="nav-title">Boas práticas e segurança</span></div>
+  </div>
+  <div class="sb-progress">
+    <div class="prog-label">Progresso</div>
+    <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:14.2%"></div></div>
+    <div class="prog-text" id="progText">1 de 7 aulas</div>
+  </div>
+</nav>
+<main class="main">
+  <div class="topbar">
+    <div class="topbar-left">
+      <a href="index.html" class="topbar-home">← Área do Aluno</a>
+      <span class="topbar-sep">›</span>
+      <span class="topbar-bc">Módulo 07</span>
+      <span class="topbar-sep">›</span>
+      <span class="topbar-aula" id="topLabel">Aula 07.1</span>
+    </div>
+    <div class="topbar-nav">
+      <button class="tb-btn" onclick="prev()">← Anterior</button>
+      <button class="tb-btn primary" onclick="next()">Próxima →</button>
+    </div>
+  </div>
+
+  <!-- 07.1 -->
+  <div class="lesson-content active" id="l0">
+    <div class="lesson-header">
+      <div class="lesson-meta"><span class="lesson-num-label">Aula 07.1</span><span class="lesson-tag tag-pratica">Prática</span><span class="lesson-dur">⏱ ~18 min</span></div>
+      <h1 class="lesson-title">Instalação e Configuração<br>do Claude Code</h1>
+      <p class="lesson-sub">Claude Code é a ferramenta de linha de comando da Anthropic para desenvolvimento assistido por IA. Você trabalha no terminal, no seu projeto real, com acesso total ao código.</p>
+    </div>
+    <div class="callout warning" style="margin:0 48px 32px;max-width:764px;">
+      <div class="callout-icon">⚠️</div>
+      <div class="callout-body">
+        <h4>Versão e disponibilidade</h4>
+        <p>Claude Code é atualizado frequentemente pela Anthropic. Os comandos e comportamentos descritos neste módulo refletem a versão disponível na data de criação do curso. Verifique a documentação atual em <strong>docs.anthropic.com/claude-code</strong> para novidades. Requer plano Pro, Max ou Team.</p>
+      </div>
+    </div>
+    <div class="block">
+      <h2>O que é o Claude Code</h2>
+      <p>Claude Code é um agente de codificação que roda no terminal. Diferente de um chat, ele tem acesso direto aos seus arquivos, pode editar código, rodar comandos, criar arquivos e navegar pelo seu projeto — tudo com sua supervisão.</p>
+      <div class="callout key"><div class="callout-icon">⚡</div><div class="callout-body"><h4>O que o Claude Code pode fazer</h4><p>Ler e editar qualquer arquivo do projeto · Executar comandos no terminal · Criar e deletar arquivos · Entender toda a base de código · Refatorar, debugar, testar e documentar · Criar features completas a partir de uma descrição</p></div></div>
+    </div>
+    <div class="block">
+      <h2>Instalação</h2>
+      <div class="terminal">
+        <div class="term-header"><div class="term-dots"><div class="term-dot dot-r"></div><div class="term-dot dot-y"></div><div class="term-dot dot-g"></div></div><span class="term-title">Terminal</span><button class="term-copy" onclick="copyTerm(this)">copiar</button></div>
+        <div class="term-body"><span class="t-comment"># Pré-requisito: Node.js 18+ instalado</span>
+<span class="t-comment"># Verifique: </span>
+<span class="t-prompt">$</span> <span class="t-cmd">node --version</span>
+<span class="t-out">v20.11.0</span>
+
+<span class="t-comment"># Instale o Claude Code globalmente</span>
+<span class="t-prompt">$</span> <span class="t-cmd">npm install -g @anthropic-ai/claude-code</span>
+<span class="t-out">added 47 packages in 8s</span>
+
+<span class="t-comment"># Verifique a instalação</span>
+<span class="t-prompt">$</span> <span class="t-cmd">claude --version</span>
+<span class="t-out">claude-code 1.x.x</span></div>
+      </div>
+    </div>
+    <div class="block">
+      <h2>Autenticação</h2>
+      <div class="terminal">
+        <div class="term-header"><div class="term-dots"><div class="term-dot dot-r"></div><div class="term-dot dot-y"></div><div class="term-dot dot-g"></div></div><span class="term-title">Terminal — autenticação</span><button class="term-copy" onclick="copyTerm(this)">copiar</button></div>
+        <div class="term-body"><span class="t-comment"># Inicie o processo de login</span>
+<span class="t-prompt">$</span> <span class="t-cmd">claude</span>
+<span class="t-claude">? How would you like to authenticate?</span>
+<span class="t-claude">❯ Sign in with Claude.ai (recommended)</span>
+<span class="t-claude">  Enter API key manually</span>
+
+<span class="t-comment"># Opção 1: Login com Claude.ai (Pro/Team)</span>
+<span class="t-comment"># Abrirá o browser automaticamente</span>
+
+<span class="t-comment"># Opção 2: API key (console.anthropic.com)</span>
+<span class="t-claude">? Enter your API key: </span><span class="t-cmd">sk-ant-...</span>
+<span class="t-out">✓ Authenticated successfully!</span>
+<span class="t-out">Welcome to Claude Code. Type /help to get started.</span></div>
+      </div>
+      <div class="callout tip"><div class="callout-icon">💡</div><div class="callout-body"><h4>Qual plano usar?</h4><p>Com <strong>Claude.ai Pro</strong>, o Claude Code usa seus créditos do plano. Com <strong>API key</strong>, você paga por tokens usados. Para uso intenso de desenvolvimento, o Pro costuma ser mais econômico.</p></div></div>
+    </div>
+    <div class="lesson-footer">
+      <div class="footer-next"><div class="footer-next-label">Próxima aula</div><div class="footer-next-title">07.2 — Primeiros comandos e sessões</div></div>
+      <button class="complete-btn" id="cb0" onclick="complete(0)">Marcar como concluída ✓</button>
+    </div>
+  </div>
+
+  <!-- 07.2 -->
+  <div class="lesson-content" id="l1">
+    <div class="lesson-header">
+      <div class="lesson-meta"><span class="lesson-num-label">Aula 07.2</span><span class="lesson-tag tag-pratica">Prática</span><span class="lesson-dur">⏱ ~22 min</span></div>
+      <h1 class="lesson-title">Primeiros Comandos<br>e Sessões</h1>
+      <p class="lesson-sub">Claude Code é conversacional — você descreve o que quer em português e ele age. Aprenda os comandos essenciais e como estruturar sua primeira sessão de trabalho real.</p>
+    </div>
+    <div class="block">
+      <h2>Iniciando uma sessão</h2>
+      <div class="terminal">
+        <div class="term-header"><div class="term-dots"><div class="term-dot dot-r"></div><div class="term-dot dot-y"></div><div class="term-dot dot-g"></div></div><span class="term-title">Terminal — sessão real</span></div>
+        <div class="term-body"><span class="t-comment"># Navegue até o seu projeto e inicie</span>
+<span class="t-prompt">$</span> <span class="t-cmd">cd ~/meu-projeto</span>
+<span class="t-prompt">$</span> <span class="t-cmd">claude</span>
+<span class="t-out">✓ Claude Code iniciado</span>
+<span class="t-out">Diretório: /Users/you/meu-projeto</span>
+<span class="t-out">Arquivos indexados: 47</span>
+
+<span class="t-claude">Claude:</span> <span class="t-out">Olá! Estou pronto para ajudar com seu projeto.</span>
+<span class="t-out">Vejo que você tem um projeto Python com Flask.</span>
+<span class="t-out">O que você gostaria de fazer hoje?</span>
+
+<span class="t-prompt">&gt;</span> <span class="t-cmd">Adicione autenticação JWT ao endpoint /api/users</span>
+
+<span class="t-claude">Claude:</span> <span class="t-out">Vou implementar autenticação JWT. Primeiro deixa eu</span>
+<span class="t-out">analisar a estrutura atual...</span>
+<span class="t-out">✓ Lendo app.py</span>
+<span class="t-out">✓ Lendo models/user.py</span>
+<span class="t-out">✓ Implementando JWT em 3 arquivos...</span></div>
+      </div>
+    </div>
+    <div class="block">
+      <h2>Comandos Essenciais</h2>
+      <div class="cmd-grid">
+        <div class="cmd-card"><div class="cmd-code">/help</div><div class="cmd-desc">Lista todos os comandos disponíveis e atalhos</div></div>
+        <div class="cmd-card"><div class="cmd-code">/clear</div><div class="cmd-desc">Limpa o histórico da sessão atual (novo contexto)</div></div>
+        <div class="cmd-card"><div class="cmd-code">/diff</div><div class="cmd-desc">Mostra todas as mudanças feitas na sessão</div></div>
+        <div class="cmd-card"><div class="cmd-code">/undo</div><div class="cmd-desc">Desfaz a última ação do Claude no código</div></div>
+        <div class="cmd-card"><div class="cmd-code">/compact</div><div class="cmd-desc">Comprime o histórico para liberar espaço no contexto</div></div>
+        <div class="cmd-card"><div class="cmd-code">/cost</div><div class="cmd-desc">Mostra o custo em tokens da sessão atual</div></div>
+        <div class="cmd-card"><div class="cmd-code">Ctrl+C</div><div class="cmd-desc">Interrompe uma ação em andamento</div></div>
+        <div class="cmd-card"><div class="cmd-code">Ctrl+D</div><div class="cmd-desc">Encerra a sessão do Claude Code</div></div>
+      </div>
+    </div>
+    <div class="block">
+      <h2>Como pedir tarefas — boas práticas</h2>
+      <div class="code-wrap"><div class="code-header"><div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div><span class="code-lang">Exemplos de pedidos efetivos</span><button class="code-copy" onclick="copyCode(this)">copiar</button></div><div class="code-body"><span class="c-bad">✗ RUIM — vago demais:</span>
+<span class="c-bad">"Melhore meu código"</span>
+<span class="c-bad">"Adicione segurança"</span>
+
+<span class="c-good">✓ BOM — específico com contexto:</span>
+<span class="c-good">"Adicione validação de entrada no endpoint POST /api/orders</span>
+<span class="c-good"> verificando que quantidade &gt; 0 e produto_id existe no banco"</span>
+
+<span class="c-good">"Refatore a função calcular_frete() em utils/shipping.py</span>
+<span class="c-good"> para aceitar múltiplos endereços e retornar o menor custo"</span>
+
+<span class="c-good">"Crie testes unitários para todos os métodos da classe User</span>
+<span class="c-good"> em models/user.py usando pytest"</span>
+
+<span class="c-good">"Está dando erro 500 quando chamo /api/payment.</span>
+<span class="c-good"> Analise os logs e encontre a causa raiz"</span></div></div>
+    </div>
+    <div class="lesson-footer">
+      <div class="footer-next"><div class="footer-next-label">Próxima aula</div><div class="footer-next-title">07.3 — Modo agentic</div></div>
+      <button class="complete-btn" id="cb1" onclick="complete(1)">Marcar como concluída ✓</button>
+    </div>
+  </div>
+
+  <!-- 07.3 -->
+  <div class="lesson-content" id="l2">
+    <div class="lesson-header">
+      <div class="lesson-meta"><span class="lesson-num-label">Aula 07.3</span><span class="lesson-tag tag-tecnica">Técnica</span><span class="lesson-dur">⏱ ~20 min</span></div>
+      <h1 class="lesson-title">Modo Agentic —<br>Autonomia Real</h1>
+      <p class="lesson-sub">O modo agentic permite que o Claude execute múltiplas etapas de forma autônoma, sem confirmar cada passo. Poderoso — mas requer cuidados específicos.</p>
+    </div>
+    <div class="block">
+      <h2>Interativo vs Agentic</h2>
+      <div class="code-wrap"><div class="code-header"><div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div><span class="code-lang">Comparação de modos</span></div><div class="code-body"><span class="c-tag">MODO INTERATIVO (padrão)</span>
+<span class="c-good">→ Claude pergunta antes de cada mudança significativa
+→ Você aprova ou rejeita cada etapa
+→ Mais seguro · Mais controle · Mais lento
+→ Ideal para: código crítico, projetos novos, aprendizado</span>
+
+<span class="c-tag">MODO AGENTIC (--dangerously-skip-permissions)</span>
+<span class="c-good">→ Claude executa tudo sem pedir confirmação
+→ Mais rápido · Completa tarefas complexas em autonomia
+→ Requer: git limpo, diretório isolado, confiança no escopo</span>
+<span class="c-bad">→ Risco: pode modificar/deletar arquivos inesperadamente</span></div></div>
+    </div>
+    <div class="block">
+      <h2>Quando usar o modo agentic</h2>
+      <div class="callout warning"><div class="callout-icon">⚠️</div><div class="callout-body"><h4>Regra de ouro antes de modo agentic</h4><p>Sempre faça <code style="font-family:'JetBrains Mono';font-size:12px">git commit</code> antes de uma sessão agentic. Se algo der errado, você volta com <code style="font-family:'JetBrains Mono';font-size:12px">git checkout .</code> Sem commit, não há volta.</p></div></div>
+      <div class="terminal">
+        <div class="term-header"><div class="term-dots"><div class="term-dot dot-r"></div><div class="term-dot dot-y"></div><div class="term-dot dot-g"></div></div><span class="term-title">Modo agentic — uso correto</span></div>
+        <div class="term-body"><span class="t-comment"># Sempre commite antes!</span>
+<span class="t-prompt">$</span> <span class="t-cmd">git add . && git commit -m "checkpoint antes do claude"</span>
+
+<span class="t-comment"># Inicie em modo agentic</span>
+<span class="t-prompt">$</span> <span class="t-cmd">claude --dangerously-skip-permissions</span>
+
+<span class="t-prompt">&gt;</span> <span class="t-cmd">Crie um módulo completo de relatórios PDF:
+&gt; - leia dados do banco SQLite em db/sales.db
+&gt; - gere relatório mensal com gráfico de vendas  
+&gt; - salve em reports/YYYY-MM.pdf
+&gt; - adicione testes unitários para a geração</span>
+
+<span class="t-claude">Claude:</span> <span class="t-out">Executando em modo autônomo...</span>
+<span class="t-out">✓ Analisando db/sales.db (12 tabelas encontradas)</span>
+<span class="t-out">✓ Criando reports/__init__.py</span>
+<span class="t-out">✓ Criando reports/monthly.py</span>
+<span class="t-out">✓ Instalando dependências: reportlab, matplotlib</span>
+<span class="t-out">✓ Criando tests/test_reports.py</span>
+<span class="t-out">✓ Rodando testes: 8/8 passando</span>
+<span class="t-out">→ Módulo de relatórios criado com sucesso!</span></div>
+      </div>
+    </div>
+    <div class="block">
+      <h2>Casos de uso ideais para o modo agentic</h2>
+      <div class="code-wrap"><div class="code-header"><div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div><span class="code-lang">O que delegar com segurança</span></div><div class="code-body"><span class="c-good">✓ Criar módulos novos do zero (não toca código existente)
+✓ Escrever documentação e comentários
+✓ Criar testes para código existente
+✓ Migração de dados entre formatos
+✓ Scaffolding inicial de projetos
+✓ Refactoring com escopo bem definido</span>
+
+<span class="c-bad">✗ Modificar banco de dados de produção
+✗ Deletar arquivos sem especificar quais
+✗ Qualquer coisa em sistemas sem backup
+✗ Código de segurança crítico sem revisão</span></div></div>
+    </div>
+    <div class="lesson-footer">
+      <div class="footer-next"><div class="footer-next-label">Próxima aula</div><div class="footer-next-title">07.4 — CLAUDE.md: memória do projeto</div></div>
+      <button class="complete-btn" id="cb2" onclick="complete(2)">Marcar como concluída ✓</button>
+    </div>
+  </div>
+
+  <!-- 07.4 -->
+  <div class="lesson-content" id="l3">
+    <div class="lesson-header">
+      <div class="lesson-meta"><span class="lesson-num-label">Aula 07.4</span><span class="lesson-tag tag-tecnica">Técnica</span><span class="lesson-dur">⏱ ~20 min</span></div>
+      <h1 class="lesson-title">CLAUDE.md —<br>Memória do Projeto</h1>
+      <p class="lesson-sub">O arquivo CLAUDE.md é o "cérebro" do seu projeto para o Claude Code. Ele lê automaticamente toda vez que você inicia uma sessão — sem precisar re-explicar o contexto.</p>
+    </div>
+    <div class="block">
+      <h2>O que é o CLAUDE.md</h2>
+      <p>Um arquivo Markdown na raiz do projeto (ou subpastas) que o Claude Code lê automaticamente. É como um onboarding permanente: você explica o projeto uma vez e o Claude sempre começa com esse contexto.</p>
+      <div class="callout insight"><div class="callout-icon">📋</div><div class="callout-body"><h4>Hierarquia de leitura</h4><p>Claude lê: CLAUDE.md na raiz → CLAUDE.md em subpastas relevantes → Arquivo de contexto específico informado por você. Você pode ter um CLAUDE.md global em ~/CLAUDE.md com suas preferências pessoais.</p></div></div>
+    </div>
+    <div class="block">
+      <h2>Template Completo de CLAUDE.md</h2>
+      <div class="claudemd">
+        <div class="claudemd-header"><span class="claudemd-icon">📄</span><span class="claudemd-title">CLAUDE.md — template copiável</span><button class="term-copy" onclick="copyClaudeMD()">copiar</button></div>
+        <div class="claudemd-body" id="claudemd-content"><span class="md-h1"># CLAUDE.md — [Nome do Projeto]</span>
+
+<span class="md-h2">## Visão Geral</span>
+[Uma frase descrevendo o que o projeto faz]
+
+<span class="md-h2">## Stack Técnica</span>
+- <span class="md-value">Backend:</span> Python 3.11 + FastAPI
+- <span class="md-value">Banco:</span> PostgreSQL 15 (ORM: SQLAlchemy)
+- <span class="md-value">Frontend:</span> React 18 + TypeScript
+- <span class="md-value">Testes:</span> pytest + Jest
+
+<span class="md-h2">## Estrutura de Diretórios</span>
+<span class="md-comment">```
+meu-projeto/
+├── app/          # Backend FastAPI
+│   ├── models/   # Modelos do banco
+│   ├── routes/   # Endpoints da API
+│   └── services/ # Lógica de negócio
+├── frontend/     # React app
+└── tests/        # Testes automatizados
+```</span>
+
+<span class="md-h2">## Convenções de Código</span>
+- Nomes em inglês, comentários em português
+- Funções: snake_case · Classes: PascalCase
+- Sempre adicionar type hints em Python
+- Commits no formato: feat/fix/refactor: descrição
+
+<span class="md-h2">## Comandos Importantes</span>
+<span class="md-comment">```bash</span>
+<span class="md-value">make dev</span>      <span class="md-comment"># Inicia ambiente de desenvolvimento</span>
+<span class="md-value">make test</span>     <span class="md-comment"># Roda todos os testes</span>
+<span class="md-value">make migrate</span>  <span class="md-comment"># Aplica migrações do banco</span>
+<span class="md-comment">```</span>
+
+<span class="md-h2">## Regras para o Claude Code</span>
+- Sempre rode os testes antes de declarar tarefa concluída
+- Nunca modifique migrations existentes — crie novas
+- Variáveis de ambiente ficam em .env (nunca commitar)
+- Ao criar endpoints, sempre adicionar validação Pydantic</div>
+      </div>
+    </div>
+    <div class="lesson-footer">
+      <div class="footer-next"><div class="footer-next-label">Próxima aula</div><div class="footer-next-title">07.5 — MCP: conectando ferramentas</div></div>
+      <button class="complete-btn" id="cb3" onclick="complete(3)">Marcar como concluída ✓</button>
+    </div>
+  </div>
+
+  <!-- 07.5 -->
+  <div class="lesson-content" id="l4">
+    <div class="lesson-header">
+      <div class="lesson-meta"><span class="lesson-num-label">Aula 07.5</span><span class="lesson-tag tag-tecnica">Técnica</span><span class="lesson-dur">⏱ ~20 min</span></div>
+      <h1 class="lesson-title">MCP — Conectando<br>Ferramentas ao Claude Code</h1>
+      <p class="lesson-sub">MCP (Model Context Protocol) é o protocolo que permite ao Claude Code se conectar a ferramentas externas — bancos de dados, APIs, navegadores, e muito mais.</p>
+    </div>
+    <div class="block">
+      <h2>O que é MCP</h2>
+      <p>MCP é um protocolo aberto criado pela Anthropic. Ele permite que servidores externos exponham ferramentas e dados que o Claude pode usar. Com MCP, o Claude Code pode navegar na web, consultar bancos, operar o Slack, e muito mais.</p>
+      <div class="callout purple"><div class="callout-icon">🔌</div><div class="callout-body"><h4>Servidores MCP populares</h4><p>filesystem (acesso a arquivos) · github (repositórios e PRs) · sqlite (consultas SQL diretas) · puppeteer (automação de browser) · slack (enviar/ler mensagens) · google-maps · postgres · notion · e centenas mais no registro oficial</p></div></div>
+    </div>
+    <div class="block">
+      <h2>Configuração MCP no Claude Code</h2>
+      <div class="code-wrap"><div class="code-header"><div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div><span class="code-lang">~/.claude/config.json</span><button class="code-copy" onclick="copyCode(this)">copiar</button></div><div class="code-body">{
+  <span class="c-tag">"mcpServers"</span>: {
+    <span class="c-tag">"filesystem"</span>: {
+      <span class="c-str">"command"</span>: <span class="c-str">"npx"</span>,
+      <span class="c-str">"args"</span>: [<span class="c-str">"-y"</span>, <span class="c-str">"@modelcontextprotocol/server-filesystem"</span>, <span class="c-str">"/home/user/projetos"</span>]
+    },
+    <span class="c-tag">"github"</span>: {
+      <span class="c-str">"command"</span>: <span class="c-str">"npx"</span>,
+      <span class="c-str">"args"</span>: [<span class="c-str">"-y"</span>, <span class="c-str">"@modelcontextprotocol/server-github"</span>],
+      <span class="c-str">"env"</span>: { <span class="c-str">"GITHUB_TOKEN"</span>: <span class="c-str">"ghp_seu_token"</span> }
+    },
+    <span class="c-tag">"sqlite"</span>: {
+      <span class="c-str">"command"</span>: <span class="c-str">"npx"</span>,
+      <span class="c-str">"args"</span>: [<span class="c-str">"-y"</span>, <span class="c-str">"@modelcontextprotocol/server-sqlite"</span>, <span class="c-str">"--db-path"</span>, <span class="c-str">"./database.db"</span>]
+    },
+    <span class="c-tag">"puppeteer"</span>: {
+      <span class="c-str">"command"</span>: <span class="c-str">"npx"</span>,
+      <span class="c-str">"args"</span>: [<span class="c-str">"-y"</span>, <span class="c-str">"@modelcontextprotocol/server-puppeteer"</span>]
+    }
+  }
+}</div></div>
+    </div>
+    <div class="block">
+      <h2>Usando MCP numa sessão</h2>
+      <div class="terminal">
+        <div class="term-header"><div class="term-dots"><div class="term-dot dot-r"></div><div class="term-dot dot-y"></div><div class="term-dot dot-g"></div></div><span class="term-title">Sessão com MCP ativo</span></div>
+        <div class="term-body"><span class="t-prompt">&gt;</span> <span class="t-cmd">Consulte o banco SQLite e me diga quais produtos
+&gt; estão com estoque abaixo de 10 unidades</span>
+
+<span class="t-claude">Claude:</span> <span class="t-out">Usando MCP SQLite para consultar o banco...</span>
+<span class="t-out">✓ Conectado a database.db</span>
+<span class="t-out">✓ Executando: SELECT * FROM products WHERE stock &lt; 10</span>
+<span class="t-out">
+Resultado: 3 produtos com estoque crítico:
+- Capacete Pro X (estoque: 2)
+- Luva Térmica M (estoque: 7)
+- Capa de Chuva G (estoque: 4)
+
+Deseja que eu crie um relatório ou envie um alerta?</span></div>
+      </div>
+    </div>
+    <div class="lesson-footer">
+      <div class="footer-next"><div class="footer-next-label">Próxima aula</div><div class="footer-next-title">07.6 — Caso real: sessão completa</div></div>
+      <button class="complete-btn" id="cb4" onclick="complete(4)">Marcar como concluída ✓</button>
+    </div>
+  </div>
+
+  <!-- 07.6 -->
+  <div class="lesson-content" id="l5">
+    <div class="lesson-header">
+      <div class="lesson-meta"><span class="lesson-num-label">Aula 07.6</span><span class="lesson-tag tag-lab">Lab</span><span class="lesson-dur">⏱ ~25 min</span></div>
+      <h1 class="lesson-title">Caso Real —<br>Sessão Completa de Desenvolvimento</h1>
+      <p class="lesson-sub">Uma sessão real do Claude Code construindo um sistema de controle de manutenção de frota do zero. Veja como conduzir, corrigir e expandir com o agente.</p>
+    </div>
+    <div class="block">
+      <h2>O Projeto — Sistema de Manutenção de Frota</h2>
+      <p>Veja uma sessão completa criando um sistema para gerenciar manutenções de motos, com banco de dados SQLite, API e relatórios.</p>
+      <div class="terminal">
+        <div class="term-header"><div class="term-dots"><div class="term-dot dot-r"></div><div class="term-dot dot-y"></div><div class="term-dot dot-g"></div></div><span class="term-title">Sessão real — sistema de frota</span></div>
+        <div class="term-body"><span class="t-comment"># Passo 1: Definição do escopo</span>
+<span class="t-prompt">&gt;</span> <span class="t-cmd">Crie um sistema Python de controle de manutenção de frota.
+&gt; Requisitos:
+&gt; - Banco SQLite com tabelas: motos, manutenções, alertas
+&gt; - CLI simples para registrar e consultar manutenções
+&gt; - Alerta automático quando km de revisão se aproxima
+&gt; - Relatório de custos por moto no mês</span>
+
+<span class="t-claude">Claude:</span> <span class="t-out">Vou criar o sistema em etapas. Começando pela estrutura...</span>
+<span class="t-out">✓ Criando frota/__init__.py</span>
+<span class="t-out">✓ Criando frota/database.py (SQLite + SQLAlchemy)</span>
+<span class="t-out">✓ Criando frota/models.py (Moto, Manutencao, Alerta)</span>
+<span class="t-out">✓ Criando frota/cli.py (interface de linha de comando)</span>
+<span class="t-out">✓ Criando frota/reports.py (relatório de custos)</span>
+<span class="t-out">✓ Criando main.py (entry point)</span>
+<span class="t-out">✓ Criando requirements.txt</span>
+
+<span class="t-comment"># Passo 2: Teste e ajuste</span>
+<span class="t-prompt">&gt;</span> <span class="t-cmd">Rode o sistema e teste com dados fictícios de 3 motos</span>
+
+<span class="t-claude">Claude:</span> <span class="t-out">✓ python main.py --seed (populando dados de teste)</span>
+<span class="t-out">✓ Motos criadas: YBR-001, YBR-002, YBR-003</span>
+<span class="t-out">✓ Manutenções registradas: 9 registros</span>
+<span class="t-out">⚠ Erro encontrado: campo 'data' com formato inconsistente</span>
+<span class="t-out">✓ Corrigindo em frota/models.py...</span>
+<span class="t-out">✓ Retestando: todos os testes passando</span>
+
+<span class="t-comment"># Passo 3: Expansão</span>
+<span class="t-prompt">&gt;</span> <span class="t-cmd">Adicione exportação do relatório para PDF</span>
+
+<span class="t-claude">Claude:</span> <span class="t-out">✓ Instalando reportlab</span>
+<span class="t-out">✓ Criando frota/pdf_report.py</span>
+<span class="t-out">✓ Integrando com reports.py existente</span>
+<span class="t-out">✓ Comando: python main.py --report --format pdf</span>
+<span class="t-out">✓ PDF gerado: relatorio_2025_01.pdf (18KB)</span></div>
+      </div>
+    </div>
+    <div class="block">
+      <h2>Padrões que tornam uma sessão eficiente</h2>
+      <div class="code-wrap"><div class="code-header"><div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div><span class="code-lang">Estratégia de sessão ideal</span></div><div class="code-body"><span class="c-good">1. COMECE GRANDE, REFINE PEQUENO
+   Dê o escopo completo no início, depois peça ajustes pontuais
+   Não fique mudando de ideia no meio — o contexto fica confuso
+
+2. SEMPRE PEÇA PARA TESTAR
+   "Rode os testes" ou "teste com dados reais" após cada feature
+   Claude identificará e corrigirá erros automaticamente
+
+3. REVISE O /diff ANTES DE COMMITAR
+   Veja tudo que foi mudado antes de aceitar
+   Use /diff para entender cada alteração
+
+4. SESSÕES FOCADAS
+   1 objetivo por sessão (ex: "adicionar auth JWT")
+   Sessões longas = contexto confuso = qualidade piora
+   Use /compact se a sessão ficar muito longa
+
+5. COMMIT FREQUENTE
+   git commit após cada feature que funciona
+   Nunca perca trabalho por sessão sem checkpoint</span></div></div>
+    </div>
+    <div class="lesson-footer">
+      <div class="footer-next"><div class="footer-next-label">Última aula</div><div class="footer-next-title">07.7 — Boas práticas e segurança</div></div>
+      <button class="complete-btn" id="cb5" onclick="complete(5)">Marcar como concluída ✓</button>
+    </div>
+  </div>
+
+  <!-- 07.7 -->
+  <div class="lesson-content" id="l6">
+    <div class="lesson-header">
+      <div class="lesson-meta"><span class="lesson-num-label">Aula 07.7</span><span class="lesson-tag tag-tecnica">Técnica</span><span class="lesson-dur">⏱ ~15 min</span></div>
+      <h1 class="lesson-title">Boas Práticas<br>e Segurança</h1>
+      <p class="lesson-sub">Claude Code tem acesso ao seu sistema. Algumas práticas simples eliminam a maioria dos riscos e tornam seu fluxo de trabalho muito mais produtivo.</p>
+    </div>
+    <div class="block">
+      <h2>Tabela de Segurança — Faça e Não Faça</h2>
+      <table class="security-table">
+        <tr><th>Situação</th><th>Faça</th><th>Não Faça</th></tr>
+        <tr><td>Antes de modo agentic</td><td class="ok">git commit</td><td class="no">Rodar sem checkpoint</td></tr>
+        <tr><td>Arquivos sensíveis</td><td class="ok">Adicionar ao .gitignore + .claudeignore</td><td class="no">Deixar acessível sem restrição</td></tr>
+        <tr><td>Banco de produção</td><td class="ok">Usar banco de desenvolvimento/staging</td><td class="no">Apontar direto para produção</td></tr>
+        <tr><td>Código de segurança</td><td class="ok">Revisar manualmente antes de commitar</td><td class="no">Aceitar sem revisar</td></tr>
+        <tr><td>API keys no código</td><td class="ok">Usar variáveis de ambiente (.env)</td><td class="no">Deixar no código-fonte</td></tr>
+        <tr><td>Sessão longa</td><td class="ok">/compact a cada 30-40 trocas</td><td class="no">Continuar sem compactar</td></tr>
+        <tr><td>Feature crítica</td><td class="ok">Pedir revisão passo a passo</td><td class="no">Modo agentic sem supervisão</td></tr>
+      </table>
+    </div>
+    <div class="block">
+      <h2>O arquivo .claudeignore</h2>
+      <div class="code-wrap"><div class="code-header"><div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div><span class="code-lang">.claudeignore — arquivos que o Claude não deve acessar</span><button class="code-copy" onclick="copyCode(this)">copiar</button></div><div class="code-body"><span class="c-cm"># Segredos e credenciais</span>
+.env
+.env.*
+*.key
+*.pem
+secrets/
+
+<span class="c-cm"># Dados sensíveis</span>
+data/clientes/
+backups/
+exports/
+
+<span class="c-cm"># Grandes arquivos binários (performance)</span>
+*.pdf
+*.zip
+node_modules/
+__pycache__/
+.git/</div></div>
+    </div>
+    <div class="block">
+      <h2>Quiz — Claude Code</h2>
+      <div class="quiz">
+        <div class="quiz-header"><span class="quiz-tag">Fixação — Módulo 07</span><div class="quiz-title">Claude Code</div></div>
+        <div class="quiz-body">
+          <div class="quiz-question active" id="q7-1">
+            <div class="q-num">Pergunta 1 de 3</div>
+            <div class="q-text">O que você DEVE fazer obrigatoriamente antes de iniciar o Claude Code em modo agentic?</div>
+            <div class="q-options">
+              <div class="q-option" onclick="ans('q7-1',this,0,1)"><span class="q-letter">A</span>Instalar a versão mais recente do Claude Code</div>
+              <div class="q-option" onclick="ans('q7-1',this,1,1)"><span class="q-letter">B</span>Fazer git commit de todos os arquivos do projeto</div>
+              <div class="q-option" onclick="ans('q7-1',this,2,1)"><span class="q-letter">C</span>Desativar o antivírus</div>
+              <div class="q-option" onclick="ans('q7-1',this,3,1)"><span class="q-letter">D</span>Criar um backup manual em ZIP</div>
+            </div>
+            <div class="q-feedback" id="fb-q7-1"></div>
+            <button class="q-next" id="nxt-q7-1" onclick="nxtQ('q7-1','q7-2')">Próxima →</button>
+          </div>
+          <div class="quiz-question" id="q7-2">
+            <div class="q-num">Pergunta 2 de 3</div>
+            <div class="q-text">Para que serve o arquivo CLAUDE.md na raiz do projeto?</div>
+            <div class="q-options">
+              <div class="q-option" onclick="ans('q7-2',this,0,2)"><span class="q-letter">A</span>Armazena o histórico de todas as sessões anteriores</div>
+              <div class="q-option" onclick="ans('q7-2',this,1,2)"><span class="q-letter">B</span>Configura as permissões de acesso ao sistema</span></div>
+              <div class="q-option" onclick="ans('q7-2',this,2,2)"><span class="q-letter">C</span>Fornece contexto permanente do projeto que é lido automaticamente a cada sessão</div>
+              <div class="q-option" onclick="ans('q7-2',this,3,2)"><span class="q-letter">D</span>É o arquivo de configuração de instalação do Claude Code</div>
+            </div>
+            <div class="q-feedback" id="fb-q7-2"></div>
+            <button class="q-next" id="nxt-q7-2" onclick="nxtQ('q7-2','q7-3')">Próxima →</button>
+          </div>
+          <div class="quiz-question" id="q7-3">
+            <div class="q-num">Pergunta 3 de 3</div>
+            <div class="q-text">Qual é a diferença principal entre o modo interativo e o modo agentic do Claude Code?</div>
+            <div class="q-options">
+              <div class="q-option" onclick="ans('q7-3',this,0,0)"><span class="q-letter">A</span>Interativo pede confirmação a cada etapa; agentic executa tudo de forma autônoma sem confirmar</div>
+              <div class="q-option" onclick="ans('q7-3',this,1,0)"><span class="q-letter">B</span>Agentic é mais lento porém mais seguro</div>
+              <div class="q-option" onclick="ans('q7-3',this,2,0)"><span class="q-letter">C</span>Interativo só funciona com API key, agentic funciona com conta Pro</div>
+              <div class="q-option" onclick="ans('q7-3',this,3,0)"><span class="q-letter">D</span>São idênticos — apenas nomes diferentes</div>
+            </div>
+            <div class="q-feedback" id="fb-q7-3"></div>
+            <button class="q-next" id="nxt-q7-3" onclick="showRes()">Ver resultado →</button>
+          </div>
+          <div class="quiz-result" id="res-q7">
+            <div class="result-score" id="sc-q7">0/3</div>
+            <div class="result-label" id="rl-q7"></div>
+            <div class="result-desc" id="rd-q7"></div>
+            <button class="result-retry" onclick="retry()">Tentar novamente</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="block">
+      <div class="callout key"><div class="callout-icon">🏁</div><div class="callout-body"><h4>Módulo 07 Concluído!</h4><p>Você agora domina o Claude Code: instalação, primeiros comandos, modo agentic, CLAUDE.md, MCP, sessão completa real e boas práticas de segurança. No último módulo, você vai aprender a construir produtos completos com o Claude como base.</p></div></div>
+    </div>
+    <div class="lesson-footer">
+      <div class="footer-next"><div class="footer-next-label">Último módulo</div><div class="footer-next-title">Módulo 08 — Construindo Produtos com Claude</div></div>
+      <button class="complete-btn" id="cb6" onclick="complete(6)">🎉 Concluir Módulo!</button>
+    </div>
+  </div>
+</main>
+</div>
+<button class="sidebar-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+<script>
+let cur=0;const total=7;const done=new Set();
+const nums=['07.1','07.2','07.3','07.4','07.5','07.6','07.7'];
+function goTo(i){document.querySelectorAll('.lesson-content').forEach(l=>l.classList.remove('active'));document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));document.getElementById('l'+i).classList.add('active');document.querySelectorAll('.nav-item')[i].classList.add('active');document.getElementById('topLabel').textContent='Aula '+nums[i];cur=i;window.scrollTo({top:0,behavior:'smooth'});if(window.innerWidth<900)document.getElementById('sidebar').classList.remove('open');}
+function next(){if(cur<total-1)goTo(cur+1);}function prev(){if(cur>0)goTo(cur-1);}
+function complete(i){done.add(i);const b=document.getElementById('cb'+i);b.classList.add('done');b.textContent='✓ Concluída!';document.querySelectorAll('.nav-item')[i].classList.add('done');syncProgressToIndex('07', Math.round(done.size/total*100), done.size===total);
+  document.getElementById('progFill').style.width=Math.round(done.size/total*100)+'%';document.getElementById('progText').textContent=done.size+' de '+total+' aulas';if(i<total-1)setTimeout(()=>goTo(i+1),600);}
+function copyCode(btn){const t=btn.closest('.code-wrap').querySelector('.code-body').innerText;navigator.clipboard.writeText(t).then(()=>{btn.textContent='✓ copiado!';setTimeout(()=>btn.textContent='copiar',2000);});}
+function copyTerm(btn){const t=btn.closest('.terminal').querySelector('.term-body').innerText;navigator.clipboard.writeText(t).then(()=>{btn.textContent='✓ copiado!';setTimeout(()=>btn.textContent='copiar',2000);});}
+function copyClaudeMD(){const t=document.getElementById('claudemd-content').innerText;navigator.clipboard.writeText(t).then(()=>{alert('CLAUDE.md copiado!');});}
+let sc=0;const an={};
+const cor={'q7-1':1,'q7-2':2,'q7-3':0};
+const fb={'q7-1':{c:'✅ Correto! git commit é obrigatório antes do modo agentic. É seu checkpoint — se algo der errado, git checkout . te devolve tudo.',w:'❌ A única garantia real antes do modo agentic é fazer git commit. Qualquer erro pode ser revertido com git checkout . se você tiver um commit recente.'},'q7-2':{c:'✅ Exato! O CLAUDE.md é lido automaticamente a cada sessão, fornecendo contexto permanente do projeto — stack, convenções, comandos importantes e regras.',w:'❌ CLAUDE.md é o arquivo de contexto permanente do projeto. Ele é lido automaticamente a cada sessão, eliminando a necessidade de re-explicar o projeto toda vez.'},'q7-3':{c:'✅ Certo! Interativo = confirmação a cada etapa (mais seguro). Agentic = execução autônoma sem confirmar (mais rápido, mas requer checkpoint com git antes).',w:'❌ Interativo pede confirmação a cada ação significativa. Agentic (--dangerously-skip-permissions) executa tudo de forma autônoma. Por isso o git commit é obrigatório antes.'}};
+function ans(qId,el,sel,cor_val){if(an[qId])return;an[qId]=true;const opts=el.closest('.q-options').querySelectorAll('.q-option');opts.forEach((o,i)=>{o.classList.add('disabled');if(i===cor_val)o.classList.add('selected','correct');});const ok=sel===cor_val;if(!ok)el.classList.add('selected','wrong');const f=document.getElementById('fb-'+qId);f.textContent=ok?fb[qId].c:fb[qId].w;f.className='q-feedback show '+(ok?'correct':'wrong');document.getElementById('nxt-'+qId).classList.add('show');if(ok)sc++;}
+function nxtQ(c,n){document.getElementById(c).style.display='none';const el=document.getElementById(n);el.classList.add('active');el.style.display='block';}
+function showRes(){document.getElementById('q7-3').style.display='none';document.getElementById('res-q7').classList.add('show');document.getElementById('sc-q7').textContent=sc+'/3';const p=sc===3?['🏆 Perfeito!','Claude Code dominado!']:sc>=2?['✅ Muito bem!','Revise o que errou.']:['📚 Continue estudando','Releia as aulas.'];document.getElementById('rl-q7').textContent=p[0];document.getElementById('rd-q7').textContent=p[1];}
+function retry(){sc=0;['q7-1','q7-2','q7-3'].forEach((q,i)=>{delete an[q];const el=document.getElementById(q);el.style.display=i===0?'block':'none';el.className=i===0?'quiz-question active':'quiz-question';el.querySelectorAll('.q-option').forEach(o=>o.className='q-option');const f=document.getElementById('fb-'+q);if(f){f.className='q-feedback';f.textContent='';}const nb=document.getElementById('nxt-'+q);if(nb)nb.classList.remove('show');});document.getElementById('res-q7').classList.remove('show');}
+
+// Sincronizar progresso com index.html
+function syncProgressToIndex(num, pct, done) {
+  try {
+    const STORAGE_KEY = 'cm_progress_v2';
+    const p = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    p[num] = { pct: pct, done: done };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(p));
+  } catch(e) {}
+}
+
+</script>
+</body>
+</html>

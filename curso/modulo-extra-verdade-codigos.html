@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo Extra — A Verdade dos "Códigos Secretos" | Isso é Claude</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+:root{
+  --bg:#ffffff;--bg2:#f5f5f5;--bg3:#fafafa;
+  --ink:#111111;--ink2:#333333;--ink3:#666666;--ink4:#999999;
+  --accent:#ff5c00;--accent2:#e04f00;
+  --accent-light:rgba(255,92,0,0.07);--accent-mid:rgba(255,92,0,0.15);
+  --green:#16a34a;--green-bg:rgba(22,163,74,0.07);
+  --blue:#2563eb;--blue-bg:rgba(37,99,235,0.07);
+  --gold:#d97706;--gold-bg:rgba(217,119,6,0.08);
+  --red:#dc2626;--red-bg:rgba(220,38,38,0.07);
+  --purple:#7c3aed;--purple-bg:rgba(124,58,237,0.07);
+  --border:#e5e5e5;--border2:#d4d4d4;
+  --shadow:0 2px 12px rgba(0,0,0,0.07);
+  --shadow-md:0 4px 20px rgba(0,0,0,0.09);
+  --code-bg:#111111;--code-fg:#e8e8e8;
+  --sidebar-bg:#111111;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+
+
+
+
+/* SIDEBAR */
+
+
+
+.sb-brand{padding:28px 22px 20px;border-bottom:1px solid rgba(255,255,255,0.06);}
+.sb-tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--accent);text-transform:uppercase;margin-bottom:8px;display:block;}
+.sb-name{font-size:14px;font-weight:700;color:#fff;line-height:1.4;}
+.sb-badge{padding:10px 22px 14px;border-bottom:1px solid rgba(255,255,255,0.04);}
+.sb-badge span{display:inline-flex;align-items:center;gap:6px;background:rgba(220,38,38,0.15);border:1px solid rgba(220,38,38,0.25);border-radius:100px;padding:4px 12px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;color:#f87171;text-transform:uppercase;}
+.sb-mod{padding:12px 22px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,0.25);text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.04);}
+.nav-lessons{padding:8px 0;flex:1;}
+.nav-item{display:flex;align-items:flex-start;gap:10px;padding:10px 22px;cursor:pointer;transition:background 0.15s;border-left:3px solid transparent;}
+.nav-item:hover{background:rgba(255,92,0,0.08);}
+.nav-item.active{background:rgba(255,92,0,0.13);border-left-color:var(--accent);}
+.nav-item.done .nav-num::after{content:' ✓';color:var(--green);}
+.nav-num{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent);padding-top:2px;min-width:28px;font-weight:600;}
+.nav-title{font-size:11.5px;color:rgba(255,255,255,0.52);line-height:1.45;}
+.nav-item.active .nav-title{color:#fff;font-weight:500;}
+.sb-progress{padding:16px 22px;border-top:1px solid rgba(255,255,255,0.05);}
+.prog-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,0.22);text-transform:uppercase;margin-bottom:8px;}
+.prog-bar{height:2px;background:rgba(255,255,255,0.07);border-radius:1px;overflow:hidden;margin-bottom:6px;}
+.prog-fill{height:100%;background:var(--accent);border-radius:1px;transition:width 0.5s;}
+.prog-text{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.22);}
+.sb-back{padding:12px 22px;border-top:1px solid rgba(255,255,255,0.05);}
+.sb-back a{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.3);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .15s;}
+.sb-back a:hover{color:var(--accent);}
+
+/* MAIN */
+
+
+
+/* LESSON */
+
+
+.lesson-inner{padding:56px 48px 80px;max-width:900px;width:100%;box-sizing:border-box;}
+
+/* HERO VERMELHO — aula de desmistificação */
+.hero-busted{background:linear-gradient(135deg,#1a0000,#1f0505 50%,#0d0a00);padding:48px;border-bottom:1px solid rgba(220,38,38,0.2);position:relative;overflow:hidden;}
+.hero-busted::before{content:'';position:absolute;top:-30%;right:-5%;width:350px;height:350px;background:radial-gradient(circle,rgba(220,38,38,0.07),transparent 70%);pointer-events:none;}
+.hb-tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:4px;color:#f87171;text-transform:uppercase;margin-bottom:16px;display:block;}
+.hb-title{font-family:'Lora',serif;font-size:clamp(26px,4vw,50px);font-weight:700;color:#fff;line-height:1.1;margin-bottom:16px;letter-spacing:-0.5px;}
+.hb-title em{color:var(--accent);font-style:italic;}
+.hb-sub{font-size:16px;color:rgba(255,255,255,0.45);font-weight:300;line-height:1.8;max-width:580px;margin-bottom:28px;}
+.hb-stats{display:flex;gap:32px;flex-wrap:wrap;}
+.hb-stat{font-family:'JetBrains Mono',monospace;}
+.hb-stat-val{font-size:22px;font-weight:600;color:#fff;display:block;}
+.hb-stat-label{font-size:10px;letter-spacing:1px;color:rgba(255,255,255,0.28);text-transform:uppercase;}
+
+/* HERO VERDE — aula de ferramenta real */
+.hero-real{background:linear-gradient(135deg,#001a0a,#001510 50%,#0a1200);padding:48px;border-bottom:1px solid rgba(22,163,74,0.2);position:relative;overflow:hidden;}
+.hero-real::before{content:'';position:absolute;top:-30%;right:-5%;width:350px;height:350px;background:radial-gradient(circle,rgba(22,163,74,0.07),transparent 70%);pointer-events:none;}
+.hr-tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:4px;color:#4ade80;text-transform:uppercase;margin-bottom:16px;display:block;}
+.hr-title{font-family:'Lora',serif;font-size:clamp(26px,4vw,50px);font-weight:700;color:#fff;line-height:1.1;margin-bottom:16px;letter-spacing:-0.5px;}
+.hr-title em{color:#4ade80;font-style:normal;}
+.hr-sub{font-size:16px;color:rgba(255,255,255,0.45);font-weight:300;line-height:1.8;max-width:580px;margin-bottom:28px;}
+
+/* HERO AZUL — aula de framework real */
+.hero-framework{background:linear-gradient(135deg,#00091a,#000d1f 50%,#001a0a);padding:48px;border-bottom:1px solid rgba(37,99,235,0.2);position:relative;overflow:hidden;}
+.hero-framework::before{content:'';position:absolute;top:-30%;right:-5%;width:350px;height:350px;background:radial-gradient(circle,rgba(37,99,235,0.07),transparent 70%);pointer-events:none;}
+.hf-tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:4px;color:#60a5fa;text-transform:uppercase;margin-bottom:16px;display:block;}
+.hf-title{font-family:'Lora',serif;font-size:clamp(26px,4vw,50px);font-weight:700;color:#fff;line-height:1.1;margin-bottom:16px;letter-spacing:-0.5px;}
+.hf-title em{color:#60a5fa;font-style:normal;}
+.hf-sub{font-size:16px;color:rgba(255,255,255,0.45);font-weight:300;line-height:1.8;max-width:580px;margin-bottom:28px;}
+
+/* HERO LARANJA — aula de técnicas avançadas */
+.hero-adv{background:linear-gradient(135deg,#110800,#1a0d00 50%,#0a0a00);padding:48px;border-bottom:1px solid rgba(255,92,0,0.2);position:relative;overflow:hidden;}
+.hero-adv::before{content:'';position:absolute;top:-30%;right:-5%;width:350px;height:350px;background:radial-gradient(circle,rgba(255,92,0,0.08),transparent 70%);pointer-events:none;}
+.ha-tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:4px;color:var(--accent);text-transform:uppercase;margin-bottom:16px;display:block;}
+.ha-title{font-family:'Lora',serif;font-size:clamp(26px,4vw,50px);font-weight:700;color:#fff;line-height:1.1;margin-bottom:16px;letter-spacing:-0.5px;}
+.ha-title em{color:var(--accent);font-style:italic;}
+.ha-sub{font-size:16px;color:rgba(255,255,255,0.45);font-weight:300;line-height:1.8;max-width:580px;}
+
+/* BLOCKS */
+.block{margin-bottom:48px;}
+.block h2{font-family:'Lora',serif;font-size:22px;font-weight:600;color:var(--ink);margin-bottom:16px;display:flex;align-items:center;gap:12px;letter-spacing:-0.3px;}
+.block h2::before{content:'';width:4px;height:22px;background:var(--accent);border-radius:2px;flex-shrink:0;}
+.block p{font-size:15px;color:var(--ink2);line-height:1.85;margin-bottom:14px;font-weight:300;}
+.block p strong{color:var(--ink);font-weight:600;}
+.block ul{list-style:none;padding:0;margin-bottom:14px;}
+.block ul li{font-size:14.5px;color:var(--ink2);line-height:1.75;padding:4px 0 4px 20px;position:relative;font-weight:300;}
+.block ul li::before{content:'→';position:absolute;left:0;color:var(--accent);font-weight:600;}
+
+/* LESSON BASICS */
+.lesson-header{margin-bottom:48px;padding-bottom:32px;border-bottom:1px solid var(--border);}
+.lesson-meta{display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap;}
+.lesson-tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;padding:3px 10px;border-radius:3px;text-transform:uppercase;font-weight:600;border:1px solid transparent;}
+.tag-mito{background:var(--red-bg);color:var(--red);border-color:rgba(220,38,38,0.2);}
+.tag-real{background:var(--green-bg);color:var(--green);border-color:rgba(22,163,74,0.2);}
+.tag-framework{background:var(--blue-bg);color:var(--blue);border-color:rgba(37,99,235,0.2);}
+.tag-tecnica{background:var(--accent-light);color:var(--accent);border-color:var(--accent-mid);}
+.tag-lab{background:var(--purple-bg);color:var(--purple);border-color:rgba(124,58,237,0.2);}
+.tag-quiz{background:var(--gold-bg);color:var(--gold);border-color:rgba(217,119,6,0.2);}
+.lesson-num-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink4);letter-spacing:1px;}
+.lesson-dur{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink4);}
+.lesson-title{font-family:'Lora',serif;font-size:clamp(26px,3.5vw,44px);font-weight:700;color:var(--ink);line-height:1.15;margin-bottom:16px;letter-spacing:-0.5px;}
+.lesson-title em{color:var(--accent);font-style:italic;}
+.lesson-sub{font-size:16px;color:var(--ink3);font-weight:300;line-height:1.8;max-width:640px;}
+
+/* CALLOUTS */
+.callout{border-radius:8px;padding:18px 22px;margin:20px 0;display:flex;gap:14px;align-items:flex-start;}
+.callout-icon{font-size:20px;flex-shrink:0;padding-top:2px;}
+.callout-body h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:5px;}
+.callout-body p{font-size:13.5px;margin:0;line-height:1.75;font-weight:300;color:var(--ink2);}
+.callout-body p strong{color:var(--ink);font-weight:600;}
+.callout.tip{background:var(--green-bg);border-left:3px solid var(--green);}.callout.tip .callout-body h4{color:var(--green);}
+.callout.key{background:var(--accent-light);border-left:3px solid var(--accent);}.callout.key .callout-body h4{color:var(--accent);}
+.callout.insight{background:var(--blue-bg);border-left:3px solid var(--blue);}.callout.insight .callout-body h4{color:var(--blue);}
+.callout.warning{background:var(--gold-bg);border-left:3px solid var(--gold);}.callout.warning .callout-body h4{color:var(--gold);}
+.callout.danger{background:var(--red-bg);border-left:3px solid var(--red);}.callout.danger .callout-body h4{color:var(--red);}
+.callout.purple{background:var(--purple-bg);border-left:3px solid var(--purple);}.callout.purple .callout-body h4{color:var(--purple);}
+
+/* CODE */
+.code-wrap{background:var(--code-bg);border-radius:10px;overflow:hidden;margin:20px 0;box-shadow:var(--shadow-md);}
+.code-header{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;background:rgba(255,255,255,0.03);border-bottom:1px solid rgba(255,255,255,0.06);}
+.code-dots{display:flex;gap:6px;}
+.code-dot{width:10px;height:10px;border-radius:50%;}
+.dot-r{background:#ff5f57;}.dot-y{background:#febc2e;}.dot-g{background:#28c840;}
+.code-lang{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:2px;text-transform:uppercase;}
+.code-copy{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.35);background:rgba(255,255,255,0.06);border:none;cursor:pointer;padding:4px 10px;border-radius:4px;transition:all .15s;}
+.code-copy:hover{background:rgba(255,92,0,0.2);color:var(--accent);}
+.code-
+.c-cm{color:#6e7681;}.c-good{color:#7ee787;}.c-bad{color:#ff7b72;}.c-tag{color:#ffa657;}.c-hl{color:#79c0ff;}.c-str{color:#a5d6ff;}.c-gold{color:#e3b341;}
+
+/* VEREDITO CARDS — o coração da aula 1 */
+.veredito-list{display:flex;flex-direction:column;gap:24px;margin:24px 0;}
+.veredito-card{border-radius:14px;overflow:hidden;box-shadow:var(--shadow);}
+.vc-header{padding:16px 24px;display:flex;align-items:center;gap:16px;border-bottom:1px solid rgba(255,255,255,0.08);}
+.vc-header-fake{background:linear-gradient(90deg,#1a0000,#1f0505);}
+.vc-header-real{background:linear-gradient(90deg,#001a0a,#001510);}
+.vc-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;padding:4px 12px;border-radius:100px;text-transform:uppercase;font-weight:700;}
+.badge-fake{background:rgba(220,38,38,0.2);color:#f87171;border:1px solid rgba(220,38,38,0.3);}
+.badge-real{background:rgba(22,163,74,0.2);color:#4ade80;border:1px solid rgba(22,163,74,0.3);}
+.vc-code{font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:700;color:#fff;}
+.vc-desc-curta{font-size:13px;color:rgba(255,255,255,0.45);font-weight:300;}
+.vc-
+.vc-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:14px;}
+.vc-col-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:600;margin-bottom:8px;display:block;}
+.label-o-que-dizem{color:var(--red);}
+.label-verdade{color:var(--green);}
+.label-como-funciona{color:var(--blue);}
+.label-quando-usar{color:var(--green);}
+.vc-text{font-size:13.5px;color:var(--ink2);line-height:1.7;font-weight:300;}
+.vc-prompt{background:var(--code-bg);border-radius:8px;padding:14px 18px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--code-fg);line-height:1.8;margin-top:14px;white-space:pre-wrap;}
+.vc-prompt-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ink4);text-transform:uppercase;margin-bottom:8px;display:block;}
+
+/* RTK — instalação e comandos */
+.rtk-install{background:var(--code-bg);border-radius:12px;overflow:hidden;margin:20px 0;box-shadow:var(--shadow-md);}
+.rtk-tab-bar{display:flex;padding:0 16px;gap:2px;background:rgba(255,255,255,0.02);border-bottom:1px solid rgba(255,255,255,0.06);}
+.rtk-tab{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(255,255,255,0.35);padding:10px 16px;cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;}
+.rtk-tab.active{color:var(--accent);border-bottom-color:var(--accent);}
+.rtk-pane{display:none;padding:22px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--code-fg);line-height:1.9;white-space:pre-wrap;}
+.rtk-pane.active{display:block;}
+
+/* OODA FLOW */
+.ooda-flow{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0;}
+.ooda-step{border-radius:12px;padding:22px;border:1px solid var(--border);}
+.ooda-letter{font-family:'JetBrains Mono',monospace;font-size:36px;font-weight:700;color:var(--accent);line-height:1;margin-bottom:8px;}
+.ooda-word{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:10px;}
+.ooda-def{font-size:13px;color:var(--ink3);line-height:1.65;font-weight:300;margin-bottom:12px;}
+.ooda-prompt{background:var(--bg2);border-radius:6px;padding:10px 14px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--ink2);line-height:1.7;}
+
+/* TÉCNICAS AVANÇADAS — grid */
+.tec-grid{display:flex;flex-direction:column;gap:20px;margin:24px 0;}
+.tec-item{border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:box-shadow .2s;}
+.tec-item:hover{box-shadow:var(--shadow-md);}
+.tec-header{display:flex;align-items:center;gap:14px;padding:16px 22px;background:var(--bg2);border-bottom:1px solid var(--border);}
+.tec-icon{font-size:22px;}
+.tec-name{font-size:15px;font-weight:700;color:var(--ink);}
+.tec-lvl{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;padding:3px 10px;border-radius:3px;text-transform:uppercase;font-weight:600;margin-left:auto;}
+.lvl-avan{background:var(--accent-light);color:var(--accent);border:1px solid var(--accent-mid);}
+.lvl-pro{background:var(--purple-bg);color:var(--purple);border:1px solid rgba(124,58,237,0.2);}
+.lvl-expert{background:var(--red-bg);color:var(--red);border:1px solid rgba(220,38,38,0.2);}
+.tec-
+.tec-desc{font-size:14.5px;color:var(--ink2);line-height:1.8;font-weight:300;margin-bottom:16px;}
+.tec-prompt-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--ink4);text-transform:uppercase;margin-bottom:8px;display:block;}
+.tec-prompt{background:var(--code-bg);border-radius:8px;padding:16px 20px;font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--code-fg);line-height:1.8;white-space:pre-wrap;}
+.tec-resultado{background:var(--green-bg);border:1px solid rgba(22,163,74,0.15);border-radius:8px;padding:12px 16px;margin-top:12px;font-size:13px;color:var(--green);line-height:1.6;font-weight:300;}
+.tec-resultado::before{content:'→ Resultado: ';font-weight:600;}
+
+/* QUIZ */
+.quiz-wrap{background:var(--bg2);border-radius:16px;padding:32px;border:2px solid var(--accent);margin-top:40px;}
+.quiz-header{display:flex;align-items:center;gap:12px;margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid var(--border2);}
+.quiz-icon{font-size:24px;}
+.quiz-title{font-family:'Lora',serif;font-size:22px;font-weight:700;color:var(--ink);}
+.quiz-q{margin-bottom:28px;}
+.quiz-q-text{font-size:15px;font-weight:500;color:var(--ink);margin-bottom:14px;line-height:1.6;}
+.quiz-opts{display:flex;flex-direction:column;gap:8px;}
+.quiz-opt{padding:12px 16px;border:1.5px solid var(--border2);border-radius:8px;cursor:pointer;font-size:13.5px;color:var(--ink2);transition:all .15s;font-weight:300;background:#fff;text-align:left;}
+.quiz-opt:hover{border-color:var(--accent);background:var(--accent-light);}
+.quiz-opt.correct{border-color:var(--green);background:var(--green-bg);color:var(--green);font-weight:500;}
+.quiz-opt.wrong{border-color:var(--red);background:var(--red-bg);color:var(--red);}
+.quiz-explain{font-size:13px;color:var(--ink3);margin-top:10px;padding:12px 16px;border-radius:6px;background:#fff;border:1px solid var(--border);display:none;line-height:1.7;}
+.quiz-explain.show{display:block;}
+.quiz-result{text-align:center;padding:24px;display:none;}
+.quiz-result.show{display:block;}
+.quiz-score{font-family:'Lora',serif;font-size:52px;font-weight:700;color:var(--accent);margin-bottom:8px;}
+.quiz-msg{font-size:15px;color:var(--ink3);font-weight:300;}
+.quiz-btn{margin-top:20px;padding:12px 28px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-weight:600;transition:background .15s;}
+.quiz-btn:hover{background:var(--accent2);}
+
+/* LESSON FOOTER */
+.lesson-footer{display:flex;justify-content:space-between;align-items:center;padding:28px 0 0;border-top:1px solid var(--border);margin-top:48px;flex-wrap:wrap;gap:16px;}
+.footer-next-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--ink4);margin-bottom:4px;}
+.footer-next-title{font-size:14px;font-weight:500;color:var(--ink2);}
+.complete-btn{padding:10px 24px;background:var(--accent);color:#fff;border:none;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-weight:600;transition:background .15s;}
+.complete-btn:hover{background:var(--accent2);}
+.complete-btn.done{background:var(--green);cursor:default;}
+
+/* MOBILE */
+
+/* TOPBAR unificada */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  height: 48px;
+  min-height: 48px;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  white-space: nowrap;
+}
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  overflow: hidden;
+}
+.topbar-home {
+  color: var(--ink4);
+  text-decoration: none;
+  transition: color .15s;
+  white-space: nowrap;
+}
+.topbar-home:hover { color: var(--accent); }
+.topbar-sep { color: var(--border2); }
+.topbar-bc { color: var(--ink3); white-space: nowrap; }
+.topbar-aula { color: var(--accent); font-weight: 700; white-space: nowrap; }
+.topbar-nav { display: flex; gap: 8px; flex-shrink: 0; }
+.tb-btn {
+  padding: 6px 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--ink3);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all .15s;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.tb-btn:hover { border-color: var(--accent); color: var(--accent); }
+.tb-btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+.tb-btn.primary:hover { background: var(--accent2); }
+
+/* ═══════════════════════════════════════
+   LAYOUT — Isso é Claude v3
+   Testado: sidebar fixa, scroll no body
+   ═══════════════════════════════════════ */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Sora', -apple-system, sans-serif;
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+/* SIDEBAR — fixa, scroll próprio */
+.sidebar {
+  width: 272px;
+  background: var(--sidebar-bg);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid rgba(255,255,255,0.04);
+}
+.sidebar::-webkit-scrollbar { width: 3px; }
+.sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 2px; }
+
+/* MAIN — empurrado pela sidebar, scroll do body */
+.main {
+  margin-left: 272px;
+}
+
+/* TOPBAR — sticky no topo do viewport com scroll do body */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  height: 52px;
+  padding: 0 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* LESSON — ocupa a largura disponível */
+.lesson-content {
+  display: none;
+  padding: 56px 48px 80px;
+  max-width: 860px;
+  box-sizing: border-box;
+}
+.lesson-content.active {
+  display: block;
+}
+
+/* MOBILE */
+@media (max-width: 860px) {
+  .sidebar {
+    transform: translateX(-272px);
+    transition: transform .25s ease;
+  }
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  .main {
+    margin-left: 0;
+  }
+  .topbar {
+    padding: 0 16px;
+    height: 52px;
+  }
+  .lesson-content {
+    padding: 32px 20px 64px;
+  }
+}
+
+
+</style>
+</head>
+<body>
+<div class="layout">
+
+<!-- ═══════════════════════════ -->
+<!-- SIDEBAR -->
+<!-- ═══════════════════════════ -->
+<nav class="sidebar">
+  <div class="sb-brand">
+    <span class="sb-tag">Isso é Claude</span>
+    <div class="sb-name">Módulo Extra<br>Códigos, Mitos e Técnicas Reais</div>
+  </div>
+  <div class="sb-badge"><span>✦ Módulo Extra</span></div>
+  <div class="sb-mod">Aulas</div>
+  <div class="nav-lessons">
+    <div class="nav-item active" onclick="goTo(0)">
+      <span class="nav-num" id="nn0">X.1</span>
+      <span class="nav-title">"Códigos secretos" do Claude — verdade por verdade</span>
+    </div>
+    <div class="nav-item" onclick="goTo(1)">
+      <span class="nav-num" id="nn1">X.2</span>
+      <span class="nav-title">RTK — a única ferramenta real de economia de tokens</span>
+    </div>
+    <div class="nav-item" onclick="goTo(2)">
+      <span class="nav-num" id="nn2">X.3</span>
+      <span class="nav-title">OODA Loop — o framework militar que funciona de verdade</span>
+    </div>
+    <div class="nav-item" onclick="goTo(3)">
+      <span class="nav-num" id="nn3">X.4</span>
+      <span class="nav-title">10 técnicas avançadas que ninguém no Instagram ensina</span>
+    </div>
+    <div class="nav-item" onclick="goTo(4)">
+      <span class="nav-num" id="nn4">X.5</span>
+      <span class="nav-title">Quiz — Você distingue o real do marketing?</span>
+    </div>
+  </div>
+  <div class="sb-progress">
+    <div class="prog-label">Progresso</div>
+    <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+    <div class="prog-text" id="progText">0 / 5 aulas</div>
+  </div>
+  <div class="sb-back"><a href="index.html">← Área do Aluno</a></div>
+</nav>
+
+<!-- ═══════════════════════════ -->
+<!-- MAIN -->
+<!-- ═══════════════════════════ -->
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-left">
+      <a href="index.html" class="topbar-home">← Área do Aluno</a>
+      <span class="topbar-sep">›</span>
+      <span class="topbar-bc">Módulo Extra</span>
+      <span class="topbar-sep">›</span>
+      <span class="topbar-aula" id="topLabel">Aula X.1</span>
+    </div>
+    <div class="topbar-nav">
+      <button class="tb-btn" onclick="prevLesson()">← Anterior</button>
+      <button class="tb-btn primary" onclick="nextLesson()">Próxima →</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════ -->
+  <!-- AULA X.1 — VEREDITO DOS CÓDIGOS -->
+  <!-- ══════════════════════════ -->
+  <div class="lesson-content active" id="l0">
+    <div class="hero-busted">
+      <span class="hb-tag">✦ Módulo Extra · Desmistificação</span>
+      <h1 class="hb-title">5 "Códigos Secretos"<br><em>Analisados</em> um por um</h1>
+      <p class="hb-sub">Viral no Instagram, com 2.958 curtidas. Um criador afirma que ARTIFACTS, OODA, L99, /godmode e /ghost são "códigos secretos" que transformam o Claude. Vamos abrir o capô e ver o que é real.</p>
+      <div class="hb-stats">
+        <div class="hb-stat"><span class="hb-stat-val">2</span><span class="hb-stat-label">têm lógica real</span></div>
+        <div class="hb-stat"><span class="hb-stat-val">1</span><span class="hb-stat-label">é placebo</span></div>
+        <div class="hb-stat"><span class="hb-stat-val">2</span><span class="hb-stat-label">não existem</span></div>
+        <div class="hb-stat"><span class="hb-stat-val">5 min</span><span class="hb-stat-label">para saber tudo</span></div>
+      </div>
+    </div>
+
+    <div class="lesson-inner">
+      <div class="lesson-header">
+        <div class="lesson-meta">
+          <span class="lesson-num-label">Aula X.1</span>
+          <span class="lesson-tag tag-mito">Desmistificação</span>
+          <span class="lesson-dur">⏱ ~20 minutos</span>
+        </div>
+        <h1 class="lesson-title">Veredito por Veredito:<br>o Que <em>Realmente</em> Funciona</h1>
+        <p class="lesson-sub">Pegar um vídeo viral e testar cada afirmação na prática. O que muda o resultado de uma conversa com o Claude? O que é ilusão de placebo? O que simplesmente não existe? Aqui a resposta honesta.</p>
+      </div>
+
+      <div class="block">
+        <h2>Por que isso importa</h2>
+        <p>Quando alguém acredita que digitar "/godmode" dá acesso a um "modo oculto" do Claude, ela está tomando a decisão errada sobre <strong>onde colocar seu tempo</strong>. Em vez de aprender a estruturar melhor um prompt — que tem impacto real — ela caça truques que não existem.</p>
+        <p>A lógica de "código secreto" é antiga: funciona em games, não funciona em modelos de linguagem. Não há backdoor. Não há palavra mágica. O que existe são <strong>padrões de comunicação que ativam capacidades reais</strong> — e esses valem a pena aprender.</p>
+
+        <div class="callout warning">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-body">
+            <h4>O efeito placebo é real</h4>
+            <p>Se você escreve "/godmode" e depois faz uma pergunta melhor formulada do que sempre fez, a resposta <em>vai</em> ser melhor — mas pelo prompt melhorzinho, não pelo prefixo. O viés de confirmação faz o resto. Você vai atribuir o resultado ao "código".</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2>Os 5 — análise completa</h2>
+
+        <div class="veredito-list">
+
+          <!-- ARTIFACTS -->
+          <div class="veredito-card">
+            <div class="vc-header vc-header-real">
+              <span class="vc-badge badge-real">✓ Tem lógica</span>
+              <span class="vc-code">ARTIFACTS</span>
+              <span class="vc-desc-curta">Palavra de instrução, não código</span>
+            </div>
+            <div class="vc-body">
+              <div class="vc-grid">
+                <div>
+                  <span class="vc-col-label label-o-que-dizem">O que o post diz</span>
+                  <p class="vc-text">É um "código secreto" que transforma o Claude em máquina de produtividade e gera resultados especiais.</p>
+                </div>
+                <div>
+                  <span class="vc-col-label label-verdade">A verdade</span>
+                  <p class="vc-text">Não é código. É uma palavra de instrução no prompt que direciona o Claude a gerar o resultado como um artifact — HTML, documento, código — em vez de texto simples. Funciona porque é uma instrução legível que o Claude interpreta normalmente.</p>
+                </div>
+              </div>
+              <span class="vc-prompt-label">→ Como realmente usar</span>
+              <div class="vc-prompt">Me dê uma ideia de trabalho de física que parece difícil mas é simples. 
+Gere como ARTIFACT: uma página HTML interativa com o conceito 
+visualizado, passos de execução e materiais necessários.</div>
+              <div class="callout tip" style="margin-top:14px;">
+                <div class="callout-icon">💡</div>
+                <div class="callout-body"><h4>Veredicto real</h4><p>Funciona. Mas não porque é "secreto" — é só uma instrução de formato. Qualquer palavra que peça o mesmo resultado funciona igual. O artifact em si (HTML, código, documento) é o que tem valor, não a palavra.</p></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- OODA -->
+          <div class="veredito-card">
+            <div class="vc-header vc-header-real">
+              <span class="vc-badge badge-real">✓ Tem lógica</span>
+              <span class="vc-code">OODA</span>
+              <span class="vc-desc-curta">Framework real, origem militar</span>
+            </div>
+            <div class="vc-body">
+              <div class="vc-grid">
+                <div>
+                  <span class="vc-col-label label-o-que-dizem">O que o post diz</span>
+                  <p class="vc-text">"OODA Como ganhar dinheiro rápido na internet?" — como se fosse um prefixo mágico.</p>
+                </div>
+                <div>
+                  <span class="vc-col-label label-verdade">A verdade</span>
+                  <p class="vc-text">OODA é um framework de decisão criado pelo piloto de caça John Boyd nos anos 1950. Significa Observe, Orient, Decide, Act. Quando você coloca "OODA" no prompt, está (inconscientemente) pedindo para o Claude estruturar a resposta nesse loop. Funciona porque é um framework de raciocínio legítimo, não porque é uma palavra secreta.</p>
+                </div>
+              </div>
+              <span class="vc-prompt-label">→ Como realmente usar (em profundidade)</span>
+              <div class="vc-prompt">Use o framework OODA para analisar minha situação:
+
+OBSERVE: Quais dados objetivos são relevantes aqui?
+[descreva sua situação]
+
+ORIENT: Como esses dados se relacionam? Que padrões emergem?
+
+DECIDE: Quais opções de ação surgem dessa análise?
+
+ACT: Qual é o plano concreto com primeiros passos?
+
+Situação: [seu contexto real]</div>
+            </div>
+          </div>
+
+          <!-- L99 -->
+          <div class="veredito-card">
+            <div class="vc-header vc-header-fake">
+              <span class="vc-badge badge-fake">✗ Placebo</span>
+              <span class="vc-code">L99</span>
+              <span class="vc-desc-curta">Não significa nada para o Claude</span>
+            </div>
+            <div class="vc-body">
+              <div class="vc-grid">
+                <div>
+                  <span class="vc-col-label label-o-que-dizem">O que o post diz</span>
+                  <p class="vc-text">"Quais produtos digitais mais vendem hoje? L99" — como se desbloqueasse uma resposta mais profunda.</p>
+                </div>
+                <div>
+                  <span class="vc-col-label label-verdade">A verdade</span>
+                  <p class="vc-text">"L99" não é um comando reconhecido, não existe em nenhum protocolo do Claude, não tem documentação da Anthropic. O Claude processa como texto aleatório no final do prompt — que ele ignora ou tenta interpretar como parte da pergunta. Qualquer melhoria na resposta vem de outros fatores.</p>
+                </div>
+              </div>
+              <div class="callout danger" style="margin-top:14px;">
+                <div class="callout-icon">🚫</div>
+                <div class="callout-body"><h4>Teste você mesmo</h4><p>Faça a mesma pergunta duas vezes — uma com "L99" e uma sem. As respostas serão equivalentes. Se houver diferença, é da variação natural de linguagem, não do prefixo.</p></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- /godmode -->
+          <div class="veredito-card">
+            <div class="vc-header vc-header-fake">
+              <span class="vc-badge badge-fake">✗ Não existe</span>
+              <span class="vc-code">/godmode</span>
+              <span class="vc-desc-curta">Não é um comando do Claude</span>
+            </div>
+            <div class="vc-body">
+              <div class="vc-grid">
+                <div>
+                  <span class="vc-col-label label-o-que-dizem">O que o post diz</span>
+                  <p class="vc-text">"/godmode Quais habilidades estão pagando mais para freelancers hoje?" — como se ativasse um modo superior.</p>
+                </div>
+                <div>
+                  <span class="vc-col-label label-verdade">A verdade</span>
+                  <p class="vc-text">Comandos com "/" (slash) existem em algumas ferramentas — Discord, Slack, Claude Code. No Claude.ai (chat), não há comandos de slash. "/godmode" é tratado como texto normal. O Claude não tem modos ocultos nem levels de acesso desbloqueáveis por palavras no chat. Isso não existe na arquitetura do produto.</p>
+                </div>
+              </div>
+              <div class="callout insight" style="margin-top:14px;">
+                <div class="callout-icon">🔬</div>
+                <div class="callout-body"><h4>A origem do mito</h4><p>Vem da cultura de games (God Mode = invencibilidade) + prompts de jailbreak de 2022-2023 que tentavam "desbloquear" a IA com frases especiais. Aqueles também não funcionavam como prometiam — e com modelos modernos, ainda menos.</p></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- /ghost -->
+          <div class="veredito-card">
+            <div class="vc-header vc-header-fake">
+              <span class="vc-badge badge-fake">✗ Não existe</span>
+              <span class="vc-code">/ghost</span>
+              <span class="vc-desc-curta">Não é um comando do Claude</span>
+            </div>
+            <div class="vc-body">
+              <div class="vc-grid">
+                <div>
+                  <span class="vc-col-label label-o-que-dizem">O que o post diz</span>
+                  <p class="vc-text">"/ghost Qual tipo de portfólio atrai mais clientes hoje?" — suposto modo anônimo ou especial.</p>
+                </div>
+                <div>
+                  <span class="vc-col-label label-verdade">A verdade</span>
+                  <p class="vc-text">Igual ao /godmode — não existe. O Claude não tem modo ghost, não tem modo anônimo, não tem modos secretos de nenhum tipo acessíveis via prefixo de texto. A pergunta é respondida normalmente, sem qualquer diferença. O prefixo "/" é completamente ignorado no contexto de resposta.</p>
+                </div>
+              </div>
+              <div class="callout warning" style="margin-top:14px;">
+                <div class="callout-icon">📱</div>
+                <div class="callout-body"><h4>Por que esses posts viralizam</h4><p>Urgência ("ninguém vai te ensinar isso"), exclusividade ("5 códigos secretos"), demonstração visual convincente (tela do celular com resposta boa). O conteúdo parece legítimo porque as <em>respostas mostradas</em> são boas — mas isso é seleção de cherry-picking, não efeito do código.</p></div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /veredito-list -->
+      </div>
+
+      <div class="block">
+        <h2>O que funciona de verdade</h2>
+        <p>A boa notícia: <strong>você não precisa de códigos secretos</strong>. As técnicas que realmente melhoram as respostas do Claude são acessíveis, documentadas e aprendíveis. Elas são exatamente o que você aprende neste curso — e vamos aprofundar nas próximas aulas deste módulo.</p>
+
+        <div class="code-wrap">
+          <div class="code-header">
+            <div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div>
+            <span class="code-lang">O que realmente muda uma resposta</span>
+            <button class="code-copy">Copiar</button>
+          </div>
+          <div class="code-body"><span class="c-bad">❌ NÃO muda a qualidade da resposta:</span>
+<span class="c-tag">→ Prefixos como /godmode, /ghost, L99
+→ Palavras "mágicas" não documentadas
+→ Emojis no início do prompt
+→ Afirmar que você é especialista para "enganar" o Claude
+→ Dizer que é urgente ou importante</span>
+
+<span class="c-good">✓ O QUE REALMENTE MUDA:</span>
+<span class="c-good">→ Definir a audiência do conteúdo ("para um CEO de PME")
+→ Especificar o formato esperado ("como tabela comparativa")
+→ Dar contexto real ("minha empresa tem 3 pessoas, R$50k de runway")
+→ Pedir raciocínio em voz alta ("pense passo a passo antes de concluir")
+→ Usar frameworks reais como estrutura (OODA, SCAMPER, 5W2H)
+→ Definir restrições negativas ("sem jargão técnico", "sem clichês")
+→ Iterar a partir da primeira resposta em vez de aceitar e sair</span></div>
+        </div>
+      </div>
+
+      <div class="lesson-footer">
+        <div class="footer-next">
+          <div class="footer-next-label">Próxima aula</div>
+          <div class="footer-next-title">X.2 — RTK: a única ferramenta real de economia de tokens</div>
+        </div>
+        <button class="complete-btn" id="cb0" onclick="complete(0)">Marcar como concluída ✓</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════ -->
+  <!-- AULA X.2 — RTK REAL -->
+  <!-- ══════════════════════════ -->
+  <div class="lesson-content" id="l1">
+    <div class="hero-real">
+      <span class="hr-tag">✦ Ferramenta Real · Claude Code</span>
+      <h1 class="hr-title">RTK — Economize <em>até 89%</em><br>dos tokens no Claude Code</h1>
+      <p class="hr-sub">Diferente dos "códigos secretos", o RTK é uma ferramenta de código aberto, instalável, com dados mensuráveis. 10,3M de tokens economizados em 2.927 comandos — e você pode replicar isso.</p>
+    </div>
+
+    <div class="lesson-inner">
+      <div class="lesson-header">
+        <div class="lesson-meta">
+          <span class="lesson-num-label">Aula X.2</span>
+          <span class="lesson-tag tag-real">Ferramenta Real</span>
+          <span class="lesson-dur">⏱ ~25 minutos</span>
+        </div>
+        <h1 class="lesson-title">RTK — A Ferramenta que<br><em>Realmente</em> Corta Tokens</h1>
+        <p class="lesson-sub">RTK (Run Token Kit) é um toolkit para Claude Code que intercepta comandos comuns — busca de arquivos, git status, leitura de diretórios — e devolve apenas o que o Claude precisa saber, descartando o ruído. O resultado: 60% a 89% menos tokens por operação.</p>
+      </div>
+
+      <div class="block">
+        <h2>Por que tokens custam tanto no Claude Code</h2>
+        <p>No Claude Code, cada ação que o agente toma consome tokens — não só o que você digita, mas também os outputs dos comandos de shell que o agente executa. O problema: muitos comandos retornam <strong>muito mais informação do que o agente precisa</strong>.</p>
+
+        <div class="code-wrap">
+          <div class="code-header">
+            <div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div>
+            <span class="code-lang">O problema — sem RTK</span>
+          </div>
+          <div class="code-body"><span class="c-cm">// Você pede: "quais arquivos JS existem no projeto?"</span>
+<span class="c-cm">// O agente executa: find . -name "*.js"</span>
+<span class="c-cm">// Output retornado: TUDO isso vai pro contexto:</span>
+
+<span class="c-bad">./node_modules/react/index.js
+./node_modules/react/cjs/react.development.js
+./node_modules/react/cjs/react.production.min.js
+./node_modules/react-dom/index.js
+... (847 linhas de node_modules)
+./src/components/Button.js          ← isso é o que importa
+./src/pages/Home.js                 ← isso é o que importa
+./src/utils/api.js                  ← isso é o que importa</span>
+
+<span class="c-cm">// Tokens consumidos: ~6.000 para encontrar 3 arquivos úteis</span>
+<span class="c-cm">// Tokens que deveriam ser consumidos: ~50</span></div>
+        </div>
+
+        <div class="code-wrap">
+          <div class="code-header">
+            <div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div>
+            <span class="code-lang">Com RTK — rtk find</span>
+          </div>
+          <div class="code-body"><span class="c-cm">// RTK intercepta o comando, exclui node_modules,</span>
+<span class="c-cm">// .git, build/, dist/ e outros diretórios de ruído</span>
+<span class="c-cm">// Retorna apenas:</span>
+
+<span class="c-good">./src/components/Button.js
+./src/pages/Home.js
+./src/utils/api.js</span>
+
+<span class="c-cm">// Tokens consumidos: ~50</span>
+<span class="c-cm">// Economia: 78% nesse comando específico</span></div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2>Os dados reais — do print que viralizou</h2>
+        <p>O print mostrado no post de Instagram não é fabricado — é o output real do comando <code style="background:var(--bg2);padding:2px 6px;border-radius:4px;font-family:JetBrains Mono,monospace;font-size:12px;">rtk gain</code> que mostra estatísticas de economia acumulada.</p>
+
+        <div class="code-wrap">
+          <div class="code-header">
+            <div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div>
+            <span class="code-lang">$ rtk gain — o que cada número significa</span>
+          </div>
+          <div class="code-body"><span class="c-gold">RTK Token Savings</span>
+─────────────────────────────────
+Total commands:   <span class="c-hl">2,927</span>     <span class="c-cm">← quantas vezes o RTK foi acionado</span>
+Input tokens:     <span class="c-hl">11.6M</span>     <span class="c-cm">← tokens que teriam sido consumidos</span>
+Output tokens:    <span class="c-hl">1.4M</span>      <span class="c-cm">← tokens que foram realmente consumidos</span>
+Tokens saved:     <span class="c-good">10.3M (89.2%)</span>  <span class="c-cm">← economia total</span>
+
+By Command:
+─────────────────────────────────
+Command          Count    Saved    Avg%
+<span class="c-tag">rtk find</span>         324     6.8M    <span class="c-good">78.3%</span>   <span class="c-cm">← busca de arquivos</span>
+<span class="c-tag">rtk git status</span>   215     1.4M    <span class="c-good">80.8%</span>   <span class="c-cm">← status do git filtrado</span></div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2>Como instalar e usar</h2>
+
+        <div class="rtk-install">
+          <div class="rtk-tab-bar">
+            <div class="rtk-tab active" onclick="rtkTab('npm')">npm</div>
+            <div class="rtk-tab" onclick="rtkTab('npx')">npx (sem instalar)</div>
+            <div class="rtk-tab" onclick="rtkTab('config')">Configurar</div>
+          </div>
+          <div class="rtk-pane active" id="rtkp-npm">$ npm install -g rtk-claude
+
+<span class="c-cm"># Verificar instalação:</span>
+$ rtk --version
+
+<span class="c-cm"># Ver estatísticas de economia:</span>
+$ rtk gain</div>
+          <div class="rtk-pane" id="rtkp-npx">
+<span class="c-cm"># Sem instalação global — use diretamente:</span>
+$ npx rtk-claude find . -name "*.js"
+$ npx rtk-claude git status
+
+<span class="c-cm"># Útil para testar antes de instalar globalmente</span></div>
+          <div class="rtk-pane" id="rtkp-config">
+<span class="c-cm"># O RTK pode ser configurado via .rtkrc no projeto</span>
+{
+  "exclude": [
+    "node_modules",
+    ".git",
+    "dist",
+    "build",
+    ".next",
+    "__pycache__",
+    "*.log"
+  ],
+  "maxLines": 200,
+  "compressOutput": true
+}
+
+<span class="c-cm"># Coloque na raiz do projeto. O Claude Code vai usar</span>
+<span class="c-cm"># automaticamente ao rodar comandos de busca.</span></div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2>Comandos RTK que mais economizam</h2>
+
+        <div class="code-wrap">
+          <div class="code-header">
+            <div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div>
+            <span class="code-lang">Comandos principais</span>
+            <button class="code-copy">Copiar</button>
+          </div>
+          <div class="code-body"><span class="c-cm"># Busca de arquivos — exclui ruído automaticamente</span>
+<span class="c-good">$ rtk find . -name "*.ts" -name "*.tsx"</span>
+
+<span class="c-cm"># Git status comprimido — só o que mudou de fato</span>
+<span class="c-good">$ rtk git status</span>
+
+<span class="c-cm"># Listar estrutura de diretório — sem node_modules</span>
+<span class="c-good">$ rtk ls -R src/</span>
+
+<span class="c-cm"># Ler arquivo com limite de linhas</span>
+<span class="c-good">$ rtk cat src/index.ts --max-lines 100</span>
+
+<span class="c-cm"># Ver diff comprimido</span>
+<span class="c-good">$ rtk git diff --stat</span>
+
+<span class="c-cm"># Ver estatísticas de economia acumulada</span>
+<span class="c-good">$ rtk gain</span>
+
+<span class="c-cm"># Limpar cache de estatísticas</span>
+<span class="c-good">$ rtk gain --reset</span></div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2>Quando o RTK faz mais diferença</h2>
+
+        <div class="callout tip">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body">
+            <h4>Use RTK quando...</h4>
+            <p><strong>Projetos grandes:</strong> monorepos, projetos com node_modules pesados, repositórios com histórico longo de git. O RTK economiza mais onde há mais ruído para filtrar.</p>
+          </div>
+        </div>
+        <div class="callout insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <h4>Impacto no custo</h4>
+            <p>Se você usa o plano Max ou API direta, cada token economizado é dinheiro. Em sessões longas de Claude Code (1+ horas de desenvolvimento), o RTK pode reduzir o consumo de contexto a ponto de permitir sessões mais longas antes de precisar resetar.</p>
+          </div>
+        </div>
+        <div class="callout warning">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-body">
+            <h4>Limitação importante</h4>
+            <p>O RTK é uma ferramenta de terceiros — não é oficial da Anthropic. Antes de usar em projetos de produção, verifique a versão atual, o repositório oficial no GitHub e se há atualizações. Ferramentas da comunidade podem ter breaking changes entre versões.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="lesson-footer">
+        <div class="footer-next">
+          <div class="footer-next-label">Próxima aula</div>
+          <div class="footer-next-title">X.3 — OODA Loop: o framework militar que funciona de verdade</div>
+        </div>
+        <button class="complete-btn" id="cb1" onclick="complete(1)">Marcar como concluída ✓</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════ -->
+  <!-- AULA X.3 — OODA APROFUNDADO -->
+  <!-- ══════════════════════════ -->
+  <div class="lesson-content" id="l2">
+    <div class="hero-framework">
+      <span class="hf-tag">✦ Framework Real · Origem Militar</span>
+      <h1 class="hf-title">OODA Loop —<br><em>Além do Post Viral</em></h1>
+      <p class="hf-sub">O OODA é um dos frameworks de decisão mais sofisticados já criados. Foi desenvolvido para pilotos de caça lidando com situações que mudam em frações de segundo. Aplicado ao Claude, ele muda a estrutura do raciocínio — não porque é uma palavra especial, mas porque é uma arquitetura de pensamento poderosa.</p>
+    </div>
+
+    <div class="lesson-inner">
+      <div class="lesson-header">
+        <div class="lesson-meta">
+          <span class="lesson-num-label">Aula X.3</span>
+          <span class="lesson-tag tag-framework">Framework</span>
+          <span class="lesson-dur">⏱ ~22 minutos</span>
+        </div>
+        <h1 class="lesson-title">OODA Loop —<br>Do F-86 ao <em>Claude</em></h1>
+        <p class="lesson-sub">John Boyd era o piloto mais temido da Força Aérea americana. Nunca perdeu um duelo aéreo. Sua obsessão era entender como decisões são tomadas em ambientes caóticos e de alta velocidade. O resultado virou um dos frameworks de decisão mais usados no mundo — em militares, negócios, esportes e agora IA.</p>
+      </div>
+
+      <div class="block">
+        <h2>A história real do OODA</h2>
+        <p>John Boyd percebeu que na Guerra da Coreia, pilotos americanos venciam combates mesmo com aviões tecnicamente inferiores (o F-86 Sabre vs o MiG-15). O motivo: o F-86 tinha uma bolha de cockpit maior e controles mais responsivos — os pilotos conseguiam <strong>observar mais rápido, reorientar mais rápido, decidir mais rápido e agir mais rápido</strong>. Quem completasse o loop mais rápido ganhava.</p>
+        <p>Boyd formalizou isso como o OODA Loop — e depois passou décadas refinando, especialmente a fase de "Orient", que ele considerava a mais negligenciada e mais poderosa das quatro.</p>
+      </div>
+
+      <div class="block">
+        <h2>As 4 fases — em profundidade</h2>
+
+        <div class="ooda-flow">
+          <div class="ooda-step">
+            <div class="ooda-letter">O</div>
+            <div class="ooda-word">Observe — Observar</div>
+            <div class="ooda-def">Coletar dados brutos da situação sem filtro. O que é objetivamente verdadeiro? Que fatos existem, independente da sua interpretação? Dados, números, eventos, comportamentos observáveis.</div>
+            <div class="ooda-prompt">→ "Que dados objetivos e verificáveis são relevantes aqui? Separe fatos de interpretações. Liste apenas o que é mensurável ou observável."</div>
+          </div>
+
+          <div class="ooda-step">
+            <div class="ooda-letter">O</div>
+            <div class="ooda-word">Orient — Orientar</div>
+            <div class="ooda-def">A fase mais crítica do OODA segundo Boyd. Interpretar os dados à luz de modelos mentais, experiências, cultura, análise implícita. É onde a experiência e o conhecimento transformam dados em compreensão. É aqui que o Claude entrega mais valor.</div>
+            <div class="ooda-prompt">→ "Com esses dados, o que eles significam no contexto de [setor/situação]? Que padrões emergem? Que experiências ou analogias são relevantes aqui?"</div>
+          </div>
+
+          <div class="ooda-step">
+            <div class="ooda-letter">D</div>
+            <div class="ooda-word">Decide — Decidir</div>
+            <div class="ooda-def">Gerar hipóteses de ação a partir da orientação. Não é uma decisão final — é um repertório de opções possíveis ordenadas por prioridade, cada uma com suas consequências mapeadas.</div>
+            <div class="ooda-prompt">→ "Que opções de ação surgem dessa análise? Para cada uma: qual o custo, qual o benefício, qual o risco e qual o horizonte de tempo de resultado?"</div>
+          </div>
+
+          <div class="ooda-step">
+            <div class="ooda-letter">A</div>
+            <div class="ooda-word">Act — Agir</div>
+            <div class="ooda-def">Implementar a decisão — e ao mesmo tempo iniciar um novo ciclo de Observação. O "loop" é essencial: você age, observa o resultado da ação, reorienta e decide de novo. Boyd insistia que a velocidade do loop é mais importante do que a perfeição de cada etapa.</div>
+            <div class="ooda-prompt">→ "Qual é o plano concreto com primeiros 3 passos, responsáveis, prazo e métrica de sucesso? E que novo dado vou observar depois de agir para alimentar o próximo loop?"</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2>Prompt OODA completo para usar agora</h2>
+        <p>Cole esse template e adapte para seu contexto. É o OODA aplicado de forma profunda — não como prefixo de duas letras, mas como estrutura de raciocínio completa.</p>
+
+        <div class="code-wrap">
+          <div class="code-header">
+            <div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div>
+            <span class="code-lang">Template OODA completo</span>
+            <button class="code-copy">Copiar</button>
+          </div>
+          <div class="code-body">Aplique o framework OODA para analisar minha situação.
+
+CONTEXTO:
+[Descreva sua situação aqui em detalhe]
+
+---
+
+OBSERVE:
+Liste apenas dados objetivos e verificáveis sobre essa situação.
+Separe fatos de opiniões. O que é mensurável?
+
+ORIENT:
+Com esses dados, o que eles significam no contexto de [seu setor]?
+Que padrões você reconhece? Que experiências análogas são relevantes?
+Quais são meus pontos cegos prováveis?
+
+DECIDE:
+Liste as 3 principais hipóteses de ação.
+Para cada uma: benefício esperado, risco principal, custo estimado.
+Qual a ordem de prioridade e por quê?
+
+ACT:
+Para a hipótese #1: plano concreto com primeiros 3 passos.
+Prazo de cada passo. Métrica para saber se funcionou.
+O que observo depois de agir para iniciar o próximo loop?</div>
+        </div>
+
+        <div class="callout key">
+          <div class="callout-icon">⚡</div>
+          <div class="callout-body">
+            <h4>Por que é tão mais poderoso do que só escrever "OODA"</h4>
+            <p>Quando você escreve "OODA Como ganhar dinheiro?" o Claude reconhece a palavra mas não sabe como você quer estruturar. Com o template completo, você instrui cada fase explicitamente — e o Claude executa cada uma em profundidade, em vez de fazer uma resposta genérica de 4 parágrafos.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2>Outros frameworks que funcionam da mesma forma</h2>
+        <p>O OODA não é o único. Existem outros frameworks que, quando usados como estrutura real (não como prefixo), transformam a qualidade das respostas:</p>
+
+        <div class="code-wrap">
+          <div class="code-header">
+            <div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div>
+            <span class="code-lang">Frameworks que funcionam como estrutura de prompt</span>
+            <button class="code-copy">Copiar</button>
+          </div>
+          <div class="code-body"><span class="c-gold">5W2H</span>  → O quê / Por quê / Quem / Quando / Onde / Como / Quanto
+<span class="c-cm">   Melhor para: planejamento de projetos, diagnóstico de problemas</span>
+
+<span class="c-gold">SCAMPER</span> → Substituir / Combinar / Adaptar / Modificar / Propor outro uso / Eliminar / Rearranjar
+<span class="c-cm">   Melhor para: inovação de produto, criatividade estruturada</span>
+
+<span class="c-gold">SWOT expandido</span> → Forças / Fraquezas / Oportunidades / Ameaças + Estratégias cruzadas
+<span class="c-cm">   Melhor para: análise estratégica com síntese de ação</span>
+
+<span class="c-gold">First Principles</span> → Desconstruir até os elementos irredutíveis, reconstruir
+<span class="c-cm">   Melhor para: questionamento de premissas, inovação radical</span>
+
+<span class="c-gold">Pre-mortem + Post-mortem</span> → Imaginar o fracasso, depois o sucesso e trabalhar de trás pra frente
+<span class="c-cm">   Melhor para: gestão de risco, planejamento de estratégia</span>
+
+<span class="c-gold">Jobs To Be Done</span> → Que "trabalho" o cliente quer que seja feito? Qual o progresso desejado?
+<span class="c-cm">   Melhor para: desenvolvimento de produto, marketing</span></div>
+        </div>
+      </div>
+
+      <div class="lesson-footer">
+        <div class="footer-next">
+          <div class="footer-next-label">Próxima aula</div>
+          <div class="footer-next-title">X.4 — 10 técnicas avançadas que ninguém no Instagram ensina</div>
+        </div>
+        <button class="complete-btn" id="cb2" onclick="complete(2)">Marcar como concluída ✓</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════ -->
+  <!-- AULA X.4 — TÉCNICAS AVANÇADAS -->
+  <!-- ══════════════════════════ -->
+  <div class="lesson-content" id="l3">
+    <div class="hero-adv">
+      <span class="ha-tag">✦ Técnicas · Nível Avançado</span>
+      <h1 class="ha-title">10 Técnicas que<br>Ninguém no Instagram<br><em>Ensina</em></h1>
+      <p class="ha-sub">Não têm nome dramático. Não viralizam fácil. Não cabem em 30 segundos de Reels. São técnicas que requerem entender como o Claude processa informação — e que entregam resultados que "códigos secretos" jamais vão chegar perto.</p>
+    </div>
+
+    <div class="lesson-inner">
+      <div class="lesson-header">
+        <div class="lesson-meta">
+          <span class="lesson-num-label">Aula X.4</span>
+          <span class="lesson-tag tag-tecnica">Técnicas Avançadas</span>
+          <span class="lesson-dur">⏱ ~30 minutos</span>
+        </div>
+        <h1 class="lesson-title">As 10 Técnicas<br><em>Que Ficam Fora</em> dos Virais</h1>
+        <p class="lesson-sub">Cada técnica abaixo tem: o que é, por que funciona tecnicamente, o prompt exato para usar, e o resultado esperado. Salve esse módulo — ele vai servir como referência.</p>
+      </div>
+
+      <div class="block">
+        <h2>As técnicas</h2>
+
+        <div class="tec-grid">
+
+          <div class="tec-item">
+            <div class="tec-header">
+              <span class="tec-icon">🔗</span>
+              <span class="tec-name">Chain-of-Density (CoD)</span>
+              <span class="tec-lvl lvl-avan">Avançado</span>
+            </div>
+            <div class="tec-body">
+              <p class="tec-desc">Técnica de resumo iterativo criada por pesquisadores da MIT e Salesforce. Em vez de pedir um resumo direto, você pede resumos progressivamente mais densos — cada versão mantém o mesmo tamanho mas adiciona mais informação essencial. O resultado final é um resumo de altíssima densidade informacional.</p>
+              <span class="tec-prompt-label">→ Prompt exato</span>
+              <div class="tec-prompt">Aqui está o documento: [COLE O TEXTO]
+
+Crie um resumo usando Chain-of-Density:
+
+Versão 1 (inicial): Resumo de 5 frases do texto. Pode ser genérico.
+
+Versão 2: Reescreva com o mesmo tamanho, mas adicione 3 entidades/conceitos 
+essenciais que faltaram. Torne mais denso sem aumentar.
+
+Versão 3: Repita — adicione mais 3 elementos essenciais ao mesmo tamanho.
+
+Versão 4: Final. Adicione os últimos elementos críticos restantes.
+
+Entregue apenas a Versão 4, precedida de uma linha explicando 
+o que foi comprimido nas iterações.</div>
+              <div class="tec-resultado">Resumos 4-5x mais informativos no mesmo espaço. Especialmente poderoso para documentos longos onde cada frase precisa carregar máxima informação.</div>
+            </div>
+          </div>
+
+          <div class="tec-item">
+            <div class="tec-header">
+              <span class="tec-icon">🪞</span>
+              <span class="tec-name">Espelhamento de Estilo</span>
+              <span class="tec-lvl lvl-avan">Avançado</span>
+            </div>
+            <div class="tec-body">
+              <p class="tec-desc">Em vez de descrever o tom que você quer, você mostra exemplos e pede para o Claude identificar os padrões antes de escrever. Isso cria uma análise explícita do seu estilo que é muito mais precisa do que qualquer descrição verbal que você poderia dar.</p>
+              <span class="tec-prompt-label">→ Prompt exato</span>
+              <div class="tec-prompt">Aqui estão 3 textos que escrevi:
+
+[TEXTO 1]
+---
+[TEXTO 2]
+---
+[TEXTO 3]
+
+Antes de escrever qualquer coisa, analise meu estilo:
+- Estrutura de frase preferida (curta, longa, mista)
+- Nível de formalidade (1-10)
+- Uso de dados vs. narrativa
+- Padrões de abertura e fechamento
+- Palavras que aparecem com frequência
+- O que eu evito
+
+Confirme seu entendimento do meu estilo. Depois escreva:
+[SEU PEDIDO AQUI] — com o meu estilo, não o de Claude.</div>
+              <div class="tec-resultado">Textos que parecem ter sido escritos por você, não pelo Claude. Elimina o problema de "parece escrito por IA".</div>
+            </div>
+          </div>
+
+          <div class="tec-item">
+            <div class="tec-header">
+              <span class="tec-icon">🎯</span>
+              <span class="tec-name">Decomposição de Problema com Reconvergência</span>
+              <span class="tec-lvl lvl-pro">Pro</span>
+            </div>
+            <div class="tec-body">
+              <p class="tec-desc">Para problemas complexos, você explicitamente instrui o Claude a: (1) decompor o problema em sub-problemas independentes, (2) resolver cada um separadamente, (3) reconverger identificando as interações entre as soluções. Isso evita que o Claude simplifique problemas complexos em uma resposta única e plana.</p>
+              <span class="tec-prompt-label">→ Prompt exato</span>
+              <div class="tec-prompt">Problema: [DESCREVA SEU PROBLEMA]
+
+Estruture a análise em 3 fases:
+
+FASE 1 — Decomposição:
+Identifique os sub-problemas independentes que compõem 
+o problema principal. Liste cada um com sua lógica interna.
+
+FASE 2 — Análise independente:
+Para cada sub-problema, desenvolva a análise como se 
+fosse o único problema a resolver. Não misture ainda.
+
+FASE 3 — Reconvergência:
+Agora identifique: como as soluções de cada sub-problema 
+interagem? Há conflitos? Há sinergias? 
+Qual é a solução integrada que considera todas as interações?</div>
+              <div class="tec-resultado">Análises que respeitam a complexidade real do problema em vez de colapsarem tudo em uma resposta simples.</div>
+            </div>
+          </div>
+
+          <div class="tec-item">
+            <div class="tec-header">
+              <span class="tec-icon">📐</span>
+              <span class="tec-name">Calibração de Incerteza</span>
+              <span class="tec-lvl lvl-avan">Avançado</span>
+            </div>
+            <div class="tec-body">
+              <p class="tec-desc">O Claude naturalmente confia nas suas afirmações de forma relativamente uniforme, mesmo quando a certeza varia muito entre elas. Ao pedir calibração explícita, você força distinção entre o que é bem fundamentado e o que é especulativo — e torna a resposta muito mais utilizável para decisões reais.</p>
+              <span class="tec-prompt-label">→ Prompt exato</span>
+              <div class="tec-prompt">Responda a [PERGUNTA/ANÁLISE].
+
+Para cada afirmação relevante, marque explicitamente:
+[ALTO] — bem fundamentado, múltiplas fontes convergentes
+[MÉDIO] — razoável, mas com variação por contexto
+[BAIXO] — especulativo, baseado em lógica geral, verifique
+
+No final, liste as 3 afirmações com menor confiança e 
+explique como verificá-las de forma independente.</div>
+              <div class="tec-resultado">Você sabe exatamente no que confiar e o que checar antes de usar. Elimina o problema de tratar tudo que o Claude diz como igual.</div>
+            </div>
+          </div>
+
+          <div class="tec-item">
+            <div class="tec-header">
+              <span class="tec-icon">🔄</span>
+              <span class="tec-name">Prompt Recursivo — Claude Avalia o Próprio Output</span>
+              <span class="tec-lvl lvl-pro">Pro</span>
+            </div>
+            <div class="tec-body">
+              <p class="tec-desc">Em vez de iterar você mesmo sobre a resposta, você pede para o Claude avaliar o próprio output contra critérios explícitos que você definiu — e depois reescrever considerando a própria avaliação. O resultado é uma segunda versão que já incorporou autocrítica estruturada.</p>
+              <span class="tec-prompt-label">→ Prompt exato</span>
+              <div class="tec-prompt">PASSO 1: [SEU PEDIDO ORIGINAL AQUI]
+
+---
+
+PASSO 2: Agora avalie o que você escreveu contra esses critérios:
+- Está direto ao ponto? (1-10)
+- Tem exemplos concretos suficientes? (1-10)
+- O tom está adequado para [AUDIÊNCIA]? (1-10)
+- Faltou algum aspecto crítico? O quê?
+- O que está mais fraco no texto?
+
+PASSO 3: Reescreva incorporando sua própria avaliação.
+Entregue apenas a versão final, não a avaliação intermediária.</div>
+              <div class="tec-resultado">Textos que já passaram por uma iteração de revisão sem você precisar fazer nada — economiza rodadas de vai-e-vem.</div>
+            </div>
+          </div>
+
+          <div class="tec-item">
+            <div class="tec-header">
+              <span class="tec-icon">🗺️</span>
+              <span class="tec-name">Mapeamento de Território Desconhecido</span>
+              <span class="tec-lvl lvl-avan">Avançado</span>
+            </div>
+            <div class="tec-body">
+              <p class="tec-desc">Quando você entra em um assunto novo, em vez de fazer perguntas pontuais, você pede ao Claude para mapear o território completo — o que existe, o que você precisa saber, o que é mais importante, e quais são as perguntas certas a fazer. Funciona como um orientador antes de uma jornada.</p>
+              <span class="tec-prompt-label">→ Prompt exato</span>
+              <div class="tec-prompt">Preciso aprender sobre [TEMA] para tomar uma decisão sobre [OBJETIVO].
+
+Mapeie o território para mim:
+1. Os 5 conceitos fundamentais que preciso dominar
+2. As 3 maiores armadilhas que iniciantes caem nessa área
+3. O que especialistas sabem que iniciantes não sabem
+4. As perguntas que eu deveria estar fazendo (e não estou)
+5. Onde as fontes de maior qualidade existem sobre isso
+6. O que geralmente é superestimado vs. subestimado nessa área
+
+Não responda ainda as perguntas — só mapeie o território.</div>
+              <div class="tec-resultado">Uma orientação completa antes de aprofundar, evitando que você invista tempo nas perguntas erradas.</div>
+            </div>
+          </div>
+
+          <div class="tec-item">
+            <div class="tec-header">
+              <span class="tec-icon">⚡</span>
+              <span class="tec-name">Parallel Persona Debate</span>
+              <span class="tec-lvl lvl-expert">Expert</span>
+            </div>
+            <div class="tec-body">
+              <p class="tec-desc">Para decisões com múltiplas perspectivas legítimas, você instrui o Claude a simular um debate entre 3-4 personas com visões distintas sobre o mesmo problema — e depois sintetizar o debate. É mais rico do que pedir "prós e contras" porque as personas têm valores e prioridades diferentes, não só argumentos.</p>
+              <span class="tec-prompt-label">→ Prompt exato</span>
+              <div class="tec-prompt">Situação: [DESCREVA SUA DECISÃO/DILEMA]
+
+Simule um debate entre estas personas sobre o que eu deveria fazer:
+
+PERSONA A — O Pragmático: foco em resultado rápido, ROI, praticidade
+PERSONA B — O Estrategista: foco em posicionamento de longo prazo, vantagem competitiva
+PERSONA C — O Cético: questiona premissas, aponta riscos e pontos cegos
+PERSONA D — O Inovador: busca a solução não-óbvia, questiona o padrão do setor
+
+Rodada 1: Cada persona expõe sua posição (3-4 frases cada)
+Rodada 2: Cada persona responde à mais forte objeção das outras
+Síntese: Que elementos do debate merecem mais peso? Conclusão integrada.</div>
+              <div class="tec-resultado">Uma visão 360° de uma decisão, com tensões reais entre perspectivas — muito mais útil do que qualquer lista de prós e contras.</div>
+            </div>
+          </div>
+
+          <div class="tec-item">
+            <div class="tec-header">
+              <span class="tec-icon">📊</span>
+              <span class="tec-name">Análise de Segundo e Terceiro Grau</span>
+              <span class="tec-lvl lvl-pro">Pro</span>
+            </div>
+            <div class="tec-body">
+              <p class="tec-desc">A maioria das análises para na consequência imediata. Análise de segundo grau pergunta: "e depois que isso acontecer, o que acontece?" Terceiro grau: "e depois disso?" Essa profundidade é onde o pensamento estratégico real acontece — e o Claude faz isso excepcionalmente bem quando instruído.</p>
+              <span class="tec-prompt-label">→ Prompt exato</span>
+              <div class="tec-prompt">Decisão/evento: [DESCREVA]
+
+Analise as consequências em 3 graus:
+
+1º GRAU (consequências diretas e imediatas):
+O que acontece imediatamente como resultado direto?
+
+2º GRAU (consequências das consequências):
+Para cada consequência de 1º grau, o que ela vai desencadear?
+Considere reações de: mercado, concorrentes, clientes, equipe.
+
+3º GRAU (consequências das consequências das consequências):
+Para as consequências mais relevantes do 2º grau, 
+para onde elas apontam no médio prazo (6-18 meses)?
+
+Síntese: Qual é a consequência de maior impacto que 
+provavelmente está sendo ignorada hoje?</div>
+              <div class="tec-resultado">Visão de consequências que a maioria das pessoas só descobre depois de tomar a decisão — especialmente útil em estratégia de negócios e carreiras.</div>
+            </div>
+          </div>
+
+          <div class="tec-item">
+            <div class="tec-header">
+              <span class="tec-icon">🧬</span>
+              <span class="tec-name">Decomposição Bayesiana de Crenças</span>
+              <span class="tec-lvl lvl-expert">Expert</span>
+            </div>
+            <div class="tec-body">
+              <p class="tec-desc">Inspirada no raciocínio bayesiano: explicitar qual a sua crença atual sobre algo, que evidência mudaria essa crença, e como novas informações devem ser ponderadas. É uma forma de tomar decisões sob incerteza de forma estruturada — e de usar o Claude para identificar quais evidências realmente importam buscar.</p>
+              <span class="tec-prompt-label">→ Prompt exato</span>
+              <div class="tec-prompt">Crença atual: "[DECLARE SUA CRENÇA OU HIPÓTESE AQUI]"
+Minha confiança nessa crença: [X]% 
+
+Análise bayesiana:
+
+PRIOR: Por que acredito nisso? Quais experiências e dados me levaram aqui?
+
+LIKELIHOOD: Que evidências confirmariam essa crença? 
+Que evidências a negariam? Liste as 3 mais importantes de cada tipo.
+
+ATUALIZAÇÃO: Se as evidências negativas que listei forem verdadeiras, 
+minha confiança deveria cair para [X]%. Por quê?
+Se as positivas forem verdadeiras, deveria subir para [Y]%. Por quê?
+
+PRÓXIMO PASSO: Que UMA informação eu deveria buscar primeiro 
+para atualizar minha crença da forma mais eficiente possível?</div>
+              <div class="tec-resultado">Clareza sobre o que você sabe, o que está assumindo, e onde colocar energia de pesquisa para reduzir incerteza de forma eficiente.</div>
+            </div>
+          </div>
+
+          <div class="tec-item">
+            <div class="tec-header">
+              <span class="tec-icon">🏗️</span>
+              <span class="tec-name">Scaffolding — Construção Incremental de Raciocínio</span>
+              <span class="tec-lvl lvl-pro">Pro</span>
+            </div>
+            <div class="tec-body">
+              <p class="tec-desc">Em vez de dar todo o problema de uma vez, você constrói o raciocínio incrementalmente em várias mensagens — cada uma confirmando e expandindo a anterior. Isso evita que o Claude "resolva" o problema prematuramente antes de ter todo o contexto, e produz análises muito mais alinhadas com a complexidade real da sua situação.</p>
+              <span class="tec-prompt-label">→ Prompt exato (sequência de 3 mensagens)</span>
+              <div class="tec-prompt"><span class="c-cm">// MENSAGEM 1 — só o contexto, sem a pergunta</span>
+"Vou te dar contexto sobre minha situação antes de fazer uma pergunta.
+[CONTEXTE SUA SITUAÇÃO]. Não responda ainda. Só me diga se 
+entendeu e se precisa de mais informação."
+
+<span class="c-cm">// MENSAGEM 2 — adicionar restrições e variáveis</span>
+"Certo. Agora adicione: [RESTRIÇÕES, OBJETIVOS, LIMITAÇÕES].
+Ainda não responda. Confirme que entendeu todas as variáveis."
+
+<span class="c-cm">// MENSAGEM 3 — finalmente, a pergunta real</span>
+"Com todo esse contexto, [SUA PERGUNTA REAL].
+Leve em consideração tudo que discutimos, especialmente [PONTO CRÍTICO]."</div>
+              <div class="tec-resultado">Respostas calibradas para o contexto completo, não para uma versão simplificada do problema. Especialmente poderoso para análises estratégicas longas.</div>
+            </div>
+          </div>
+
+        </div><!-- /tec-grid -->
+      </div>
+
+      <div class="callout purple">
+        <div class="callout-icon">🧠</div>
+        <div class="callout-body">
+          <h4>O padrão comum dessas 10 técnicas</h4>
+          <p>Todas elas compartilham uma característica: <strong>estruturam o processo de raciocínio, não só o resultado</strong>. Em vez de pedir "me dê a resposta", elas instruem como chegar à resposta. É essa diferença — processo vs. resultado — que separa o uso avançado do uso básico do Claude.</p>
+        </div>
+      </div>
+
+      <div class="lesson-footer">
+        <div class="footer-next">
+          <div class="footer-next-label">Última aula</div>
+          <div class="footer-next-title">X.5 — Quiz: você distingue o real do marketing?</div>
+        </div>
+        <button class="complete-btn" id="cb3" onclick="complete(3)">Marcar como concluída ✓</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════ -->
+  <!-- AULA X.5 — QUIZ FINAL -->
+  <!-- ══════════════════════════ -->
+  <div class="lesson-content" id="l4">
+    <div >
+
+    <div class="lesson-header">
+      <div class="lesson-meta">
+        <span class="lesson-num-label">Aula X.5</span>
+        <span class="lesson-tag tag-quiz">Quiz Final</span>
+        <span class="lesson-dur">⏱ ~10 minutos</span>
+      </div>
+      <h1 class="lesson-title">Você Distingue<br>o <em>Real</em> do Marketing?</h1>
+      <p class="lesson-sub">5 questões para checar se você internalizou o que é técnica real, o que é framework válido, e o que é placebo disfarçado de "código secreto".</p>
+    </div>
+
+    <div class="quiz-wrap">
+      <div class="quiz-header">
+        <span class="quiz-icon">🔬</span>
+        <span class="quiz-title">Quiz — Módulo Extra</span>
+      </div>
+
+      <div class="quiz-q" id="qq1">
+        <div class="quiz-q-text">1. Qual desses "códigos" do post viral tem uma lógica técnica real por trás, mesmo que o post não explique corretamente?</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" onclick="answer(1,this,'a')">a) /godmode</button>
+          <button class="quiz-opt" onclick="answer(1,this,'b')">b) L99</button>
+          <button class="quiz-opt" onclick="answer(1,this,'c')">c) OODA</button>
+          <button class="quiz-opt" onclick="answer(1,this,'d')">d) /ghost</button>
+        </div>
+        <div class="quiz-explain" id="qe1">✅ <strong>Resposta: c.</strong> OODA é um framework real criado por John Boyd — Observe, Orient, Decide, Act. Quando você usa OODA no prompt, está invocando uma estrutura de raciocínio legítima. O Claude a conhece e a aplica. L99, /godmode e /ghost não têm nenhum significado técnico no contexto do Claude.</div>
+      </div>
+
+      <div class="quiz-q" id="qq2">
+        <div class="quiz-q-text">2. O RTK (visto no primeiro post) economizou 89,2% dos tokens em uma sessão real. O que explica esse resultado?</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" onclick="answer(2,this,'a')">a) Comprime o código que o Claude escreve</button>
+          <button class="quiz-opt" onclick="answer(2,this,'b')">b) Filtra o output de comandos de shell, removendo ruído como node_modules antes de enviar ao contexto</button>
+          <button class="quiz-opt" onclick="answer(2,this,'c')">c) Usa um modelo de IA menor para tarefas simples</button>
+          <button class="quiz-opt" onclick="answer(2,this,'d')">d) Faz cache das respostas anteriores do Claude</button>
+        </div>
+        <div class="quiz-explain" id="qe2">✅ <strong>Resposta: b.</strong> O RTK intercepta comandos como find e git status e filtra o output antes de enviar ao contexto do Claude. Em vez de mandar 847 linhas de node_modules para o agente analisar, manda só os 3 arquivos relevantes. É filtragem de ruído — simples e eficaz.</div>
+      </div>
+
+      <div class="quiz-q" id="qq3">
+        <div class="quiz-q-text">3. Você usa a técnica de Calibração de Incerteza. Qual é o benefício principal?</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" onclick="answer(3,this,'a')">a) O Claude passa a usar fontes mais confiáveis</button>
+          <button class="quiz-opt" onclick="answer(3,this,'b')">b) A resposta fica mais curta e objetiva</button>
+          <button class="quiz-opt" onclick="answer(3,this,'c')">c) Você sabe quais afirmações verificar e quais confiar — e sabe como verificar</button>
+          <button class="quiz-opt" onclick="answer(3,this,'d')">d) O Claude para de confabular completamente</button>
+        </div>
+        <div class="quiz-explain" id="qe3">✅ <strong>Resposta: c.</strong> A calibração de incerteza não muda o que o Claude sabe — muda como ele comunica a confiança em cada afirmação. Você recebe uma resposta onde sabe distinguir o que é bem fundamentado do que é especulativo, e sabe o que checar. O Claude ainda pode confabular — mas agora você tem o mapa para identificar onde.</div>
+      </div>
+
+      <div class="quiz-q" id="qq4">
+        <div class="quiz-q-text">4. Por que a técnica de Scaffolding (construção incremental) produz resultados melhores do que enviar tudo de uma vez?</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" onclick="answer(4,this,'a')">a) O Claude processa mensagens curtas mais rápido</button>
+          <button class="quiz-opt" onclick="answer(4,this,'b')">b) Evita que o Claude "resolva" o problema antes de ter todo o contexto, produzindo análise mais calibrada</button>
+          <button class="quiz-opt" onclick="answer(4,this,'c')">c) Usa menos tokens totais</button>
+          <button class="quiz-opt" onclick="answer(4,this,'d')">d) Evita que o Claude discorde da sua posição</button>
+        </div>
+        <div class="quiz-explain" id="qe4">✅ <strong>Resposta: b.</strong> Quando você dá todo o contexto e a pergunta de uma vez, o Claude já começa a processar a resposta enquanto ainda "lê" as últimas partes. O scaffolding garante que cada pedaço do contexto seja confirmado antes de prosseguir — a análise final tem o contexto completo incorporado, não parcial.</div>
+      </div>
+
+      <div class="quiz-q" id="qq5">
+        <div class="quiz-q-text">5. Um post viral afirma que digitar "ULTRAMODE" antes de qualquer pergunta faz o Claude "usar todo seu potencial". Qual é a análise correta?</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" onclick="answer(5,this,'a')">a) Pode funcionar — o Claude tem modos ocultos que palavras especiais ativam</button>
+          <button class="quiz-opt" onclick="answer(5,this,'b')">b) É placebo: "ULTRAMODE" é texto sem significado para o Claude, mas o viés de confirmação faz parecer que funciona</button>
+          <button class="quiz-opt" onclick="answer(5,this,'c')">c) Funciona porque o Claude trata maiúsculas diferente de minúsculas</button>
+          <button class="quiz-opt" onclick="answer(5,this,'d')">d) Pode funcionar dependendo do modelo (Sonnet vs Opus)</button>
+        </div>
+        <div class="quiz-explain" id="qe5">✅ <strong>Resposta: b.</strong> "ULTRAMODE" não existe em nenhum protocolo do Claude. O Claude não tem modos ocultos acessíveis por prefixo de texto. O que acontece: quem escreve o prefixo geralmente presta mais atenção ao prompt que escreve depois — e aí atribui a melhoria ao "código". É viés de confirmação clássico. O Claude processa maiúsculas e minúsculas de forma equivalente para instruções desse tipo.</div>
+      </div>
+
+      <div class="quiz-result" id="quizResult">
+        <div class="quiz-score" id="quizScore">0/5</div>
+        <div class="quiz-msg" id="quizMsg"></div>
+        <button class="quiz-btn" onclick="restartQuiz()">Refazer o quiz</button>
+      </div>
+    </div>
+
+    <div class="callout key" style="margin-top:32px;">
+      <div class="callout-icon">🎓</div>
+      <div class="callout-body">
+        <h4>O que você leva desse módulo</h4>
+        <p>A capacidade de separar signal de noise. O mundo de conteúdo sobre IA está cheio de "códigos secretos" e "truques" que viralizam por serem simples de vender. O que realmente funciona — frameworks reais, técnicas de estruturação, ferramentas mensuráveis — é mais trabalhoso de aprender e não cabe em 30 segundos de Reels. <strong>Você agora tem os dois.</strong></p>
+      </div>
+    </div>
+
+    <div class="lesson-footer">
+      <div class="footer-next">
+        <div class="footer-next-label">Módulo concluído ✦</div>
+        <div class="footer-next-title">Volte à Área do Aluno para continuar sua trilha</div>
+      </div>
+      <button class="complete-btn" id="cb4" onclick="complete(4)">Marcar como concluída ✓</button>
+    </div>
+
+    </div>
+  </div>
+
+</div><!-- /main -->
+</div><!-- /layout -->
+
+<script>
+// ═══════════════ ESTADO ═══════════════
+const TOTAL = 5;
+const KEY_MOD = 'cm_prog_extra';
+const KEY_GLOBAL = 'cm_progress_v2';
+let current = 0;
+let done = JSON.parse(localStorage.getItem(KEY_MOD) || '[]');
+
+// ═══════════════ NAV ═══════════════
+function goTo(idx) {
+  document.getElementById('l' + current).classList.remove('active');
+  document.querySelectorAll('.nav-item')[current].classList.remove('active');
+  current = idx;
+  document.getElementById('l' + idx).classList.add('active');
+  document.querySelectorAll('.nav-item')[idx].classList.add('active');
+  window.scrollTo(0, 0);
+  renderProgress();
+}
+function nextLesson() { if (current < TOTAL - 1) goTo(current + 1); }
+function prevLesson() { if (current > 0) goTo(current - 1); }
+
+// ═══════════════ PROGRESSO ═══════════════
+function renderProgress() {
+  const pct = Math.round((done.length / TOTAL) * 100);
+  document.getElementById('progFill').style.width = pct + '%';
+  document.getElementById('progText').textContent = done.length + ' / ' + TOTAL + ' aulas';
+  done.forEach(i => document.querySelectorAll('.nav-item')[i].classList.add('done'));
+  syncGlobal();
+}
+function complete(idx) {
+  if (!done.includes(idx)) { done.push(idx); localStorage.setItem(KEY_MOD, JSON.stringify(done)); }
+  const btn = document.getElementById('cb' + idx);
+  btn.textContent = 'Concluída ✓'; btn.classList.add('done');
+  renderProgress();
+  if (idx < TOTAL - 1) setTimeout(() => goTo(idx + 1), 600);
+}
+function syncGlobal() {
+  try {
+    const g = JSON.parse(localStorage.getItem(KEY_GLOBAL) || '{}');
+    g['extra'] = { done: done.length, total: TOTAL };
+    localStorage.setItem(KEY_GLOBAL, JSON.stringify(g));
+  } catch(e) {}
+}
+
+// ═══════════════ RTK TABS ═══════════════
+function rtkTab(id) {
+  document.querySelectorAll('.rtk-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.rtk-pane').forEach(p => p.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('rtkp-' + id).classList.add('active');
+}
+
+// ═══════════════ QUIZ ═══════════════
+const answers = { 1:'c', 2:'b', 3:'c', 4:'b', 5:'b' };
+let answered = {};
+
+function answer(q, btn, opt) {
+  if (answered[q]) return;
+  answered[q] = opt;
+  const correct = answers[q];
+  const opts = btn.parentElement.querySelectorAll('.quiz-opt');
+  opts.forEach(o => o.disabled = true);
+  if (opt === correct) { btn.classList.add('correct'); }
+  else {
+    btn.classList.add('wrong');
+    opts.forEach(o => { if (o.textContent.startsWith(correct)) o.classList.add('correct'); });
+  }
+  document.getElementById('qe' + q).classList.add('show');
+  checkQuizComplete();
+}
+
+function checkQuizComplete() {
+  if (Object.keys(answered).length < 5) return;
+  const score = Object.entries(answered).filter(([q,a]) => answers[q] === a).length;
+  document.getElementById('quizScore').textContent = score + '/5';
+  const msgs = [
+    'Releia o módulo — há conceitos importantes para fixar.',
+    'Continue revisando — especialmente a aula dos vereditos.',
+    'Razoável. Você está distinguindo real de hype.',
+    'Muito bom. Você tem calibração acima da média.',
+    'Perfeito. Você não vai cair em "código secreto" nenhum.'
+  ];
+  document.getElementById('quizMsg').textContent = msgs[Math.min(score, 4)];
+  document.getElementById('quizResult').classList.add('show');
+}
+
+function restartQuiz() {
+  answered = {};
+  for (let q = 1; q <= 5; q++) {
+    document.getElementById('qq' + q).querySelectorAll('.quiz-opt').forEach(o => {
+      o.classList.remove('correct','wrong'); o.disabled = false;
+    });
+    document.getElementById('qe' + q).classList.remove('show');
+  }
+  document.getElementById('quizResult').classList.remove('show');
+}
+
+// ═══════════════ CODE COPY ═══════════════
+document.querySelectorAll('.code-copy').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const code = btn.closest('.code-wrap').querySelector('.code-body').innerText;
+    navigator.clipboard.writeText(code).then(() => {
+      btn.textContent = 'Copiado!';
+      setTimeout(() => btn.textContent = 'Copiar', 1500);
+    });
+  });
+});
+
+// ═══════════════ INIT ═══════════════
+done.forEach(i => {
+  const btn = document.getElementById('cb' + i);
+  if (btn) { btn.textContent = 'Concluída ✓'; btn.classList.add('done'); }
+});
+renderProgress();
+</script>
+
+</body>
+</html>

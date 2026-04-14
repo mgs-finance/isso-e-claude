@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 04 — Projects & Memory | Isso é Claude</title>
+
+<style>
+/* ISSO É CLAUDE — Design System v2.0 */
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+:root{
+  --bg:#ffffff;--bg2:#f5f5f5;--bg3:#fafafa;
+  --ink:#111111;--ink2:#333333;--ink3:#666666;--ink4:#999999;
+  --accent:#ff5c00;--accent2:#e04f00;--accent3:#cc4500;
+  --accent-light:rgba(255,92,0,0.07);--accent-mid:rgba(255,92,0,0.15);
+  --green:#16a34a;--green-bg:rgba(22,163,74,0.07);
+  --blue:#2563eb;--blue-bg:rgba(37,99,235,0.07);
+  --gold:#d97706;--gold-bg:rgba(217,119,6,0.07);
+  --red:#dc2626;--red-bg:rgba(220,38,38,0.07);
+  --purple:#7c3aed;--purple-bg:rgba(124,58,237,0.07);
+  --border:#e5e5e5;--border2:#d4d4d4;
+  --shadow:0 2px 12px rgba(0,0,0,0.07);--shadow-md:0 4px 20px rgba(0,0,0,0.09);--shadow-lg:0 8px 40px rgba(0,0,0,0.11);
+  --code-bg:#111111;--code-fg:#e8e8e8;
+  --sidebar-bg:#111111;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+
+
+
+/* SIDEBAR */
+
+
+
+.sb-brand{padding:28px 22px 20px;border-bottom:1px solid rgba(255,255,255,0.06);}
+.sb-tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--accent);text-transform:uppercase;margin-bottom:8px;display:block;}
+.sb-name{font-size:14px;font-weight:700;color:#fff;line-height:1.4;}
+.sb-mod{padding:12px 22px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,0.25);text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.04);}
+.nav-lessons{padding:8px 0;flex:1;}
+.nav-item{display:flex;align-items:flex-start;gap:10px;padding:10px 22px;cursor:pointer;transition:background 0.15s;border-left:3px solid transparent;}
+.nav-item:hover{background:rgba(255,92,0,0.08);}
+.nav-item.active{background:rgba(255,92,0,0.13);border-left-color:var(--accent);}
+.nav-item.done .nav-num::after{content:' ✓';color:var(--green);}
+.nav-num{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent);padding-top:2px;min-width:28px;font-weight:600;}
+.nav-title{font-size:11.5px;color:rgba(255,255,255,0.52);line-height:1.45;}
+.nav-item.active .nav-title{color:#fff;font-weight:500;}
+.sb-progress{padding:16px 22px;border-top:1px solid rgba(255,255,255,0.05);}
+.prog-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,0.22);text-transform:uppercase;margin-bottom:8px;}
+.prog-bar{height:2px;background:rgba(255,255,255,0.07);border-radius:1px;overflow:hidden;margin-bottom:6px;}
+.prog-fill{height:100%;background:var(--accent);border-radius:1px;transition:width 0.5s ease;}
+.prog-text{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.22);}
+/* MAIN */
+
+
+/* LESSON */
+
+
+.lesson-header{margin-bottom:48px;padding-bottom:32px;border-bottom:1px solid var(--border);}
+.lesson-meta{display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap;}
+.lesson-tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;padding:3px 10px;border-radius:3px;text-transform:uppercase;font-weight:600;border:1px solid transparent;}
+.tag-teoria{background:var(--blue-bg);color:var(--blue);border-color:rgba(37,99,235,0.2);}
+.tag-pratica{background:var(--green-bg);color:var(--green);border-color:rgba(22,163,74,0.2);}
+.tag-lab{background:var(--purple-bg);color:var(--purple);border-color:rgba(124,58,237,0.2);}
+.tag-tecnica{background:var(--accent-light);color:var(--accent);border-color:var(--accent-mid);}
+.tag-guia{background:var(--green-bg);color:var(--green);border-color:rgba(22,163,74,0.2);}
+.tag-resumo{background:var(--blue-bg);color:var(--blue);border-color:rgba(37,99,235,0.2);}
+.tag-dev{background:var(--purple-bg);color:var(--purple);border-color:rgba(124,58,237,0.2);}
+.tag-agente{background:var(--blue-bg);color:var(--blue);border-color:rgba(37,99,235,0.2);}
+.tag-skill{background:var(--purple-bg);color:var(--purple);border-color:rgba(124,58,237,0.2);}
+.tag-bonus{background:var(--gold-bg);color:var(--gold);border-color:rgba(217,119,6,0.2);}
+.tag-final{background:var(--accent-light);color:var(--accent);border-color:var(--accent-mid);}
+.tag-lider{background:var(--gold-bg);color:var(--gold);border-color:rgba(217,119,6,0.2);}
+.tag-estrategia{background:var(--accent-light);color:var(--accent);border-color:var(--accent-mid);}
+.tag-workshop{background:var(--green-bg);color:var(--green);border-color:rgba(22,163,74,0.2);}
+.tag-framework{background:var(--blue-bg);color:var(--blue);border-color:rgba(37,99,235,0.2);}
+.lesson-num-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink4);letter-spacing:1px;}
+.lesson-dur{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink4);}
+.lesson-title{font-family:'Lora',serif;font-size:clamp(28px,3.5vw,46px);font-weight:700;color:var(--ink);line-height:1.15;margin-bottom:16px;letter-spacing:-0.5px;}
+.lesson-title em{color:var(--accent);font-style:italic;}
+.lesson-sub{font-size:16px;color:var(--ink3);font-weight:300;line-height:1.8;max-width:640px;}
+/* BLOCKS */
+.block{margin-bottom:48px;}
+.block h2{font-family:'Lora',serif;font-size:22px;font-weight:600;color:var(--ink);margin-bottom:16px;display:flex;align-items:center;gap:12px;letter-spacing:-0.3px;}
+.block h2::before{content:'';width:4px;height:22px;background:var(--accent);border-radius:2px;flex-shrink:0;}
+.block p{font-size:15px;color:var(--ink2);line-height:1.85;margin-bottom:14px;font-weight:300;}
+.block p strong{color:var(--ink);font-weight:600;}
+/* CALLOUTS */
+.callout{border-radius:8px;padding:18px 22px;margin:20px 0;display:flex;gap:14px;align-items:flex-start;}
+.callout-icon{font-size:20px;flex-shrink:0;padding-top:2px;}
+.callout-body h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:5px;}
+.callout-body p{font-size:13.5px;margin:0;line-height:1.75;font-weight:300;color:var(--ink2);}
+.callout.tip{background:var(--green-bg);border-left:3px solid var(--green);}.callout.tip .callout-body h4{color:var(--green);}
+.callout.key{background:var(--accent-light);border-left:3px solid var(--accent);}.callout.key .callout-body h4{color:var(--accent);}
+.callout.insight{background:var(--blue-bg);border-left:3px solid var(--blue);}.callout.insight .callout-body h4{color:var(--blue);}
+.callout.warning{background:var(--gold-bg);border-left:3px solid var(--gold);}.callout.warning .callout-body h4{color:var(--gold);}
+.callout.purple{background:var(--purple-bg);border-left:3px solid var(--purple);}.callout.purple .callout-body h4{color:var(--purple);}
+.callout.gold{background:var(--gold-bg);border:1px solid rgba(217,119,6,0.2);}.callout.gold .callout-body h4{color:var(--gold);}
+/* CODE */
+.code-wrap{background:var(--code-bg);border-radius:10px;overflow:hidden;margin:20px 0;box-shadow:var(--shadow-md);}
+.code-header{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;background:rgba(255,255,255,0.03);border-bottom:1px solid rgba(255,255,255,0.06);}
+.code-dots{display:flex;gap:6px;}
+.code-dot{width:10px;height:10px;border-radius:50%;}
+.dot-r{background:#ff5f57;}.dot-y{background:#febc2e;}.dot-g{background:#28c840;}
+.code-lang{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:2px;text-transform:uppercase;}
+.code-copy{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.35);background:rgba(255,255,255,0.06);border:none;cursor:pointer;padding:4px 10px;border-radius:4px;transition:all 0.15s;}
+.code-copy:hover{background:rgba(255,92,0,0.2);color:var(--accent);}
+.code-
+.c-cm{color:#6e7681;}.c-good{color:#7ee787;}.c-bad{color:#ff7b72;}.c-tag{color:#ffa657;}.c-hl{color:#79c0ff;}.c-str{color:#a5d6ff;}
+/* STEPS */
+.step-flow{display:flex;flex-direction:column;gap:0;margin:24px 0;}
+.step{display:flex;gap:20px;align-items:flex-start;position:relative;padding-bottom:24px;}
+.step:last-child{padding-bottom:0;}
+.step:not(:last-child)::after{content:'';position:absolute;left:19px;top:44px;bottom:0;width:2px;background:linear-gradient(to bottom,var(--accent),transparent);opacity:0.18;}
+.step-num{width:40px;height:40px;background:var(--accent);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;flex-shrink:0;}
+.step-
+.step-title{font-size:15px;font-weight:600;margin-bottom:6px;color:var(--ink);}
+.step-desc{font-size:13px;color:var(--ink3);line-height:1.7;font-weight:300;}
+.step-tip{margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);background:var(--accent-light);padding:5px 12px;border-radius:4px;display:inline-block;border:1px solid var(--accent-mid);}
+/* TABS */
+.tab-group{margin:20px 0;}
+.tabs{display:flex;border-bottom:2px solid var(--border);gap:0;}
+.tab{padding:9px 20px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border:none;background:transparent;color:var(--ink4);transition:all 0.15s;border-bottom:2px solid transparent;margin-bottom:-2px;font-weight:500;}
+.tab:hover{color:var(--ink);}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent);}
+.tab-panel{display:none;}.tab-panel.active{display:block;}
+/* QUIZ */
+.quiz{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:32px 0;box-shadow:var(--shadow);}
+.quiz-header{padding:20px 28px;background:var(--ink);border-bottom:3px solid var(--accent);}
+.quiz-tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--accent);text-transform:uppercase;margin-bottom:6px;display:block;}
+.quiz-title{font-family:'Lora',serif;font-size:20px;font-weight:600;color:#fff;}
+.quiz-
+.quiz-question{display:none;}.quiz-question.active{display:block;}
+.q-num{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--ink4);text-transform:uppercase;margin-bottom:10px;}
+.q-text{font-size:15px;font-weight:500;margin-bottom:20px;line-height:1.6;color:var(--ink);}
+.q-options{display:flex;flex-direction:column;gap:8px;margin-bottom:16px;}
+.q-option{padding:12px 16px;border:1.5px solid var(--border);border-radius:8px;cursor:pointer;font-size:13.5px;color:var(--ink2);transition:all 0.15s;display:flex;align-items:flex-start;gap:10px;font-weight:300;background:#fff;}
+.q-option:hover{border-color:var(--accent);background:var(--accent-light);}
+.q-option.selected.correct{border-color:var(--green);background:var(--green-bg);color:var(--green);}
+.q-option.selected.wrong{border-color:var(--red);background:var(--red-bg);}
+.q-option.disabled{pointer-events:none;}
+.q-letter{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--ink4);min-width:16px;padding-top:2px;}
+.q-feedback{padding:12px 16px;border-radius:8px;font-size:13.5px;line-height:1.65;display:none;font-weight:300;margin-bottom:8px;}
+.q-feedback.show{display:block;}
+.q-feedback.correct{background:var(--green-bg);border-left:3px solid var(--green);color:var(--green);}
+.q-feedback.wrong{background:var(--red-bg);border-left:3px solid var(--red);color:var(--red);}
+.q-next{margin-top:8px;padding:9px 22px;background:var(--ink);color:#fff;border:none;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;display:none;transition:background 0.15s;}
+.q-next.show{display:inline-block;}.q-next:hover{background:var(--accent);}
+.quiz-result{display:none;text-align:center;padding:40px 20px;}.quiz-result.show{display:block;}
+.result-score{font-family:'Lora',serif;font-size:64px;font-weight:700;color:var(--accent);line-height:1;margin-bottom:12px;}
+.result-label{font-size:18px;font-weight:600;margin-bottom:8px;color:var(--ink);}
+.result-desc{font-size:14px;color:var(--ink3);margin-bottom:24px;font-weight:300;}
+.result-retry{padding:11px 32px;background:var(--accent);color:#fff;border:none;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-weight:600;}
+.result-retry:hover{background:var(--accent2);}
+/* FOOTER */
+.lesson-footer{margin-top:60px;padding-top:28px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:20px;}
+.footer-next{display:flex;flex-direction:column;gap:4px;}
+.footer-next-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--ink4);}
+.footer-next-title{font-size:14px;font-weight:600;color:var(--ink);}
+.complete-btn{padding:13px 28px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;font-weight:700;transition:all 0.2s;white-space:nowrap;box-shadow:0 2px 8px rgba(255,92,0,0.22);}
+.complete-btn:hover{background:var(--accent2);transform:translateY(-1px);box-shadow:0 4px 16px rgba(255,92,0,0.28);}
+.complete-btn.done{background:var(--green);box-shadow:0 2px 8px rgba(22,163,74,0.22);}
+/* MOBILE */
+.sidebar-toggle{display:none;position:fixed;bottom:24px;right:24px;width:52px;height:52px;background:var(--accent);color:#fff;border:none;border-radius:50%;font-size:20px;cursor:pointer;z-index:200;box-shadow:var(--shadow-lg);align-items:center;justify-content:center;}
+
+
+/* ── CSS específico do módulo ── */
+:root{
+  --bg:#faf7f2;--bg2:#f0ebe0;--ink:#1a1510;--ink2:#3d3628;--ink3:#8a7e6a;
+  --accent:#ff5c00;--accent2:#cc4900;--accent-light:rgba(255,92,0,0.08);
+  --green:#0f7a4a;--blue:#1a4fd4;--gold:#b8860b;--purple:#6c3fd4;
+  --card:#fff;--border:#e0d8cc;--code-bg:#1a1510;--code-fg:#f0e8d8;
+  --shadow:0 2px 14px rgba(255,92,0,0.06);--shadow-lg:0 8px 40px rgba(0,0,0,0.10);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+
+
+
+
+
+
+.block{margin-bottom:40px;}
+.callout{border-radius:6px;padding:18px 22px;margin:20px 0;display:flex;gap:14px;align-items:flex-start;}
+/* STEP FLOW */
+.step-flow{display:flex;flex-direction:column;gap:0;margin:20px 0;}
+/* PROJECT BUILDER */
+.proj-builder{background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin:22px 0;box-shadow:var(--shadow);}
+.pb-header{padding:16px 22px;background:var(--ink);color:#fff;display:flex;align-items:center;gap:12px;}
+.pb-header h3{font-size:14px;font-weight:600;color:#fff;margin:0;}
+.pb-badge{font-family:'JetBrains Mono',monospace;font-size:9px;background:var(--accent);color:#fff;padding:3px 8px;border-radius:3px;letter-spacing:1px;text-transform:uppercase;}
+.pb-form{padding:22px;display:grid;gap:14px;}
+.pb-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.fg label{display:block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:6px;font-weight:500;}
+.fg select,.fg input,.fg textarea{width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:5px;font-family:'Sora',sans-serif;font-size:13px;color:var(--ink);background:var(--bg);outline:none;transition:border-color .15s;}
+.fg select:focus,.fg input:focus,.fg textarea:focus{border-color:var(--accent);}
+.fg textarea{resize:vertical;min-height:80px;}
+.pb-output{margin:0 22px 22px;background:var(--code-bg);border-radius:8px;overflow:hidden;display:none;}
+.pb-out-header{padding:10px 20px;background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.06);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--accent);text-transform:uppercase;display:flex;justify-content:space-between;align-items:center;}
+.pb-out-pre{padding:20px;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.85;color:var(--code-fg);white-space:pre-wrap;word-break:break-word;}
+.pb-gen-btn{display:block;width:calc(100% - 44px);margin:0 22px 22px;padding:13px;background:var(--accent);color:#fff;border:none;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:600;cursor:pointer;transition:all .2s;}
+.pb-gen-btn:hover{background:var(--accent2);transform:translateY(-1px);}
+/* SYSTEM PROMPT TEMPLATES */
+.sp-card{background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin:16px 0;box-shadow:var(--shadow);}
+.sp-header{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.sp-title-wrap{display:flex;align-items:center;gap:10px;}
+.sp-icon{font-size:20px;}
+.sp-name{font-size:14px;font-weight:700;color:var(--ink);}
+.sp-cat{font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 9px;border-radius:3px;letter-spacing:1px;text-transform:uppercase;font-weight:600;}
+.cat-negocio{background:rgba(255,92,0,.1);color:var(--accent);}
+.cat-juridico{background:rgba(184,134,11,.1);color:var(--gold);}
+.cat-mkt{background:rgba(108,63,212,.1);color:var(--purple);}
+.cat-fin{background:rgba(15,122,74,.1);color:var(--green);}
+.cat-rh{background:rgba(26,79,212,.1);color:var(--blue);}
+.sp-
+.sp-prompt{padding:18px 20px;background:var(--bg);font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.85;color:var(--ink2);white-space:pre-wrap;border-bottom:1px solid var(--border);}
+.sp-prompt .ph{color:var(--accent);font-weight:600;}
+.sp-footer{padding:12px 20px;display:flex;align-items:center;justify-content:space-between;}
+.sp-use{font-size:12px;color:var(--ink3);font-weight:300;}
+.sp-copy{padding:7px 16px;background:var(--accent);color:#fff;border:none;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-weight:600;transition:all .15s;}
+.sp-copy:hover{background:var(--accent2);}
+/* MEMORY VISUAL */
+.memory-visual{background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin:20px 0;box-shadow:var(--shadow);}
+.mv-header{padding:14px 20px;background:var(--ink);color:#fff;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;}
+.mv-
+.mem-item{display:flex;gap:14px;align-items:flex-start;padding:12px 16px;border-radius:6px;border:1px solid var(--border);}
+.mem-item.active-mem{border-color:var(--accent);background:var(--accent-light);}
+.mem-icon{font-size:20px;flex-shrink:0;}
+.mem-key{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--accent);margin-bottom:3px;}
+.mem-val{font-size:13px;color:var(--ink2);font-weight:300;line-height:1.5;}
+/* USE CASE CARDS */
+.use-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0;}
+.use-card{background:#fff;border:1px solid var(--border);border-radius:8px;padding:18px;transition:all .2s;cursor:default;}
+.use-card:hover{border-color:var(--accent);box-shadow:var(--shadow);transform:translateY(-2px);}
+.use-icon{font-size:26px;margin-bottom:10px;}
+.use-title{font-size:14px;font-weight:700;margin-bottom:6px;color:var(--ink);}
+.use-desc{font-size:12px;color:var(--ink3);line-height:1.6;font-weight:300;}
+/* QUIZ */
+.quiz{background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin:28px 0;box-shadow:var(--shadow);}
+/* EXERCISE */
+.exercise{background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin:24px 0;}
+.ex-header{padding:14px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
+.ex-icon{font-size:18px;}
+.ex-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);font-weight:600;}
+.ex-
+.ex-scenario{background:var(--bg2);border-radius:6px;padding:14px 18px;font-size:14px;color:var(--ink2);margin-bottom:16px;line-height:1.7;border-left:3px solid var(--accent);}
+.ex-area{width:100%;min-height:110px;padding:14px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ink);background:var(--bg);resize:vertical;outline:none;line-height:1.7;transition:border-color .15s;margin-bottom:14px;}
+.ex-area:focus{border-color:var(--accent);}
+.ex-btn{padding:9px 22px;background:var(--accent);color:#fff;border:none;border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-weight:600;transition:all .15s;margin-right:8px;}
+.ex-btn:hover{background:var(--accent2);}
+.ex-btn.sec{background:transparent;color:var(--ink2);border:1px solid var(--border);}
+.ex-btn.sec:hover{border-color:var(--ink);color:var(--ink);}
+.model-answer{display:none;margin-top:18px;background:var(--bg2);border-radius:8px;overflow:hidden;}
+.model-answer.show{display:block;}
+.ma-header{padding:9px 16px;background:rgba(15,122,74,.1);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--green);font-weight:600;}
+.ma-
+
+.back-btn:hover{color:var(--accent);}
+
+/* TOPBAR unificada */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  height: 48px;
+  min-height: 48px;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  white-space: nowrap;
+}
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  overflow: hidden;
+}
+.topbar-home {
+  color: var(--ink4);
+  text-decoration: none;
+  transition: color .15s;
+  white-space: nowrap;
+}
+.topbar-home:hover { color: var(--accent); }
+.topbar-sep { color: var(--border2); }
+.topbar-bc { color: var(--ink3); white-space: nowrap; }
+.topbar-aula { color: var(--accent); font-weight: 700; white-space: nowrap; }
+.topbar-nav { display: flex; gap: 8px; flex-shrink: 0; }
+.tb-btn {
+  padding: 6px 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--ink3);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all .15s;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.tb-btn:hover { border-color: var(--accent); color: var(--accent); }
+.tb-btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+.tb-btn.primary:hover { background: var(--accent2); }
+
+/* ═══════════════════════════════════════
+   LAYOUT — Isso é Claude v3
+   Testado: sidebar fixa, scroll no body
+   ═══════════════════════════════════════ */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Sora', -apple-system, sans-serif;
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+/* SIDEBAR — fixa, scroll próprio */
+.sidebar {
+  width: 272px;
+  background: var(--sidebar-bg);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid rgba(255,255,255,0.04);
+}
+.sidebar::-webkit-scrollbar { width: 3px; }
+.sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 2px; }
+
+/* MAIN — empurrado pela sidebar, scroll do body */
+.main {
+  margin-left: 272px;
+}
+
+/* TOPBAR — sticky no topo do viewport com scroll do body */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  height: 52px;
+  padding: 0 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* LESSON — ocupa a largura disponível */
+.lesson-content {
+  display: none;
+  padding: 56px 48px 80px;
+  max-width: 860px;
+  box-sizing: border-box;
+}
+.lesson-content.active {
+  display: block;
+}
+
+/* MOBILE */
+@media (max-width: 860px) {
+  .sidebar {
+    transform: translateX(-272px);
+    transition: transform .25s ease;
+  }
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  .main {
+    margin-left: 0;
+  }
+  .topbar {
+    padding: 0 16px;
+    height: 52px;
+  }
+  .lesson-content {
+    padding: 32px 20px 64px;
+  }
+}
+
+
+</style>
+</head>
+<body>
+<div class="layout">
+
+<nav class="sidebar" id="sidebar">
+  <div class="sb-brand">
+    <span class="sb-tag">Isso é Claude</span>
+    <div class="sb-name">Módulo 04<br>Projects & Memory</div>
+  </div>
+  <div class="sb-mod">5 aulas · ~1h30</div>
+  <div class="nav-lessons">
+    <div class="nav-item active" onclick="goTo(0)"><span class="nav-num">04.1</span><span class="nav-title">O que são Projects e como funcionam</span></div>
+    <div class="nav-item" onclick="goTo(1)"><span class="nav-num">04.2</span><span class="nav-title">System prompts personalizados</span></div>
+    <div class="nav-item" onclick="goTo(2)"><span class="nav-num">04.3</span><span class="nav-title">Carregando documentos base no projeto</span></div>
+    <div class="nav-item" onclick="goTo(3)"><span class="nav-num">04.4</span><span class="nav-title">Memória do usuário entre sessões</span></div>
+    <div class="nav-item" onclick="goTo(4)"><span class="nav-num">04.5</span><span class="nav-title">Caso prático: assistente de vendas completo</span></div>
+  </div>
+  <div class="sb-progress">
+    <div class="prog-label">Progresso</div>
+    <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:20%"></div></div>
+    <div class="prog-text" id="progText">1 de 5 aulas</div>
+  </div>
+</nav>
+
+<main class="main">
+  <div class="topbar">
+    <div class="topbar-left">
+      <a href="index.html" class="topbar-home">← Área do Aluno</a>
+      <span class="topbar-sep">›</span>
+      <span class="topbar-bc">Módulo 04</span>
+      <span class="topbar-sep">›</span>
+      <span class="topbar-aula" id="topLabel">Aula 04.1</span>
+    </div>
+    <div class="topbar-nav">
+      <button class="tb-btn" onclick="prev()">← Anterior</button>
+      <button class="tb-btn primary" onclick="next()">Próxima →</button>
+    </div>
+  </div>
+
+  <!-- ══ 04.1 ══ -->
+  <div class="lesson-content active" id="l0">
+    <div class="lesson-header">
+      <div class="lesson-meta">
+        <span class="lesson-num-label">Aula 04.1</span>
+        <span class="lesson-tag tag-teoria">Teoria</span>
+        <span class="lesson-dur">⏱ ~16 minutos</span>
+      </div>
+      <h1 class="lesson-title">O que são Projects —<br>e Como Funcionam na Prática</h1>
+      <p class="lesson-sub">Projects são a funcionalidade que transforma o Claude de um chatbot genérico em um assistente especializado que conhece sua empresa. Entenda como funciona essa virada de chave.</p>
+    </div>
+
+    <div class="block">
+      <h2>O Problema que Projects resolve</h2>
+      <p>Sem Projects, cada conversa com o Claude começa do zero. Você precisa re-explicar quem é, qual é seu negócio, qual tom prefere, quais são suas restrições — toda vez. É como contratar um assistente que perde a memória toda manhã.</p>
+      <p>Com Projects, você cria um <strong>espaço de trabalho permanente</strong> onde o Claude já sabe tudo que precisa saber sobre você e seu negócio — antes mesmo de você digitar a primeira palavra.</p>
+
+      <div class="callout key">
+        <div class="callout-icon">🔑</div>
+        <div class="callout-body">
+          <h4>A Definição Simples</h4>
+          <p>Um Project é uma pasta com três coisas: <strong>(1) um system prompt</strong> que define o comportamento do Claude, <strong>(2) documentos base</strong> que o Claude pode consultar, e <strong>(3) um histórico de conversas</strong> dentro daquele contexto. Tudo persiste entre sessões.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2>O que muda com Projects</h2>
+      <div class="use-grid">
+        <div class="use-card">
+          <div class="use-icon">⏱️</div>
+          <div class="use-title">Zero recontextualização</div>
+          <div class="use-desc">Você abre o projeto e já pode fazer a pergunta. Sem briefing, sem re-explicar quem você é. O Claude já sabe.</div>
+        </div>
+        <div class="use-card">
+          <div class="use-icon">🎯</div>
+          <div class="use-title">Respostas calibradas por área</div>
+          <div class="use-desc">Um projeto para financeiro, outro para marketing, outro para RH — cada um com o tom e especialidade corretos.</div>
+        </div>
+        <div class="use-card">
+          <div class="use-icon">📚</div>
+          <div class="use-title">Base de conhecimento própria</div>
+          <div class="use-desc">Seus manuais, contratos, tabelas de preço, políticas — o Claude consulta quando precisa, sem você precisar colar toda vez.</div>
+        </div>
+        <div class="use-card">
+          <div class="use-icon">🔄</div>
+          <div class="use-title">Consistência garantida</div>
+          <div class="use-desc">O tom, as regras e o conhecimento são os mesmos em todas as conversas dentro do projeto. Sem variações aleatórias.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2>Como criar um Project — Passo a Passo</h2>
+      <div class="step-flow">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Acesse o menu lateral no Claude.ai</div>
+            <div class="step-desc">No painel esquerdo do Claude.ai, clique em "Projects" (ou "Projetos") e depois em "New Project". Dê um nome descritivo — ex: "Assistente Financeiro", "Suporte ao Cliente", "Marketing da Marca".</div>
+            <span class="step-tip">Requer plano Pro ou Team</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Escreva o System Prompt do projeto</div>
+            <div class="step-desc">O system prompt é a instrução base que o Claude recebe antes de qualquer conversa. Aqui você define: papel, contexto da empresa, tom, regras, restrições. É o "contrato de trabalho" do seu assistente. (Aula 04.2 inteira sobre isso)</div>
+            <span class="step-tip">Máximo 25.000 tokens — mais que suficiente</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Suba seus documentos base</div>
+            <div class="step-desc">PDFs, Word, CSV, TXT — qualquer documento que o Claude precisará consultar. Tabela de preços, manual do produto, contrato padrão, políticas da empresa, FAQ. (Aula 04.3 detalha isso)</div>
+            <span class="step-tip">Até 20 arquivos por projeto</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-title">Inicie conversas dentro do projeto</div>
+            <div class="step-desc">Toda nova conversa criada dentro do projeto herda o system prompt e tem acesso aos documentos. O histórico fica organizado dentro do projeto. Você pode ter múltiplas conversas sobre temas diferentes.</div>
+            <span class="step-tip">Conversas ficam salvas e organizadas</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <div class="step-title">Itere e melhore o system prompt</div>
+            <div class="step-desc">Conforme usa o projeto, você vai perceber gaps — situações que o Claude não trata bem. Volte ao system prompt, adicione regras e refine. Com o tempo, fica cada vez mais preciso.</div>
+            <span class="step-tip">O projeto melhora com o uso</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2>Quantos Projects criar?</h2>
+      <p>A resposta depende de como você trabalha. Uma boa heurística: <strong>um projeto por área de responsabilidade ou persona do assistente</strong>.</p>
+
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div>
+          <span class="code-lang">Exemplos de estrutura de Projects</span>
+        </div>
+        <div class="code-body"><span class="c-cm">// Para um dono de empresa de motofranchising:</span>
+<span class="c-good">📁 Projeto: Gestão da Frota
+   → System prompt: especialista em manutenção de frotas YBR 150
+   → Docs: manual da moto, histórico de manutenção, contratos de aluguel
+
+📁 Projeto: Marketing & Captação
+   → System prompt: especialista em marketing para gig economy SP
+   → Docs: briefing da marca, exemplos de post, tabela de preços
+
+📁 Projeto: Financeiro
+   → System prompt: analista financeiro PME brasileira
+   → Docs: DRE dos últimos 6 meses, planilha de inadimplência</span>
+
+<span class="c-cm">// Para um profissional liberal (advogado, consultor, designer):</span>
+<span class="c-good">📁 Assistente de Clientes → comunicação, propostas, follow-up
+📁 Pesquisa e Análise → estudos, dossiês, sínteses
+📁 Produção de Conteúdo → artigos, posts, apresentações</span></div>
+      </div>
+    </div>
+
+    <div class="lesson-footer">
+      <div class="footer-next"><div class="footer-next-label">Próxima aula</div><div class="footer-next-title">04.2 — System prompts personalizados</div></div>
+      <button class="complete-btn" id="cb0" onclick="complete(0)">Marcar como concluída ✓</button>
+    </div>
+  </div>
+
+  <!-- ══ 04.2 ══ -->
+  <div class="lesson-content" id="l1">
+    <div class="lesson-header">
+      <div class="lesson-meta">
+        <span class="lesson-num-label">Aula 04.2</span>
+        <span class="lesson-tag tag-config">Configuração</span>
+        <span class="lesson-dur">⏱ ~24 minutos</span>
+      </div>
+      <h1 class="lesson-title">System Prompts —<br>Criando seu Claude Especialista</h1>
+      <p class="lesson-sub">O system prompt é o documento mais importante de um projeto. É onde você "programa" o comportamento do Claude — tom, especialidade, regras, limites. Nesta aula, templates prontos para os casos mais comuns.</p>
+    </div>
+
+    <div class="block">
+      <h2>A Anatomia de um System Prompt Perfeito</h2>
+      <p>Um bom system prompt cobre cinco dimensões. Você não precisa de todas em todo projeto, mas quanto mais completo, mais consistente o comportamento:</p>
+
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div>
+          <span class="code-lang">Estrutura de system prompt — 5 dimensões</span>
+        </div>
+        <div class="code-body"><span class="c-cm">## 1. IDENTIDADE — Quem você é</span>
+<span class="c-good">Você é [NOME/PAPEL] da empresa Minha Empresa.
+Sua especialidade é Marketing. Você tem [X] anos de experiência em [CONTEXTO].</span>
+
+<span class="c-cm">## 2. CONTEXTO DA EMPRESA — O que o Claude precisa saber</span>
+<span class="c-good">A empresa: [O QUE FAZ, PARA QUEM, DIFERENCIAL]
+Nosso público: [DESCRIÇÃO DO CLIENTE IDEAL]
+Nossa proposta de valor: [O QUE ENTREGAMOS DE ÚNICO]</span>
+
+<span class="c-cm">## 3. TOM E ESTILO — Como você se comunica</span>
+<span class="c-good">Tom: [direto / empático / técnico / descontraído]
+Evite: [jargão corporativo / linguagem muito formal / emojis excessivos]
+Prefira: [exemplos práticos / linguagem simples / ser direto ao ponto]</span>
+
+<span class="c-cm">## 4. REGRAS E RESTRIÇÕES — O que fazer e não fazer</span>
+<span class="c-good">Sempre: [cite fontes quando relevante / pergunte antes de assumir / sugira próximos passos]
+Nunca: [prometa o que não pode cumprir / compartilhe dados sensíveis / opine sobre política]
+Se não souber: [diga que não sabe e sugira onde encontrar a resposta]</span>
+
+<span class="c-cm">## 5. FORMATO PADRÃO — Como estruturar respostas</span>
+<span class="c-good">Respostas curtas: texto corrido, máximo 3 parágrafos
+Análises: use headers e bullets
+Quando listar opções: máximo 5 itens com justificativa
+Sempre termine com: [próximo passo sugerido / pergunta de clarificação]</span></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2>Templates de System Prompt — Prontos para Usar</h2>
+
+      <div class="sp-card">
+        <div class="sp-header">
+          <div class="sp-title-wrap"><div class="sp-icon">🏢</div><div class="sp-name">Assistente Geral de Negócios</div></div>
+          <span class="sp-cat cat-negocio">Negócio</span>
+        </div>
+        <div class="sp-body">
+          <div class="sp-prompt">Você é o assistente executivo pessoal de <span class="ph">Marcelo Silva</span>, dono(a) da <span class="ph">Minha Empresa</span>.
+
+SOBRE A EMPRESA:
+<span class="ph">Minha Empresa</span> é uma empresa de <span class="ph">[SETOR]</span> localizada em <span class="ph">[CIDADE]</span>.
+Fazemos: <span class="ph">[O QUE FAZ]</span>
+Nosso público: <span class="ph">[QUEM SÃO OS CLIENTES]</span>
+Nosso diferencial: <span class="ph">[O QUE NOS FAZ DIFERENTES]</span>
+Temos <span class="ph">[X]</span> funcionários e faturamos aproximadamente <span class="ph">[FAIXA]</span> por mês.
+
+TOM E ESTILO:
+- Direto e sem rodeios — vá ao ponto
+- Linguagem de negócios, sem formalidade excessiva
+- Prefira listas quando houver múltiplos itens
+- Máximo 300 palavras por resposta, salvo análises longas
+
+REGRAS:
+- Quando não souber algo específico da empresa, pergunte antes de inventar
+- Sempre termine análises com uma recomendação clara
+- Se eu pedir algo fora do seu escopo, diga e sugira alternativa
+- Contexto financeiro é confidencial — nunca cite valores reais em exemplos</div>
+          <div class="sp-footer">
+            <div class="sp-use">✦ Base para qualquer negócio — customize os campos laranja</div>
+            <button class="sp-copy" onclick="copySP(this)">Copiar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="sp-card">
+        <div class="sp-header">
+          <div class="sp-title-wrap"><div class="sp-icon">📱</div><div class="sp-name">Assistente de Marketing & Conteúdo</div></div>
+          <span class="sp-cat cat-mkt">Marketing</span>
+        </div>
+        <div class="sp-body">
+          <div class="sp-prompt">Você é o estrategista de conteúdo e marketing da <span class="ph">Minha Empresa</span>.
+
+NOSSA MARCA:
+Nome: <span class="ph">Minha Marca</span>
+Posicionamento: <span class="ph">[COMO NOS POSICIONAMOS NO MERCADO]</span>
+Tom de voz: <span class="ph">[EX: descontraído mas profissional / inspiracional / direto e sem frescura]</span>
+Cores e identidade: <span class="ph">[DESCREVA A IDENTIDADE VISUAL SE RELEVANTE]</span>
+
+NOSSO PÚBLICO:
+<span class="ph">[DESCRIÇÃO DETALHADA DO PÚBLICO-ALVO: idade, dores, desejos, comportamento digital]</span>
+
+CANAIS QUE USAMOS:
+<span class="ph">[INSTAGRAM / WHATSAPP / EMAIL / TIKTOK / LINKEDIN — liste os ativos]</span>
+
+REGRAS DE CONTEÚDO:
+- Sempre priorize benefício sobre característica
+- Evite: clichês de marketing, linguagem de vendedor, promessas exageradas
+- Use: linguagem do nosso público, referências culturais relevantes, tom <span class="ph">[DEFINIDO ACIMA]</span>
+- Hashtags: máximo 5 por post, sempre relevantes ao conteúdo
+
+Quando criar conteúdo, sempre pergunte se não tiver: tema, objetivo e canal.</div>
+          <div class="sp-footer">
+            <div class="sp-use">✦ Consistência de voz em todos os canais</div>
+            <button class="sp-copy" onclick="copySP(this)">Copiar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="sp-card">
+        <div class="sp-header">
+          <div class="sp-title-wrap"><div class="sp-icon">💰</div><div class="sp-name">Assistente Financeiro da Empresa</div></div>
+          <span class="sp-cat cat-fin">Finanças</span>
+        </div>
+        <div class="sp-body">
+          <div class="sp-prompt">Você é o analista financeiro interno da <span class="ph">Minha Empresa</span>.
+
+SEU PAPEL:
+Ajudar o dono a entender os números, identificar tendências, tomar decisões baseadas em dados
+e preparar análises para apresentar a sócios, banco ou investidores.
+
+CONTEXTO FINANCEIRO DA EMPRESA:
+Regime tributário: <span class="ph">[SIMPLES / LUCRO PRESUMIDO / LUCRO REAL]</span>
+Setor: <span class="ph">[SETOR]</span>
+Principal métrica de saúde: <span class="ph">[EX: margem líquida / inadimplência / ticket médio]</span>
+
+COMO VOCÊ COMUNICA:
+- Linguagem simples para empresário não-contador
+- Sempre explique termos técnicos na primeira ocorrência
+- Apresente cálculos passo a passo quando relevante
+- Termine análises com recomendação clara e acionável
+
+LIMITES IMPORTANTES:
+- Você não é contador habilitado — sempre recomende validação profissional para decisões fiscais
+- Quando os dados forem insuficientes, diga o que falta antes de analisar
+- Não opine sobre investimentos pessoais — foque no negócio</div>
+          <div class="sp-footer">
+            <div class="sp-use">✦ Suba DREs e planilhas como documentos do projeto</div>
+            <button class="sp-copy" onclick="copySP(this)">Copiar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="sp-card">
+        <div class="sp-header">
+          <div class="sp-title-wrap"><div class="sp-icon">🤝</div><div class="sp-name">Assistente de Atendimento ao Cliente</div></div>
+          <span class="sp-cat cat-rh">Atendimento</span>
+        </div>
+        <div class="sp-body">
+          <div class="sp-prompt">Você é o assistente de atendimento ao cliente da <span class="ph">Minha Empresa</span>.
+
+MISSÃO: resolver dúvidas, lidar com reclamações e garantir que o cliente se sinta ouvido e bem atendido.
+
+SOBRE NOSSOS CLIENTES E PRODUTOS:
+<span class="ph">[DESCREVA O QUE OS CLIENTES MAIS PERGUNTAM E OS PRODUTOS/SERVIÇOS]</span>
+
+TOM DE ATENDIMENTO:
+- Empático e humano — nunca robótico
+- Reconheça o problema antes de apresentar a solução
+- Use o nome do cliente quando fornecido
+- Seja proativo: antecipe a próxima dúvida
+
+PROTOCOLO DE SITUAÇÕES DIFÍCEIS:
+- Reclamação: reconheça, peça desculpas se for nossa falha, ofereça solução concreta
+- Pedido impossível: explique o limite com alternativa, nunca apenas "não podemos"
+- Cliente irritado: não entre em confronto, valide a frustração, escale se necessário
+
+LIMITES:
+- Não faça promessas de prazo ou desconto sem aprovação — escale para o responsável
+- Se não souber a resposta, diga "vou verificar e retorno em breve" — nunca invente</div>
+          <div class="sp-footer">
+            <div class="sp-use">✦ Suba FAQ e políticas como documentos do projeto</div>
+            <button class="sp-copy" onclick="copySP(this)">Copiar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2>✍️ Exercício — Escreva seu System Prompt</h2>
+      <div class="exercise">
+        <div class="ex-header"><div class="ex-icon">🎯</div><div class="ex-label">Exercício Prático</div></div>
+        <div class="ex-body">
+          <div class="ex-scenario"><strong>Desafio:</strong> Escreva um system prompt para o seu negócio ou área de atuação real. Use a estrutura de 5 dimensões: Identidade, Contexto da Empresa, Tom, Regras e Formato.</div>
+          <textarea class="ex-area" id="ex42" placeholder="Escreva seu system prompt aqui..."></textarea>
+          <button class="ex-btn" onclick="showAns('a42')">Ver checklist de qualidade</button>
+          <div class="model-answer" id="a42">
+            <div class="ma-header">✅ Checklist — Seu system prompt está completo?</div>
+            <div class="ma-body">[ ] Definiu claramente o PAPEL do assistente?
+[ ] Incluiu contexto suficiente sobre a empresa/negócio?
+[ ] Especificou o TOM desejado com exemplos?
+[ ] Listou o que o Claude NUNCA deve fazer?
+[ ] Definiu o formato padrão das respostas?
+[ ] Incluiu o que fazer quando não souber algo?
+[ ] O prompt tem menos de 2.000 palavras? (mais que isso pode ser muito)
+[ ] Testou o prompt com 5 perguntas reais que faria no dia a dia?</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-footer">
+      <div class="footer-next"><div class="footer-next-label">Próxima aula</div><div class="footer-next-title">04.3 — Carregando documentos base</div></div>
+      <button class="complete-btn" id="cb1" onclick="complete(1)">Marcar como concluída ✓</button>
+    </div>
+  </div>
+
+  <!-- ══ 04.3 ══ -->
+  <div class="lesson-content" id="l2">
+    <div class="lesson-header">
+      <div class="lesson-meta">
+        <span class="lesson-num-label">Aula 04.3</span>
+        <span class="lesson-tag tag-config">Configuração</span>
+        <span class="lesson-dur">⏱ ~18 minutos</span>
+      </div>
+      <h1 class="lesson-title">Documentos Base —<br>A Memória Permanente do Projeto</h1>
+      <p class="lesson-sub">Os documentos que você sobe em um projeto ficam disponíveis para o Claude consultar em qualquer conversa. É como dar ao seu assistente acesso à biblioteca da empresa — permanentemente.</p>
+    </div>
+
+    <div class="block">
+      <h2>O que subir como documento base</h2>
+      <p>Nem todo documento precisa estar no projeto. A regra é simples: <strong>suba o que o Claude precisaria consultar com frequência</strong> — e que seria trabalhoso colar manualmente toda vez.</p>
+
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div>
+          <span class="code-lang">O que subir vs o que não subir</span>
+        </div>
+        <div class="code-body"><span class="c-good">✅ SUBA ESSES DOCUMENTOS:</span>
+→ Tabela de preços atualizada
+→ FAQ dos clientes (perguntas mais frequentes)
+→ Contrato padrão da empresa
+→ Manual do produto ou serviço
+→ Políticas internas (reembolso, entrega, garantia)
+→ Briefing completo da marca (identidade, tom, público)
+→ Histórico de dados recorrentes (DRE, inadimplência)
+→ Lista de fornecedores com contatos e condições
+→ Roteiro de vendas ou script de atendimento
+
+<span class="c-bad">❌ NÃO PRECISA SUBIR:</span>
+→ Documentos de uso único (analise um contrato específico → cole na conversa)
+→ Arquivos muito grandes sem estrutura clara (mais de 100 páginas sem índice)
+→ Informações que mudam toda semana (sobe a versão atualizada quando mudar)
+→ Dados altamente sensíveis sem necessidade real (senhas, dados bancários)</span></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2>Como o Claude usa os documentos</h2>
+      <p>O Claude não "lê" os documentos como um humano leria. Ele os processa e os mantém disponíveis na janela de contexto do projeto. Quando você faz uma pergunta, ele consulta os documentos relevantes automaticamente.</p>
+
+      <div class="callout insight">
+        <div class="callout-icon">💡</div>
+        <div class="callout-body">
+          <h4>Dica de Organização dos Documentos</h4>
+          <p>Documentos bem estruturados geram respostas melhores. Prefira arquivos com headers claros, seções organizadas e linguagem direta. Um PDF escaneado sem OCR funciona muito pior que um Word com formatação limpa. Se possível, converta para texto antes de subir.</p>
+        </div>
+      </div>
+
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div>
+          <span class="code-lang">Exemplos de uso dos documentos base</span>
+          <button class="code-copy" onclick="copyCode(this)">copiar</button>
+        </div>
+        <div class="code-body"><span class="c-cm">// Com tabela de preços no projeto:</span>
+<span class="c-good">Você: "Quanto cobro por 3 motos alugadas por 4 semanas com manutenção inclusa?"
+Claude: [consulta a tabela] "Com base na nossa tabela, 3 motos × 4 semanas = R$X..."</span>
+
+<span class="c-cm">// Com FAQ do cliente no projeto:</span>
+<span class="c-good">Você: "Um cliente perguntou se pode trocar de moto no meio do contrato. O que respondo?"
+Claude: [consulta o FAQ] "De acordo com nossa política, a troca é permitida quando..."</span>
+
+<span class="c-cm">// Com contrato padrão no projeto:</span>
+<span class="c-good">Você: "O cliente quer negociar a cláusula de multa por rescisão antecipada. Quais são os limites?"
+Claude: [consulta o contrato] "Nossa cláusula 8.3 prevê multa de X dias. Você pode flexibilizar até..."</span>
+
+<span class="c-cm">// O Claude SEMPRE indica de onde tirou a informação quando usa um documento</span></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2>Mantendo os documentos atualizados</h2>
+      <p>Documentos desatualizados são piores que nenhum documento — o Claude vai dar respostas baseadas em informações erradas. Crie o hábito de atualizar o projeto quando algo mudar.</p>
+
+      <div class="callout warning">
+        <div class="callout-icon">⚠️</div>
+        <div class="callout-body">
+          <h4>Atualização obrigatória quando mudar</h4>
+          <p>Tabela de preços · Políticas de reembolso ou garantia · Contratos padrão (nova versão) · FAQ (novas dúvidas comuns) · Dados financeiros periódicos (DRE, fluxo). Dica: coloque a data de versão no nome do arquivo — "tabela-precos-jan2025.pdf".</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-footer">
+      <div class="footer-next"><div class="footer-next-label">Próxima aula</div><div class="footer-next-title">04.4 — Memória do usuário entre sessões</div></div>
+      <button class="complete-btn" id="cb2" onclick="complete(2)">Marcar como concluída ✓</button>
+    </div>
+  </div>
+
+  <!-- ══ 04.4 ══ -->
+  <div class="lesson-content" id="l3">
+    <div class="lesson-header">
+      <div class="lesson-meta">
+        <span class="lesson-num-label">Aula 04.4</span>
+        <span class="lesson-tag tag-teoria">Teoria</span>
+        <span class="lesson-dur">⏱ ~14 minutos</span>
+      </div>
+      <h1 class="lesson-title">Memória do Usuário —<br>Como o Claude Lembra de Você</h1>
+      <p class="lesson-sub">Além dos Projects, o Claude tem um sistema de memória pessoal que aprende sobre você ao longo das conversas. Entenda como funciona e como usar a seu favor.</p>
+    </div>
+
+    <div class="block">
+      <h2>Dois tipos de memória no Claude</h2>
+      <p>É importante distinguir duas coisas diferentes que as pessoas chamam de "memória" no Claude:</p>
+
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div>
+          <span class="code-lang">Memória de Projeto vs Memória de Usuário</span>
+        </div>
+        <div class="code-body"><span class="c-tag">📁 MEMÓRIA DE PROJETO (manual):</span>
+<span class="c-good">→ Você configura: system prompt + documentos
+→ Persiste em todas as conversas do projeto
+→ Você controla 100% — adiciona, remove, atualiza
+→ Específica por projeto (marketing ≠ financeiro)
+→ Disponível para qualquer usuário do projeto (Team)</span>
+
+<span class="c-hl">🧠 MEMÓRIA DO USUÁRIO (automática):</span>
+<span class="c-good">→ Claude aprende sobre você nas conversas
+→ Persiste entre sessões (não por projeto, mas para você)
+→ Inclui: preferências de formato, tom, área de atuação, contexto pessoal
+→ Você pode ver e editar suas memórias nas configurações
+→ Individual — só você tem acesso</span></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2>O que o Claude memoriza sobre você</h2>
+
+      <div class="memory-visual">
+        <div class="mv-header">Exemplos de memórias automáticas do Claude</div>
+        <div class="mv-body">
+          <div class="mem-item active-mem">
+            <div class="mem-icon">💼</div>
+            <div>
+              <div class="mem-key">CONTEXTO PROFISSIONAL</div>
+              <div class="mem-val">"Usuário é dono de empresa de motofranchising em São Paulo com 40 motos YBR 150 alugadas para entregadores de app."</div>
+            </div>
+          </div>
+          <div class="mem-item active-mem">
+            <div class="mem-icon">📝</div>
+            <div>
+              <div class="mem-key">PREFERÊNCIA DE FORMATO</div>
+              <div class="mem-val">"Prefere respostas diretas e concisas. Não gosta de linguagem corporativa. Prefere listas quando há múltiplos itens."</div>
+            </div>
+          </div>
+          <div class="mem-item active-mem">
+            <div class="mem-icon">🎯</div>
+            <div>
+              <div class="mem-key">OBJETIVOS ATUAIS</div>
+              <div class="mem-val">"Está desenvolvendo curso sobre uso do Claude para vender no Brasil. Também trabalha com análise de FIDCs e mercado financeiro."</div>
+            </div>
+          </div>
+          <div class="mem-item">
+            <div class="mem-icon">⚙️</div>
+            <div>
+              <div class="mem-key">PREFERÊNCIAS TÉCNICAS</div>
+              <div class="mem-val">"Prefere outputs em português brasileiro. Tem interesse em automação e ferramentas HTML de uso prático."</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2>Como gerenciar suas memórias</h2>
+
+      <div class="step-flow">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Ver suas memórias atuais</div>
+            <div class="step-desc">No Claude.ai, vá em Configurações → Memórias. Você verá tudo que o Claude guardou sobre você. É transparente — sem surpresas.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Pedir ao Claude para lembrar algo</div>
+            <div class="step-desc">Em qualquer conversa, diga: "Lembre que prefiro respostas em bullets" ou "Anota que minha empresa usa o regime do Simples Nacional". O Claude vai salvar.</div>
+            <span class="step-tip">"Claude, lembra que..." — simples assim</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Corrigir ou deletar memórias</div>
+            <div class="step-desc">Se o Claude memorizou algo errado, você pode corrigir nas configurações ou dizer diretamente: "Isso está errado — na verdade é X". Ele atualiza imediatamente.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-title">Usar modo incógnito quando não quer memorizar</div>
+            <div class="step-desc">Para conversas que você não quer que influenciem sua memória, use o modo incógnito do Claude. As memórias não são atualizadas nessas sessões.</div>
+            <span class="step-tip">Útil para testar personas ou contextos diferentes</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout tip">
+        <div class="callout-icon">💡</div>
+        <div class="callout-body">
+          <h4>Estratégia Pro — Memórias como Briefing Permanente</h4>
+          <p>Peça ao Claude para memorizar seu briefing completo de uma vez: <em>"Lembra todas essas informações sobre mim: [cole seu briefing]"</em>. A partir daí, todas as conversas — mesmo fora de projects — já têm seu contexto básico disponível.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2>Quiz — Projects & Memory</h2>
+      <div class="quiz" id="quiz-m4">
+        <div class="quiz-header">
+          <span class="quiz-tag">Fixação — Módulo 04</span>
+          <div class="quiz-title">Projects e Memória</div>
+        </div>
+        <div class="quiz-body">
+          <div class="quiz-question active" id="qm4-1">
+            <div class="q-num">Pergunta 1 de 3</div>
+            <div class="q-text">Você tem uma empresa com 3 áreas: comercial, financeiro e marketing. Qual é a melhor estrutura de Projects?</div>
+            <div class="q-options">
+              <div class="q-option" onclick="ans4('qm4-1',this,0,1)"><span class="q-letter">A</span>Um único projeto grande com tudo junto</div>
+              <div class="q-option" onclick="ans4('qm4-1',this,1,1)"><span class="q-letter">B</span>Três projetos separados, um por área, cada um com seu system prompt específico</div>
+              <div class="q-option" onclick="ans4('qm4-1',this,2,1)"><span class="q-letter">C</span>Não usar Projects — usar conversas normais com contexto colado</div>
+              <div class="q-option" onclick="ans4('qm4-1',this,3,1)"><span class="q-letter">D</span>Dois projetos: um operacional e um estratégico</div>
+            </div>
+            <div class="q-feedback" id="fb-qm4-1"></div>
+            <button class="q-next" id="nxt-qm4-1" onclick="nxtQ4('qm4-1','qm4-2')">Próxima →</button>
+          </div>
+          <div class="quiz-question" id="qm4-2">
+            <div class="q-num">Pergunta 2 de 3</div>
+            <div class="q-text">Qual documento FAZ MAIS sentido subir como base em um projeto de atendimento ao cliente?</div>
+            <div class="q-options">
+              <div class="q-option" onclick="ans4('qm4-2',this,0,2)"><span class="q-letter">A</span>DRE dos últimos 6 meses</div>
+              <div class="q-option" onclick="ans4('qm4-2',this,1,2)"><span class="q-letter">B</span>Contrato específico de um cliente que está em disputa</div>
+              <div class="q-option" onclick="ans4('qm4-2',this,2,2)"><span class="q-letter">C</span>FAQ com as 30 perguntas mais frequentes dos clientes e as respostas oficiais</div>
+              <div class="q-option" onclick="ans4('qm4-2',this,3,2)"><span class="q-letter">D</span>Manual técnico de 300 páginas do produto</div>
+            </div>
+            <div class="q-feedback" id="fb-qm4-2"></div>
+            <button class="q-next" id="nxt-qm4-2" onclick="nxtQ4('qm4-2','qm4-3')">Próxima →</button>
+          </div>
+          <div class="quiz-question" id="qm4-3">
+            <div class="q-num">Pergunta 3 de 3</div>
+            <div class="q-text">Qual é a diferença principal entre a memória de Project e a memória de usuário?</div>
+            <div class="q-options">
+              <div class="q-option" onclick="ans4('qm4-3',this,0,0)"><span class="q-letter">A</span>Project = você configura manualmente e é específico por projeto. Usuário = Claude aprende automaticamente e vale em todas as conversas</div>
+              <div class="q-option" onclick="ans4('qm4-3',this,1,0)"><span class="q-letter">B</span>Não há diferença — ambos funcionam da mesma forma</div>
+              <div class="q-option" onclick="ans4('qm4-3',this,2,0)"><span class="q-letter">C</span>A memória de usuário é mais confiável que a de projeto</div>
+              <div class="q-option" onclick="ans4('qm4-3',this,3,0)"><span class="q-letter">D</span>Memória de projeto só funciona no plano Team</div>
+            </div>
+            <div class="q-feedback" id="fb-qm4-3"></div>
+            <button class="q-next" id="nxt-qm4-3" onclick="showRes4('quiz-m4',3)">Ver resultado →</button>
+          </div>
+          <div class="quiz-result" id="result-quiz-m4">
+            <div class="result-score" id="score-quiz-m4">0/3</div>
+            <div class="result-label" id="rl-quiz-m4"></div>
+            <div class="result-desc" id="rd-quiz-m4"></div>
+            <button class="result-retry" onclick="retry4('quiz-m4',['qm4-1','qm4-2','qm4-3'])">Tentar novamente</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-footer">
+      <div class="footer-next"><div class="footer-next-label">Última aula do módulo</div><div class="footer-next-title">04.5 — Caso prático: assistente de vendas completo</div></div>
+      <button class="complete-btn" id="cb3" onclick="complete(3)">Marcar como concluída ✓</button>
+    </div>
+  </div>
+
+  <!-- ══ 04.5 ══ -->
+  <div class="lesson-content" id="l4">
+    <div class="lesson-header">
+      <div class="lesson-meta">
+        <span class="lesson-num-label">Aula 04.5</span>
+        <span class="lesson-tag tag-lab">Lab Prático</span>
+        <span class="lesson-dur">⏱ ~28 minutos</span>
+      </div>
+      <h1 class="lesson-title">Caso Prático —<br>Montando um Assistente de Vendas Completo</h1>
+      <p class="lesson-sub">Hora de colocar tudo junto. Nesta aula, você vai construir do zero um Project de vendas completo — com system prompt, documentos base e fluxo de uso real. Passo a passo.</p>
+    </div>
+
+    <div class="block">
+      <h2>O Objetivo</h2>
+      <p>Vamos montar um <strong>Assistente de Vendas</strong> que: responde dúvidas de clientes com base na sua tabela de preços, ajuda a criar propostas personalizadas, sugere argumentos para objeções comuns, e mantém o tom da marca em todas as interações.</p>
+      <p>Ao final, você terá um projeto replicável para qualquer negócio.</p>
+    </div>
+
+    <div class="block">
+      <h2>Construção Guiada — Use o Gerador</h2>
+      <p>Preencha os campos abaixo para gerar seu system prompt de vendas completo e pronto para usar:</p>
+
+      <div class="proj-builder">
+        <div class="pb-header">
+          <h3>Gerador de Project de Vendas</h3>
+          <span class="pb-badge">Interativo</span>
+        </div>
+        <div class="pb-form">
+          <div class="pb-row">
+            <div class="fg"><label>Nome da empresa</label><input type="text" id="pv-empresa" placeholder="Ex: MotoRun Franquias"></div>
+            <div class="fg"><label>Setor / produto</label><input type="text" id="pv-setor" placeholder="Ex: aluguel de motos para entregadores"></div>
+          </div>
+          <div class="fg"><label>Público-alvo (quem compra)</label><input type="text" id="pv-publico" placeholder="Ex: entregadores de iFood e Rappi, 25-40 anos, São Paulo"></div>
+          <div class="fg"><label>Principais diferenciais (separe por vírgula)</label><input type="text" id="pv-dif" placeholder="Ex: manutenção inclusa, troca rápida, sem entrada"></div>
+          <div class="fg"><label>3 objeções mais comuns dos clientes</label><textarea id="pv-obj" placeholder="Ex: 1. Está caro&#10;2. Prefiro comprar minha própria&#10;3. Não conheço a empresa"></textarea></div>
+          <div class="pb-row">
+            <div class="fg">
+              <label>Tom de vendas</label>
+              <select id="pv-tom">
+                <option value="consultivo e empático">Consultivo e empático</option>
+                <option value="direto e objetivo">Direto e objetivo</option>
+                <option value="descontraído e próximo">Descontraído e próximo</option>
+                <option value="técnico e detalhado">Técnico e detalhado</option>
+              </select>
+            </div>
+            <div class="fg">
+              <label>Canal principal de atendimento</label>
+              <select id="pv-canal">
+                <option value="WhatsApp">WhatsApp</option>
+                <option value="E-mail">E-mail</option>
+                <option value="Instagram DM">Instagram DM</option>
+                <option value="Presencial">Presencial</option>
+                <option value="Chat no site">Chat no site</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <button class="pb-gen-btn" onclick="gerarProject()">⚡ Gerar System Prompt Completo</button>
+        <div class="pb-output" id="pb-out">
+          <div class="pb-out-header">
+            <span>System Prompt gerado — copie e cole no seu Project</span>
+            <button class="code-copy" onclick="copyPBOut()">copiar</button>
+          </div>
+          <pre class="pb-out-pre" id="pb-out-pre"></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2>Documentos que esse projeto precisa</h2>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div>
+          <span class="code-lang">Checklist de documentos para o Project de Vendas</span>
+        </div>
+        <div class="code-body"><span class="c-good">📄 tabela-precos.pdf — preços, condições, pacotes disponíveis
+📄 faq-clientes.txt — perguntas frequentes e respostas oficiais
+📄 argumentario-vendas.txt — respostas prontas para objeções comuns
+📄 casos-de-sucesso.pdf — 3-5 histórias reais de clientes (prova social)
+📄 politica-cancelamento.pdf — regras claras de rescisão e multa</span>
+
+<span class="c-cm">// Como criar esses documentos se não tiver:</span>
+<span class="c-hl">→ Peça ao próprio Claude para criar o rascunho
+→ Use: "Crie um FAQ com as 20 perguntas mais comuns para uma empresa de [SETOR]"
+→ Depois você revisa e personaliza com as respostas reais</span></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2>Testando o seu Assistente de Vendas</h2>
+      <p>Depois de criar o project com o system prompt e os documentos, teste com essas 5 perguntas antes de usar com clientes:</p>
+
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div>
+          <span class="code-lang">5 perguntas de teste de qualidade</span>
+          <button class="code-copy" onclick="copyCode(this)">copiar</button>
+        </div>
+        <div class="code-body"><span class="c-cm">// Teste 1 — Conhecimento básico</span>
+<span class="c-good">"Quanto custa o plano mais básico?"</span>
+<span class="c-cm">→ Deve responder com base na tabela de preços</span>
+
+<span class="c-cm">// Teste 2 — Objeção de preço</span>
+<span class="c-good">"Achei caro. Por que não compro direto uma moto?"</span>
+<span class="c-cm">→ Deve contra-argumentar com os diferenciais, no tom definido</span>
+
+<span class="c-cm">// Teste 3 — Situação limite</span>
+<span class="c-good">"Posso alugar sem CNH?"</span>
+<span class="c-cm">→ Deve responder honestamente (sim/não) com base nas políticas</span>
+
+<span class="c-cm">// Teste 4 — Criação de proposta</span>
+<span class="c-good">"Me manda uma proposta para 5 motos por 3 meses."</span>
+<span class="c-cm">→ Deve gerar proposta estruturada com valores corretos</span>
+
+<span class="c-cm">// Teste 5 — Fora do escopo</span>
+<span class="c-good">"Vocês vendem motos ou só alugam?"</span>
+<span class="c-cm">→ Deve responder dentro do que sabe e não inventar</span></div>
+      </div>
+
+      <div class="callout key">
+        <div class="callout-icon">🏁</div>
+        <div class="callout-body">
+          <h4>Módulo 04 Concluído!</h4>
+          <p>Você agora sabe criar Projects completos: system prompt calibrado, documentos base organizados, memória de usuário configurada e um assistente de vendas funcional. No próximo módulo, você vai a fundo no Extended Thinking — o raciocínio avançado do Claude para problemas complexos.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-footer">
+      <div class="footer-next"><div class="footer-next-label">Próximo módulo</div><div class="footer-next-title">Módulo 05 — Extended Thinking & Raciocínio Avançado</div></div>
+      <button class="complete-btn" id="cb4" onclick="complete(4)">🎉 Concluir Módulo!</button>
+    </div>
+  </div>
+
+</main>
+</div>
+
+<button class="sidebar-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+
+<script>
+let cur=0;const total=5;const done=new Set();
+const nums=['04.1','04.2','04.3','04.4','04.5'];
+function goTo(i){
+  document.querySelectorAll('.lesson-content').forEach(l=>l.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('l'+i).classList.add('active');
+  document.querySelectorAll('.nav-item')[i].classList.add('active');
+  document.getElementById('topLabel').textContent='Aula '+nums[i];
+  cur=i;window.scrollTo({top:0,behavior:'smooth'});
+  if(window.innerWidth<900)document.getElementById('sidebar').classList.remove('open');
+}
+function next(){if(cur<total-1)goTo(cur+1);}
+function prev(){if(cur>0)goTo(cur-1);}
+function complete(i){
+  done.add(i);
+  const b=document.getElementById('cb'+i);
+  b.classList.add('done');b.textContent='✓ Concluída!';
+  document.querySelectorAll('.nav-item')[i].classList.add('done');
+  const pct=Math.round((done.size/total)*100);
+  syncProgressToIndex('04', Math.round(done.size/total*100), done.size===total);
+  document.getElementById('progFill').style.width=pct+'%';
+  document.getElementById('progText').textContent=done.size+' de '+total+' aulas';
+  if(i<total-1)setTimeout(()=>goTo(i+1),600);
+}
+function copyCode(btn){
+  const t=btn.closest('.code-wrap').querySelector('.code-body').innerText;
+  navigator.clipboard.writeText(t).then(()=>{btn.textContent='✓ copiado!';setTimeout(()=>btn.textContent='copiar',2000);});
+}
+function copySP(btn){
+  const t=btn.closest('.sp-card').querySelector('.sp-prompt').innerText;
+  navigator.clipboard.writeText(t).then(()=>{btn.textContent='✓ Copiado!';setTimeout(()=>btn.textContent='Copiar',2000);});
+}
+function showAns(id){document.getElementById(id).classList.toggle('show');}
+
+// GERADOR DE PROJECT
+function gerarProject(){
+  const empresa=document.getElementById('pv-empresa').value.trim()||'Minha Empresa';
+  const setor=document.getElementById('pv-setor').value.trim()||'[SEU SETOR]';
+  const publico=document.getElementById('pv-publico').value.trim()||'[SEU PÚBLICO]';
+  const dif=document.getElementById('pv-dif').value.trim()||'[SEUS DIFERENCIAIS]';
+  const obj=document.getElementById('pv-obj').value.trim()||'[OBJEÇÕES COMUNS]';
+  const tom=document.getElementById('pv-tom').value;
+  const canal=document.getElementById('pv-canal').value;
+
+  const prompt=`Você é o assistente comercial da ${empresa}, especializada em ${setor}.
+
+MISSÃO:
+Apoiar o processo de vendas — responder dúvidas, criar propostas, superar objeções e guiar o cliente até a decisão de compra — sempre preservando o relacionamento.
+
+NOSSO PÚBLICO:
+${publico}
+
+NOSSOS DIFERENCIAIS:
+${dif.split(',').map(d=>'→ '+d.trim()).join('\n')}
+
+TOM DE COMUNICAÇÃO:
+${tom}. Canal principal: ${canal}.
+Adapte o tamanho e formato da resposta ao canal — ${canal} pede respostas mais curtas e diretas.
+
+COMO LIDAR COM OBJEÇÕES COMUNS:
+${obj}
+Para cada objeção: valide a preocupação do cliente, apresente o contra-argumento com benefício concreto, ofereça próximo passo.
+
+REGRAS DE OURO:
+→ Nunca invente informações sobre preço, prazo ou política — consulte os documentos do projeto
+→ Se não souber: "Deixa eu verificar e te retorno com a informação correta"
+→ Sempre termine com uma pergunta ou próximo passo concreto
+→ Não pressione — nosso estilo é consultivo, não agressivo
+→ Valorize o tempo do cliente: seja objetivo e claro
+
+QUANDO CRIAR PROPOSTAS:
+Estruture sempre em: o que está incluído → investimento → condições → próximo passo.
+Use os preços exatos da tabela de preços (documento do projeto).`;
+
+  document.getElementById('pb-out-pre').textContent=prompt;
+  document.getElementById('pb-out').style.display='block';
+}
+function copyPBOut(){
+  const t=document.getElementById('pb-out-pre').textContent;
+  navigator.clipboard.writeText(t).then(()=>{
+    const btn=document.querySelector('.pb-out-header .code-copy');
+    btn.textContent='✓ copiado!';setTimeout(()=>btn.textContent='copiar',2000);
+  });
+}
+
+// QUIZ
+const sc4={};const an4={};
+const cor4={'qm4-1':1,'qm4-2':2,'qm4-3':0};
+const fb4={
+  'qm4-1':{
+    correct:'✅ Correto! Três projetos separados por área permitem system prompts especializados para cada contexto. O assistente financeiro não precisa do mesmo tom e conhecimento que o de marketing.',
+    wrong:'❌ A melhor abordagem é três projetos separados — um por área. Cada área tem necessidades, tom e documentos diferentes. Um projeto único fica genérico demais para nenhuma área.'
+  },
+  'qm4-2':{
+    correct:'✅ Exato! O FAQ com perguntas frequentes é o documento mais útil para atendimento — o Claude vai consultá-lo toda vez que um cliente fizer uma pergunta comum, garantindo respostas consistentes.',
+    wrong:'❌ O documento mais útil para atendimento é o FAQ com respostas oficiais. A DRE é para finanças, o contrato específico de um cliente é para uso pontual, e o manual de 300 páginas sem estrutura clara é muito denso.'
+  },
+  'qm4-3':{
+    correct:'✅ Correto! Memória de Project = você configura intencionalmente, é específica por projeto, e todos os usuários do projeto têm acesso. Memória de usuário = Claude aprende automaticamente, vale em todas as conversas, é pessoal.',
+    wrong:'❌ A diferença é fundamental: Project memory é manual, intencional e específica por projeto. User memory é automática, pessoal e vale em todas as conversas da sua conta.'
+  }
+};
+function ans4(qId,el,sel,cor){
+  if(an4[qId])return;an4[qId]=true;
+  const opts=el.closest('.q-options').querySelectorAll('.q-option');
+  opts.forEach((o,i)=>{o.classList.add('disabled');if(i===cor)o.classList.add('selected','correct');});
+  const ok=sel===cor;if(!ok)el.classList.add('selected','wrong');
+  const fb=document.getElementById('fb-'+qId);
+  fb.textContent=ok?fb4[qId].correct:fb4[qId].wrong;
+  fb.className='q-feedback show '+(ok?'correct':'wrong');
+  document.getElementById('nxt-'+qId).classList.add('show');
+  if(!sc4['quiz-m4'])sc4['quiz-m4']=0;
+  if(ok)sc4['quiz-m4']++;
+}
+function nxtQ4(c,n){
+  document.getElementById(c).style.display='none';
+  const el=document.getElementById(n);el.classList.add('active');el.style.display='block';
+}
+function showRes4(qId,tot){
+  document.getElementById('qm4-3').style.display='none';
+  const s=sc4[qId]||0;
+  document.getElementById('result-'+qId).classList.add('show');
+  document.getElementById('score-'+qId).textContent=s+'/'+tot;
+  const p=s===tot?['🏆 Perfeito!','Dominou Projects e Memória!']:s>=2?['✅ Muito bem!','Revise o que errou e continue.']:['📚 Releia a aula','Projects são importantes — vale rever antes de continuar.'];
+  document.getElementById('rl-'+qId).textContent=p[0];document.getElementById('rd-'+qId).textContent=p[1];
+}
+function retry4(qId,qs){
+  sc4[qId]=0;qs.forEach(q=>{delete an4[q];});
+  document.getElementById('result-'+qId).classList.remove('show');
+  qs.forEach((q,i)=>{
+    const el=document.getElementById(q);
+    el.style.display=i===0?'block':'none';
+    el.className=i===0?'quiz-question active':'quiz-question';
+    el.querySelectorAll('.q-option').forEach(o=>o.className='q-option');
+    const fb=document.getElementById('fb-'+q);if(fb){fb.className='q-feedback';fb.textContent='';}
+    const nb=document.getElementById('nxt-'+q);if(nb)nb.classList.remove('show');
+  });
+}
+
+// Sincronizar progresso com index.html
+function syncProgressToIndex(num, pct, done) {
+  try {
+    const STORAGE_KEY = 'cm_progress_v2';
+    const p = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    p[num] = { pct: pct, done: done };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(p));
+  } catch(e) {}
+}
+
+</script>
+</body>
+</html>

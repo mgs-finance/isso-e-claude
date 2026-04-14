@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 09 — Academy Anthropic em PT-BR | Isso é Claude</title>
+
+<style>
+/* ISSO É CLAUDE — Design System v2.0 */
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+:root{
+  --bg:#ffffff;--bg2:#f5f5f5;--bg3:#fafafa;
+  --ink:#111111;--ink2:#333333;--ink3:#666666;--ink4:#999999;
+  --accent:#ff5c00;--accent2:#e04f00;--accent3:#cc4500;
+  --accent-light:rgba(255,92,0,0.07);--accent-mid:rgba(255,92,0,0.15);
+  --green:#16a34a;--green-bg:rgba(22,163,74,0.07);
+  --blue:#2563eb;--blue-bg:rgba(37,99,235,0.07);
+  --gold:#d97706;--gold-bg:rgba(217,119,6,0.07);
+  --red:#dc2626;--red-bg:rgba(220,38,38,0.07);
+  --purple:#7c3aed;--purple-bg:rgba(124,58,237,0.07);
+  --border:#e5e5e5;--border2:#d4d4d4;
+  --shadow:0 2px 12px rgba(0,0,0,0.07);--shadow-md:0 4px 20px rgba(0,0,0,0.09);--shadow-lg:0 8px 40px rgba(0,0,0,0.11);
+  --code-bg:#111111;--code-fg:#e8e8e8;
+  --sidebar-bg:#111111;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+
+
+
+/* SIDEBAR */
+
+
+
+.sb-brand{padding:28px 22px 20px;border-bottom:1px solid rgba(255,255,255,0.06);}
+.sb-tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--accent);text-transform:uppercase;margin-bottom:8px;display:block;}
+.sb-name{font-size:14px;font-weight:700;color:#fff;line-height:1.4;}
+.sb-mod{padding:12px 22px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,0.25);text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.04);}
+.nav-lessons{padding:8px 0;flex:1;}
+.nav-item{display:flex;align-items:flex-start;gap:10px;padding:10px 22px;cursor:pointer;transition:background 0.15s;border-left:3px solid transparent;}
+.nav-item:hover{background:rgba(255,92,0,0.08);}
+.nav-item.active{background:rgba(255,92,0,0.13);border-left-color:var(--accent);}
+.nav-item.done .nav-num::after{content:' ✓';color:var(--green);}
+.nav-num{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent);padding-top:2px;min-width:28px;font-weight:600;}
+.nav-title{font-size:11.5px;color:rgba(255,255,255,0.52);line-height:1.45;}
+.nav-item.active .nav-title{color:#fff;font-weight:500;}
+.sb-progress{padding:16px 22px;border-top:1px solid rgba(255,255,255,0.05);}
+.prog-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,0.22);text-transform:uppercase;margin-bottom:8px;}
+.prog-bar{height:2px;background:rgba(255,255,255,0.07);border-radius:1px;overflow:hidden;margin-bottom:6px;}
+.prog-fill{height:100%;background:var(--accent);border-radius:1px;transition:width 0.5s ease;}
+.prog-text{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.22);}
+/* MAIN */
+
+
+/* LESSON */
+
+
+.lesson-header{margin-bottom:48px;padding-bottom:32px;border-bottom:1px solid var(--border);}
+.lesson-meta{display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap;}
+.lesson-tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;padding:3px 10px;border-radius:3px;text-transform:uppercase;font-weight:600;border:1px solid transparent;}
+.tag-teoria{background:var(--blue-bg);color:var(--blue);border-color:rgba(37,99,235,0.2);}
+.tag-pratica{background:var(--green-bg);color:var(--green);border-color:rgba(22,163,74,0.2);}
+.tag-lab{background:var(--purple-bg);color:var(--purple);border-color:rgba(124,58,237,0.2);}
+.tag-tecnica{background:var(--accent-light);color:var(--accent);border-color:var(--accent-mid);}
+.tag-guia{background:var(--green-bg);color:var(--green);border-color:rgba(22,163,74,0.2);}
+.tag-resumo{background:var(--blue-bg);color:var(--blue);border-color:rgba(37,99,235,0.2);}
+.tag-dev{background:var(--purple-bg);color:var(--purple);border-color:rgba(124,58,237,0.2);}
+.tag-agente{background:var(--blue-bg);color:var(--blue);border-color:rgba(37,99,235,0.2);}
+.tag-skill{background:var(--purple-bg);color:var(--purple);border-color:rgba(124,58,237,0.2);}
+.tag-bonus{background:var(--gold-bg);color:var(--gold);border-color:rgba(217,119,6,0.2);}
+.tag-final{background:var(--accent-light);color:var(--accent);border-color:var(--accent-mid);}
+.tag-lider{background:var(--gold-bg);color:var(--gold);border-color:rgba(217,119,6,0.2);}
+.tag-estrategia{background:var(--accent-light);color:var(--accent);border-color:var(--accent-mid);}
+.tag-workshop{background:var(--green-bg);color:var(--green);border-color:rgba(22,163,74,0.2);}
+.tag-framework{background:var(--blue-bg);color:var(--blue);border-color:rgba(37,99,235,0.2);}
+.lesson-num-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink4);letter-spacing:1px;}
+.lesson-dur{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink4);}
+.lesson-title{font-family:'Lora',serif;font-size:clamp(28px,3.5vw,46px);font-weight:700;color:var(--ink);line-height:1.15;margin-bottom:16px;letter-spacing:-0.5px;}
+.lesson-title em{color:var(--accent);font-style:italic;}
+.lesson-sub{font-size:16px;color:var(--ink3);font-weight:300;line-height:1.8;max-width:640px;}
+/* BLOCKS */
+.block{margin-bottom:48px;}
+.block h2{font-family:'Lora',serif;font-size:22px;font-weight:600;color:var(--ink);margin-bottom:16px;display:flex;align-items:center;gap:12px;letter-spacing:-0.3px;}
+.block h2::before{content:'';width:4px;height:22px;background:var(--accent);border-radius:2px;flex-shrink:0;}
+.block p{font-size:15px;color:var(--ink2);line-height:1.85;margin-bottom:14px;font-weight:300;}
+.block p strong{color:var(--ink);font-weight:600;}
+/* CALLOUTS */
+.callout{border-radius:8px;padding:18px 22px;margin:20px 0;display:flex;gap:14px;align-items:flex-start;}
+.callout-icon{font-size:20px;flex-shrink:0;padding-top:2px;}
+.callout-body h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:5px;}
+.callout-body p{font-size:13.5px;margin:0;line-height:1.75;font-weight:300;color:var(--ink2);}
+.callout.tip{background:var(--green-bg);border-left:3px solid var(--green);}.callout.tip .callout-body h4{color:var(--green);}
+.callout.key{background:var(--accent-light);border-left:3px solid var(--accent);}.callout.key .callout-body h4{color:var(--accent);}
+.callout.insight{background:var(--blue-bg);border-left:3px solid var(--blue);}.callout.insight .callout-body h4{color:var(--blue);}
+.callout.warning{background:var(--gold-bg);border-left:3px solid var(--gold);}.callout.warning .callout-body h4{color:var(--gold);}
+.callout.purple{background:var(--purple-bg);border-left:3px solid var(--purple);}.callout.purple .callout-body h4{color:var(--purple);}
+.callout.gold{background:var(--gold-bg);border:1px solid rgba(217,119,6,0.2);}.callout.gold .callout-body h4{color:var(--gold);}
+/* CODE */
+.code-wrap{background:var(--code-bg);border-radius:10px;overflow:hidden;margin:20px 0;box-shadow:var(--shadow-md);}
+.code-header{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;background:rgba(255,255,255,0.03);border-bottom:1px solid rgba(255,255,255,0.06);}
+.code-dots{display:flex;gap:6px;}
+.code-dot{width:10px;height:10px;border-radius:50%;}
+.dot-r{background:#ff5f57;}.dot-y{background:#febc2e;}.dot-g{background:#28c840;}
+.code-lang{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:2px;text-transform:uppercase;}
+.code-copy{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.35);background:rgba(255,255,255,0.06);border:none;cursor:pointer;padding:4px 10px;border-radius:4px;transition:all 0.15s;}
+.code-copy:hover{background:rgba(255,92,0,0.2);color:var(--accent);}
+.code-
+.c-cm{color:#6e7681;}.c-good{color:#7ee787;}.c-bad{color:#ff7b72;}.c-tag{color:#ffa657;}.c-hl{color:#79c0ff;}.c-str{color:#a5d6ff;}
+/* STEPS */
+.step-flow{display:flex;flex-direction:column;gap:0;margin:24px 0;}
+.step{display:flex;gap:20px;align-items:flex-start;position:relative;padding-bottom:24px;}
+.step:last-child{padding-bottom:0;}
+.step:not(:last-child)::after{content:'';position:absolute;left:19px;top:44px;bottom:0;width:2px;background:linear-gradient(to bottom,var(--accent),transparent);opacity:0.18;}
+.step-num{width:40px;height:40px;background:var(--accent);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;flex-shrink:0;}
+.step-
+.step-title{font-size:15px;font-weight:600;margin-bottom:6px;color:var(--ink);}
+.step-desc{font-size:13px;color:var(--ink3);line-height:1.7;font-weight:300;}
+.step-tip{margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);background:var(--accent-light);padding:5px 12px;border-radius:4px;display:inline-block;border:1px solid var(--accent-mid);}
+/* TABS */
+.tab-group{margin:20px 0;}
+.tabs{display:flex;border-bottom:2px solid var(--border);gap:0;}
+.tab{padding:9px 20px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border:none;background:transparent;color:var(--ink4);transition:all 0.15s;border-bottom:2px solid transparent;margin-bottom:-2px;font-weight:500;}
+.tab:hover{color:var(--ink);}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent);}
+.tab-panel{display:none;}.tab-panel.active{display:block;}
+/* QUIZ */
+.quiz{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:32px 0;box-shadow:var(--shadow);}
+.quiz-header{padding:20px 28px;background:var(--ink);border-bottom:3px solid var(--accent);}
+.quiz-tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--accent);text-transform:uppercase;margin-bottom:6px;display:block;}
+.quiz-title{font-family:'Lora',serif;font-size:20px;font-weight:600;color:#fff;}
+.quiz-
+.quiz-question{display:none;}.quiz-question.active{display:block;}
+.q-num{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--ink4);text-transform:uppercase;margin-bottom:10px;}
+.q-text{font-size:15px;font-weight:500;margin-bottom:20px;line-height:1.6;color:var(--ink);}
+.q-options{display:flex;flex-direction:column;gap:8px;margin-bottom:16px;}
+.q-option{padding:12px 16px;border:1.5px solid var(--border);border-radius:8px;cursor:pointer;font-size:13.5px;color:var(--ink2);transition:all 0.15s;display:flex;align-items:flex-start;gap:10px;font-weight:300;background:#fff;}
+.q-option:hover{border-color:var(--accent);background:var(--accent-light);}
+.q-option.selected.correct{border-color:var(--green);background:var(--green-bg);color:var(--green);}
+.q-option.selected.wrong{border-color:var(--red);background:var(--red-bg);}
+.q-option.disabled{pointer-events:none;}
+.q-letter{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--ink4);min-width:16px;padding-top:2px;}
+.q-feedback{padding:12px 16px;border-radius:8px;font-size:13.5px;line-height:1.65;display:none;font-weight:300;margin-bottom:8px;}
+.q-feedback.show{display:block;}
+.q-feedback.correct{background:var(--green-bg);border-left:3px solid var(--green);color:var(--green);}
+.q-feedback.wrong{background:var(--red-bg);border-left:3px solid var(--red);color:var(--red);}
+.q-next{margin-top:8px;padding:9px 22px;background:var(--ink);color:#fff;border:none;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;display:none;transition:background 0.15s;}
+.q-next.show{display:inline-block;}.q-next:hover{background:var(--accent);}
+.quiz-result{display:none;text-align:center;padding:40px 20px;}.quiz-result.show{display:block;}
+.result-score{font-family:'Lora',serif;font-size:64px;font-weight:700;color:var(--accent);line-height:1;margin-bottom:12px;}
+.result-label{font-size:18px;font-weight:600;margin-bottom:8px;color:var(--ink);}
+.result-desc{font-size:14px;color:var(--ink3);margin-bottom:24px;font-weight:300;}
+.result-retry{padding:11px 32px;background:var(--accent);color:#fff;border:none;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-weight:600;}
+.result-retry:hover{background:var(--accent2);}
+/* FOOTER */
+.lesson-footer{margin-top:60px;padding-top:28px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:20px;}
+.footer-next{display:flex;flex-direction:column;gap:4px;}
+.footer-next-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--ink4);}
+.footer-next-title{font-size:14px;font-weight:600;color:var(--ink);}
+.complete-btn{padding:13px 28px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;font-weight:700;transition:all 0.2s;white-space:nowrap;box-shadow:0 2px 8px rgba(255,92,0,0.22);}
+.complete-btn:hover{background:var(--accent2);transform:translateY(-1px);box-shadow:0 4px 16px rgba(255,92,0,0.28);}
+.complete-btn.done{background:var(--green);box-shadow:0 2px 8px rgba(22,163,74,0.22);}
+/* MOBILE */
+.sidebar-toggle{display:none;position:fixed;bottom:24px;right:24px;width:52px;height:52px;background:var(--accent);color:#fff;border:none;border-radius:50%;font-size:20px;cursor:pointer;z-index:200;box-shadow:var(--shadow-lg);align-items:center;justify-content:center;}
+
+
+/* ── CSS específico do módulo ── */
+:root{--bg:#faf7f2;--bg2:#f0ebe0;--ink:#1a1510;--ink2:#3d3628;--ink3:#8a7e6a;--accent:#ff5c00;--accent2:#cc4900;--accent-light:rgba(255,92,0,0.08);--green:#0f7a4a;--blue:#1a4fd4;--gold:#b8860b;--purple:#6c3fd4;--border:#e0d8cc;--shadow:0 2px 14px rgba(255,92,0,0.06);}
+*{margin:0;padding:0;box-sizing:border-box;}
+
+
+
+
+
+
+/* BLOCOS */
+.block{margin-bottom:44px;}
+/* CALLOUTS */
+.callout{border-radius:6px;padding:18px 22px;margin:20px 0;display:flex;gap:14px;}
+/* CARD DE CURSO — o coração do módulo */
+.course-card{background:#fff;border:1px solid var(--border);border-radius:14px;overflow:hidden;margin:24px 0;transition:box-shadow .2s;}
+.course-card:hover{box-shadow:var(--shadow);}
+.course-card-header{padding:20px 24px;display:flex;align-items:flex-start;gap:16px;border-bottom:1px solid var(--border);}
+.course-emoji{font-size:36px;flex-shrink:0;line-height:1;}
+.course-header-info{flex:1;}
+.course-badges{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;}
+.badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;padding:3px 9px;border-radius:20px;font-weight:600;text-transform:uppercase;}
+.badge-free{background:rgba(15,122,74,.12);color:#0f7a4a;border:1px solid rgba(15,122,74,.2);}
+.badge-level-init{background:rgba(26,79,212,.1);color:#1a4fd4;}
+.badge-level-med{background:rgba(255,92,0,.1);color:var(--accent);}
+.badge-level-adv{background:rgba(192,57,43,.1);color:#c0392b;}
+.badge-star{background:rgba(184,134,11,.12);color:var(--gold);border:1px solid rgba(184,134,11,.2);}
+.badge-coursera{background:rgba(108,63,212,.1);color:#6c3fd4;}
+.course-title{font-family:'Lora',serif;font-size:19px;font-weight:700;color:var(--ink);margin-bottom:4px;}
+.course-url{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink3);}
+.course-link-btn{padding:8px 16px;background:var(--accent);color:#fff;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:background .15s;white-space:nowrap;flex-shrink:0;align-self:center;}
+.course-link-btn:hover{background:var(--accent2);}
+/* Corpo do card */
+.course-card-
+.course-summary{font-size:15px;color:var(--ink2);line-height:1.85;font-weight:300;margin-bottom:18px;}
+.course-summary strong{color:var(--ink);font-weight:600;}
+/* O que você aprende */
+.course-learns{}
+.course-learns-title{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;}
+.learns-list{display:flex;flex-direction:column;gap:7px;margin-bottom:18px;}
+.learn-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--ink2);font-weight:300;line-height:1.6;}
+.learn-item::before{content:'→';color:var(--accent);font-weight:700;flex-shrink:0;margin-top:1px;font-family:'JetBrains Mono',monospace;font-size:11px;}
+/* Relação com o Isso é Claude */
+.course-relation{padding:12px 16px;border-radius:8px;margin-top:14px;}
+.course-relation.complementa{background:rgba(15,122,74,.06);border-left:3px solid #0f7a4a;}
+.course-relation.exclusivo{background:rgba(255,92,0,.06);border-left:3px solid var(--accent);}
+.course-relation.aprofunda{background:rgba(26,79,212,.06);border-left:3px solid #1a4fd4;}
+.course-relation-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;}
+.complementa .course-relation-label{color:#0f7a4a;}
+.exclusivo .course-relation-label{color:var(--accent);}
+.aprofunda .course-relation-label{color:#1a4fd4;}
+.course-relation-text{font-size:12px;color:var(--ink2);font-weight:300;line-height:1.6;}
+/* Rodapé de aula */
+.lesson-footer{margin-top:56px;padding-top:28px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:20px;}
+/* Roteiro */
+.roteiro-card{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:16px 0;}
+.roteiro-header{padding:14px 20px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border);}
+.roteiro-icon{font-size:22px;}
+.roteiro-perfil{font-size:14px;font-weight:700;color:var(--ink);}
+.roteiro-tempo{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink3);margin-left:auto;}
+.roteiro-
+.roteiro-steps{display:flex;flex-direction:column;gap:8px;}
+.roteiro-step{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--ink2);font-weight:300;}
+.roteiro-step-num{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--accent);min-width:20px;padding-top:2px;}
+.roteiro-step-text{line-height:1.55;}
+.roteiro-step-badge{font-family:'JetBrains Mono',monospace;font-size:9px;padding:2px 7px;border-radius:10px;margin-left:6px;}
+.rb-cm{background:var(--accent-light);color:var(--accent);}
+.rb-ac{background:rgba(15,122,74,.1);color:#0f7a4a;}
+/* Sidebar toggle */
+.sidebar-toggle{display:none;position:fixed;bottom:22px;right:22px;width:50px;height:50px;background:var(--accent);color:#fff;border:none;border-radius:50%;font-size:20px;cursor:pointer;z-index:200;}
+
+.back-btn:hover{color:var(--accent);}
+
+/* TOPBAR unificada */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  height: 48px;
+  min-height: 48px;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  white-space: nowrap;
+}
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  overflow: hidden;
+}
+.topbar-home {
+  color: var(--ink4);
+  text-decoration: none;
+  transition: color .15s;
+  white-space: nowrap;
+}
+.topbar-home:hover { color: var(--accent); }
+.topbar-sep { color: var(--border2); }
+.topbar-bc { color: var(--ink3); white-space: nowrap; }
+.topbar-aula { color: var(--accent); font-weight: 700; white-space: nowrap; }
+.topbar-nav { display: flex; gap: 8px; flex-shrink: 0; }
+.tb-btn {
+  padding: 6px 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--ink3);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all .15s;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.tb-btn:hover { border-color: var(--accent); color: var(--accent); }
+.tb-btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+.tb-btn.primary:hover { background: var(--accent2); }
+
+/* ═══════════════════════════════════════
+   LAYOUT — Isso é Claude v3
+   Testado: sidebar fixa, scroll no body
+   ═══════════════════════════════════════ */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Sora', -apple-system, sans-serif;
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+/* SIDEBAR — fixa, scroll próprio */
+.sidebar {
+  width: 272px;
+  background: var(--sidebar-bg);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid rgba(255,255,255,0.04);
+}
+.sidebar::-webkit-scrollbar { width: 3px; }
+.sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 2px; }
+
+/* MAIN — empurrado pela sidebar, scroll do body */
+.main {
+  margin-left: 272px;
+}
+
+/* TOPBAR — sticky no topo do viewport com scroll do body */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  height: 52px;
+  padding: 0 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* LESSON — ocupa a largura disponível */
+.lesson-content {
+  display: none;
+  padding: 56px 48px 80px;
+  max-width: 860px;
+  box-sizing: border-box;
+}
+.lesson-content.active {
+  display: block;
+}
+
+/* MOBILE */
+@media (max-width: 860px) {
+  .sidebar {
+    transform: translateX(-272px);
+    transition: transform .25s ease;
+  }
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  .main {
+    margin-left: 0;
+  }
+  .topbar {
+    padding: 0 16px;
+    height: 52px;
+  }
+  .lesson-content {
+    padding: 32px 20px 64px;
+  }
+}
+
+
+</style>
+</head>
+<body>
+<div class="layout">
+
+<nav class="sidebar" id="sidebar">
+  <div class="sb-brand"><span class="sb-tag">Isso é Claude</span><div class="sb-name">Módulo 09<br>Academy Anthropic</div></div>
+  <div class="sb-mod">5 aulas · ~2h</div>
+  <div class="nav-lessons">
+    <div class="nav-item active" onclick="goTo(0)"><span class="nav-num">09.1</span><span class="nav-title">Visão geral da Academy</span></div>
+    <div class="nav-item" onclick="goTo(1)"><span class="nav-num">09.2</span><span class="nav-title">Cursos para iniciantes</span></div>
+    <div class="nav-item" onclick="goTo(2)"><span class="nav-num">09.3</span><span class="nav-title">Cursos para desenvolvedores</span></div>
+    <div class="nav-item" onclick="goTo(3)"><span class="nav-num">09.4</span><span class="nav-title">Cursos avançados: MCP e Agentes</span></div>
+    <div class="nav-item" onclick="goTo(4)"><span class="nav-num">09.5</span><span class="nav-title">Seu roteiro personalizado</span></div>
+  </div>
+  <div class="sb-progress">
+    <div class="prog-label">Progresso</div>
+    <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:20%"></div></div>
+    <div class="prog-text" id="progText">1 de 5 aulas</div>
+  </div>
+</nav>
+
+<main class="main">
+  <div class="topbar">
+    <div class="topbar-left">
+      <a href="index.html" class="topbar-home">← Área do Aluno</a>
+      <span class="topbar-sep">›</span>
+      <span class="topbar-bc">Módulo 09</span>
+      <span class="topbar-sep">›</span>
+      <span class="topbar-aula" id="topLabel">Aula 09.1</span>
+    </div>
+    <div class="topbar-nav">
+      <button class="tb-btn" onclick="prev()">← Anterior</button>
+      <button class="tb-btn primary" onclick="next()">Próxima →</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       AULA 09.1 — VISÃO GERAL
+  ════════════════════════════════════════════ -->
+  <div class="lesson-content active" id="l0">
+    <div class="lesson-header">
+      <div class="lesson-meta">
+        <span class="lesson-num-label">Aula 09.1</span>
+        <span class="lesson-tag tag-guia">Visão Geral</span>
+        <span class="lesson-dur">⏱ ~20 min</span>
+      </div>
+      <h1 class="lesson-title">A Anthropic Academy<br>— O que é e como usar</h1>
+      <p class="lesson-sub">A Anthropic criou uma plataforma gratuita de cursos com certificado oficial. São 15 cursos em inglês. Este módulo é o guia completo em português — o que cada curso ensina, para quem serve e em qual ordem estudar.</p>
+    </div>
+
+    <div class="block">
+      <h2>O que é a Anthropic Academy</h2>
+      <p>Em 2025, a Anthropic lançou sua própria plataforma de aprendizado hospedada em <strong>anthropic.skilljar.com</strong>. São cursos autoguiados, completamente gratuitos, com certificado oficial da Anthropic ao final. Não é necessário ter plano pago do Claude para acessar — apenas criar uma conta.</p>
+      <p>Os cursos cobrem desde o uso básico do Claude até construção de servidores MCP em Python e desenvolvimento com o Claude Code. O conteúdo é denso, técnico em vários pontos, e representa o pensamento oficial da equipe que construiu o Claude.</p>
+      <div class="callout insight">
+        <div class="callout-icon">📍</div>
+        <div class="callout-body">
+          <h4>Como acessar</h4>
+          <p>Acesse <strong>anthropic.skilljar.com</strong> e crie uma conta gratuita. Todos os cursos listados neste módulo estão disponíveis sem custo. O certificado é emitido automaticamente ao concluir cada curso.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2>Por que ler a fonte oficial mesmo sendo em inglês</h2>
+      <p>Os cursos gratuitos da Anthropic trazem o pensamento <em>original</em> da equipe que construiu o Claude: como eles querem que a ferramenta seja usada, quais são os limites reais, quais as práticas validadas internamente. Nenhum curso de terceiros substitui isso — só complementa.</p>
+      <div class="callout tip">
+        <div class="callout-icon">💡</div>
+        <div class="callout-body">
+          <h4>Estratégia ideal de estudo</h4>
+          <p>Use o <strong>Isso é Claude como sua base principal</strong> — em português, com contexto brasileiro, com casos reais de negócio. Use a <strong>Anthropic Academy como aprofundamento técnico</strong>, especialmente nos cursos de MCP avançado e Claude Code que não têm equivalente completo em nenhum curso pago do mercado.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2>Os 15 cursos disponíveis — mapa rápido</h2>
+      <p>Nas próximas aulas você vai encontrar o resumo completo em português de cada curso. Por enquanto, aqui está o mapa de navegação por nível:</p>
+      <div class="callout key">
+        <div class="callout-icon">🗺️</div>
+        <div class="callout-body">
+          <h4>Iniciantes (aula 09.2)</h4>
+          <p>Claude 101 · AI Fluency: Framework &amp; Foundations · Introdução ao Claude Cowork · AI Automation with Claude (Coursera)</p>
+        </div>
+      </div>
+      <div class="callout key">
+        <div class="callout-icon">⚙️</div>
+        <div class="callout-body">
+          <h4>Desenvolvedores (aula 09.3)</h4>
+          <p>Desenvolvendo com a API do Claude · Claude Code in Action · Introdução ao Agent Skills · Introdução ao Subagents</p>
+        </div>
+      </div>
+      <div class="callout key">
+        <div class="callout-icon">🚀</div>
+        <div class="callout-body">
+          <h4>Avançados: MCP e Agentes (aula 09.4)</h4>
+          <p>Introdução ao MCP · MCP: Tópicos Avançados · Claude Code com Google Vertex AI · Claude Code com AWS Bedrock · AI Fluency para Educadores · AI Fluency para Estudantes · AI Fluency para ONGs</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-footer">
+      <div class="footer-next"><div class="footer-next-label">Próxima aula</div><div class="footer-next-title">09.2 — Cursos para iniciantes</div></div>
+      <button class="complete-btn" id="cb0" onclick="complete(0)">Marcar como concluída ✓</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       AULA 09.2 — INICIANTES
+  ════════════════════════════════════════════ -->
+  <div class="lesson-content" id="l1">
+    <div class="lesson-header">
+      <div class="lesson-meta">
+        <span class="lesson-num-label">Aula 09.2</span>
+        <span class="lesson-tag tag-resumo">Resumos em PT-BR</span>
+        <span class="lesson-dur">⏱ ~25 min</span>
+      </div>
+      <h1 class="lesson-title">Cursos para Iniciantes<br>— Resumos em Português</h1>
+      <p class="lesson-sub">O que cada curso de nível iniciante da Anthropic Academy ensina, quais são os pontos principais e como cada um se relaciona com o que você já aprendeu no Isso é Claude.</p>
+    </div>
+
+    <!-- Claude 101 -->
+    <div class="block">
+      <h2>Curso 1 — Claude 101</h2>
+      <div class="course-card">
+        <div class="course-card-header">
+          <span class="course-emoji">🤖</span>
+          <div class="course-header-info">
+            <div class="course-badges">
+              <span class="badge badge-free">✓ Gratuito + Certificado</span>
+              <span class="badge badge-level-init">Iniciante</span>
+            </div>
+            <div class="course-title">Claude 101</div>
+            <div class="course-url">anthropic.skilljar.com/claude-101</div>
+          </div>
+          <a href="https://anthropic.skilljar.com/claude-101" target="_blank" class="course-link-btn">Acessar →</a>
+        </div>
+        <div class="course-card-body">
+          <p class="course-summary">O curso de entrada da Anthropic. Feito para quem está usando o Claude pela primeira vez ou quer garantir que não está deixando recursos importantes de lado. Cobre os fundamentos da interface e as funcionalidades que a maioria dos usuários desconhece — como projetos, artefatos, skills e conectores de ferramentas externas.</p>
+          <div class="course-learns">
+            <div class="course-learns-title">O que você aprende</div>
+            <div class="learns-list">
+              <div class="learn-item">Como navegar pela interface do Claude.ai e configurar sua conta corretamente</div>
+              <div class="learn-item">Como criar e organizar <strong>Projetos</strong> para separar contextos de trabalho</div>
+              <div class="learn-item">O que são <strong>Artefatos</strong> e como usá-los para gerar documentos, código e visualizações diretamente no chat</div>
+              <div class="learn-item">Como conectar ferramentas externas ao Claude via <strong>integrações nativas</strong> (Google Drive, calendário, etc.)</div>
+              <div class="learn-item">Como usar o <strong>modo de pesquisa</strong> do Claude para buscar informações atualizadas na web</div>
+              <div class="learn-item">Como personalizar o comportamento do Claude com <strong>instruções de usuário</strong></div>
+            </div>
+          </div>
+          <div class="course-relation complementa">
+            <div class="course-relation-label">✅ Relação com o Isso é Claude</div>
+            <div class="course-relation-text">O Isso é Claude cobre tudo isso e vai muito além nos Módulos 01, 02 e 04. Se você já concluiu esses módulos, o Claude 101 será uma revisão rápida — mas o certificado oficial tem valor de portfólio.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI Fluency -->
+    <div class="block">
+      <h2>Curso 2 — AI Fluency: Framework &amp; Foundations</h2>
+      <div class="course-card">
+        <div class="course-card-header">
+          <span class="course-emoji">🧠</span>
+          <div class="course-header-info">
+            <div class="course-badges">
+              <span class="badge badge-free">✓ Gratuito + Certificado</span>
+              <span class="badge badge-level-init">Iniciante</span>
+            </div>
+            <div class="course-title">AI Fluency: Framework &amp; Foundations</div>
+            <div class="course-url">anthropic.skilljar.com/ai-fluency-framework-foundations</div>
+          </div>
+          <a href="https://anthropic.skilljar.com/ai-fluency-framework-foundations" target="_blank" class="course-link-btn">Acessar →</a>
+        </div>
+        <div class="course-card-body">
+          <p class="course-summary">Desenvolvido em parceria com o Ringling College, este curso não é sobre nenhuma ferramenta específica — é sobre como <strong>pensar estrategicamente sobre inteligência artificial</strong>. O objetivo é construir uma base conceitual sólida: entender o que a IA pode e não pode fazer, como colaborar com ela de forma ética e eficaz, e como avaliar criticamente os outputs que ela produz.</p>
+          <div class="course-learns">
+            <div class="course-learns-title">O que você aprende</div>
+            <div class="learns-list">
+              <div class="learn-item">Como funcionam os modelos de linguagem em termos conceituais — sem precisar saber programar</div>
+              <div class="learn-item">O framework "4E" da Anthropic: como usar IA de forma <strong>Eficaz, Eficiente, Ética e Segura</strong></div>
+              <div class="learn-item">Como identificar quando a IA está errando ou sendo imprecisa — o conceito de <strong>alucinação</strong> e como mitigá-lo</div>
+              <div class="learn-item">Como colaborar com IA de forma que preserve o pensamento crítico humano, sem criar dependência</div>
+              <div class="learn-item">Questões de privacidade, viés e responsabilidade no uso de IA no ambiente profissional</div>
+              <div class="learn-item">Como apresentar e justificar o uso de IA para colegas céticos ou conservadores</div>
+            </div>
+          </div>
+          <div class="course-relation complementa">
+            <div class="course-relation-label">✅ Relação com o Isso é Claude</div>
+            <div class="course-relation-text">Complementa o Módulo 01 (Como o Claude Pensa) com uma perspectiva acadêmica e ética mais aprofundada. Recomendado especialmente para quem vai usar IA em educação, saúde, direito ou serviços públicos.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cowork -->
+    <div class="block">
+      <h2>Curso 3 — Introdução ao Claude Cowork</h2>
+      <div class="course-card">
+        <div class="course-card-header">
+          <span class="course-emoji">🖥️</span>
+          <div class="course-header-info">
+            <div class="course-badges">
+              <span class="badge badge-free">✓ Gratuito + Certificado</span>
+              <span class="badge badge-level-init">Iniciante</span>
+              <span class="badge badge-star">⭐ Exclusivo Academy</span>
+            </div>
+            <div class="course-title">Introdução ao Claude Cowork</div>
+            <div class="course-url">anthropic.skilljar.com/introduction-to-claude-cowork</div>
+          </div>
+          <a href="https://anthropic.skilljar.com/introduction-to-claude-cowork" target="_blank" class="course-link-btn">Acessar →</a>
+        </div>
+        <div class="course-card-body">
+          <p class="course-summary">O Cowork é a funcionalidade que transforma o Claude em um agente de desktop completo: ele acessa arquivos do seu computador, organiza pastas, cria documentos, gera apresentações e mantém memória entre sessões. Este curso cobre como começar a usar o Cowork de forma produtiva já na primeira semana, incluindo o sistema de tarefas agendadas e plugins.</p>
+          <div class="course-learns">
+            <div class="course-learns-title">O que você aprende</div>
+            <div class="learns-list">
+              <div class="learn-item">Como instalar e configurar o app do Claude Cowork no seu computador (macOS e Windows)</div>
+              <div class="learn-item">O <strong>task loop</strong> do Cowork: como o Claude planeja, executa e revisa tarefas em etapas</div>
+              <div class="learn-item">Como configurar tarefas recorrentes e <strong>agendamentos automáticos</strong> (ex.: relatório toda sexta às 17h)</div>
+              <div class="learn-item">Como usar <strong>plugins</strong> do Cowork para expandir o que ele pode fazer com seus arquivos</div>
+              <div class="learn-item">Como trabalhar com o Cowork em fluxos de <strong>pesquisa e síntese</strong> de documentos longos</div>
+              <div class="learn-item">Como dirigir o agente de forma responsável — quando interromper, ajustar e retomar tarefas</div>
+            </div>
+          </div>
+          <div class="course-relation exclusivo">
+            <div class="course-relation-label">⭐ Conteúdo exclusivo — recomendado!</div>
+            <div class="course-relation-text">O Módulo 11 do Isso é Claude cobre o Cowork em profundidade, mas este curso traz a perspectiva oficial da equipe da Anthropic com detalhes de configuração que complementam o que você aprendeu. Vale fazer os dois.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI Automation Coursera -->
+    <div class="block">
+      <h2>Curso 4 — AI Automation with Claude (Coursera)</h2>
+      <div class="course-card">
+        <div class="course-card-header">
+          <span class="course-emoji">⚡</span>
+          <div class="course-header-info">
+            <div class="course-badges">
+              <span class="badge badge-free">Gratuito para auditar</span>
+              <span class="badge badge-level-med">Intermediário</span>
+              <span class="badge badge-coursera">Coursera · Anthropic</span>
+            </div>
+            <div class="course-title">AI Automation with Claude</div>
+            <div class="course-url">coursera.org/learn/ai-for-everyone-ai-automation-with-claude</div>
+          </div>
+          <a href="https://www.coursera.org/learn/ai-for-everyone-ai-automation-with-claude" target="_blank" class="course-link-btn">Acessar →</a>
+        </div>
+        <div class="course-card-body">
+          <p class="course-summary">Patrocinado pela Anthropic e ministrado por <strong>Dan Mellott</strong>, ex-manager da equipe de API da Anthropic, este é um dos cursos mais práticos disponíveis. Focado em automação real de tarefas do dia a dia usando Claude Projects como motor — não prompts isolados, mas fluxos completos que produzem entregas padronizadas independente da quantidade de dados que você alimentar.</p>
+          <div class="course-learns">
+            <div class="course-learns-title">O que você aprende</div>
+            <div class="learns-list">
+              <div class="learn-item">Como estruturar <strong>Claude Projects</strong> para automatizar tarefas repetitivas de verdade — não só como organização, mas como motor de produção</div>
+              <div class="learn-item">Como criar um projeto que gera o <strong>mesmo tipo de entrega</strong> (relatório, e-mail, proposta) independente de qual dado você jogar dentro</div>
+              <div class="learn-item">Como usar <strong>RAG básico com documentos</strong>: subir bases de conhecimento e fazer o Claude responder com base nelas</div>
+              <div class="learn-item">Como aplicar automação além de texto — imagens, tabelas e outros formatos multimodais como input</div>
+              <div class="learn-item">Como usar IA para tarefas pessoais e de carreira, não só profissionais</div>
+              <div class="learn-item">Perspectiva interna da Anthropic sobre os casos de uso que realmente funcionam em produção</div>
+            </div>
+          </div>
+          <div class="course-relation aprofunda">
+            <div class="course-relation-label">🔵 Aprofunda o Isso é Claude</div>
+            <div class="course-relation-text">Complementa o Módulo 04 (Projects &amp; Memory) com a visão de quem estava dentro da Anthropic. O ângulo de Dan Mellott sobre "automação que escala" é diferente do que qualquer curso externo oferece.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-footer">
+      <div class="footer-next"><div class="footer-next-label">Próxima aula</div><div class="footer-next-title">09.3 — Cursos para desenvolvedores</div></div>
+      <button class="complete-btn" id="cb1" onclick="complete(1)">Marcar como concluída ✓</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       AULA 09.3 — DESENVOLVEDORES
+  ════════════════════════════════════════════ -->
+  <div class="lesson-content" id="l2">
+    <div class="lesson-header">
+      <div class="lesson-meta">
+        <span class="lesson-num-label">Aula 09.3</span>
+        <span class="lesson-tag tag-dev">Desenvolvedores</span>
+        <span class="lesson-dur">⏱ ~25 min</span>
+      </div>
+      <h1 class="lesson-title">Cursos para<br>Desenvolvedores — PT-BR</h1>
+      <p class="lesson-sub">Os cursos técnicos da Anthropic Academy para quem quer construir produtos, integrações e sistemas com o Claude como motor de IA. Resumos completos em português.</p>
+    </div>
+
+    <!-- API do Claude -->
+    <div class="block">
+      <h2>Curso 5 — Desenvolvendo com a API do Claude</h2>
+      <div class="course-card">
+        <div class="course-card-header">
+          <span class="course-emoji">⚙️</span>
+          <div class="course-header-info">
+            <div class="course-badges">
+              <span class="badge badge-free">✓ Gratuito + Certificado</span>
+              <span class="badge badge-level-med">Intermediário</span>
+            </div>
+            <div class="course-title">Desenvolvendo com a API do Claude</div>
+            <div class="course-url">anthropic.skilljar.com/claude-with-the-anthropic-api</div>
+          </div>
+          <a href="https://anthropic.skilljar.com/claude-with-the-anthropic-api" target="_blank" class="course-link-btn">Acessar →</a>
+        </div>
+        <div class="course-card-body">
+          <p class="course-summary">A referência técnica definitiva da Anthropic para desenvolvedores. Cobre o espectro completo da API: desde a primeira chamada básica até padrões avançados de construção de sistemas com múltiplas ferramentas, streaming de respostas e construção de pipelines RAG. Se você quer construir algo sério com o Claude, este curso é leitura obrigatória.</p>
+          <div class="course-learns">
+            <div class="course-learns-title">O que você aprende</div>
+            <div class="learns-list">
+              <div class="learn-item">Estrutura completa da API: parâmetros, modelos, tokens, limites de taxa e boas práticas de autenticação</div>
+              <div class="learn-item">Como usar <strong>tool use</strong> (chamada de funções): fazer o Claude invocar funções do seu sistema automaticamente</div>
+              <div class="learn-item">Como implementar <strong>streaming</strong> de respostas para que o texto apareça progressivamente na interface</div>
+              <div class="learn-item">Como construir sistemas de <strong>RAG (Retrieval Augmented Generation)</strong> completos com a API</div>
+              <div class="learn-item">Padrões avançados de prompt engineering que só funcionam via API — não no chat</div>
+              <div class="learn-item">Como usar os <strong>SDKs oficiais</strong> em Python e JavaScript, incluindo tratamento de erros e retry logic</div>
+              <div class="learn-item">Como monitorar custo e uso de tokens em produção</div>
+            </div>
+          </div>
+          <div class="course-relation aprofunda">
+            <div class="course-relation-label">🔵 Aprofunda o Isso é Claude</div>
+            <div class="course-relation-text">O Módulo 06 do Isso é Claude cobre o essencial da API com foco prático. Este curso da Anthropic vai mais fundo em tool use, RAG e padrões de produção. Recomendado após concluir o Módulo 06.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Claude Code in Action -->
+    <div class="block">
+      <h2>Curso 6 — Claude Code in Action</h2>
+      <div class="course-card">
+        <div class="course-card-header">
+          <span class="course-emoji">💻</span>
+          <div class="course-header-info">
+            <div class="course-badges">
+              <span class="badge badge-free">✓ Gratuito + Certificado</span>
+              <span class="badge badge-level-med">Intermediário</span>
+              <span class="badge badge-star">⭐ Recomendado</span>
+            </div>
+            <div class="course-title">Claude Code in Action</div>
+            <div class="course-url">anthropic.skilljar.com/claude-code-in-action</div>
+          </div>
+          <a href="https://anthropic.skilljar.com/claude-code-in-action" target="_blank" class="course-link-btn">Acessar →</a>
+        </div>
+        <div class="course-card-body">
+          <p class="course-summary">21 lições práticas sobre o Claude Code — a ferramenta de linha de comando da Anthropic para desenvolvimento assistido por IA. O curso parte do zero (o que são assistentes de código baseados em IA) e avança até integração com GitHub, criação de hooks customizados e servidores MCP. Também disponível na versão interativa do Coursera.</p>
+          <div class="course-learns">
+            <div class="course-learns-title">O que você aprende</div>
+            <div class="learns-list">
+              <div class="learn-item">Como o Claude Code acessa e modifica arquivos através do seu <strong>sistema de ferramentas</strong> interno</div>
+              <div class="learn-item">Estratégias de <strong>gerenciamento de contexto</strong> em projetos grandes — o que incluir, o que excluir, quando usar /compact</div>
+              <div class="learn-item">Como criar <strong>comandos customizados</strong> para automatizar fluxos repetitivos de desenvolvimento</div>
+              <div class="learn-item">Como configurar <strong>hooks</strong> que disparam ações automáticas antes ou depois das respostas do Claude Code</div>
+              <div class="learn-item">Como integrar o Claude Code com o <strong>GitHub</strong> para revisão de pull requests e análise de issues</div>
+              <div class="learn-item">Como conectar servidores <strong>MCP</strong> ao Claude Code para expandir suas capacidades</div>
+            </div>
+          </div>
+          <div class="course-relation aprofunda">
+            <div class="course-relation-label">⭐ Complementa perfeitamente o Isso é Claude</div>
+            <div class="course-relation-text">Faça este junto com o Módulo 07 do Isso é Claude. O Módulo 07 traz sessões reais e contexto de negócio; este curso traz os detalhes técnicos de hooks, comandos e arquitetura que não têm equivalente em nenhum curso externo.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Agent Skills -->
+    <div class="block">
+      <h2>Curso 7 — Introdução ao Agent Skills</h2>
+      <div class="course-card">
+        <div class="course-card-header">
+          <span class="course-emoji">🧩</span>
+          <div class="course-header-info">
+            <div class="course-badges">
+              <span class="badge badge-free">✓ Gratuito + Certificado</span>
+              <span class="badge badge-level-med">Intermediário</span>
+            </div>
+            <div class="course-title">Introdução ao Agent Skills</div>
+            <div class="course-url">anthropic.skilljar.com/introduction-to-agent-skills</div>
+          </div>
+          <a href="https://anthropic.skilljar.com/introduction-to-agent-skills" target="_blank" class="course-link-btn">Acessar →</a>
+        </div>
+        <div class="course-card-body">
+          <p class="course-summary">Skills são o sistema de instruções reutilizáveis do Claude Code — você cria um arquivo SKILL.md e o Claude passa a carregar essas instruções automaticamente sempre que a tarefa combina com o contexto da Skill. Este curso ensina a criar, configurar, compartilhar e depurar Skills para uso individual e distribuição em equipes.</p>
+          <div class="course-learns">
+            <div class="course-learns-title">O que você aprende</div>
+            <div class="learns-list">
+              <div class="learn-item">A estrutura exata de um arquivo SKILL.md e como o Claude decide quando ativá-la</div>
+              <div class="learn-item">Como criar uma Skill do zero para uma tarefa específica do seu trabalho</div>
+              <div class="learn-item">Como combinar múltiplas Skills para fluxos de trabalho de múltiplas etapas</div>
+              <div class="learn-item">Como <strong>distribuir Skills para toda a equipe</strong> — versionar, compartilhar e atualizar centralmente</div>
+              <div class="learn-item">Como depurar quando uma Skill não está sendo ativada corretamente</div>
+              <div class="learn-item">Boas práticas de nomenclatura e organização de Skills em projetos grandes</div>
+            </div>
+          </div>
+          <div class="course-relation aprofunda">
+            <div class="course-relation-label">🔵 Aprofunda o Isso é Claude</div>
+            <div class="course-relation-text">O Módulo 11 do Isso é Claude traz um gerador interativo de SKILL.md. Este curso da Anthropic ensina os detalhes de distribuição e debugging que vão além do básico.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Subagents -->
+    <div class="block">
+      <h2>Curso 8 — Introdução ao Subagents</h2>
+      <div class="course-card">
+        <div class="course-card-header">
+          <span class="course-emoji">🤝</span>
+          <div class="course-header-info">
+            <div class="course-badges">
+              <span class="badge badge-free">✓ Gratuito + Certificado</span>
+              <span class="badge badge-level-med">Intermediário</span>
+              <span class="badge badge-star">⭐ Exclusivo Academy</span>
+            </div>
+            <div class="course-title">Introduction to Subagents</div>
+            <div class="course-url">anthropic.skilljar.com · Claude Code · 4 aulas · ~20 min</div>
+          </div>
+          <a href="https://anthropic.skilljar.com/" target="_blank" class="course-link-btn">Acessar →</a>
+        </div>
+        <div class="course-card-body">
+          <p class="course-summary">Quando um projeto fica complexo demais para um único agente, a solução é dividir em subagentes especializados. Este curso ensina a criar, coordenar e gerenciar subagentes no Claude Code — delegando tarefas específicas a agentes menores para manter o contexto da conversa principal limpo e focado.</p>
+          <div class="course-learns">
+            <div class="course-learns-title">O que você aprende</div>
+            <div class="learns-list">
+              <div class="learn-item">Por que e quando dividir um fluxo de trabalho em múltiplos subagentes especializados</div>
+              <div class="learn-item">Como criar subagentes no Claude Code e definir o escopo de cada um</div>
+              <div class="learn-item">Como o agente principal <strong>delega tarefas</strong> e consolida os resultados dos subagentes</div>
+              <div class="learn-item">Como manter o <strong>contexto limpo</strong> na conversa principal enquanto subagentes fazem o trabalho pesado</div>
+              <div class="learn-item">Padrões de comunicação entre agentes — como passar informações de um para outro com precisão</div>
+            </div>
+          </div>
+          <div class="course-relation exclusivo">
+            <div class="course-relation-label">⭐ Conteúdo não coberto no Isso é Claude</div>
+            <div class="course-relation-text">O Módulo 11 introduz agentes, mas coordenação de subagentes é um nível acima. Para quem quer construir sistemas multi-agente profissionais, este curso da Academy é indispensável.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-footer">
+      <div class="footer-next"><div class="footer-next-label">Próxima aula</div><div class="footer-next-title">09.4 — Cursos avançados: MCP e Agentes</div></div>
+      <button class="complete-btn" id="cb2" onclick="complete(2)">Marcar como concluída ✓</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       AULA 09.4 — AVANÇADOS
+  ════════════════════════════════════════════ -->
+  <div class="lesson-content" id="l3">
+    <div class="lesson-header">
+      <div class="lesson-meta">
+        <span class="lesson-num-label">Aula 09.4</span>
+        <span class="lesson-tag tag-dev">Avançado</span>
+        <span class="lesson-dur">⏱ ~25 min</span>
+      </div>
+      <h1 class="lesson-title">Cursos Avançados:<br>MCP e Integrações</h1>
+      <p class="lesson-sub">Os cursos mais técnicos da Anthropic Academy — para quem quer construir servidores MCP em Python, integrar o Claude com cloud providers e criar infraestrutura de IA de nível de produção.</p>
+    </div>
+
+    <!-- MCP Intro -->
+    <div class="block">
+      <h2>Curso 9 — Introdução ao Model Context Protocol</h2>
+      <div class="course-card">
+        <div class="course-card-header">
+          <span class="course-emoji">🔌</span>
+          <div class="course-header-info">
+            <div class="course-badges">
+              <span class="badge badge-free">✓ Gratuito + Certificado</span>
+              <span class="badge badge-level-med">Intermediário</span>
+              <span class="badge badge-star">⭐ Recomendado</span>
+            </div>
+            <div class="course-title">Introdução ao Model Context Protocol (MCP)</div>
+            <div class="course-url">anthropic.skilljar.com/introduction-to-model-context-protocol</div>
+          </div>
+          <a href="https://anthropic.skilljar.com/introduction-to-model-context-protocol" target="_blank" class="course-link-btn">Acessar →</a>
+        </div>
+        <div class="course-card-body">
+          <p class="course-summary">O MCP (Model Context Protocol) é o protocolo aberto criado pela Anthropic para conectar o Claude a qualquer serviço ou fonte de dados externa de forma padronizada. Este curso ensina a construir servidores e clientes MCP em Python do zero, dominando as três primitivas fundamentais do protocolo: ferramentas, recursos e prompts.</p>
+          <div class="course-learns">
+            <div class="course-learns-title">O que você aprende</div>
+            <div class="learns-list">
+              <div class="learn-item">O que é o MCP e por que ele existe — o problema que resolve na integração de IA com sistemas externos</div>
+              <div class="learn-item">As <strong>três primitivas</strong> do MCP: <em>tools</em> (ações que o Claude pode executar), <em>resources</em> (dados que o Claude pode ler) e <em>prompts</em> (templates reutilizáveis)</div>
+              <div class="learn-item">Como construir um <strong>servidor MCP em Python</strong> do zero que expõe ferramentas ao Claude</div>
+              <div class="learn-item">Como construir um <strong>cliente MCP</strong> que se conecta ao seu servidor</div>
+              <div class="learn-item">Como testar e depurar servidores MCP localmente antes de conectar ao Claude Code</div>
+              <div class="learn-item">Casos de uso reais: conectar o Claude a bancos de dados, APIs internas e sistemas legados via MCP</div>
+            </div>
+          </div>
+          <div class="course-relation aprofunda">
+            <div class="course-relation-label">⭐ Aprofunda muito além do Isso é Claude</div>
+            <div class="course-relation-text">O Módulo 07 do Isso é Claude cobre como <em>usar</em> servidores MCP existentes. Este curso ensina como <em>criar</em> seus próprios servidores MCP — uma habilidade muito mais rara e valiosa.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MCP Avançado -->
+    <div class="block">
+      <h2>Curso 10 — MCP: Tópicos Avançados</h2>
+      <div class="course-card">
+        <div class="course-card-header">
+          <span class="course-emoji">🚀</span>
+          <div class="course-header-info">
+            <div class="course-badges">
+              <span class="badge badge-free">✓ Gratuito + Certificado</span>
+              <span class="badge badge-level-adv">Avançado</span>
+              <span class="badge badge-star">⭐ Para devs experientes</span>
+            </div>
+            <div class="course-title">MCP: Advanced Topics</div>
+            <div class="course-url">anthropic.skilljar.com/model-context-protocol-advanced-topics</div>
+          </div>
+          <a href="https://anthropic.skilljar.com/" target="_blank" class="course-link-btn">Acessar →</a>
+        </div>
+        <div class="course-card-body">
+          <p class="course-summary">A continuação direta do curso de introdução ao MCP, voltada para engenheiros que já dominam o básico e querem implementar servidores MCP em ambiente de produção. Cobre os padrões mais avançados que a maioria dos recursos online ainda não documenta bem — como notificações em tempo real, controle de acesso granular e mecanismos de transporte customizados.</p>
+          <div class="course-learns">
+            <div class="course-learns-title">O que você aprende</div>
+            <div class="learns-list">
+              <div class="learn-item"><strong>Sampling</strong>: como permitir que servidores MCP façam requisições de volta ao Claude para processamento adicional</div>
+              <div class="learn-item"><strong>Notificações em tempo real</strong>: como implementar um sistema de alertas entre o servidor MCP e o cliente</div>
+              <div class="learn-item"><strong>Controle de acesso ao sistema de arquivos</strong>: políticas granulares de permissão para acesso a arquivos via MCP</div>
+              <div class="learn-item"><strong>Mecanismos de transporte</strong>: HTTP, SSE (Server-Sent Events) e stdin/stdout — quando usar cada um</div>
+              <div class="learn-item">Padrões de segurança para servidores MCP em produção — autenticação, autorização e auditoria</div>
+              <div class="learn-item">Como escalar um servidor MCP para múltiplos usuários simultâneos</div>
+            </div>
+          </div>
+          <div class="course-relation exclusivo">
+            <div class="course-relation-label">⭐ Sem equivalente no Isso é Claude</div>
+            <div class="course-relation-text">Este é o conteúdo mais técnico e avançado disponível gratuitamente sobre MCP. Se você quer construir infraestrutura de IA de nível profissional, este curso não tem substituto.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Outros cursos -->
+    <div class="block">
+      <h2>Cursos 11 a 15 — Contextos Específicos</h2>
+      <div class="callout tip">
+        <div class="callout-icon">📚</div>
+        <div class="callout-body">
+          <h4>Cursos complementares disponíveis gratuitamente</h4>
+          <p>Além dos cursos acima, a Academy tem mais 5 cursos para contextos específicos — todos gratuitos com certificado em anthropic.skilljar.com:</p>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <div class="course-card-header">
+          <span class="course-emoji">☁️</span>
+          <div class="course-header-info">
+            <div class="course-badges"><span class="badge badge-free">Gratuito</span><span class="badge badge-level-adv">Avançado</span></div>
+            <div class="course-title">Claude com Google Vertex AI e AWS Bedrock</div>
+          </div>
+          <a href="https://anthropic.skilljar.com/" target="_blank" class="course-link-btn">Acessar →</a>
+        </div>
+        <div class="course-card-body">
+          <p class="course-summary">Dois cursos separados que ensinam como usar o Claude integrado às plataformas cloud empresariais. O curso do <strong>Google Vertex AI</strong> cobre o ecossistema GCP e o curso do <strong>AWS Bedrock</strong> cobre como usar o Claude dentro da infraestrutura da Amazon Web Services. Relevante para times de TI corporativo e empresas com stack cloud já definida.</p>
+          <div class="course-learns">
+            <div class="course-learns-title">O que você aprende</div>
+            <div class="learns-list">
+              <div class="learn-item">Como chamar o Claude via API dentro do Google Cloud Platform ou AWS sem sair da infraestrutura corporativa</div>
+              <div class="learn-item">Configuração de IAM, políticas de segurança e controle de acesso ao Claude no ambiente cloud</div>
+              <div class="learn-item">Casos de uso enterprise: processamento em lote, logs de auditoria, integração com outros serviços da plataforma</div>
+            </div>
+          </div>
+          <div class="course-relation exclusivo">
+            <div class="course-relation-label">⭐ Para times enterprise</div>
+            <div class="course-relation-text">Não coberto no Isso é Claude. Relevante para CTOs, arquitetos de soluções e times de TI corporativo que precisam usar o Claude dentro de ambientes cloud já regulamentados.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <div class="course-card-header">
+          <span class="course-emoji">🎓</span>
+          <div class="course-header-info">
+            <div class="course-badges"><span class="badge badge-free">Gratuito</span><span class="badge badge-level-init">Iniciante</span></div>
+            <div class="course-title">AI Fluency para Educadores, Estudantes e ONGs</div>
+          </div>
+          <a href="https://anthropic.skilljar.com/" target="_blank" class="course-link-btn">Acessar →</a>
+        </div>
+        <div class="course-card-body">
+          <p class="course-summary">Três variações do curso AI Fluency adaptadas para contextos específicos: <strong>Educadores</strong> (como ensinar IA e integrar ao planejamento pedagógico), <strong>Estudantes</strong> (como usar IA para aprendizado, carreira e projetos acadêmicos) e <strong>ONGs</strong> (como aplicar IA para ampliar impacto social sem comprometer os valores da organização).</p>
+          <div class="course-learns">
+            <div class="course-learns-title">O que você aprende</div>
+            <div class="learns-list">
+              <div class="learn-item">Para <strong>educadores</strong>: como criar tarefas que desenvolvem pensamento crítico em vez de substituí-lo, e como avaliar trabalhos feitos com IA</div>
+              <div class="learn-item">Para <strong>estudantes</strong>: como usar IA como ferramenta de aprendizado ativo sem criar dependência ou comprometer a integridade acadêmica</div>
+              <div class="learn-item">Para <strong>ONGs</strong>: como usar IA em pesquisa, comunicação e gestão mantendo transparência com financiadores e comunidades atendidas</div>
+            </div>
+          </div>
+          <div class="course-relation complementa">
+            <div class="course-relation-label">✅ Complementar ao Módulo 10 (Líderes)</div>
+            <div class="course-relation-text">O contexto de educação e impacto social não é coberto pelo Isso é Claude. Se você atua nesses setores, estes cursos são o complemento perfeito.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-footer">
+      <div class="footer-next"><div class="footer-next-label">Última aula</div><div class="footer-next-title">09.5 — Seu roteiro personalizado</div></div>
+      <button class="complete-btn" id="cb3" onclick="complete(3)">Marcar como concluída ✓</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       AULA 09.5 — ROTEIRO
+  ════════════════════════════════════════════ -->
+  <div class="lesson-content" id="l4">
+    <div class="lesson-header">
+      <div class="lesson-meta">
+        <span class="lesson-num-label">Aula 09.5</span>
+        <span class="lesson-tag tag-guia">Roteiro</span>
+        <span class="lesson-dur">⏱ ~15 min</span>
+      </div>
+      <h1 class="lesson-title">Seu Roteiro de<br>Estudos Personalizado</h1>
+      <p class="lesson-sub">Combinando Isso é Claude com a Anthropic Academy, você tem o programa de estudos mais completo sobre Claude que existe em qualquer idioma. Veja qual caminho seguir pelo seu perfil.</p>
+    </div>
+
+    <div class="block">
+      <h2>Roteiro por perfil</h2>
+
+      <div class="roteiro-card">
+        <div class="roteiro-header">
+          <span class="roteiro-icon">👔</span>
+          <span class="roteiro-perfil">Profissional / Gestor — sem código</span>
+          <span class="roteiro-tempo">6–8 semanas</span>
+        </div>
+        <div class="roteiro-body">
+          <div class="roteiro-steps">
+            <div class="roteiro-step"><span class="roteiro-step-num">1</span><span class="roteiro-step-text">Módulos 01 a 05 do Isso é Claude <span class="roteiro-step-badge rb-cm">CM</span></span></div>
+            <div class="roteiro-step"><span class="roteiro-step-num">2</span><span class="roteiro-step-text">Claude 101 — para o certificado oficial <span class="roteiro-step-badge rb-ac">Academy</span></span></div>
+            <div class="roteiro-step"><span class="roteiro-step-num">3</span><span class="roteiro-step-text">AI Fluency: Framework &amp; Foundations <span class="roteiro-step-badge rb-ac">Academy</span></span></div>
+            <div class="roteiro-step"><span class="roteiro-step-num">4</span><span class="roteiro-step-text">Módulo 10 do Isso é Claude — Líderes <span class="roteiro-step-badge rb-cm">CM</span></span></div>
+            <div class="roteiro-step"><span class="roteiro-step-num">5</span><span class="roteiro-step-text">Módulo 11 — Cowork &amp; Agents + curso oficial do Cowork <span class="roteiro-step-badge rb-cm">CM</span> <span class="roteiro-step-badge rb-ac">Academy</span></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="roteiro-card">
+        <div class="roteiro-header">
+          <span class="roteiro-icon">💻</span>
+          <span class="roteiro-perfil">Desenvolvedor / Builder</span>
+          <span class="roteiro-tempo">10–14 semanas</span>
+        </div>
+        <div class="roteiro-body">
+          <div class="roteiro-steps">
+            <div class="roteiro-step"><span class="roteiro-step-num">1</span><span class="roteiro-step-text">Módulos 01 a 08 completos <span class="roteiro-step-badge rb-cm">CM</span></span></div>
+            <div class="roteiro-step"><span class="roteiro-step-num">2</span><span class="roteiro-step-text">Desenvolvendo com a API do Claude <span class="roteiro-step-badge rb-ac">Academy</span></span></div>
+            <div class="roteiro-step"><span class="roteiro-step-num">3</span><span class="roteiro-step-text">Claude Code in Action — 21 lições <span class="roteiro-step-badge rb-ac">Academy</span></span></div>
+            <div class="roteiro-step"><span class="roteiro-step-num">4</span><span class="roteiro-step-text">Módulo 11 — Cowork &amp; Agents <span class="roteiro-step-badge rb-cm">CM</span></span></div>
+            <div class="roteiro-step"><span class="roteiro-step-num">5</span><span class="roteiro-step-text">MCP: Introdução + Tópicos Avançados <span class="roteiro-step-badge rb-ac">Academy</span></span></div>
+            <div class="roteiro-step"><span class="roteiro-step-num">6</span><span class="roteiro-step-text">Agent Skills + Subagents <span class="roteiro-step-badge rb-ac">Academy</span></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="roteiro-card">
+        <div class="roteiro-header">
+          <span class="roteiro-icon">🏆</span>
+          <span class="roteiro-perfil">C-Level / Empreendedor</span>
+          <span class="roteiro-tempo">8–10 semanas</span>
+        </div>
+        <div class="roteiro-body">
+          <div class="roteiro-steps">
+            <div class="roteiro-step"><span class="roteiro-step-num">1</span><span class="roteiro-step-text">Módulos 01 a 05 do Isso é Claude <span class="roteiro-step-badge rb-cm">CM</span></span></div>
+            <div class="roteiro-step"><span class="roteiro-step-num">2</span><span class="roteiro-step-text">Módulo 08 — Construindo Produtos <span class="roteiro-step-badge rb-cm">CM</span></span></div>
+            <div class="roteiro-step"><span class="roteiro-step-num">3</span><span class="roteiro-step-text">Módulo 10 — Claude para Líderes <span class="roteiro-step-badge rb-cm">CM</span></span></div>
+            <div class="roteiro-step"><span class="roteiro-step-num">4</span><span class="roteiro-step-text">AI Automation with Claude (Coursera) <span class="roteiro-step-badge rb-ac">Academy</span></span></div>
+            <div class="roteiro-step"><span class="roteiro-step-num">5</span><span class="roteiro-step-text">Módulo 11 — Cowork &amp; Agents <span class="roteiro-step-badge rb-cm">CM</span></span></div>
+            <div class="roteiro-step"><span class="roteiro-step-num">6</span><span class="roteiro-step-text">Introdução ao Cowork (Academy) para o certificado oficial <span class="roteiro-step-badge rb-ac">Academy</span></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="callout key">
+        <div class="callout-icon">🎯</div>
+        <div class="callout-body">
+          <h4>Módulo 09 Concluído!</h4>
+          <p>Você agora tem o mapa completo do ecossistema de aprendizado de Claude — 15 cursos gratuitos da Anthropic resumidos em português, com o que cada um ensina, para quem serve e como se relaciona com o Isso é Claude. No próximo módulo: Claude para Líderes.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-footer">
+      <div class="footer-next"><div class="footer-next-label">Próximo módulo</div><div class="footer-next-title">Módulo 10 — Claude para Líderes</div></div>
+      <button class="complete-btn" id="cb4" onclick="complete(4)">🎓 Concluir Módulo!</button>
+    </div>
+  </div>
+
+</main>
+</div>
+<button class="sidebar-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+
+<script>
+let cur = 0;
+const total = 5;
+const done = new Set();
+const nums = ['09.1','09.2','09.3','09.4','09.5'];
+
+function goTo(i) {
+  document.querySelectorAll('.lesson-content').forEach(l => l.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('l' + i).classList.add('active');
+  document.querySelectorAll('.nav-item')[i].classList.add('active');
+  document.getElementById('topLabel').textContent = 'Aula ' + nums[i];
+  cur = i;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (window.innerWidth < 900) document.getElementById('sidebar').classList.remove('open');
+}
+
+function next() { if (cur < total - 1) goTo(cur + 1); }
+function prev() { if (cur > 0) goTo(cur - 1); }
+
+function complete(i) {
+  done.add(i);
+  const b = document.getElementById('cb' + i);
+  b.classList.add('done');
+  b.textContent = i === 4 ? '✓ Módulo Concluído!' : '✓ Concluída!';
+  document.querySelectorAll('.nav-item')[i].classList.add('done');
+  syncProgressToIndex('09', Math.round(done.size/total*100), done.size===total);
+  document.getElementById('progFill').style.width = Math.round(done.size / total * 100) + '%';
+  document.getElementById('progText').textContent = done.size + ' de ' + total + ' aulas';
+  if (i < total - 1) setTimeout(() => goTo(i + 1), 600);
+}
+
+// Sincronizar progresso com index.html
+function syncProgressToIndex(num, pct, done) {
+  try {
+    const STORAGE_KEY = 'cm_progress_v2';
+    const p = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    p[num] = { pct: pct, done: done };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(p));
+  } catch(e) {}
+}
+
+</script>
+</body>
+</html>
